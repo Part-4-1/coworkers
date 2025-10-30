@@ -13,6 +13,6 @@ jobs:
       - name: Assign issue to author
         uses: pozil/auto-assign-issue@v2
         with:
-          repo-token: ${{ secrets.YML_GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           assignees: ${{ github.event.issue.user.login }}
           allowSelfAssign: true
