@@ -1,0 +1,12 @@
+addReviewers: true
+
+addAssignees: author
+
+reviewers:
+  - huuitae
+  - junye0l
+  - onesiin
+  - JinHyuk-Kim66
+  - leohan6540
+
+numberOfReviewers: 0
