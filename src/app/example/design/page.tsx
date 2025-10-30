@@ -9,7 +9,7 @@ const ColorBox = ({ className }: { className: string }) => {
 const Page = () => {
   return (
     <div className="flex justify-evenly pt-5">
-      <div>
+      <div className="flex flex-col gap-6">
         <p className="mb-5 text-2xl font-medium text-white">Color</p>
         <div className="flex">
           <ColorBox className="bg-blue-200" />
