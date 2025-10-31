@@ -1,4 +1,11 @@
+import pretendard from "@/font/font";
 import "./globals.css";
+import { Metadata } from "next";
+import QueryProviders from "@/providers";
+
+export const metadata: Metadata = {
+  title: "Coworkers",
+};
 
 export default function RootLayout({
   children,
@@ -6,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body>{children}</body>
+    <html lang="ko" className={pretendard.className}>
+      <body>
+        <QueryProviders>{children}</QueryProviders>
+      </body>
     </html>
   );
 }
