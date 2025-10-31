@@ -36,6 +36,7 @@
     "@vitest/browser-playwright": "^4.0.5",
     "@vitest/coverage-v8": "^4.0.5",
     "autoprefixer": "^10.4.21",
+    "chromatic": "^13.3.2",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "jest": "^30.2.0",
