@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "./Button";
 import "./header.css";
 
@@ -20,6 +21,8 @@ export const Header = ({
 }: HeaderProps) => (
   <header>
     <div className="storybook-header">
+      {/* <Image src={profile} alt="user" /> */}
+
       <div>
         <svg
           width="32"

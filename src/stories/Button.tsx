@@ -1,4 +1,6 @@
+import Image from "next/image";
 import "./button.css";
+import user from "@/assets/user.svg";
 
 export interface ButtonProps {
   /** Is this the principal call to action on the page? */
