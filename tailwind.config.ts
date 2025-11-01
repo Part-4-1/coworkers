@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from "tailwindcss";
+import { flexCenter, flexColCenter } from "./src/utils/custom-style-plugins";
+
+const config: Config = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -55,5 +57,7 @@ module.exports = {
       "4xl": ["40px", "48px"],
     },
   },
-  plugins: [],
+  plugins: [flexCenter, flexColCenter],
 };
+
+export default config;
