@@ -1,4 +1,6 @@
 import cn from "@/utils/clsx";
+import User from "@/assets/icons/ic-user.svg";
+import Best from "@/assets/icons/ic-best.svg";
 
 const ColorBox = ({ className }: { className: string }) => {
   return (
@@ -141,6 +143,8 @@ const Page = () => {
           </p>
         </div>
       </div>
+      <User width={48} height={48} />
+      <Best className="text-blue-300" />
     </div>
   );
 };
