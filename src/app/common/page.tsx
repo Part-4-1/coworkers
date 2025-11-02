@@ -35,7 +35,6 @@ const Page = () => {
         id="email"
         type="email"
         placeholder="이메일을 입력하세요."
-        containerClassName="pc:max-w-[460px]"
         errorMessage={errors.email?.message}
         {...register("email", {
           required: "이메일을 입력해주세요.",
@@ -54,7 +53,6 @@ const Page = () => {
         id="password"
         type="password"
         placeholder="비밀번호를 입력하세요."
-        containerClassName="pc:max-w-[460px]"
         errorMessage={errors.password?.message}
         {...register("password", {
           required: "비밀번호를 입력해주세요.",
