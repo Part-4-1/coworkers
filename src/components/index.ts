@@ -2,3 +2,4 @@
 // ex) export { default as Button } from "./button"
 export { default as TextInput } from "./input-components/text-input";
 export { default as Icon } from "./icon/Icon";
+export { default as Button } from "./button/button";
