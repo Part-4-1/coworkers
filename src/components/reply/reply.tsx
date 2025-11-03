@@ -3,14 +3,21 @@
 import cn from "@/utils/clsx";
 import { Icon } from "@/components/index";
 import { Comment } from "@/types/index";
+import DefaultProfile from "@/assets/icons/ic-user.svg";
 
 interface CommentProps {
   comment: Comment;
 }
 
-const DEFAULT_PROFILE = "/ic-user.svg";
-
 const Reply = ({ comment }: CommentProps) => {
+  const hasImage = comment.writer.image?.trim();
+
+  const profileStyle = cn(
+    "bg-gray-300 rounded-lg h-[24px] w-[24px]",
+    "tablet:h-[32px] tablet:w-[32px]",
+    "pc:h-[32px] pc:w-[32px]"
+  );
+
   return (
     <article
       className={cn(
@@ -19,18 +26,15 @@ const Reply = ({ comment }: CommentProps) => {
         "pc:max-w-[780px]"
       )}
     >
-      <img
-        src={comment.writer.image || DEFAULT_PROFILE}
-        alt={`${comment.writer.nickname}의 프로필`}
-        onError={(e) => {
-          e.currentTarget.src = DEFAULT_PROFILE;
-        }}
-        className={cn(
-          "h-[24px] w-[24px] rounded-lg bg-gray-300 object-cover",
-          "tablet:h-[32px] tablet:w-[32px]",
-          "pc:h-[32px] pc:w-[32px]"
-        )}
-      />
+      {hasImage ? (
+        <img
+          src={comment.writer.image}
+          alt={`${comment.writer.nickname}의 프로필`}
+          className={cn(profileStyle, "object-cover")}
+        />
+      ) : (
+        <DefaultProfile className={cn(profileStyle, "object-cover")} />
+      )}
 
       <div className="flex flex-1 flex-col gap-[6px]">
         <header className="flex items-center">
