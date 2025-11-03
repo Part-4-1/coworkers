@@ -3,25 +3,26 @@
 import cn from "@/utils/clsx";
 import { useEffect, useRef, useState } from "react";
 
-interface DropdownMenuProps {
+interface DropdownProps {
   trigger: React.ReactNode;
-  items: DropdownMenuItem[];
-  className?: string;
+  items: DropdownItem[];
   textAlign?: "start" | "center" | "end";
   menuAlign?: "start" | "center" | "end";
+  isWidthSameWidthTrigger?: boolean;
 }
 
-interface DropdownMenuItem {
+interface DropdownItem {
   label: string;
   onClick?: () => void;
 }
 
-const DropdownMenu = ({
+const Dropdown = ({
   trigger,
   items,
   textAlign = "center",
   menuAlign = "end",
-}: DropdownMenuProps) => {
+  isWidthSameWidthTrigger: isWidthFull = true,
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -71,8 +72,9 @@ const DropdownMenu = ({
       {isOpen && (
         <div
           className={cn(
-            "absolute top-full z-50 mt-2 w-max min-w-[109px] max-w-[150px] rounded-[12px] border border-gray-300 bg-white text-blue-700 shadow-sm",
-            menuAlignClass
+            "absolute top-full z-50 mt-2 rounded-[12px] border border-gray-300 bg-white text-blue-700 shadow-sm",
+            menuAlignClass,
+            isWidthFull ? "w-full" : "w-max min-w-[110px] max-w-[150px]"
           )}
         >
           <ul>
@@ -95,4 +97,4 @@ const DropdownMenu = ({
   );
 };
 
-export default DropdownMenu;
+export default Dropdown;
