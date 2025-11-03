@@ -87,7 +87,7 @@ const Page = () => {
         suffix={
           <button
             type="button"
-            className="h-[33px] w-[74px] rounded-lg bg-blue-200 py-2 text-sm text-white"
+            className="h-[33px] w-[74px] rounded-lg bg-blue-200 text-md font-medium text-white"
           >
             변경하기
           </button>
