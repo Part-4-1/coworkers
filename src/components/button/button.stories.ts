@@ -63,3 +63,18 @@ export const OutlinedSecondary: Story = {
     children: "생성하기",
   },
 };
+
+export const Alert: Story = {
+  args: {
+    variant: "alert",
+    children: "삭제하기",
+  },
+};
+
+export const Small: Story = {
+  args: {
+    size: "sm",
+    children: "변경하기",
+    className: "",
+  },
+};

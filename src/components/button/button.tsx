@@ -1,5 +1,5 @@
 import cn from "@/utils/clsx";
-import { buttonSizes, buttonStyles, defaultStyle } from "./button-styles";
+import { buttonSizes, buttonStyles } from "./button-styles";
 import { ComponentProps, ReactNode } from "react";
 
 interface ButtonProps extends ComponentProps<"button"> {
@@ -40,7 +40,7 @@ const Button = ({
   return (
     <button
       className={cn(
-        defaultStyle,
+        "gap-1 font-semibold flex-center",
         buttonStyles[variant],
         buttonSizes[size],
         className

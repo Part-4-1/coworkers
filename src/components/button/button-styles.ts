@@ -1,6 +1,3 @@
-export const defaultStyle =
-  "w-full rounded-xl py-[14px] text-lg font-semibold flex-center gap-1";
-
 export const buttonStyles = {
   none: "py-0 w-fit",
   solid:
@@ -13,6 +10,6 @@ export const buttonStyles = {
 };
 
 export const buttonSizes = {
-  lg: "",
+  lg: "w-full rounded-xl py-[14px] text-lg",
   sm: "w-fit px-[12px] py-2 text-md rounded-lg",
 };
