@@ -1,10 +1,10 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import Icon from "../icon/Icon";
 import SidebarMenu from "./sidebar-menu";
-import cn from "@/utils/clsx";
 import { mockTeams } from "./mock-team";
+import { motion, AnimatePresence } from "framer-motion";
 
 /**
  * @author leohan
@@ -49,20 +49,28 @@ const SidebarDropdown = ({ isOpen, onClose }: SidebarDropdownProps) => {
           className="text-gray-800 group-hover:text-gray-400"
         />
       </div>
-      {isOpen && (
-        <div className="flex flex-col items-start justify-start">
-          {mockTeams.map((menu) => (
-            <SidebarMenu
-              key={menu.title}
-              title={menu.title}
-              IconComponent={Icon}
-              iconName={menu.iconName}
-              isSelected={menu.title === selectedTitle}
-              onClick={() => setSelectedTitle(menu.title)}
-            />
-          ))}
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="flex flex-col items-start justify-start"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15, ease: "easeInOut" }}
+          >
+            {mockTeams.map((menu) => (
+              <SidebarMenu
+                key={menu.title}
+                title={menu.title}
+                IconComponent={Icon}
+                iconName={menu.iconName}
+                isSelected={menu.title === selectedTitle}
+                onClick={() => setSelectedTitle(menu.title)}
+              />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
