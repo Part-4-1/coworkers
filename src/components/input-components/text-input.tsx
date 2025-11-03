@@ -45,7 +45,6 @@ const TextInput = ({
         <input
           ref={ref}
           id={id}
-          value={value}
           readOnly={readOnly}
           className={cn(
             "w-full rounded-lg border px-[16px] py-[14px] text-md transition-colors",
@@ -65,7 +64,7 @@ const TextInput = ({
         />
 
         {suffix && (
-          <div className="pointer-events-auto absolute inset-y-0 right-2 flex items-center">
+          <div className="absolute inset-y-0 right-2 flex items-center">
             {suffix}
           </div>
         )}
