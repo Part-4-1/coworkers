@@ -7,7 +7,7 @@ const meta: Meta<typeof Icon> = {
   parameters: {
     layout: "centered",
   },
-  title: "Component/Icon",
+  title: "Components/Icon",
   tags: ["autodocs"],
   args: {
     icon: "alert",
