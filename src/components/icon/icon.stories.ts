@@ -1,8 +1,6 @@
-import { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { Meta, StoryObj } from "@storybook/nextjs";
 import Icon from "./Icon";
 import ICONS_MAP from "./icons-map";
-
-type IconKeys = keyof typeof ICONS_MAP;
 
 const meta: Meta<typeof Icon> = {
   component: Icon,
@@ -39,4 +37,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    icon: "alert",
+  },
+};
