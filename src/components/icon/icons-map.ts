@@ -1,0 +1,69 @@
+import Alert from "@/assets/icons/ic-alert.svg";
+import Best from "@/assets/icons/ic-best.svg";
+import Board from "@/assets/icons/ic-board.svg";
+import Calendar from "@/assets/icons/ic-calendar.svg";
+import CheckInverse from "@/assets/icons/ic-check-inverse.svg";
+import Check from "@/assets/icons/ic-check.svg";
+import CheckboxActive from "@/assets/icons/ic-checkbox-active.svg";
+import CheckboxDefault from "@/assets/icons/ic-checkbox-default.svg";
+import Chess from "@/assets/icons/ic-chess.svg";
+import Comment from "@/assets/icons/ic-comment.svg";
+import DownArrow from "@/assets/icons/ic-down-arrow.svg";
+import Menu from "@/assets/icons/ic-gnb-menu.svg";
+import HeartActive from "@/assets/icons/ic-heart-active.svg";
+import HeartDefault from "@/assets/icons/ic-heart-default.svg";
+import ImgUpload from "@/assets/icons/ic-img-upload.svg";
+import Invisible from "@/assets/icons/ic-invisible.svg";
+import Kebab from "@/assets/icons/ic-kebab.svg";
+import LeftArrow from "@/assets/icons/ic-left-arrow.svg";
+import LeftFold from "@/assets/icons/ic-left-fold.svg";
+import Pencil from "@/assets/icons/ic-pencil.svg";
+import Plus from "@/assets/icons/ic-plus.svg";
+import Progress from "@/assets/icons/ic-progress.svg";
+import Repeat from "@/assets/icons/ic-repeat.svg";
+import RightArrow from "@/assets/icons/ic-right-arrow.svg";
+import RightFold from "@/assets/icons/ic-right-fold.svg";
+import Search from "@/assets/icons/ic-search.svg";
+import Secession from "@/assets/icons/ic-secession.svg";
+import Setting from "@/assets/icons/ic-setting.svg";
+import Time from "@/assets/icons/ic-time.svg";
+import User from "@/assets/icons/ic-user.svg";
+import Visible from "@/assets/icons/ic-visible.svg";
+import X from "@/assets/icons/ic-x.svg";
+
+const ICONS_MAP = {
+  alert: Alert,
+  best: Best,
+  board: Board,
+  calendar: Calendar,
+  checkInverse: CheckInverse,
+  check: Check,
+  checkboxActive: CheckboxActive,
+  checkboxDefault: CheckboxDefault,
+  chess: Chess,
+  comment: Comment,
+  downArrow: DownArrow,
+  menu: Menu,
+  heartActive: HeartActive,
+  heartDefault: HeartDefault,
+  imgUpload: ImgUpload,
+  invisible: Invisible,
+  kebab: Kebab,
+  leftArrow: LeftArrow,
+  leftFold: LeftFold,
+  pencil: Pencil,
+  plus: Plus,
+  Progress: Progress,
+  repeat: Repeat,
+  rightArrow: RightArrow,
+  rightFold: RightFold,
+  search: Search,
+  secession: Secession,
+  setting: Setting,
+  time: Time,
+  user: User,
+  visible: Visible,
+  x: X,
+} as const;
+
+export default ICONS_MAP;
