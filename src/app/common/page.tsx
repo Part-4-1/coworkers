@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import TextInput from "@/components/input-components/text-input";
-import { useErrorDebounce } from "@/hooks/use-error-debounce";
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
@@ -26,9 +25,6 @@ const Page = () => {
     defaultValues: { email: "", password: "" },
   });
 
-  const debounceEmail = useErrorDebounce("email", trigger, clearErrors);
-  const debouncePassword = useErrorDebounce("password", trigger, clearErrors);
-
   return (
     <form className="mt-10 w-full flex-col gap-4 flex-center">
       <TextInput
@@ -42,9 +38,8 @@ const Page = () => {
             value: EMAIL_REGEX,
             message: "이메일 형식이 올바르지 않습니다.",
           },
-          onChange: (event) => {
+          onChange: () => {
             clearErrors("email");
-            debounceEmail(event.target.value);
           },
         })}
       />
@@ -64,9 +59,8 @@ const Page = () => {
             value: PASSWORD_MIN_LENGTH,
             message: "비밀번호는 최소 8자 이상입니다.",
           },
-          onChange: (event) => {
+          onChange: () => {
             clearErrors("password");
-            debouncePassword(event.target.value);
           },
         })}
       />
