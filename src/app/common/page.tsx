@@ -7,10 +7,12 @@ import {
   PASSWORD_REGEX,
   PASSWORD_MIN_LENGTH,
 } from "@/constants/regex";
+
 type LoginFormData = {
   email: string;
   password: string;
 };
+
 {
   /** 공통 컴포넌트 개발간 사용할 테스트 페이지. */
 }
@@ -18,8 +20,6 @@ const Page = () => {
   const {
     register,
     formState: { errors },
-    clearErrors,
-    trigger,
   } = useForm<LoginFormData>({
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
@@ -38,9 +38,6 @@ const Page = () => {
             value: EMAIL_REGEX,
             message: "이메일 형식이 올바르지 않습니다.",
           },
-          onChange: () => {
-            clearErrors("email");
-          },
         })}
       />
 
@@ -58,9 +55,6 @@ const Page = () => {
           minLength: {
             value: PASSWORD_MIN_LENGTH,
             message: "비밀번호는 최소 8자 이상입니다.",
-          },
-          onChange: () => {
-            clearErrors("password");
           },
         })}
       />
