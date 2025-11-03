@@ -6,6 +6,11 @@ const meta: Meta<typeof Icon> = {
   component: Icon,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component: "공통으로 사용되는 아이콘 컴포넌트입니다.",
+      },
+    },
   },
   title: "Components/Icon",
   tags: ["autodocs"],
@@ -38,7 +43,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    icon: "alert",
-  },
+  args: {},
 };

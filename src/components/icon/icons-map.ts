@@ -26,7 +26,9 @@ import RightFold from "@/assets/icons/ic-right-fold.svg";
 import Search from "@/assets/icons/ic-search.svg";
 import Secession from "@/assets/icons/ic-secession.svg";
 import Setting from "@/assets/icons/ic-setting.svg";
+import SmallPencil from "@/assets/icons/ic-small-pencil.svg";
 import Time from "@/assets/icons/ic-time.svg";
+import UpArrow from "@/assets/icons/ic-up-arrow.svg";
 import User from "@/assets/icons/ic-user.svg";
 import Visible from "@/assets/icons/ic-visible.svg";
 import X from "@/assets/icons/ic-x.svg";
@@ -60,7 +62,9 @@ const ICONS_MAP = {
   search: Search,
   secession: Secession,
   setting: Setting,
+  smallPencil: SmallPencil,
   time: Time,
+  upArrow: UpArrow,
   user: User,
   visible: Visible,
   x: X,
