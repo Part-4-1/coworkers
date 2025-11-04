@@ -1,7 +1,8 @@
 "use client";
 
+import useClickOutside from "@/hooks/click-outside/use-click-outside";
 import cn from "@/utils/clsx";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 /**
  * @author jinhyuk
@@ -59,21 +60,7 @@ const Dropdown = ({
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  useClickOutside(dropdownRef, () => setIsOpen(false), isOpen);
 
   return (
     <div className="relative inline-block" ref={dropdownRef}>
