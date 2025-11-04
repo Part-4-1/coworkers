@@ -114,7 +114,10 @@ const Page = () => {
       </div>
 
       <div className="w-[300px]">
-        <TodoHeader>할 일</TodoHeader>
+        <TodoHeader>
+          할 일이 너무 길게 나온다면 이렇게 말줄임표 처리됩니다 버튼은 크기를
+          그대로 유지합니다.
+        </TodoHeader>
       </div>
     </div>
   );
