@@ -8,6 +8,7 @@ import CheckboxActive from "@/assets/icons/ic-checkbox-active.svg";
 import CheckboxDefault from "@/assets/icons/ic-checkbox-default.svg";
 import Chess from "@/assets/icons/ic-chess.svg";
 import Comment from "@/assets/icons/ic-comment.svg";
+import Logo from "@/assets/icons/ic-coworkers-logo.svg";
 import DownArrow from "@/assets/icons/ic-down-arrow.svg";
 import Menu from "@/assets/icons/ic-gnb-menu.svg";
 import HeartActive from "@/assets/icons/ic-heart-active.svg";
@@ -30,6 +31,7 @@ import Time from "@/assets/icons/ic-time.svg";
 import User from "@/assets/icons/ic-user.svg";
 import Visible from "@/assets/icons/ic-visible.svg";
 import X from "@/assets/icons/ic-x.svg";
+import { log } from "console";
 
 const ICONS_MAP = {
   alert: Alert,
@@ -42,6 +44,7 @@ const ICONS_MAP = {
   checkboxDefault: CheckboxDefault,
   chess: Chess,
   comment: Comment,
+  logo: Logo,
   downArrow: DownArrow,
   menu: Menu,
   heartActive: HeartActive,
