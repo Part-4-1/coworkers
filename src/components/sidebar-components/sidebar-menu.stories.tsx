@@ -16,7 +16,7 @@ const MockIcon = ({ width, height, className }: any) => {
 };
 
 const meta = {
-  title: "components/sidebar-components/SidebarMenu",
+  title: "components/SidebarMenu",
   component: SidebarMenu,
   tags: ["autodocs"],
   argTypes: {

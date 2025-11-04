@@ -1,6 +1,10 @@
+import ICONS_MAP from "../icon/icons-map";
+
+type IconKeys = keyof typeof ICONS_MAP;
+
 interface sidebarMenus {
   title: string;
-  iconName: string;
+  iconName: IconKeys;
 }
 
 export const mockTeams: sidebarMenus[] = [

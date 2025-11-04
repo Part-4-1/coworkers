@@ -3,19 +3,19 @@ import SidebarDropdown from "./sidebar-dropdown";
 import { use, useState } from "react";
 
 const meta: Meta<typeof SidebarDropdown> = {
-  title: "components/sidebar-components/SidebarDropdown",
+  title: "components/SidebarDropdown",
   component: SidebarDropdown,
   tags: ["autodocs"],
   args: {
     isOpen: false,
-    onClose: () => alert("드롭다운 닫기"),
+    onToggle: () => alert("드롭다운 닫기"),
   },
   argTypes: {
     isOpen: {
       control: "boolean",
       description: "드롭다운 열림 상태",
     },
-    onClose: {
+    onToggle: {
       action: "onClose",
       description: "드롭다운 닫기 함수",
     },
@@ -39,7 +39,7 @@ export const Default: Story = {
       <SidebarDropdown
         {...args}
         isOpen={isOpen}
-        onClose={() => setIsOpen(!isOpen)}
+        onToggle={() => setIsOpen(!isOpen)}
       />
     );
   },

@@ -12,23 +12,18 @@ import { motion, AnimatePresence } from "framer-motion";
  */
 
 interface SidebarDropdownProps {
-  isOpen?: boolean;
-  onClose: () => void;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
-const dropdownStyles = {
-  base: "text-gray-700",
-  active: "text-blue-200",
-};
-
-const SidebarDropdown = ({ isOpen, onClose }: SidebarDropdownProps) => {
+const SidebarDropdown = ({ isOpen, onToggle }: SidebarDropdownProps) => {
   const [selectedTitle, setSelectedTitle] = useState<string>(
     mockTeams[0].title
   );
   return (
     <div className="w-full max-w-[238px]">
       <div
-        onClick={onClose}
+        onClick={onToggle}
         className="group flex cursor-pointer items-center justify-between rounded-xl px-4 py-2"
       >
         <div className="flex items-center gap-3">
@@ -36,7 +31,7 @@ const SidebarDropdown = ({ isOpen, onClose }: SidebarDropdownProps) => {
             icon="chess"
             width={20}
             height={20}
-            className="text-gray-700 group-hover:text-blue-200"
+            className="text-gray-400 group-hover:text-blue-200"
           />
           <span className="text-gray-700 group-hover:text-blue-200">
             팀 선택
@@ -46,7 +41,7 @@ const SidebarDropdown = ({ isOpen, onClose }: SidebarDropdownProps) => {
           icon="downArrow"
           width={20}
           height={20}
-          className="text-gray-800 group-hover:text-gray-400"
+          className={`text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
         />
       </div>
       <AnimatePresence>
@@ -62,7 +57,6 @@ const SidebarDropdown = ({ isOpen, onClose }: SidebarDropdownProps) => {
               <SidebarMenu
                 key={menu.title}
                 title={menu.title}
-                IconComponent={Icon}
                 iconName={menu.iconName}
                 isSelected={menu.title === selectedTitle}
                 onClick={() => setSelectedTitle(menu.title)}
