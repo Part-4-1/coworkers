@@ -42,7 +42,6 @@ const Button = ({
         "gap-1 font-semibold flex-center",
         buttonSizes[size],
         buttonStyles[variant],
-
         className
       )}
       {...props}
