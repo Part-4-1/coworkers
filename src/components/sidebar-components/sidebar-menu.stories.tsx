@@ -21,11 +21,9 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     onClick: { action: "onClick" },
-    IconComponent: { control: false },
   },
   args: {
-    IconComponent: MockIcon,
-    iconName: "mock-icon",
+    iconName: "chess",
     onClick: () => {
       console.log("사이드바 메뉴 클릭");
     },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Icon from "../icon/Icon";
 import SidebarMenu from "./sidebar-menu";
 import { mockTeams } from "./mock-team";
@@ -13,10 +13,15 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface SidebarDropdownProps {
   isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   onToggle: () => void;
 }
 
-const SidebarDropdown = ({ isOpen, onToggle }: SidebarDropdownProps) => {
+const SidebarDropdown = ({
+  isOpen,
+  setIsOpen,
+  onToggle,
+}: SidebarDropdownProps) => {
   const [selectedTitle, setSelectedTitle] = useState<string>(
     mockTeams[0].title
   );
@@ -52,6 +57,9 @@ const SidebarDropdown = ({ isOpen, onToggle }: SidebarDropdownProps) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.15, ease: "easeInOut" }}
+            onClick={() => {
+              setIsOpen(false);
+            }}
           >
             {mockTeams.map((menu) => (
               <SidebarMenu
