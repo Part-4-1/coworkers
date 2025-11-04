@@ -1,6 +1,6 @@
 export const mockUserData = [
   {
-    teamId: "team-001",
+    teamId: "18-1",
     image: "https://randomuser.me/api/portraits/men/12.jpg",
     nickname: "이도윤",
     updatedAt: "2025-11-04T09:49:58.464Z",
@@ -10,7 +10,7 @@ export const mockUserData = [
     memberships: [
       {
         group: {
-          teamId: "group-01",
+          teamId: "18-1",
           updatedAt: "2025-10-25T15:22:18.000Z",
           createdAt: "2025-10-22T09:10:03.000Z",
           image: "https://images.unsplash.com/photo-1503264116251-35a269479413",
@@ -27,7 +27,7 @@ export const mockUserData = [
     ],
   },
   {
-    teamId: "team-002",
+    teamId: "18-1",
     image: "https://randomuser.me/api/portraits/women/33.jpg",
     nickname: "박서연",
     updatedAt: "2025-11-03T08:31:47.200Z",
@@ -37,7 +37,7 @@ export const mockUserData = [
     memberships: [
       {
         group: {
-          teamId: "group-02",
+          teamId: "18-1",
           updatedAt: "2025-10-25T12:11:28.000Z",
           createdAt: "2025-10-22T08:00:03.000Z",
           image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
@@ -54,7 +54,7 @@ export const mockUserData = [
     ],
   },
   {
-    teamId: "team-003",
+    teamId: "18-1",
     image: "https://randomuser.me/api/portraits/men/42.jpg",
     nickname: "최현우",
     updatedAt: "2025-11-02T14:17:28.240Z",
@@ -64,7 +64,7 @@ export const mockUserData = [
     memberships: [
       {
         group: {
-          teamId: "group-03",
+          teamId: "18-1",
           updatedAt: "2025-10-25T17:20:40.000Z",
           createdAt: "2025-10-22T07:40:03.000Z",
           image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
