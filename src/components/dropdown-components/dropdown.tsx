@@ -83,6 +83,7 @@ const Dropdown = ({
                 data-index={i}
                 className={cn(
                   "flex w-auto cursor-pointer items-center px-[18px] py-[12px] pc:px-[20px] pc:py-[14px]",
+                  "transition-colors first:rounded-t-[12px] last:rounded-b-[12px] hover:bg-gray-300",
                   textAlignClass
                 )}
               >
