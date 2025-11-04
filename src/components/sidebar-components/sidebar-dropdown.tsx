@@ -5,6 +5,7 @@ import Icon from "../icon/Icon";
 import SidebarMenu from "./sidebar-menu";
 import { mockTeams } from "./mock-team";
 import { motion, AnimatePresence } from "framer-motion";
+import { mockUser } from "@/mocks/sidebar-data";
 
 /**
  * @author leohan
@@ -61,13 +62,13 @@ const SidebarDropdown = ({
               setIsOpen(false);
             }}
           >
-            {mockTeams.map((menu) => (
+            {mockUser.map((user) => (
               <SidebarMenu
-                key={menu.title}
-                title={menu.title}
-                iconName={menu.iconName}
-                isSelected={menu.title === selectedTitle}
-                onClick={() => setSelectedTitle(menu.title)}
+                key={user.id}
+                title={user.memberships[0].group.name}
+                iconName="chess"
+                isSelected={user.memberships[0].group.name === selectedTitle}
+                onClick={() => setSelectedTitle(user.memberships[0].group.name)}
               />
             ))}
           </motion.div>
