@@ -12,6 +12,7 @@ import Button from "@/components/button/button";
 import { Icon } from "@/components";
 import SidebarFooter from "@/components/sidebar/components/sidebar-footer";
 import { useState } from "react";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 type LoginFormData = {
   email: string;
@@ -118,13 +119,6 @@ const Page = () => {
           변경하기
         </Button>
       </div>
-
-      <SidebarFooter />
-      <SidebarDropdown
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        onToggle={handleToggle}
-      />
     </div>
   );
 };
