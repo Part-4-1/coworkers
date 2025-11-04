@@ -12,7 +12,7 @@ import { useRef, useState } from "react";
  * @param items - 드롭다운 메뉴 항목 배열 {label, onClick}
  * @param textAlign - 드롭다운 메뉴의 텍스트 정렬 방식 (기본값: center)
  * @param menuAlign - 드롭다운 메뉴의 정렬 기준 (기본값: end)
- * @param isWidthSameWidthTrigger - 메뉴의 width를 트리거의 width와 동일하게 설정할지 여부 (기본값: true)
+ * @param isWidthFull - 메뉴의 width를 트리거의 width와 동일하게 설정할지 여부 (기본값: true)
  */
 
 interface DropdownProps {
@@ -20,7 +20,7 @@ interface DropdownProps {
   items: DropdownItem[];
   textAlign?: "start" | "center" | "end";
   menuAlign?: "start" | "center" | "end";
-  isWidthSameWidthTrigger?: boolean;
+  isWidthFull?: boolean;
 }
 
 interface DropdownItem {
@@ -33,7 +33,7 @@ const Dropdown = ({
   items,
   textAlign = "center",
   menuAlign = "end",
-  isWidthSameWidthTrigger: isWidthFull = true,
+  isWidthFull = true,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
