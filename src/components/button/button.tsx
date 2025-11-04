@@ -40,8 +40,8 @@ const Button = ({
     <button
       className={cn(
         "gap-1 font-semibold flex-center",
-        buttonStyles[variant],
         buttonSizes[size],
+        buttonStyles[variant],
         className
       )}
       {...props}
