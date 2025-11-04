@@ -10,6 +10,7 @@ import {
 } from "@/constants/regex";
 import Button from "@/components/button/button";
 import { Icon } from "@/components";
+import TodoHeader from "@/components/todo-header/todo-header";
 
 type LoginFormData = {
   email: string;
@@ -110,6 +111,10 @@ const Page = () => {
           {/* <Icon icon="check" width={16} height={16} /> */}
           변경하기
         </Button>
+      </div>
+
+      <div className="w-[300px]">
+        <TodoHeader>할 일</TodoHeader>
       </div>
     </div>
   );
