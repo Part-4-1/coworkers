@@ -1,7 +1,8 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import TextInput from "@/components/input-components/text-input";
+import { TextInput, Reply } from "@/components/index";
+import { mockComments } from "@/mocks/comment-data";
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
@@ -19,6 +20,7 @@ type LoginFormData = {
   /** 공통 컴포넌트 개발간 사용할 테스트 페이지. */
 }
 const Page = () => {
+  const singleComment = mockComments[0];
   const {
     register,
     formState: { errors },
@@ -28,8 +30,8 @@ const Page = () => {
   });
 
   return (
-    <>
-      <form className="mt-10 w-full flex-col gap-4 flex-center">
+    <div className="mt-10 w-full gap-4 flex-col-center">
+      <form className="mt-10 w-full gap-4 flex-col-center">
         <TextInput
           id="email"
           type="email"
@@ -85,7 +87,7 @@ const Page = () => {
           }
         />
       </form>
-
+      <Reply comment={singleComment} />
       <div className="w-[300px] gap-2 flex-col-center">
         <Button>생성하기</Button>
         <Button variant="outlined">생성하기</Button>
@@ -109,7 +111,7 @@ const Page = () => {
           변경하기
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 
