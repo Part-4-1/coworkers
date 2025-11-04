@@ -23,7 +23,6 @@ const TextInput = ({
   className,
   containerClassName,
   errorMessage,
-  value,
   readOnly,
   suffix,
   ref,
