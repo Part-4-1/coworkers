@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
  * @param trigger - 드롭다운 메뉴를 펼치는 트리거 요소
  * @param items - 드롭다운 메뉴 항목 배열 {label, onClick}
  * @param textAlign - 드롭다운 메뉴의 텍스트 정렬 방식 (기본값: center)
- * @param menuAign - 드롭다운 메뉴의 정렬 기준 (기본값: end)
+ * @param menuAlign - 드롭다운 메뉴의 정렬 기준 (기본값: end)
  * @param isWidthSameWidthTrigger - 메뉴의 width를 트리거의 width와 동일하게 설정할지 여부 (기본값: true)
  */
 
@@ -41,8 +41,9 @@ const Dropdown = ({
     setIsOpen(!isOpen);
   };
 
-  const handleItemClick = (onClick?: () => void) => {
-    if (onClick) onClick();
+  const handleItemClick = (e: React.MouseEvent) => {
+    const index = Number((e.target as HTMLLIElement).dataset.index);
+    items[index].onClick?.();
     setIsOpen(false);
   };
 
@@ -75,11 +76,11 @@ const Dropdown = ({
             isWidthFull ? "w-full" : "w-max min-w-[110px] max-w-[150px]"
           )}
         >
-          <ul>
-            {items.map(({ label, onClick }, i) => (
+          <ul onClick={handleItemClick}>
+            {items.map(({ label }, i) => (
               <li
-                key={i}
-                onClick={() => handleItemClick(onClick)}
+                key={label}
+                data-index={i}
                 className={cn(
                   "flex w-auto cursor-pointer items-center px-[18px] py-[12px] pc:px-[20px] pc:py-[14px]",
                   textAlignClass
