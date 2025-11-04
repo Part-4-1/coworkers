@@ -6,12 +6,17 @@ interface TodoHeaderProps {
   children: ReactNode;
 }
 
-const TodoHeader = ({ children }: TodoHeaderProps) => {
+const TodoHeader = ({ children, ...props }: TodoHeaderProps) => {
   return (
-    <div className="flex h-[38px] w-full items-center rounded-xl bg-gray-300 pl-5 pr-2">
+    <div className="flex h-[38px] w-full items-center justify-between rounded-xl bg-gray-300 pl-5 pr-2">
       <span className="text-md font-medium">{children}</span>
-      <Button variant="none">
-        <Icon icon="plus" width={16} height={16} />
+      <Button
+        variant="none"
+        className="h-6 w-6 rounded-lg border border-gray-400 bg-white hover:bg-gray-200 active:bg-gray-300"
+        aria-label="할 일 추가 버튼"
+        {...props}
+      >
+        <Icon icon="plus" width={16} height={16} className="text-gray-700" />
       </Button>
     </div>
   );
