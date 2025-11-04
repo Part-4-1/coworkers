@@ -1,5 +1,5 @@
 export const buttonStyles = {
-  none: "py-0 px-0 w-fit rounded-none",
+  none: "p-0 w-fit rounded-none",
   solid:
     "bg-blue-200 hover:bg-blue-300 active:bg-blue-400 disabled:bg-gray-700 text-white",
   outlined:
