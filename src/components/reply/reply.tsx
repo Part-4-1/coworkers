@@ -23,7 +23,7 @@ const Reply = ({ comment }: CommentProps) => {
   return (
     <article
       className={cn(
-        "flex min-h-[250px] w-full max-w-[300px] gap-4",
+        "flex min-h-[200px] w-full max-w-[300px] gap-4",
         "tablet:max-w-[540px]",
         "pc:max-w-[780px]"
       )}
