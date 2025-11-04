@@ -1,7 +1,8 @@
 "use client";
 
 import cn from "@/utils/clsx";
-import { Icon } from "@/components/index";
+import { useState } from "react";
+import { Button, Icon } from "@/components/index";
 import { Comment } from "@/types/index";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 
@@ -10,6 +11,7 @@ interface CommentProps {
 }
 
 const Reply = ({ comment }: CommentProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const hasImage = comment.writer.image?.trim();
 
   const profileStyle = cn(
@@ -21,7 +23,7 @@ const Reply = ({ comment }: CommentProps) => {
   return (
     <article
       className={cn(
-        "flex w-full max-w-[300px] gap-4",
+        "flex min-h-[250px] w-full max-w-[300px] flex-col gap-4",
         "tablet:max-w-[540px]",
         "pc:max-w-[780px]"
       )}
@@ -42,12 +44,15 @@ const Reply = ({ comment }: CommentProps) => {
             {comment.writer.nickname}
           </strong>
 
-          <button
-            className="ml-auto rounded-full transition-colors hover:bg-gray-100"
-            aria-label="메뉴"
-          >
-            <Icon icon="kebab" width={16} height={16} />
-          </button>
+          <div className="relative ml-auto">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="rounded-full"
+              aria-label="메뉴"
+            >
+              <Icon icon="kebab" width={16} height={16} />
+            </button>
+          </div>
         </header>
 
         <p className="text-md text-gray-800">{comment.content}</p>
@@ -57,6 +62,24 @@ const Reply = ({ comment }: CommentProps) => {
             .toLocaleDateString("ko-KR")
             .replace(/\.$/, "")}
         </time>
+
+        {isMenuOpen && (
+          <div className="flex gap-2 self-end">
+            <Button
+              variant="none"
+              className="w-fit rounded-lg px-3 py-2 text-md text-gray-700 hover:text-gray-800"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              취소
+            </Button>
+            <Button
+              variant="outlined"
+              className="w-fit rounded-lg px-3 py-2 text-md"
+            >
+              수정하기
+            </Button>
+          </div>
+        )}
       </div>
     </article>
   );

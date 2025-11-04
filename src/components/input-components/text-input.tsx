@@ -16,6 +16,7 @@ interface TextInputProps extends ComponentPropsWithRef<"input"> {
   errorMessage?: string;
   containerClassName?: string;
   suffix?: ReactNode;
+  suffixClassName?: string;
 }
 
 const TextInput = ({
@@ -25,6 +26,7 @@ const TextInput = ({
   errorMessage,
   readOnly,
   suffix,
+  suffixClassName,
   ref,
   ...rest
 }: TextInputProps) => {
@@ -63,7 +65,12 @@ const TextInput = ({
         />
 
         {suffix && (
-          <div className="absolute inset-y-0 right-2 flex items-center">
+          <div
+            className={cn(
+              "absolute inset-y-0 right-2 flex items-center",
+              suffixClassName
+            )}
+          >
             {suffix}
           </div>
         )}

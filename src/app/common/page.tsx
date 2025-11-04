@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { TextInput, Reply } from "@/components/index";
 import { mockComments } from "@/mocks/comment-data";
 import {
@@ -20,6 +21,7 @@ type LoginFormData = {
   /** 공통 컴포넌트 개발간 사용할 테스트 페이지. */
 }
 const Page = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const singleComment = mockComments[0];
   const {
     register,
@@ -48,9 +50,23 @@ const Page = () => {
 
         <TextInput
           id="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder="비밀번호를 입력하세요."
           errorMessage={errors.password?.message}
+          suffixClassName="pr-2"
+          suffix={
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <Icon
+                icon={showPassword ? "visible" : "invisible"}
+                width={24}
+                height={24}
+                className="text-gray-800"
+              />
+            </button>
+          }
           {...register("password", {
             required: "비밀번호를 입력해주세요.",
             pattern: {
@@ -76,15 +92,7 @@ const Page = () => {
           type="password"
           value="********"
           readOnly
-          /* TODO(준열) : 아이콘 컴포넌트 및 버튼 컴포넌트 완성시 수정 예정 */
-          suffix={
-            <button
-              type="button"
-              className="h-[33px] w-[74px] rounded-lg bg-blue-200 text-md font-medium text-white"
-            >
-              변경하기
-            </button>
-          }
+          suffix={<Button size="sm">변경하기</Button>}
         />
       </form>
       <Reply comment={singleComment} />
