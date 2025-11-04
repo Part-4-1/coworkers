@@ -12,31 +12,38 @@ import cn from "@/utils/clsx";
 interface ProfileProps {
   image?: string;
   size?: "lg" | "md" | "sm";
+  className?: string;
 }
 
-const Profile = ({ image, size = "lg" }: ProfileProps) => {
+const Profile = ({ image, size = "lg", className }: ProfileProps) => {
   const profileSize = {
     lg: 40,
     md: 32,
     sm: 24,
   }[size];
 
+  const profileRadius = {
+    lg: "rounded-[12px]",
+    md: "rounded-[8px]",
+    sm: "rounded-[6px]",
+  }[size];
+
   return (
-    <div className={cn("rounded-[12px]")}>
+    <div className={cn(className)}>
       {image ? (
         <img
           src={image}
           alt="프로필"
           width={profileSize}
           height={profileSize}
-          className="rounded-[12px]"
+          className={cn("object-cover", profileRadius)}
         />
       ) : (
         <Icon
           icon="user"
           width={profileSize}
           height={profileSize}
-          className="rounded-[12px] bg-gray-300"
+          className={cn("bg-gray-300", profileRadius)}
         ></Icon>
       )}
     </div>
