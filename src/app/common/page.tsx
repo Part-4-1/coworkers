@@ -8,6 +8,8 @@ import {
   PASSWORD_REGEX,
   PASSWORD_MIN_LENGTH,
 } from "@/constants/regex";
+import Button from "@/components/button/button";
+import { Icon } from "@/components";
 
 type LoginFormData = {
   email: string;
@@ -86,6 +88,29 @@ const Page = () => {
         />
       </form>
       <Reply comment={singleComment} />
+      <div className="w-[300px] gap-2 flex-col-center">
+        <Button>생성하기</Button>
+        <Button variant="outlined">생성하기</Button>
+        <Button variant="outlined-secondary">생성하기</Button>
+        <Button variant="alert">삭제하기</Button>
+        <Button
+          variant="outlined"
+          className="w-fit rounded-lg px-3 py-2 text-md"
+        >
+          생성하기
+        </Button>
+        <Button className="w-fit rounded-[40px] pl-[16px] pr-5 text-md">
+          <Icon icon="checkInverse" width={16} height={16} />
+          완료 취소하기
+        </Button>
+        <Button variant="none" className="h-8 w-8 rounded-full bg-gray-300">
+          <Icon icon="smallPencil" width={12} height={16} />
+        </Button>
+        <Button variant="outlined" size="sm">
+          {/* <Icon icon="check" width={16} height={16} /> */}
+          변경하기
+        </Button>
+      </div>
     </div>
   );
 };
