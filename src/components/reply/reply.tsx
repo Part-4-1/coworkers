@@ -45,13 +45,14 @@ const Reply = ({ comment }: CommentProps) => {
           </strong>
 
           <div className="relative ml-auto">
-            <button
+            <Button
+              variant="none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="rounded-full"
+              className="p-0"
               aria-label="메뉴"
             >
               <Icon icon="kebab" width={16} height={16} />
-            </button>
+            </Button>
           </div>
         </header>
 
