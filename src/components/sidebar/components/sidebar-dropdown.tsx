@@ -1,9 +1,8 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import Icon from "../icon/Icon";
+import Icon from "../../icon/Icon";
 import SidebarMenu from "./sidebar-menu";
-import { mockTeams } from "./mock-team";
 import { motion, AnimatePresence } from "framer-motion";
 import { mockUser } from "@/mocks/sidebar-data";
 
@@ -24,7 +23,7 @@ const SidebarDropdown = ({
   onToggle,
 }: SidebarDropdownProps) => {
   const [selectedTitle, setSelectedTitle] = useState<string>(
-    mockTeams[0].title
+    mockUser[0].memberships[0].group.name
   );
   return (
     <div className="w-full max-w-[238px]">

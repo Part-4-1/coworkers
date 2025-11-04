@@ -1,7 +1,7 @@
 import cn from "@/utils/clsx";
 import React from "react";
-import Icon from "../icon/Icon";
-import ICONS_MAP from "../icon/icons-map";
+import Icon from "../../icon/Icon";
+import ICONS_MAP from "../../icon/icons-map";
 
 type IconKeys = keyof typeof ICONS_MAP;
 interface SidebarMenuProps {

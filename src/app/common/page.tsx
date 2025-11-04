@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { TextInput, Reply } from "@/components/index";
+import { TextInput, Reply, SidebarDropdown } from "@/components/index";
 import { mockComments } from "@/mocks/comment-data";
 import {
   EMAIL_REGEX,
@@ -10,6 +10,8 @@ import {
 } from "@/constants/regex";
 import Button from "@/components/button/button";
 import { Icon } from "@/components";
+import SidebarFooter from "@/components/sidebar/components/sidebar-footer";
+import { useState } from "react";
 
 type LoginFormData = {
   email: string;
@@ -20,6 +22,7 @@ type LoginFormData = {
   /** 공통 컴포넌트 개발간 사용할 테스트 페이지. */
 }
 const Page = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const singleComment = mockComments[0];
   const {
     register,
@@ -28,6 +31,10 @@ const Page = () => {
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
   });
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className="mt-10 w-full gap-4 flex-col-center">
@@ -111,6 +118,13 @@ const Page = () => {
           변경하기
         </Button>
       </div>
+
+      <SidebarFooter />
+      <SidebarDropdown
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onToggle={handleToggle}
+      />
     </div>
   );
 };

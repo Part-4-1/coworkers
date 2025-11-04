@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import SidebarDropdown from "./sidebar-dropdown";
+import SidebarDropdown from "../sidebar-dropdown";
 import { use, useState } from "react";
 
 const meta: Meta<typeof SidebarDropdown> = {
