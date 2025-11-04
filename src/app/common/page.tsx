@@ -2,7 +2,7 @@
 
 import { Icon } from "@/components";
 import Button from "@/components/button/button";
-import { Reply, TextInput } from "@/components/index";
+import { Dropdown, Reply, TextInput } from "@/components/index";
 import {
   EMAIL_REGEX,
   PASSWORD_MIN_LENGTH,
@@ -110,6 +110,18 @@ const Page = () => {
           {/* <Icon icon="check" width={16} height={16} /> */}
           변경하기
         </Button>
+      </div>
+      <div>
+        <Dropdown
+          trigger={<Button size="sm">드롭다운</Button>}
+          items={[
+            { label: "마이 히스토리" },
+            { label: "계정 설정" },
+            { label: "팀 참여" },
+            { label: "로그아웃" },
+          ]}
+          isWidthFull={false}
+        />
       </div>
     </div>
   );
