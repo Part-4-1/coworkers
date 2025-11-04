@@ -7,7 +7,6 @@ interface ButtonProps extends ComponentProps<"button"> {
   size?: "lg" | "sm";
   children?: ReactNode;
   className?: string;
-  disabled?: boolean;
 }
 
 /**
