@@ -8,8 +8,9 @@ import { MouseEventHandler } from "react";
  * @description 프로필 이미지를 보여주는 컴포넌트입니다.
  * @param image - 이미지 URL, 없을시 기본 이미지
  * @param size - "lg", "md", "sm" 프로필 크기 옵션
+ * @param className - 추가 스타일을 부여하기 위해 사용
  * @param isCircle - true 일떈 원형, false일시 사이즈별 radius 적용
- * @param onClick - 클릭시 실행되는 함수, true일때 cursor-pointer 적용
+ * @param onClick - 클릭시 실행되는 함수, 존재할떄 cursor-pointer 적용
  */
 
 interface ProfileProps {
