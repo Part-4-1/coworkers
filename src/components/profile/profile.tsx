@@ -28,6 +28,12 @@ const Profile = ({
   onClick,
 }: ProfileProps) => {
   const profileSize = {
+    lg: "w-[40px] h-[40px]",
+    md: "w-[32px] h-[32px]",
+    sm: "w-[24px] h-[24px]",
+  }[size];
+
+  const profileImageSize = {
     lg: 40,
     md: 32,
     sm: 24,
@@ -50,16 +56,14 @@ const Profile = ({
         <Image
           src={image}
           alt="프로필"
-          width={profileSize}
-          height={profileSize}
-          className={cn("object-cover", profileRadius)}
+          width={profileImageSize}
+          height={profileImageSize}
+          className={cn("object-cover", profileRadius, profileSize)}
         />
       ) : (
         <Icon
           icon="user"
-          width={profileSize}
-          height={profileSize}
-          className={cn("bg-gray-300", profileRadius)}
+          className={cn("bg-gray-300", profileRadius, profileSize)}
         ></Icon>
       )}
     </div>
