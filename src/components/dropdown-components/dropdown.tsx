@@ -80,7 +80,7 @@ const Dropdown = ({
             "absolute z-50 rounded-[12px] border border-gray-300 bg-white text-blue-700 shadow-sm",
             isDirectionDown ? "top-full mt-2" : "bottom-full mb-2",
             menuAlignClass,
-            isWidthFull ? "w-full" : "w-max min-w-[110px] max-w-[150px]"
+            isWidthFull ? "w-full" : "w-max"
           )}
         >
           <ul onClick={handleItemClick}>
