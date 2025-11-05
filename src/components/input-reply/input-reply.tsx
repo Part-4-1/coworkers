@@ -13,7 +13,7 @@ const InputReply = () => {
       <div className="gap-6 pl-3 pr-3 flex-center">
         <TextareaAutosize
           placeholder="댓글을 달아주세요"
-          className="w-full max-w-[708px] resize-none overflow-hidden text-xs tablet:text-md pc:text-md"
+          className="w-full max-w-[708px] resize-none overflow-hidden text-xs text-blue-700 placeholder:text-gray-800 tablet:text-md pc:text-md"
           minRows={1}
         />
         <Button
