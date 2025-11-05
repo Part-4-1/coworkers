@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import TextInput from "./text-input";
+import { TextInput, Button } from "@/components/index";
 
 const meta: Meta<typeof TextInput> = {
   title: "Components/Input",
@@ -107,14 +107,7 @@ export const SuffixButton: Story = {
         type="password"
         value="********"
         readOnly
-        suffix={
-          <button
-            type="button"
-            className="h-[33px] w-[74px] rounded-lg bg-blue-200 py-2 text-sm text-white"
-          >
-            변경하기
-          </button>
-        }
+        suffix={<Button size="sm">변경하기</Button>}
       />
     </div>
   ),
