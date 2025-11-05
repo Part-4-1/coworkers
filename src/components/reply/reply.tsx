@@ -51,7 +51,7 @@ const Reply = ({ comment }: CommentProps) => {
               className="p-0"
               aria-label="메뉴"
             >
-              <Icon icon="kebab" width={16} height={16} />
+              <Icon icon="kebab" className="h-4 w-4" />
             </Button>
           </div>
         </header>
