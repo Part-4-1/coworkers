@@ -16,7 +16,7 @@ const TodoHeader = ({ todoName, btnClick }: TodoHeaderProps) => {
         aria-label="할 일 추가 버튼"
         onClick={btnClick}
       >
-        <Icon icon="plus" width={16} height={16} className="text-gray-700" />
+        <Icon icon="plus" className="h-4 w-4 text-gray-700" />
       </Button>
     </div>
   );

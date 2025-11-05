@@ -33,7 +33,6 @@ import UpArrow from "@/assets/icons/ic-up-arrow.svg";
 import User from "@/assets/icons/ic-user.svg";
 import Visible from "@/assets/icons/ic-visible.svg";
 import X from "@/assets/icons/ic-x.svg";
-import { log } from "console";
 
 const ICONS_MAP = {
   alert: Alert,
@@ -58,7 +57,7 @@ const ICONS_MAP = {
   leftFold: LeftFold,
   pencil: Pencil,
   plus: Plus,
-  Progress: Progress,
+  progress: Progress,
   repeat: Repeat,
   rightArrow: RightArrow,
   rightFold: RightFold,

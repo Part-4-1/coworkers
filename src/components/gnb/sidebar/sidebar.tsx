@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import SidebarHeader from "./sidebar/components/sidebar-header";
-import SidebarDropdown from "./sidebar/components/sidebar-dropdown";
-import SidebarFooter from "./sidebar/components/sidebar-footer";
-import Button from "../button/button";
-import Icon from "../icon/Icon";
-import SidebarMenu from "./sidebar/components/sidebar-menu";
+import SidebarHeader from "./components/sidebar-header";
+import SidebarDropdown from "./components/sidebar-dropdown";
+import SidebarFooter from "./components/sidebar-footer";
+import Button from "../../button/button";
+import Icon from "../../icon/Icon";
+import SidebarMenu from "./components/sidebar-menu";
 import cn from "@/utils/clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
-const DESKTOP_BREAKPOINT = "(min-width: 1280px)";
+const PC_BREAKPOINT = "(min-width: 1280px)";
 
 const Sidebar = () => {
-  const isDesktop = useMediaQuery(DESKTOP_BREAKPOINT);
+  const isDesktop = useMediaQuery(PC_BREAKPOINT);
 
   const [isSidebarOpen, _setIsSidebarOpen] = useState(false);
   const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);

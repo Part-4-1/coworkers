@@ -21,7 +21,7 @@ interface SidebarDropdownProps {
 }
 
 const iconStyles = {
-  default: "text-gray-400 group-hover:text-blue-200",
+  default: "text-gray-400 group-hover:text-blue-200 w-6 h-6",
   sidebarOpen: "w-5 h-5",
 };
 
@@ -42,8 +42,6 @@ const SidebarDropdown = ({
         <div className="flex items-center gap-3">
           <Icon
             icon="chess"
-            width={24}
-            height={24}
             className={cn(
               iconStyles.default,
               isSidebarOpen && iconStyles.sidebarOpen
@@ -66,9 +64,7 @@ const SidebarDropdown = ({
         {isSidebarOpen && (
           <Icon
             icon="downArrow"
-            width={20}
-            height={20}
-            className={`text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
+            className={`h-5 w-5 text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
           />
         )}
       </div>

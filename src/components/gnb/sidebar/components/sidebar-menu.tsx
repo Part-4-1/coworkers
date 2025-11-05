@@ -2,7 +2,6 @@ import cn from "@/utils/clsx";
 import React from "react";
 import Icon from "../../../icon/Icon";
 import ICONS_MAP from "../../../icon/icons-map";
-import Sidebar from "../../Sidebar";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 
@@ -47,8 +46,6 @@ const SidebarMenu = ({
     >
       <Icon
         icon={iconName}
-        width={24}
-        height={24}
         className={cn(
           iconStyles.default,
           isSelected && iconStyles.selected,

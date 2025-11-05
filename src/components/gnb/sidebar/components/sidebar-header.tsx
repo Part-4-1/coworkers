@@ -16,7 +16,7 @@ const SidebarHeader = ({
   return (
     <header className="flex w-full max-w-[270px] items-center justify-between px-6 py-8">
       <Link href={"/"} className="flex items-center gap-[2px]">
-        <Icon width={18} height={18} icon="logo" />
+        <Icon icon="logo" className="h-[18px] w-[18px]" />
         {isSidebarOpen && (
           <h1 className="text-[20px] font-bold text-blue-200">COWORKERS</h1>
         )}
@@ -24,10 +24,8 @@ const SidebarHeader = ({
       <Button variant="none" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
         <Icon
           icon="leftFold"
-          width={28}
-          height={28}
           className={cn(
-            "transition-transform",
+            "h-7 w-7 transition-transform",
             isSidebarOpen
               ? "rotate-0"
               : "m-3 h-8 w-8 rotate-180 rounded-full border border-gray-300 bg-white"
