@@ -2,6 +2,13 @@ import Image from "next/image";
 import { mockUser } from "@/mocks/sidebar-data";
 import { AnimatePresence, motion } from "framer-motion";
 
+/**
+ * @author leohan
+ * @description 사이드바의 하단 영역(푸터)에 표시되는 사용자 정보 또는 로그인 버튼 컴포넌트입니다.
+ * 사이드바의 열림/닫힘 상태에 따라 아이콘 크기가 변경되고 텍스트가 애니메이션됩니다.
+ * @param isSidebarOpen - 사이드바가 현재 열려있는지(true) 닫혀있는지(false) 상태를 나타내는 값입니다.
+ */
+
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const isLoggedIn = true; // 임시 로그인 확인
 

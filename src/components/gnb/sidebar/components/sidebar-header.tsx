@@ -4,6 +4,13 @@ import Link from "next/link";
 import Button from "@/components/button/button";
 import cn from "@/utils/clsx";
 
+/**
+ * @author leohan
+ * @description 사이드바 헤더입니다.
+ * @param isSidebarOpen - 사이드바가 현재 열려있는지(true) 닫혀있는지(false)를 나타내는 상태 값
+ * @param setIsSidebarOpen - 사이드바의 열림/닫힘 상태를 변경(설정)하는 상태 변경 함수
+ */
+
 interface SidebarHeaderProps {
   isSidebarOpen: boolean;
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;

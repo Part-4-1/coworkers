@@ -27,6 +27,16 @@ const iconStyles = {
   SidebarOpen: "w-5 h-5",
 };
 
+/**
+ * @author leohan
+ * @description 사이드바 메뉴 항목 컴포넌트의 Props 정의입니다.
+ * @property iconName - 표시할 아이콘의 이름 (ICONS_MAP에서 정의된 키).
+ * @property title - 메뉴 항목에 표시될 텍스트.
+ * @property isSidebarOpen - 현재 사이드바가 열린 상태인지(true) 닫힌 상태인지(false).
+ * @property isSelected - 현재 메뉴 항목이 선택된 상태인지(true).
+ * @property onClick - 메뉴 항목 클릭 시 실행될 이벤트 핸들러.
+ */
+
 const SidebarMenu = ({
   iconName,
   title,

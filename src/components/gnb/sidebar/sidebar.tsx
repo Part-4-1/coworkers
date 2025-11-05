@@ -11,6 +11,12 @@ import cn from "@/utils/clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
+/**
+ * @author leohan
+ * @description 데스크톱 환경에서 사용되는 메인 네비게이션 사이드바 컴포넌트입니다.
+ * 뷰포트 크기에 따라 기본 열림/닫힘 상태가 결정되며, 사용자 상호작용에 의해 너비가 애니메이션됩니다.
+ */
+
 const PC_BREAKPOINT = "(min-width: 1280px)";
 
 const Sidebar = () => {
