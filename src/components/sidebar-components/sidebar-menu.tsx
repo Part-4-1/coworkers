@@ -35,9 +35,11 @@ const SidebarMenu = ({
     >
       <Icon
         icon={iconName}
-        width={20}
-        height={20}
-        className={cn(iconStyles.default, isSelected && iconStyles.selected)}
+        className={cn(
+          iconStyles.default,
+          isSelected && iconStyles.selected,
+          "h-5 w-5"
+        )}
       />
       <span>{title}</span>
     </div>
