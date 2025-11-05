@@ -13,6 +13,7 @@ import { useRef, useState } from "react";
  * @param textAlign - 드롭다운 메뉴의 텍스트 정렬 방식 (기본값: center)
  * @param menuAlign - 드롭다운 메뉴의 정렬 기준 (기본값: end)
  * @param isWidthFull - 메뉴의 width를 트리거의 width와 동일하게 설정할지 여부 (기본값: true)
+ * @param isDirectionDown - 메뉴가 나타나는 방향을 설정 (기본값: true)
  */
 
 interface DropdownProps {
