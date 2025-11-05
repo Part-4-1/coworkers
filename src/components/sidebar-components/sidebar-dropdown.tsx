@@ -34,9 +34,7 @@ const SidebarDropdown = ({
         <div className="flex items-center gap-3">
           <Icon
             icon="chess"
-            width={20}
-            height={20}
-            className="text-gray-400 group-hover:text-blue-200"
+            className="h-5 w-5 text-gray-400 group-hover:text-blue-200"
           />
           <span className="text-gray-700 group-hover:text-blue-200">
             팀 선택
@@ -44,9 +42,7 @@ const SidebarDropdown = ({
         </div>
         <Icon
           icon="downArrow"
-          width={20}
-          height={20}
-          className={`text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
+          className={`h-5 w-5 text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
         />
       </div>
       <AnimatePresence>
