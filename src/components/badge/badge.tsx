@@ -10,6 +10,15 @@ interface BadgeProps {
   completed: number;
 }
 
+/**
+ * @author hwitae
+ * @description 할 일의 완료 상태를 시각적으로 보여주는 배지 컴포넌트입니다.
+ * @param total - 총 할 일 개수
+ * @param completed - 완료한 할 일 개수
+ * @returns <Badge />
+ * @example
+ * <Badge total={5} completed={3} />
+ */
 const Badge = ({ total, completed }: BadgeProps) => {
   const fullConfig = resolveConfig(tailwindConfig);
   const colors = fullConfig.theme?.colors;
