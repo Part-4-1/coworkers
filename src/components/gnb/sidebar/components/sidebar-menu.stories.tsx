@@ -36,6 +36,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: "기본 메뉴",
+    isSidebarOpen: true,
     isSelected: false,
   },
 };
@@ -43,6 +44,7 @@ export const Default: Story = {
 export const Selected: Story = {
   args: {
     title: "선택된 메뉴",
+    isSidebarOpen: true,
     isSelected: true,
   },
 };

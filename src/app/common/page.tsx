@@ -22,7 +22,6 @@ type LoginFormData = {
   /** 공통 컴포넌트 개발간 사용할 테스트 페이지. */
 }
 const Page = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const singleComment = mockComments[0];
@@ -33,10 +32,6 @@ const Page = () => {
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
   });
-
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
     <div className="mt-10 w-full gap-4 flex-col-center">

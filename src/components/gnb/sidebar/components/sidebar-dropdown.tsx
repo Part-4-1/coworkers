@@ -1,10 +1,12 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import Icon from "../../icon/Icon";
+import Icon from "../../../icon/Icon";
 import SidebarMenu from "./sidebar-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import { mockUser } from "@/mocks/sidebar-data";
+import Button from "@/components/button/button";
+import cn from "@/utils/clsx";
 
 /**
  * @author leohan
@@ -13,41 +15,62 @@ import { mockUser } from "@/mocks/sidebar-data";
 
 interface SidebarDropdownProps {
   isOpen: boolean;
+  isSidebarOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   onToggle: () => void;
 }
 
+const iconStyles = {
+  default: "text-gray-400 group-hover:text-blue-200",
+  sidebarOpen: "w-5 h-5",
+};
+
 const SidebarDropdown = ({
   isOpen,
   setIsOpen,
+  isSidebarOpen,
   onToggle,
 }: SidebarDropdownProps) => {
-  const [selectedTitle, setSelectedTitle] = useState<string>(
-    mockUser[0].memberships[0].group.name
-  );
+  const [selectedTitle, setSelectedTitle] = useState<string>();
+
   return (
     <div className="w-full max-w-[238px]">
       <div
         onClick={onToggle}
-        className="group flex cursor-pointer items-center justify-between rounded-xl px-4 py-2"
+        className={`group flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-[9px]"}`}
       >
         <div className="flex items-center gap-3">
           <Icon
             icon="chess"
+            width={24}
+            height={24}
+            className={cn(
+              iconStyles.default,
+              isSidebarOpen && iconStyles.sidebarOpen
+            )}
+          />
+          <AnimatePresence>
+            {isSidebarOpen && (
+              <motion.span
+                className="whitespace-nowrap text-gray-700 group-hover:text-blue-200"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                팀 선택
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </div>
+        {isSidebarOpen && (
+          <Icon
+            icon="downArrow"
             width={20}
             height={20}
-            className="text-gray-400 group-hover:text-blue-200"
+            className={`text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
           />
-          <span className="text-gray-700 group-hover:text-blue-200">
-            팀 선택
-          </span>
-        </div>
-        <Icon
-          icon="downArrow"
-          width={20}
-          height={20}
-          className={`text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
-        />
+        )}
       </div>
       <AnimatePresence>
         {isOpen && (
@@ -64,6 +87,7 @@ const SidebarDropdown = ({
             {mockUser.map((user) => (
               <SidebarMenu
                 key={user.id}
+                isSidebarOpen={isSidebarOpen}
                 title={user.memberships[0].group.name}
                 iconName="chess"
                 isSelected={user.memberships[0].group.name === selectedTitle}
