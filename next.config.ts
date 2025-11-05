@@ -1,6 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+        port: "",
+        pathname: "/api/portraits/**",
+      },
+    ],
+  },
+
   webpack(config) {
     // @ts-expect-error
     const fileLoaderRule = config.module.rules.find((rule) =>
