@@ -6,3 +6,4 @@ export { default as SidebarDropdown } from "./sidebar-components/sidebar-dropdow
 export { default as Icon } from "./icon/Icon";
 export { default as Reply } from "./reply/reply";
 export { default as TodoHeader } from "./todo-header/todo-header";
+export { default as Chip } from "./chip/chip";
