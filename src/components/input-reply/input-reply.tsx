@@ -1,7 +1,6 @@
-"use client";
-
 import { Button, Icon } from "@/components/index";
 import TextareaAutosize from "react-textarea-autosize";
+
 /**
  * @author junyeol
  * @returns 댓글 작성 컴포넌트
