@@ -4,8 +4,8 @@ type IconKeys = keyof typeof ICONS_MAP;
 
 interface IconProps {
   icon: IconKeys;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   className?: string;
 }
 
@@ -22,8 +22,8 @@ const Icon = ({ icon, width = 16, height = 16, className }: IconProps) => {
 
   return (
     <SvgIcon
-      width={width}
-      height={height}
+      // width={width}
+      // height={height}
       className={className}
       aria-hidden="true"
     />

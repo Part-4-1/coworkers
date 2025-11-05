@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Icon, TodoHeader } from "@/components";
+import { Badge, Icon, TodoHeader } from "@/components";
 import Button from "@/components/button/button";
 import { Dropdown, Reply, TextInput } from "@/components/index";
 import {
@@ -32,7 +32,7 @@ const Page = () => {
   });
 
   return (
-    <div className="mt-10 w-full gap-4 flex-col-center">
+    <div className="mb-[300px] mt-10 w-full gap-4 flex-col-center">
       <form className="mt-10 w-full gap-4 flex-col-center">
         <TextInput
           id="email"
@@ -138,6 +138,9 @@ const Page = () => {
           }}
           todoName="할 일"
         />
+      </div>
+      <div className="bg-slate-600 px-4 py-4">
+        <Badge total={5} completed={5} />
       </div>
     </div>
   );
