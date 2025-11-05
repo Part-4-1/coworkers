@@ -1,18 +1,17 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { TextInput, Reply, SidebarDropdown } from "@/components/index";
-import { mockComments } from "@/mocks/comment-data";
+import { useState } from "react";
+import { Icon, TodoHeader } from "@/components";
+import Button from "@/components/button/button";
+import { Dropdown, Reply, TextInput } from "@/components/index";
 import {
   EMAIL_REGEX,
-  PASSWORD_REGEX,
   PASSWORD_MIN_LENGTH,
+  PASSWORD_REGEX,
 } from "@/constants/regex";
-import Button from "@/components/button/button";
-import { Icon } from "@/components";
-import SidebarFooter from "@/components/sidebar/components/sidebar-footer";
-import { useState } from "react";
-import Sidebar from "@/components/sidebar/Sidebar";
+
+import { mockComments } from "@/mocks/comment-data";
+import { useForm } from "react-hook-form";
 
 type LoginFormData = {
   email: string;
@@ -24,6 +23,8 @@ type LoginFormData = {
 }
 const Page = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const singleComment = mockComments[0];
   const {
     register,
@@ -56,9 +57,23 @@ const Page = () => {
 
         <TextInput
           id="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder="비밀번호를 입력하세요."
           errorMessage={errors.password?.message}
+          suffixClassName="pr-2"
+          suffix={
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <Icon
+                icon={showPassword ? "visible" : "invisible"}
+                width={24}
+                height={24}
+                className="text-gray-800"
+              />
+            </button>
+          }
           {...register("password", {
             required: "비밀번호를 입력해주세요.",
             pattern: {
@@ -84,15 +99,7 @@ const Page = () => {
           type="password"
           value="********"
           readOnly
-          /* TODO(준열) : 아이콘 컴포넌트 및 버튼 컴포넌트 완성시 수정 예정 */
-          suffix={
-            <button
-              type="button"
-              className="h-[33px] w-[74px] rounded-lg bg-blue-200 text-md font-medium text-white"
-            >
-              변경하기
-            </button>
-          }
+          suffix={<Button size="sm">변경하기</Button>}
         />
       </form>
       <Reply comment={singleComment} />
@@ -118,6 +125,26 @@ const Page = () => {
           {/* <Icon icon="check" width={16} height={16} /> */}
           변경하기
         </Button>
+      </div>
+      <div>
+        <Dropdown
+          trigger={<Button size="sm">드롭다운</Button>}
+          items={[
+            { label: "마이 히스토리" },
+            { label: "계정 설정" },
+            { label: "팀 참여" },
+            { label: "로그아웃" },
+          ]}
+          isWidthFull={false}
+        />
+      </div>
+      <div className="w-[300px]">
+        <TodoHeader
+          btnClick={() => {
+            alert("버튼 클릭");
+          }}
+          todoName="할 일"
+        />
       </div>
     </div>
   );
