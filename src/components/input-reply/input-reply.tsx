@@ -8,12 +8,11 @@ import TextareaAutosize from "react-textarea-autosize";
 
 const InputReply = () => {
   return (
-    <div className="flex w-full max-w-[732px] flex-col">
-      <hr className="mb-3 bg-gray-300" />
+    <div className="flex w-full max-w-[732px] flex-col border-y-2 border-gray-300 py-3">
       <div className="gap-6 pl-3 pr-3 flex-center">
         <TextareaAutosize
           placeholder="댓글을 달아주세요"
-          className="w-full max-w-[708px] resize-none text-xs text-blue-700 placeholder:text-gray-800 tablet:text-md"
+          className="w-full max-w-[708px] resize-none text-xs text-blue-700 placeholder:text-gray-800 focus:outline-none tablet:text-md"
           minRows={1}
         />
         <Button
@@ -23,7 +22,6 @@ const InputReply = () => {
           <Icon icon="upArrow" className="h-4 w-4" />
         </Button>
       </div>
-      <hr className="mt-3 bg-gray-300" />
     </div>
   );
 };
