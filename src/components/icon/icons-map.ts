@@ -8,6 +8,7 @@ import CheckboxActive from "@/assets/icons/ic-checkbox-active.svg";
 import CheckboxDefault from "@/assets/icons/ic-checkbox-default.svg";
 import Chess from "@/assets/icons/ic-chess.svg";
 import Comment from "@/assets/icons/ic-comment.svg";
+import Logo from "@/assets/icons/ic-coworkers-logo.svg";
 import DownArrow from "@/assets/icons/ic-down-arrow.svg";
 import Menu from "@/assets/icons/ic-gnb-menu.svg";
 import HeartActive from "@/assets/icons/ic-heart-active.svg";
@@ -26,10 +27,13 @@ import RightFold from "@/assets/icons/ic-right-fold.svg";
 import Search from "@/assets/icons/ic-search.svg";
 import Secession from "@/assets/icons/ic-secession.svg";
 import Setting from "@/assets/icons/ic-setting.svg";
+import SmallPencil from "@/assets/icons/ic-small-pencil.svg";
 import Time from "@/assets/icons/ic-time.svg";
+import UpArrow from "@/assets/icons/ic-up-arrow.svg";
 import User from "@/assets/icons/ic-user.svg";
 import Visible from "@/assets/icons/ic-visible.svg";
 import X from "@/assets/icons/ic-x.svg";
+import { log } from "console";
 
 const ICONS_MAP = {
   alert: Alert,
@@ -42,6 +46,7 @@ const ICONS_MAP = {
   checkboxDefault: CheckboxDefault,
   chess: Chess,
   comment: Comment,
+  logo: Logo,
   downArrow: DownArrow,
   menu: Menu,
   heartActive: HeartActive,
@@ -60,7 +65,9 @@ const ICONS_MAP = {
   search: Search,
   secession: Secession,
   setting: Setting,
+  smallPencil: SmallPencil,
   time: Time,
+  upArrow: UpArrow,
   user: User,
   visible: Visible,
   x: X,

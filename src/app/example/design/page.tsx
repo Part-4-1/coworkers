@@ -1,3 +1,5 @@
+"use server";
+
 import cn from "@/utils/clsx";
 
 const ColorBox = ({ className }: { className: string }) => {

@@ -12,7 +12,7 @@ const config: StorybookConfig = {
     name: "@storybook/nextjs",
     options: {},
   },
-  staticDirs: ["../src/assets"],
+  staticDirs: ["../public", "../src/assets"],
   webpackFinal: async (config) => {
     if (!config.module || !config.module.rules) {
       return config;
