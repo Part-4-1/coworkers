@@ -1,15 +1,13 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { TextInput, Reply } from "@/components/index";
+import { TextInput, Reply, InputReply, Button, Icon } from "@/components/index";
 import { mockComments } from "@/mocks/comment-data";
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
   PASSWORD_MIN_LENGTH,
 } from "@/constants/regex";
-import Button from "@/components/button/button";
-import { Icon } from "@/components";
 
 type LoginFormData = {
   email: string;
@@ -111,6 +109,7 @@ const Page = () => {
           변경하기
         </Button>
       </div>
+      <InputReply />
     </div>
   );
 };

@@ -5,3 +5,4 @@ export { default as SidebarDropdown } from "./sidebar-components/sidebar-dropdow
 export { default as Icon } from "./icon/Icon";
 export { default as Button } from "./button/button";
 export { default as Reply } from "./reply/reply";
+export { default as InputReply } from "./input-reply/input-reply";
