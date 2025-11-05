@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Icon } from "@/components";
+import { Icon, TodoHeader } from "@/components";
 import Button from "@/components/button/button";
 import { Dropdown, Reply, TextInput } from "@/components/index";
 import {
@@ -129,6 +129,14 @@ const Page = () => {
             { label: "로그아웃" },
           ]}
           isWidthFull={false}
+        />
+      </div>
+      <div className="w-[300px]">
+        <TodoHeader
+          btnClick={() => {
+            alert("버튼 클릭");
+          }}
+          todoName="할 일"
         />
       </div>
     </div>
