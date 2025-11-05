@@ -114,7 +114,12 @@ const Page = () => {
       </div>
 
       <div className="w-[300px]">
-        <TodoHeader todoName="할 일" />
+        <TodoHeader
+          btnClick={() => {
+            alert("버튼 클릭");
+          }}
+          todoName="할 일"
+        />
       </div>
     </div>
   );
