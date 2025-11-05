@@ -3,6 +3,7 @@ import "react-circular-progressbar/dist/styles.css";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../tailwind.config";
 import { Icon } from "../index";
+import cn from "@/utils/clsx";
 
 interface BadgeProps {
   total: number;
@@ -15,19 +16,27 @@ const Badge = ({ total, completed }: BadgeProps) => {
 
   return (
     <div className="w-fit gap-1 rounded-full bg-white px-2 py-1 flex-center">
-      {completed === total ? <Icon icon="progress" className="h-5 w-5" /> : ""}
-      <div className="h-3 w-3 tablet:h-4 tablet:w-4">
+      {completed === total && total ? (
+        <Icon icon="progress" className="h-4 w-4 tablet:h-5 tablet:w-5" />
+      ) : (
         <CircularProgressbar
+          className="h-4 w-4 p-[2px] tablet:h-5 tablet:w-5"
           value={completed}
           maxValue={total}
           styles={buildStyles({
             trailColor: `${colors.gray[50]}`,
-            pathColor: `${colors.blue[200]}`,
+            pathColor: `${total ? colors.blue[200] : colors.gray[300]}`,
           })}
-          strokeWidth={20}
+          strokeWidth={16}
         />
-      </div>
-      <p className="text-md text-blue-200 tablet:text-lg">
+      )}
+
+      <p
+        className={cn(
+          "text-md tablet:text-lg tablet:font-medium",
+          total ? "text-blue-200" : "text-gray-700"
+        )}
+      >
         {completed}/{total}
       </p>
     </div>

@@ -137,7 +137,9 @@ const Page = () => {
           todoName="할 일"
         />
       </div>
-      <div className="bg-slate-600 px-4 py-4">
+      <div className="flex gap-2 bg-slate-600 px-4 py-4">
+        <Badge total={0} completed={0} />
+        <Badge total={5} completed={3} />
         <Badge total={5} completed={5} />
       </div>
     </div>
