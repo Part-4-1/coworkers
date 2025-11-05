@@ -96,6 +96,7 @@ const Page = () => {
         />
       </form>
       <Reply comment={singleComment} />
+      <InputReply />
       <div className="w-[300px] gap-2 flex-col-center">
         <Button>생성하기</Button>
         <Button variant="outlined">생성하기</Button>
@@ -139,7 +140,6 @@ const Page = () => {
           todoName="할 일"
         />
       </div>
-      <InputReply />
     </div>
   );
 };
