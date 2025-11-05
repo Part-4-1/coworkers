@@ -1,9 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Icon, TodoHeader } from "@/components";
-import Button from "@/components/button/button";
-import { Dropdown, Reply, TextInput, InputReply } from "@/components/index";
+import {
+  Dropdown,
+  Reply,
+  TextInput,
+  InputReply,
+  Button,
+  Icon,
+  TodoHeader,
+} from "@/components/index";
 import {
   EMAIL_REGEX,
   PASSWORD_MIN_LENGTH,

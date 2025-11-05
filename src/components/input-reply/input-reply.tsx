@@ -11,15 +11,15 @@ const InputReply = () => {
   return (
     <div className="flex w-full max-w-[732px] flex-col">
       <hr className="mb-3 bg-gray-300" />
-      <div className="gap-6 pl-3 pr-6 flex-center">
+      <div className="gap-6 pl-3 pr-3 flex-center">
         <TextareaAutosize
           placeholder="댓글을 달아주세요"
-          className="min-h-[17px] w-full max-w-[708px] resize-none overflow-hidden"
+          className="w-full max-w-[708px] resize-none overflow-hidden text-xs tablet:text-md pc:text-md"
           minRows={1}
         />
         <Button
           variant="none"
-          className="h-[24px] w-[24px] rounded-full bg-gray-800 hover:bg-blue-100"
+          className="h-[24px] w-[24px] flex-shrink-0 rounded-full bg-gray-800 hover:bg-blue-100"
         >
           <Icon icon="upArrow" width={16} height={16} />
         </Button>
