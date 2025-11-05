@@ -21,6 +21,7 @@ interface DropdownProps {
   textAlign?: "start" | "center" | "end";
   menuAlign?: "start" | "center" | "end";
   isWidthFull?: boolean;
+  isDirectionDown?: boolean;
 }
 
 interface DropdownItem {
@@ -34,6 +35,7 @@ const Dropdown = ({
   textAlign = "center",
   menuAlign = "end",
   isWidthFull = true,
+  isDirectionDown = true,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -71,7 +73,8 @@ const Dropdown = ({
       {isOpen && (
         <div
           className={cn(
-            "absolute top-full z-50 mt-2 rounded-[12px] border border-gray-300 bg-white text-blue-700 shadow-sm",
+            "absolute z-50 rounded-[12px] border border-gray-300 bg-white text-blue-700 shadow-sm",
+            isDirectionDown ? "top-full mt-2" : "bottom-full mb-2",
             menuAlignClass,
             isWidthFull ? "w-full" : "w-max min-w-[110px] max-w-[150px]"
           )}

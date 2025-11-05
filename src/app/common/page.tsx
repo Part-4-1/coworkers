@@ -1,16 +1,16 @@
 "use client";
 
 import {
+  Badge,
   Button,
   Dropdown,
   Icon,
+  InputBox,
   InputReply,
   Profile,
   Reply,
   TextInput,
   TodoHeader,
-  Badge,
-  InputBox,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
