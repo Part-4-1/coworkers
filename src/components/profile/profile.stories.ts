@@ -1,5 +1,5 @@
+import { Profile } from "@/components/index";
 import { Meta, StoryObj } from "@storybook/nextjs";
-import Profile from "./profile";
 
 const meta: Meta<typeof Profile> = {
   title: "Components/Profile",
