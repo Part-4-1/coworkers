@@ -32,12 +32,9 @@ const meta: Meta<typeof Dropdown> = {
       description: "드롭다운 메뉴를 펼치는 트리거 요소",
     },
     items: {
-      description: "드롭다운 메뉴 항목 배열 {label, onClick}",
+      description: "드롭다운 메뉴 항목 배열 {label, onClick, addon}",
     },
-    defaultLabel: {
-      description:
-        "드롭다운 트리거 버튼에 처음 표시될 기본 라벨 (ReactNode, 기본값: items[0].label)",
-    },
+
     textAlign: {
       description: "드롭다운 메뉴의 텍스트 정렬 방식",
     },

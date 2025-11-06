@@ -155,7 +155,6 @@ const Page = () => {
           items={[{ label: "최신순" }, { label: "좋아요 많은순" }]}
           isWidthFull={true}
           defaultTriggerClassName="w-[130px] h-[48px]"
-          isDirectionDown={false}
         ></Dropdown>
         <Dropdown
           trigger={<Profile></Profile>}
