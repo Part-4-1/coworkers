@@ -1,9 +1,9 @@
 "use client";
 
+import { Button, Icon } from "@/components/index";
 import useClickOutside from "@/hooks/click-outside/use-click-outside";
 import cn from "@/utils/clsx";
 import { useRef, useState } from "react";
-
 /**
  * @author jinhyuk
  * @description Dropdown 컴포넌트는 props로 받는 trigger를 클릭하면 드롭다운
@@ -18,37 +18,44 @@ import { useRef, useState } from "react";
  */
 
 interface DropdownProps {
-  trigger: React.ReactNode;
+  trigger?: React.ReactNode;
   items: DropdownItem[];
+  defaultLabel?: React.ReactNode;
   textAlign?: "start" | "center" | "end";
   menuAlign?: "start" | "center" | "end";
   isWidthFull?: boolean;
   isDirectionDown?: boolean;
   className?: string;
+  defaultTriggerClassName?: string;
 }
 
 interface DropdownItem {
-  label: string;
+  label: React.ReactNode;
   onClick?: () => void;
 }
 
 const Dropdown = ({
   trigger,
   items,
+  defaultLabel,
   textAlign = "center",
   menuAlign = "end",
   isWidthFull = false,
   isDirectionDown = true,
   className,
+  defaultTriggerClassName,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const initialLabel: React.ReactNode = defaultLabel ?? items?.[0].label ?? "";
+  const [selectedLabel, setSelectedLabel] =
+    useState<React.ReactNode>(initialLabel);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleItemClick = (e: React.MouseEvent) => {
-    const index = Number((e.target as HTMLLIElement).dataset.index);
+  const handleItemClick = (index: number) => {
+    setSelectedLabel(items[index].label);
     items[index].onClick?.();
     setIsOpen(false);
   };
@@ -69,10 +76,27 @@ const Dropdown = ({
 
   useClickOutside(dropdownRef, () => setIsOpen(false), isOpen);
 
+  const DefaultTrigger = (
+    <Button
+      variant="outlined-secondary"
+      className={cn(
+        "h-[40px] w-[120px] border border-gray-300 tablet:h-[44px]",
+        "rounded-[8px] tablet:rounded-[12px]",
+        "flex items-center !justify-between px-[14px]",
+        "text-xs font-medium text-gray-800",
+        isOpen ? "bg-gray-300 text-blue-700" : "bg-white",
+        defaultTriggerClassName
+      )}
+    >
+      {selectedLabel}
+      <Icon icon="downArrow" className="h-[24px] w-[24px]"></Icon>
+    </Button>
+  );
+
   return (
     <div className={cn("relative inline-block", className)} ref={dropdownRef}>
       <div onClick={toggleDropdown} className="cursor-pointer select-none">
-        {trigger}
+        {trigger ?? DefaultTrigger}
       </div>
       {isOpen && (
         <div
@@ -83,11 +107,11 @@ const Dropdown = ({
             isWidthFull ? "w-full" : "w-max"
           )}
         >
-          <ul onClick={handleItemClick}>
+          <ul>
             {items.map(({ label }, i) => (
               <li
-                key={label}
-                data-index={i}
+                key={i}
+                onClick={() => handleItemClick(i)}
                 className={cn(
                   "flex w-auto cursor-pointer items-center px-[18px] py-[12px] pc:px-[20px] pc:py-[14px]",
                   "transition-colors first:rounded-t-[12px] last:rounded-b-[12px] hover:bg-gray-300",
