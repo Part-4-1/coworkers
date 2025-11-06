@@ -188,7 +188,11 @@ const Page = () => {
         <Badge total={5} completed={3} size="lg" />
         <Badge total={5} completed={5} size="lg" />
       </div>
-      <ImageUpload maxCount={5} />
+      <div className="flex w-full justify-center">
+        <div className="w-full max-w-[600px]">
+          <ImageUpload maxCount={5} />
+        </div>
+      </div>
     </div>
   );
 };
