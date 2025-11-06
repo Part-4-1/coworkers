@@ -62,9 +62,7 @@ const Page = () => {
             >
               <Icon
                 icon={showPassword ? "visible" : "invisible"}
-                width={24}
-                height={24}
-                className="text-gray-800"
+                className="h-6 w-6 text-gray-800"
               />
             </button>
           }
@@ -109,11 +107,11 @@ const Page = () => {
           생성하기
         </Button>
         <Button className="w-fit rounded-[40px] pl-[16px] pr-5 text-md">
-          <Icon icon="checkInverse" width={16} height={16} />
+          <Icon icon="checkInverse" className="h-4 w-4" />
           완료 취소하기
         </Button>
         <Button variant="none" className="h-8 w-8 rounded-full bg-gray-300">
-          <Icon icon="smallPencil" width={12} height={16} />
+          <Icon icon="smallPencil" className="h-4 w-3" />
         </Button>
         <Button variant="outlined" size="sm">
           {/* <Icon icon="check" width={16} height={16} /> */}
