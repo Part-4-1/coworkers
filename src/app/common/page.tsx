@@ -11,6 +11,7 @@ import {
   Reply,
   TextInput,
   TodoHeader,
+  ImageUpload,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
