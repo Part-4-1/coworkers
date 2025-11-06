@@ -7,4 +7,4 @@ export { default as TextInput } from "./input-components/text-input";
 export { default as Reply } from "./reply/reply";
 export { default as SidebarDropdown } from "./sidebar-components/sidebar-dropdown";
 export { default as TodoHeader } from "./todo-header/todo-header";
-export { default as Chip } from "./todo-chip/todo-chip";
+export { default as TaskChip } from "./task-chip/task-chip";

@@ -1,13 +1,13 @@
 import cn from "@/utils/clsx";
 
-interface TodoChipProps {
+interface TaskChipProps {
   id: string;
   name: string;
   todo: string;
   count: number;
 }
 
-const TodoChip = ({ name, id, todo, count }: TodoChipProps) => {
+const TaskChip = ({ name, id, todo, count }: TaskChipProps) => {
   return (
     <div>
       <input
@@ -33,4 +33,4 @@ const TodoChip = ({ name, id, todo, count }: TodoChipProps) => {
   );
 };
 
-export default TodoChip;
+export default TaskChip;

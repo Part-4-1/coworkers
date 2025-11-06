@@ -11,7 +11,6 @@ import {
 } from "@/constants/regex";
 import { mockComments } from "@/mocks/comment-data";
 import { useForm } from "react-hook-form";
-import TodoChip from "@/components/todo-chip/todo-chip";
 
 type LoginFormData = {
   email: string;
@@ -138,9 +137,7 @@ const Page = () => {
           todoName="할 일"
         />
       </div>
-      <div className="w-[300px]">
-        {/* <TodoChip todo="법인 설립" count={12} /> */}
-      </div>
+      <div className="w-[300px]"></div>
     </div>
   );
 };
