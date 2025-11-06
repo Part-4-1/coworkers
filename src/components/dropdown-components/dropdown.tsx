@@ -10,11 +10,13 @@ import { useRef, useState } from "react";
  * 메뉴가 펼쳐지고 선택할 수 있는 컴포넌트입니다.
  * @param trigger - 드롭다운 메뉴를 펼치는 트리거 요소
  * @param items - 드롭다운 메뉴 항목 배열 {label, onClick}
+ * @param defaultLabel - 드롭다운 트리거 버튼에 처음 표시될 기본 라벨 (ReactNode, 기본값: items[0].label)
  * @param textAlign - 드롭다운 메뉴의 텍스트 정렬 방식 (기본값: center)
  * @param menuAlign - 드롭다운 메뉴의 정렬 기준 (기본값: end)
  * @param isWidthFull - 메뉴의 width를 트리거의 width와 동일하게 설정할지 여부 (기본값: false)
  * @param isDirectionDown - 메뉴가 나타나는 방향을 설정 (기본값: true)
- * @param className - 추가 스타일을 부여하기 위해 사용
+ * @param className - Dropdown 전체 컨테이너에 추가할 클래스
+ * @param defaultTriggerClassName - 기본 트리거(Button)에 커스텀 스타일을 적용하기 위한 클래스
  */
 
 interface DropdownProps {
