@@ -5,7 +5,7 @@ import tailwindConfig from "../../../tailwind.config";
 import { Icon } from "../index";
 import cn from "@/utils/clsx";
 
-interface BadgeProps {
+export interface BadgeProps {
   total: number;
   completed: number;
   size?: "lg";

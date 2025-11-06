@@ -11,3 +11,4 @@ export { default as TodoHeader } from "./todo-header/todo-header";
 export { default as Badge } from "./badge/badge";
 export { default as InputReply } from "./input-reply/input-reply";
 export { default as InputBox } from "./input-box/input-box";
+export { default as TaskCard } from "./task-card/task-card";

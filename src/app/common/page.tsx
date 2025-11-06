@@ -9,6 +9,7 @@ import {
   InputReply,
   Profile,
   Reply,
+  TaskCard,
   TextInput,
   TodoHeader,
 } from "@/components/index";
@@ -182,6 +183,9 @@ const Page = () => {
         <Badge total={0} completed={0} size="lg" />
         <Badge total={5} completed={3} size="lg" />
         <Badge total={5} completed={5} size="lg" />
+      </div>
+      <div>
+        <TaskCard taskTitle="법인 설립" total={5} completed={2} />
       </div>
     </div>
   );
