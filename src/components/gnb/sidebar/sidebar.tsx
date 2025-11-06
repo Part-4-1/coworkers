@@ -10,6 +10,7 @@ import cn from "@/utils/clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { usePathname } from "next/navigation";
+import { createPortal } from "react-dom";
 
 /**
  * @author leohan
@@ -18,9 +19,12 @@ import { usePathname } from "next/navigation";
  */
 
 const PC_BREAKPOINT = "(min-width: 1280px)";
+const BETWEEN_MOBILE_PC_BREAKPOINT =
+  "(min-width: 376px) and (max-width: 1279px)";
 
 const Sidebar = () => {
   const isDesktop = useMediaQuery(PC_BREAKPOINT);
+  const isTablet = useMediaQuery(BETWEEN_MOBILE_PC_BREAKPOINT);
   const pathname = usePathname();
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
@@ -32,6 +36,24 @@ const Sidebar = () => {
     setIsSidebarOpen(isDesktop);
   }, [isDesktop]);
 
+  useEffect(() => {
+    const isLockScroll = isTablet && isSidebarOpen;
+
+    if (isLockScroll) {
+      const html = document.documentElement;
+      const scrollBarWidth = window.innerWidth - html.clientWidth;
+
+      html.style.overflow = "hidden";
+      html.style.paddingRight = `${scrollBarWidth}px`;
+    }
+
+    return () => {
+      const html = document.documentElement;
+      html.style.overflow = "auto";
+      html.style.paddingRight = "0px";
+    };
+  }, [isTablet, isSidebarOpen]);
+
   const handleToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -39,69 +61,79 @@ const Sidebar = () => {
   const isTeamExist = true; // 임시 팀 존재 확인
   const isLoggedIn = true; // 임시 로그인 확인
 
-  return (
-    <motion.aside
-      animate={{
-        width: isSidebarOpen ? 270 : 73,
-      }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={cn(
-        "fixed left-0 top-0 flex h-screen flex-col justify-between border-r border-gray-300 bg-white"
-      )}
-    >
-      <div>
-        <SidebarHeader
-          isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
+  return createPortal(
+    <>
+      {isSidebarOpen && isTablet && (
+        <div
+          className="fixed inset-0 z-10 bg-black opacity-50"
+          onClick={() => setIsSidebarOpen(false)}
         />
-        {isLoggedIn && (
-          <div className="flex flex-1 flex-col justify-between px-4">
-            <div className="flex flex-col gap-3">
-              {isTeamExist && (
-                <div
-                  className={`flex flex-col gap-2 ${isSidebarOpen && "border-b border-gray-300 pb-6"}`}
-                >
-                  <SidebarDropdown
-                    isSidebarOpen={isSidebarOpen}
-                    isOpen={isDropdownOpen}
-                    setIsOpen={setIsDropdownOpen}
-                    onToggle={handleToggle}
-                    currentTeamId={currentTeamId}
-                  />
-                  <AnimatePresence>
-                    {isSidebarOpen && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
-                        className="overflow-hidden"
-                      >
-                        <Button
-                          variant="outlined"
-                          className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
+      )}
+
+      <motion.aside
+        animate={{
+          width: isSidebarOpen ? 270 : 73,
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className={
+          "fixed left-0 top-0 z-20 flex h-screen flex-col justify-between border-r border-gray-300 bg-white"
+        }
+      >
+        <div>
+          <SidebarHeader
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+          {isLoggedIn && (
+            <div className="flex flex-1 flex-col justify-between px-4">
+              <div className="flex flex-col gap-3">
+                {isTeamExist && (
+                  <div
+                    className={`flex flex-col gap-2 ${isSidebarOpen && "border-b border-gray-300 pb-6"}`}
+                  >
+                    <SidebarDropdown
+                      isSidebarOpen={isSidebarOpen}
+                      isOpen={isDropdownOpen}
+                      setIsOpen={setIsDropdownOpen}
+                      onToggle={handleToggle}
+                      currentTeamId={currentTeamId}
+                    />
+                    <AnimatePresence>
+                      {isSidebarOpen && (
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeOut" }}
+                          className="overflow-hidden"
                         >
-                          + 팀 추가하기
-                        </Button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              )}
-              <SidebarMenu
-                iconName="board"
-                isSidebarOpen={isSidebarOpen}
-                title="자유게시판"
-                href={"/article"}
-              />
+                          <Button
+                            variant="outlined"
+                            className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
+                          >
+                            + 팀 추가하기
+                          </Button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
+                <SidebarMenu
+                  iconName="board"
+                  isSidebarOpen={isSidebarOpen}
+                  title="자유게시판"
+                  href={"/article"}
+                />
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-      <div className={isSidebarOpen ? "px-4" : "px-5"}>
-        <SidebarFooter isSidebarOpen={isSidebarOpen} />
-      </div>
-    </motion.aside>
+          )}
+        </div>
+        <div className={isSidebarOpen ? "px-4" : "px-5"}>
+          <SidebarFooter isSidebarOpen={isSidebarOpen} />
+        </div>
+      </motion.aside>
+    </>,
+    document.body
   );
 };
 

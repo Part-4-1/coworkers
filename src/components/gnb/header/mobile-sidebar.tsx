@@ -6,13 +6,13 @@ import { Button, Icon } from "@/components/index";
 import { mockUser } from "@/mocks/sidebar-data";
 import SidebarMenu from "../sidebar/_components/sidebar-menu";
 import { usePathname } from "next/navigation";
+import { easeOut, motion } from "framer-motion";
 
 interface MobileSidebarProps {
-  isOpen: boolean;
   onClose: () => void;
 }
 
-const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
+const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
   const pathname = usePathname();
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
@@ -23,7 +23,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted || !isOpen) {
+  if (!isMounted) {
     return null;
   }
 
@@ -34,7 +34,13 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
             className="fixed inset-0 z-10 bg-black opacity-50"
             onClick={onClose}
           />
-          <div className="fixed left-0 top-0 z-20 flex h-full w-[204px] flex-col gap-7 border-r border-gray-300 bg-white p-4">
+          <motion.div
+            className="fixed left-0 top-0 z-20 flex h-full w-[204px] flex-col gap-7 border-r border-gray-300 bg-white p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1, ease: "easeIn" }}
+          >
             <div className="flex w-full justify-end">
               <Button variant="none" onClick={onClose}>
                 <Icon icon="x" className="h-5 w-5" />
@@ -64,7 +70,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                 href={"/article"}
               />
             </div>
-          </div>
+          </motion.div>
         </>,
         document.body
       )

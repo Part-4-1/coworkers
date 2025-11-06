@@ -4,6 +4,7 @@ import { Button, Dropdown, Icon, Profile } from "@/components/index";
 import Link from "next/link";
 import MobileSidebar from "./mobile-sidebar";
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 /**
  * @author leohan
@@ -41,12 +42,15 @@ const GnbHeader = () => {
               isWidthFull={false}
             />
           </div>
-          <MobileSidebar
-            isOpen={isOpen}
-            onClose={() => {
-              setIsOpen(false);
-            }}
-          />
+          <AnimatePresence>
+            {isOpen && (
+              <MobileSidebar
+                onClose={() => {
+                  setIsOpen(false);
+                }}
+              />
+            )}
+          </AnimatePresence>
         </div>
       ) : (
         <Link
