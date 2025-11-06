@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { mockUser } from "@/mocks/sidebar-data";
 import { AnimatePresence, motion } from "framer-motion";
+import { Profile } from "@/components/index";
 
 /**
  * @author leohan
@@ -17,12 +18,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
-        <Image
-          src={mockUser[0].image || "/default-profile.png"}
-          alt="프로파일 이미지"
-          fill
-          style={{ objectFit: "cover" }}
-        />
+        <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
       </div>
       <AnimatePresence>
         {isSidebarOpen && (

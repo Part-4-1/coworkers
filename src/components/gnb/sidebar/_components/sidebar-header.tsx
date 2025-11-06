@@ -1,7 +1,6 @@
 import React from "react";
-import Icon from "../../../icon/Icon";
+import { Icon, Button } from "@/components/index";
 import Link from "next/link";
-import Button from "@/components/button/button";
 import cn from "@/utils/clsx";
 
 /**
@@ -25,7 +24,7 @@ const SidebarHeader = ({
       <Link href={"/"} className="flex items-center gap-[2px]">
         <Icon icon="logo" className="h-[18px] w-[18px]" />
         {isSidebarOpen && (
-          <h1 className="text-[20px] font-bold text-blue-200">COWORKERS</h1>
+          <h1 className="text-xl font-bold text-blue-200">COWORKERS</h1>
         )}
       </Link>
       <Button variant="none" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>

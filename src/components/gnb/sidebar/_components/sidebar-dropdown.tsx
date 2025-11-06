@@ -1,13 +1,11 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import Icon from "../../../icon/Icon";
+import { Icon } from "@/components/index";
 import SidebarMenu from "./sidebar-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import { mockUser } from "@/mocks/sidebar-data";
-import Button from "@/components/button/button";
 import cn from "@/utils/clsx";
-
 /**
  * @author leohan
  * @description Sidebar dropdown 컴포넌트
@@ -18,6 +16,7 @@ interface SidebarDropdownProps {
   isSidebarOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   onToggle: () => void;
+  currentTeamId: string;
 }
 
 const iconStyles = {
@@ -30,9 +29,8 @@ const SidebarDropdown = ({
   setIsOpen,
   isSidebarOpen,
   onToggle,
+  currentTeamId,
 }: SidebarDropdownProps) => {
-  const [selectedTitle, setSelectedTitle] = useState<string>();
-
   return (
     <div className="w-full max-w-[238px]">
       <div
@@ -80,14 +78,14 @@ const SidebarDropdown = ({
               setIsOpen(false);
             }}
           >
-            {mockUser.map((user) => (
+            {mockUser[0].memberships.map((data) => (
               <SidebarMenu
-                key={user.id}
+                key={data.groupId}
                 isSidebarOpen={isSidebarOpen}
-                title={user.memberships[0].group.name}
+                title={data.group.name}
                 iconName="chess"
-                isSelected={user.memberships[0].group.name === selectedTitle}
-                onClick={() => setSelectedTitle(user.memberships[0].group.name)}
+                isSelected={String(data.group.id) === currentTeamId}
+                href={`/${mockUser[0].teamId}/groups/${data.group.id}`}
               />
             ))}
           </motion.div>

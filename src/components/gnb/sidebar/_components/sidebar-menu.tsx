@@ -1,6 +1,6 @@
 import cn from "@/utils/clsx";
 import React from "react";
-import Icon from "../../../icon/Icon";
+import { Icon } from "@/components/index";
 import ICONS_MAP from "../../../icon/icons-map";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
@@ -9,9 +9,9 @@ type IconKeys = keyof typeof ICONS_MAP;
 interface SidebarMenuProps {
   iconName: IconKeys;
   title: string;
-  isSidebarOpen: boolean;
+  isSidebarOpen?: boolean;
   isSelected?: boolean;
-  onClick: () => void;
+  href: string;
 }
 
 const menuStyles = {
@@ -41,8 +41,8 @@ const SidebarMenu = ({
   iconName,
   title,
   isSelected,
-  isSidebarOpen,
-  onClick,
+  isSidebarOpen = true,
+  href,
 }: SidebarMenuProps) => {
   return (
     <Link
@@ -51,8 +51,7 @@ const SidebarMenu = ({
         isSelected && menuStyles.selected,
         !isSidebarOpen && menuStyles.sidebarOpen
       )}
-      onClick={onClick}
-      href={"/"}
+      href={href}
     >
       <Icon
         icon={iconName}

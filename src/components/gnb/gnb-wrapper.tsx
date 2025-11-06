@@ -1,9 +1,8 @@
 "use client";
 
 import useMediaQuery from "@/hooks/useMediaQuery";
-import React from "react";
-import Sidebar from "./sidebar/sidebar";
-import GnbHeader from "./header/gnb-header";
+import React, { useEffect, useState } from "react";
+import { Sidebar, GnbHeader } from "@/components/index";
 
 /**
  * @author leohan
@@ -13,13 +12,22 @@ import GnbHeader from "./header/gnb-header";
 const TABLET_BREAKPOINT = "(min-width: 376px)";
 
 const GnbWrapper = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const isTabletOrPc = useMediaQuery(TABLET_BREAKPOINT);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   if (isTabletOrPc) {
     return <Sidebar />;
+  } else {
+    return <GnbHeader />;
   }
-
-  return <GnbHeader />;
 };
 
 export default GnbWrapper;

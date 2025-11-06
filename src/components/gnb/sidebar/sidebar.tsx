@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import SidebarHeader from "./components/sidebar-header";
-import SidebarDropdown from "./components/sidebar-dropdown";
-import SidebarFooter from "./components/sidebar-footer";
-import Button from "../../button/button";
-import Icon from "../../icon/Icon";
-import SidebarMenu from "./components/sidebar-menu";
+import SidebarHeader from "./_components/sidebar-header";
+import SidebarDropdown from "./_components/sidebar-dropdown";
+import SidebarFooter from "./_components/sidebar-footer";
+import { Button } from "@/components/index";
+import SidebarMenu from "./_components/sidebar-menu";
 import cn from "@/utils/clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { usePathname } from "next/navigation";
 
 /**
  * @author leohan
@@ -21,19 +21,15 @@ const PC_BREAKPOINT = "(min-width: 1280px)";
 
 const Sidebar = () => {
   const isDesktop = useMediaQuery(PC_BREAKPOINT);
+  const pathname = usePathname();
+  const segments = pathname.split("/");
+  const currentTeamId = segments[segments.length - 1];
 
-  const [isSidebarOpen, _setIsSidebarOpen] = useState(false);
-  const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const setIsSidebarOpen = (value: React.SetStateAction<boolean>) => {
-    setIsUserSidebarOpen(true);
-    _setIsSidebarOpen(value);
-  };
-
   useEffect(() => {
-    _setIsSidebarOpen(isDesktop);
-    setIsUserSidebarOpen(false);
+    setIsSidebarOpen(isDesktop);
   }, [isDesktop]);
 
   const handleToggle = () => {
@@ -70,6 +66,7 @@ const Sidebar = () => {
                     isOpen={isDropdownOpen}
                     setIsOpen={setIsDropdownOpen}
                     onToggle={handleToggle}
+                    currentTeamId={currentTeamId}
                   />
                   <AnimatePresence>
                     {isSidebarOpen && (
@@ -95,7 +92,7 @@ const Sidebar = () => {
                 iconName="board"
                 isSidebarOpen={isSidebarOpen}
                 title="자유게시판"
-                onClick={() => {}}
+                href={"/article"}
               />
             </div>
           </div>

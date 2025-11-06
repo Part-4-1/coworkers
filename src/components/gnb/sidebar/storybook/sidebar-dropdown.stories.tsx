@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import SidebarDropdown from "./sidebar-dropdown";
-import { use, useState } from "react";
+import SidebarDropdown from "../_components/sidebar-dropdown";
+import { useState } from "react";
 
 const meta: Meta<typeof SidebarDropdown> = {
   title: "components/SidebarDropdown",
