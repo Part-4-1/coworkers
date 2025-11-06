@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Icon, TaskChip, TodoHeader } from "@/components";
+import { Icon, TaskChip, TaskHeader } from "@/components";
 import Button from "@/components/button/button";
 import { Dropdown, Reply, TextInput } from "@/components/index";
 import {
@@ -130,7 +130,7 @@ const Page = () => {
         />
       </div>
       <div className="w-[300px]">
-        <TodoHeader
+        <TaskHeader
           btnClick={() => {
             alert("버튼 클릭");
           }}
