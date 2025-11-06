@@ -9,6 +9,7 @@ interface BadgeProps {
   total: number;
   completed: number;
   size?: "lg";
+  className?: string;
 }
 
 const fullConfig = resolveConfig(tailwindConfig);
@@ -22,9 +23,14 @@ const colors = fullConfig.theme?.colors;
  * @param size - 배지 크기 (기본값: 없음, "lg": 큰 크기)
  * @returns <Badge />
  */
-const Badge = ({ total, completed, size }: BadgeProps) => {
+const Badge = ({ total, completed, size, className }: BadgeProps) => {
   return (
-    <div className="w-fit gap-1 rounded-full bg-white px-2 py-1 flex-center">
+    <div
+      className={cn(
+        "w-fit gap-1 rounded-full bg-white px-2 py-1 flex-center",
+        className
+      )}
+    >
       <div className={cn("h-4 w-4", size && "h-5 w-5")}>
         {completed === total && total ? (
           <Icon icon="progress" />
