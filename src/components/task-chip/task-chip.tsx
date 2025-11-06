@@ -1,6 +1,4 @@
 import cn from "@/utils/clsx";
-import tailwindConfig from "../../../tailwind.config";
-import resolveConfig from "tailwindcss/resolveConfig";
 
 interface TaskChipProps {
   id: string;
@@ -9,7 +7,7 @@ interface TaskChipProps {
   count: number;
 }
 
-const colors = resolveConfig(tailwindConfig).theme?.colors;
+const COUNT_COLOR = "#5189FA";
 
 const TaskChip = ({ radioName, id, taskName, count }: TaskChipProps) => {
   return (
@@ -29,7 +27,7 @@ const TaskChip = ({ radioName, id, taskName, count }: TaskChipProps) => {
           "pc:h-[54px] pc:w-full pc:justify-between pc:rounded-xl pc:px-4 pc:py-0",
           "cursor-pointer border-gray-300 bg-white hover:bg-gray-50",
           "peer-checked:border-blue-200 peer-checked:bg-blue-200 peer-checked:text-white",
-          `[--count-color:${colors.blue[200]}] peer-checked:[--count-color:text-white]`
+          `[--count-color:${COUNT_COLOR}] peer-checked:[--count-color:text-white]`
         )}
       >
         <span className="text-sm tablet:text-lg">{taskName}</span>
