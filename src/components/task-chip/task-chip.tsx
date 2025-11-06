@@ -9,6 +9,28 @@ interface TaskChipProps {
 
 const COUNT_COLOR = "#5189FA";
 
+/**
+ * @author hwitae
+ * @description 할 일 목록을 라디오 버튼 형태로 보여주는 컴포넌트입니다.
+ * @param id - 라디오 버튼의 id 값 (id 값이 value 값으로도 사용됩니다)
+ * @param radioName - 라디오 버튼의 name 값 (이름이 같아야 같은 그룹으로 묶이게 됩니다)
+ * @param taskName - 할 일 목록 이름
+ * @param count - 할 일 개수
+ * @returns <TaskChip />
+ * @example
+ * <TaskChip
+ *    id="task-1"
+ *    radioName="task"
+ *    taskName="오늘 할 일"
+ *    count={5}
+ * />
+ * <TaskChip
+ *    id="task-2"
+ *    radioName="task"
+ *    taskName="오늘 할 일"
+ *    count={5}
+ * />
+ */
 const TaskChip = ({ radioName, id, taskName, count }: TaskChipProps) => {
   return (
     <div>
