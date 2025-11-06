@@ -1,9 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { Icon, TodoHeader } from "@/components";
-import Button from "@/components/button/button";
-import { Dropdown, Reply, TextInput } from "@/components/index";
+import {
+  Badge,
+  Button,
+  Dropdown,
+  Icon,
+  InputBox,
+  InputReply,
+  Profile,
+  Reply,
+  TextInput,
+  TodoHeader,
+} from "@/components/index";
 import {
   EMAIL_REGEX,
   PASSWORD_MIN_LENGTH,
@@ -11,6 +19,8 @@ import {
 } from "@/constants/regex";
 
 import { mockComments } from "@/mocks/comment-data";
+import { mockUserData } from "@/mocks/user-data";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type LoginFormData = {
@@ -34,7 +44,7 @@ const Page = () => {
   });
 
   return (
-    <div className="mt-10 w-full gap-4 flex-col-center">
+    <div className="mb-[300px] mt-10 w-full gap-4 flex-col-center">
       <form className="mt-10 w-full gap-4 flex-col-center">
         <TextInput
           id="email"
@@ -96,6 +106,7 @@ const Page = () => {
         />
       </form>
       <Reply comment={singleComment} />
+      <InputReply />
       <div className="w-[300px] gap-2 flex-col-center">
         <Button>생성하기</Button>
         <Button variant="outlined">생성하기</Button>
@@ -119,7 +130,27 @@ const Page = () => {
           변경하기
         </Button>
       </div>
-      <div>
+      <div className="flex gap-5">
+        <Profile></Profile>
+        <Profile image={mockUserData[0].image}></Profile>
+        <Profile size="md"></Profile>
+        <Profile image={mockUserData[1].image} size="md"></Profile>
+        <Profile size="sm"></Profile>
+        <Profile image={mockUserData[2].image} size="sm"></Profile>
+        <Profile size="lg"></Profile>
+        <Profile image={mockUserData[2].image} size="lg"></Profile>
+      </div>
+      <div className="flex gap-5">
+        <Dropdown
+          trigger={<Profile></Profile>}
+          items={[
+            { label: "마이 히스토리" },
+            { label: "계정 설정" },
+            { label: "팀 참여" },
+            { label: "로그아웃" },
+          ]}
+          isWidthFull={false}
+        />
         <Dropdown
           trigger={<Button size="sm">드롭다운</Button>}
           items={[
@@ -138,6 +169,16 @@ const Page = () => {
           }}
           todoName="할 일"
         />
+      </div>
+      <InputBox
+        placeholder="메모를 입력해주세요."
+        width="w-full max-w-[336px]"
+      />
+      <InputBox placeholder="내용을 입력하세요" width="w-full max-w-[336px]" />
+      <div className="flex gap-2 bg-slate-600 px-4 py-4">
+        <Badge total={0} completed={0} />
+        <Badge total={5} completed={3} />
+        <Badge total={5} completed={5} />
       </div>
     </div>
   );
