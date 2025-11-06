@@ -143,6 +143,41 @@ const Page = () => {
       </div>
       <div className="flex gap-5">
         <Dropdown
+          items={[
+            {
+              label: (
+                <div className="flex items-center gap-2">
+                  법인 등기
+                  <Badge total={5} completed={3} />
+                </div>
+              ),
+            },
+            {
+              label: (
+                <div className="flex items-center gap-2">
+                  법인 설립
+                  <Badge total={5} completed={5} />
+                </div>
+              ),
+            },
+            {
+              label: (
+                <div className="flex items-center gap-2">
+                  정기 주총
+                  <Badge total={10} completed={2} />
+                </div>
+              ),
+            },
+          ]}
+          isWidthFull
+          defaultTriggerClassName="w-[241px] h-[54px] font-medium"
+        />
+        <Dropdown
+          items={[{ label: "최신순" }, { label: "좋아요 많은순" }]}
+          isWidthFull={true}
+          defaultTriggerClassName="w-[130px] h-[48px]"
+        ></Dropdown>
+        <Dropdown
           trigger={<Profile></Profile>}
           items={[
             { label: "마이 히스토리" },
