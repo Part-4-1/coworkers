@@ -27,13 +27,13 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
     e.stopPropagation();
     setIsDragActive(false);
 
-    const file = e.dataTransfer.files?.[0];
-    if (file) handleFile(file);
+    const files = Array.from(e.dataTransfer.files);
+    files.forEach(handleFile);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.currentTarget.files?.[0];
-    if (file) handleFile(file);
+    const files = Array.from(e.currentTarget.files || []);
+    files.forEach(handleFile);
   };
 
   const isFull = previews.length >= maxCount;
@@ -61,9 +61,10 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
                 onChange={handleInputChange}
                 disabled={isLoading}
                 className="hidden"
+                multiple
               />
               <Icon icon="imgUpload" className="h-6 w-6" />
-              <p className="text-xs text-gray-600">
+              <p className="text-lg text-gray-800">
                 {previews.length}/{maxCount}
               </p>
             </label>
