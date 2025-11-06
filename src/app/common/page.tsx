@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Icon, TodoHeader } from "@/components";
+import { Icon, TaskChip, TodoHeader } from "@/components";
 import Button from "@/components/button/button";
 import { Dropdown, Reply, TextInput } from "@/components/index";
 import {
@@ -137,7 +137,15 @@ const Page = () => {
           todoName="할 일"
         />
       </div>
-      <div className="w-[300px]"></div>
+      <div className="w-[300px]">
+        <TaskChip
+          id="task-1"
+          radioName="task"
+          taskName="오늘 할 일"
+          count={5}
+        />
+        <TaskChip id="task-2" radioName="task" taskName="진행 중" count={2} />
+      </div>
     </div>
   );
 };
