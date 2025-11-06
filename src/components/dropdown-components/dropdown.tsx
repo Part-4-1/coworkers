@@ -78,6 +78,14 @@ const Dropdown = ({
 
   useClickOutside(dropdownRef, () => setIsOpen(false), isOpen);
 
+  const arrowRotation = isDirectionDown
+    ? isOpen
+      ? "rotate-180"
+      : "rotate-0"
+    : isOpen
+      ? "rotate-0"
+      : "rotate-180";
+
   const DefaultTrigger = (
     <Button
       variant="outlined-secondary"
@@ -91,7 +99,10 @@ const Dropdown = ({
       )}
     >
       {selectedLabel}
-      <Icon icon="downArrow" className="h-[24px] w-[24px]"></Icon>
+      <Icon
+        icon="downArrow"
+        className={cn("h-[24px] w-[24px]", arrowRotation)}
+      ></Icon>
     </Button>
   );
 

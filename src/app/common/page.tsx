@@ -176,19 +176,10 @@ const Page = () => {
           items={[{ label: "최신순" }, { label: "좋아요 많은순" }]}
           isWidthFull={true}
           defaultTriggerClassName="w-[130px] h-[48px]"
+          isDirectionDown={false}
         ></Dropdown>
         <Dropdown
           trigger={<Profile></Profile>}
-          items={[
-            { label: "마이 히스토리" },
-            { label: "계정 설정" },
-            { label: "팀 참여" },
-            { label: "로그아웃" },
-          ]}
-          isWidthFull={false}
-        />
-        <Dropdown
-          trigger={<Button size="sm">드롭다운</Button>}
           items={[
             { label: "마이 히스토리" },
             { label: "계정 설정" },
