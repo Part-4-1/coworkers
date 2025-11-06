@@ -135,16 +135,12 @@ const Page = () => {
         <Profile image={mockUserData[1].image} size="md"></Profile>
         <Profile size="sm"></Profile>
         <Profile image={mockUserData[2].image} size="sm"></Profile>
-        <Profile size="lg" isCircle={true}></Profile>
-        <Profile
-          image={mockUserData[2].image}
-          size="lg"
-          isCircle={true}
-        ></Profile>
+        <Profile size="lg"></Profile>
+        <Profile image={mockUserData[2].image} size="lg"></Profile>
       </div>
       <div className="flex gap-5">
         <Dropdown
-          trigger={<Profile isCircle={true}></Profile>}
+          trigger={<Profile></Profile>}
           items={[
             { label: "마이 히스토리" },
             { label: "계정 설정" },
