@@ -3,13 +3,16 @@
 import { Button, Icon } from "@/components/index";
 import useClickOutside from "@/hooks/click-outside/use-click-outside";
 import cn from "@/utils/clsx";
-import { useRef, useState } from "react";
+import { cloneElement, useRef, useState } from "react";
 /**
  * @author jinhyuk
  * @description Dropdown 컴포넌트는 props로 받는 trigger를 클릭하면 드롭다운
  * 메뉴가 펼쳐지고 선택할 수 있는 컴포넌트입니다.
  * @param trigger - 드롭다운 메뉴를 펼치는 트리거 요소
- * @param items - 드롭다운 메뉴 항목 배열 {label, onClick}
+ * @param items - 드롭다운 메뉴 항목 배열 {label, onClick, addon}
+ *  @param items.label - 드롭다운 메뉴에 표시될 문자열
+ *  @param items.onClick - 해당 메뉴 클릭 시 실행되는 콜백 함수
+ *  @param items.addon - 트리거 버튼 label 오른쪽에 표시되는 추가 컴포넌트 (예: Badge)
  * @param defaultLabel - 드롭다운 트리거 버튼에 처음 표시될 기본 라벨 (ReactNode, 기본값: items[0].label)
  * @param textAlign - 드롭다운 메뉴의 텍스트 정렬 방식 (기본값: center)
  * @param menuAlign - 드롭다운 메뉴의 정렬 기준 (기본값: end)
@@ -22,7 +25,6 @@ import { useRef, useState } from "react";
 interface DropdownProps {
   trigger?: React.ReactNode;
   items: DropdownItem[];
-  defaultLabel?: React.ReactNode;
   textAlign?: "start" | "center" | "end";
   menuAlign?: "start" | "center" | "end";
   isWidthFull?: boolean;
@@ -32,14 +34,14 @@ interface DropdownProps {
 }
 
 interface DropdownItem {
-  label: React.ReactNode;
+  label: string;
   onClick?: () => void;
+  addon?: React.ReactElement<{ className?: string }>;
 }
 
 const Dropdown = ({
   trigger,
   items,
-  defaultLabel,
   textAlign = "center",
   menuAlign = "end",
   isWidthFull = false,
@@ -48,15 +50,16 @@ const Dropdown = ({
   defaultTriggerClassName,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const initialLabel: React.ReactNode = defaultLabel ?? items?.[0].label ?? "";
-  const [selectedLabel, setSelectedLabel] =
-    useState<React.ReactNode>(initialLabel);
+  const initialLabel = items[0].label;
+  const [selectedLabel, setSelectedLabel] = useState<string>(initialLabel);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleItemClick = (index: number) => {
+    setSelectedIndex(index);
     setSelectedLabel(items[index].label);
     items[index].onClick?.();
     setIsOpen(false);
@@ -75,7 +78,6 @@ const Dropdown = ({
   }[menuAlign];
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   useClickOutside(dropdownRef, () => setIsOpen(false), isOpen);
 
   const arrowRotation = isDirectionDown
@@ -85,6 +87,15 @@ const Dropdown = ({
     : isOpen
       ? "rotate-0"
       : "rotate-180";
+
+  const selectedItem = items[selectedIndex];
+  const triggerAddon = selectedItem.addon
+    ? isOpen
+      ? cloneElement(selectedItem.addon, {
+          className: cn(selectedItem.addon.props.className, "bg-gray-300"),
+        })
+      : selectedItem.addon
+    : null;
 
   const DefaultTrigger = (
     <Button
@@ -98,7 +109,10 @@ const Dropdown = ({
         defaultTriggerClassName
       )}
     >
-      {selectedLabel}
+      <div className="flex items-center gap-[8px]">
+        {selectedLabel}
+        {triggerAddon}
+      </div>
       <Icon
         icon="downArrow"
         className={cn("h-[24px] w-[24px]", arrowRotation)}
@@ -123,11 +137,11 @@ const Dropdown = ({
           <ul>
             {items.map(({ label }, i) => (
               <li
-                key={i}
+                key={label}
                 onClick={() => handleItemClick(i)}
                 className={cn(
                   "flex w-auto cursor-pointer items-center px-[18px] py-[12px] pc:px-[20px] pc:py-[14px]",
-                  "transition-colors first:rounded-t-[12px] last:rounded-b-[12px] hover:bg-gray-300",
+                  "text-sm transition-colors first:rounded-t-[12px] last:rounded-b-[12px] hover:bg-gray-300",
                   textAlignClass
                 )}
               >

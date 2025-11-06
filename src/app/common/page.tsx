@@ -144,30 +144,9 @@ const Page = () => {
       <div className="flex gap-5">
         <Dropdown
           items={[
-            {
-              label: (
-                <div className="flex items-center gap-2">
-                  법인 등기
-                  <Badge total={5} completed={3} />
-                </div>
-              ),
-            },
-            {
-              label: (
-                <div className="flex items-center gap-2">
-                  법인 설립
-                  <Badge total={5} completed={5} />
-                </div>
-              ),
-            },
-            {
-              label: (
-                <div className="flex items-center gap-2">
-                  정기 주총
-                  <Badge total={10} completed={2} />
-                </div>
-              ),
-            },
+            { label: "법인 등기", addon: <Badge total={5} completed={3} /> },
+            { label: "법인 설립", addon: <Badge total={5} completed={5} /> },
+            { label: "정기 주총", addon: <Badge total={10} completed={2} /> },
           ]}
           isWidthFull
           defaultTriggerClassName="w-[241px] h-[54px] font-medium"
