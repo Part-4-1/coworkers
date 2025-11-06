@@ -11,6 +11,10 @@ const meta = {
   argTypes: {
     total: { control: "number", description: "총 할 일 개수" },
     completed: { control: "number", description: "완료한 할 일 개수" },
+    size: {
+      control: { type: "select", options: [undefined, "lg"] },
+      description: "배지 크기 (기본값: 없음, 'lg': 큰 크기)",
+    },
   },
 } satisfies Meta<typeof Badge>;
 
@@ -35,5 +39,29 @@ export const Completed: Story = {
   args: {
     total: 5,
     completed: 5,
+  },
+};
+
+export const LargeDefault: Story = {
+  args: {
+    total: 5,
+    completed: 3,
+    size: "lg",
+  },
+};
+
+export const LargeEmpty: Story = {
+  args: {
+    total: 0,
+    completed: 0,
+    size: "lg",
+  },
+};
+
+export const LargeCompleted: Story = {
+  args: {
+    total: 5,
+    completed: 5,
+    size: "lg",
   },
 };
