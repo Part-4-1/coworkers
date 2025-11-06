@@ -10,6 +10,9 @@ interface BadgeProps {
   completed: number;
 }
 
+const fullConfig = resolveConfig(tailwindConfig);
+const colors = fullConfig.theme?.colors;
+
 /**
  * @author hwitae
  * @description 할 일의 완료 상태를 시각적으로 보여주는 배지 컴포넌트입니다.
@@ -17,12 +20,8 @@ interface BadgeProps {
  * @param completed - 완료한 할 일 개수
  * @returns <Badge />
  * @example
- * <Badge total={5} completed={3} />
  */
 const Badge = ({ total, completed }: BadgeProps) => {
-  const fullConfig = resolveConfig(tailwindConfig);
-  const colors = fullConfig.theme?.colors;
-
   return (
     <div className="w-fit gap-1 rounded-full bg-white px-2 py-1 flex-center">
       {completed === total && total ? (
@@ -33,8 +32,8 @@ const Badge = ({ total, completed }: BadgeProps) => {
           value={completed}
           maxValue={total}
           styles={buildStyles({
-            trailColor: `${colors.gray[50]}`,
-            pathColor: `${total ? colors.blue[200] : colors.gray[300]}`,
+            trailColor: colors.gray[50],
+            pathColor: total ? colors.blue[200] : colors.gray[300],
           })}
           strokeWidth={16}
         />
