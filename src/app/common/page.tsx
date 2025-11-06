@@ -1,9 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Icon, TodoHeader } from "@/components";
-import Button from "@/components/button/button";
-import { Dropdown, Reply, TextInput } from "@/components/index";
+import {
+  Dropdown,
+  Reply,
+  TextInput,
+  InputReply,
+  Button,
+  Icon,
+  TodoHeader,
+} from "@/components/index";
 import {
   EMAIL_REGEX,
   PASSWORD_MIN_LENGTH,
@@ -94,6 +100,7 @@ const Page = () => {
         />
       </form>
       <Reply comment={singleComment} />
+      <InputReply />
       <div className="w-[300px] gap-2 flex-col-center">
         <Button>생성하기</Button>
         <Button variant="outlined">생성하기</Button>
