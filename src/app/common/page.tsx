@@ -179,7 +179,7 @@ const Page = () => {
         <Badge total={5} completed={5} />
       </div>
       <div className="flex gap-2 bg-slate-600 px-4 py-4">
-        <Badge total={0} completed={0} size="lg" />
+        <Badge total={0} completed={0} size="lg" className="bg-gray-300" />
         <Badge total={5} completed={3} size="lg" />
         <Badge total={5} completed={5} size="lg" />
       </div>
