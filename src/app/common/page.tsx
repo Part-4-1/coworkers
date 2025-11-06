@@ -10,6 +10,7 @@ import {
   Icon,
   TodoHeader,
   Badge,
+  InputBox,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -145,6 +146,11 @@ const Page = () => {
           todoName="할 일"
         />
       </div>
+      <InputBox
+        placeholder="메모를 입력해주세요."
+        width="w-full max-w-[336px]"
+      />
+      <InputBox placeholder="내용을 입력하세요" width="w-full max-w-[336px]" />
       <div className="flex gap-2 bg-slate-600 px-4 py-4">
         <Badge total={0} completed={0} />
         <Badge total={5} completed={3} />
