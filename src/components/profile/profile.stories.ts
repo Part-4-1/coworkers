@@ -16,7 +16,6 @@ const meta: Meta<typeof Profile> = {
   },
   args: {
     size: "lg",
-    isCircle: false,
     className: "",
   },
   argTypes: {
@@ -25,9 +24,6 @@ const meta: Meta<typeof Profile> = {
     },
     size: {
       description: `"lg", "md", "sm" 프로필 크기 옵션`,
-    },
-    isCircle: {
-      description: "true 일떈 원형, false일시 사이즈별 radius 적용",
     },
     className: {
       description: "추가 스타일을 부여하기 위해 사용",
@@ -46,12 +42,6 @@ type Story = StoryObj<typeof meta>;
 export const Image: Story = {
   args: {
     image: "https://randomuser.me/api/portraits/men/12.jpg",
-  },
-};
-
-export const IsCircle: Story = {
-  args: {
-    isCircle: true,
   },
 };
 
