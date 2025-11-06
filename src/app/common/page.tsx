@@ -9,6 +9,7 @@ import {
   Button,
   Icon,
   TodoHeader,
+  Badge,
   InputBox,
 } from "@/components/index";
 import {
@@ -39,7 +40,7 @@ const Page = () => {
   });
 
   return (
-    <div className="mt-10 w-full gap-4 flex-col-center">
+    <div className="mb-[300px] mt-10 w-full gap-4 flex-col-center">
       <form className="mt-10 w-full gap-4 flex-col-center">
         <TextInput
           id="email"
@@ -150,6 +151,11 @@ const Page = () => {
         width="w-full max-w-[336px]"
       />
       <InputBox placeholder="내용을 입력하세요" width="w-full max-w-[336px]" />
+      <div className="flex gap-2 bg-slate-600 px-4 py-4">
+        <Badge total={0} completed={0} />
+        <Badge total={5} completed={3} />
+        <Badge total={5} completed={5} />
+      </div>
     </div>
   );
 };
