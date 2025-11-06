@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import {
+  Button,
   Dropdown,
+  Icon,
+  InputReply,
+  Profile,
   Reply,
   TextInput,
-  InputReply,
-  Button,
-  Icon,
   TodoHeader,
   Badge,
   InputBox,
@@ -18,6 +18,8 @@ import {
   PASSWORD_REGEX,
 } from "@/constants/regex";
 import { mockComments } from "@/mocks/comment-data";
+import { mockUserData } from "@/mocks/user-data";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type LoginFormData = {
@@ -126,7 +128,27 @@ const Page = () => {
           변경하기
         </Button>
       </div>
-      <div>
+      <div className="flex gap-5">
+        <Profile></Profile>
+        <Profile image={mockUserData[0].image}></Profile>
+        <Profile size="md"></Profile>
+        <Profile image={mockUserData[1].image} size="md"></Profile>
+        <Profile size="sm"></Profile>
+        <Profile image={mockUserData[2].image} size="sm"></Profile>
+        <Profile size="lg"></Profile>
+        <Profile image={mockUserData[2].image} size="lg"></Profile>
+      </div>
+      <div className="flex gap-5">
+        <Dropdown
+          trigger={<Profile></Profile>}
+          items={[
+            { label: "마이 히스토리" },
+            { label: "계정 설정" },
+            { label: "팀 참여" },
+            { label: "로그아웃" },
+          ]}
+          isWidthFull={false}
+        />
         <Dropdown
           trigger={<Button size="sm">드롭다운</Button>}
           items={[
