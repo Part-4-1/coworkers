@@ -8,3 +8,4 @@ export { default as Reply } from "./reply/reply";
 export { default as SidebarDropdown } from "./sidebar-components/sidebar-dropdown";
 export { default as TodoHeader } from "./todo-header/todo-header";
 export { default as Badge } from "./badge/badge";
+export { default as InputReply } from "./input-reply/input-reply";
