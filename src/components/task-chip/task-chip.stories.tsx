@@ -21,20 +21,30 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    id: "task-1",
-    radioName: "task",
+    id: "task",
+    radioName: "task-default",
     taskName: "할 일",
     count: 3,
   },
 };
 
 export const Tasks: Story = {
-  args: { id: "task-1", radioName: "task", taskName: "할 일", count: 3 },
+  args: { id: "task-2", radioName: "task-multi", taskName: "할 일", count: 3 },
   render: () => (
     <div className="w-[200px] space-y-4">
-      <TaskChip id="task-1" radioName="task" taskName="할 일" count={5} />
-      <TaskChip id="task-2" radioName="task" taskName="진행 중" count={2} />
-      <TaskChip id="task-3" radioName="task" taskName="완료됨" count={8} />
+      <TaskChip id="task-3" radioName="task-multi" taskName="할 일" count={5} />
+      <TaskChip
+        id="task-4"
+        radioName="task-multi"
+        taskName="진행 중"
+        count={2}
+      />
+      <TaskChip
+        id="task-5"
+        radioName="task-multi"
+        taskName="완료됨"
+        count={8}
+      />
     </div>
   ),
 };
