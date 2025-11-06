@@ -12,7 +12,9 @@ import { useRef, useState } from "react";
  * @param items - 드롭다운 메뉴 항목 배열 {label, onClick}
  * @param textAlign - 드롭다운 메뉴의 텍스트 정렬 방식 (기본값: center)
  * @param menuAlign - 드롭다운 메뉴의 정렬 기준 (기본값: end)
- * @param isWidthFull - 메뉴의 width를 트리거의 width와 동일하게 설정할지 여부 (기본값: true)
+ * @param isWidthFull - 메뉴의 width를 트리거의 width와 동일하게 설정할지 여부 (기본값: false)
+ * @param isDirectionDown - 메뉴가 나타나는 방향을 설정 (기본값: true)
+ * @param className - 추가 스타일을 부여하기 위해 사용
  */
 
 interface DropdownProps {
@@ -21,6 +23,8 @@ interface DropdownProps {
   textAlign?: "start" | "center" | "end";
   menuAlign?: "start" | "center" | "end";
   isWidthFull?: boolean;
+  isDirectionDown?: boolean;
+  className?: string;
 }
 
 interface DropdownItem {
@@ -33,7 +37,9 @@ const Dropdown = ({
   items,
   textAlign = "center",
   menuAlign = "end",
-  isWidthFull = true,
+  isWidthFull = false,
+  isDirectionDown = true,
+  className,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -64,16 +70,17 @@ const Dropdown = ({
   useClickOutside(dropdownRef, () => setIsOpen(false), isOpen);
 
   return (
-    <div className="relative inline-block" ref={dropdownRef}>
+    <div className={cn("relative inline-block", className)} ref={dropdownRef}>
       <div onClick={toggleDropdown} className="cursor-pointer select-none">
         {trigger}
       </div>
       {isOpen && (
         <div
           className={cn(
-            "absolute top-full z-50 mt-2 rounded-[12px] border border-gray-300 bg-white text-blue-700 shadow-sm",
+            "absolute z-50 rounded-[12px] border border-gray-300 bg-white text-blue-700 shadow-sm",
+            isDirectionDown ? "top-full mt-2" : "bottom-full mb-2",
             menuAlignClass,
-            isWidthFull ? "w-full" : "w-max min-w-[110px] max-w-[150px]"
+            isWidthFull ? "w-full" : "w-max"
           )}
         >
           <ul onClick={handleItemClick}>
