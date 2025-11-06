@@ -26,9 +26,9 @@ const TaskChip = ({ radioName, id, taskName, count }: TaskChipProps) => {
         className={cn(
           "w-fit justify-between gap-1 rounded-full border px-3 py-2 font-medium flex-center",
           "tablet:px-4 tablet:py-3",
-          "py-0 pc:h-[54px] pc:w-full pc:justify-between pc:rounded-xl pc:px-4",
+          "pc:h-[54px] pc:w-full pc:justify-between pc:rounded-xl pc:px-4 pc:py-0",
           "cursor-pointer border-gray-300 bg-white hover:bg-gray-50",
-          "peer-checked:border-none peer-checked:bg-blue-200 peer-checked:text-white",
+          "peer-checked:border-blue-200 peer-checked:bg-blue-200 peer-checked:text-white",
           `[--count-color:${colors.blue[200]}] peer-checked:[--count-color:text-white]`
         )}
       >
