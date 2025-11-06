@@ -20,19 +20,20 @@ import {
 } from "@/constants/regex";
 import { mockComments } from "@/mocks/comment-data";
 import { mockUserData } from "@/mocks/user-data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 
 type LoginFormData = {
   email: string;
   password: string;
 };
 
-{
-  /** 공통 컴포넌트 개발간 사용할 테스트 페이지. */
-}
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const { previews } = useImageUpload({ maxCount: 5 });
+
   const singleComment = mockComments[0];
   const {
     register,
@@ -41,6 +42,10 @@ const Page = () => {
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
   });
+
+  useEffect(() => {
+    setUploadedImages(previews.map((preview) => preview.url));
+  }, [previews]);
 
   return (
     <div className="mb-[300px] mt-10 w-full gap-4 flex-col-center">
@@ -125,7 +130,6 @@ const Page = () => {
           <Icon icon="smallPencil" className="h-4 w-3" />
         </Button>
         <Button variant="outlined" size="sm">
-          {/* <Icon icon="check" width={16} height={16} /> */}
           변경하기
         </Button>
       </div>
@@ -184,6 +188,7 @@ const Page = () => {
         <Badge total={5} completed={3} size="lg" />
         <Badge total={5} completed={5} size="lg" />
       </div>
+      <ImageUpload maxCount={5} />
     </div>
   );
 };
