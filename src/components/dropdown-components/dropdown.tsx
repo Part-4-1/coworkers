@@ -13,7 +13,6 @@ import { cloneElement, useRef, useState } from "react";
  *  @param items.label - 드롭다운 메뉴에 표시될 문자열
  *  @param items.onClick - 해당 메뉴 클릭 시 실행되는 콜백 함수
  *  @param items.addon - 트리거 버튼 label 오른쪽에 표시되는 추가 컴포넌트 (예: Badge)
- * @param defaultLabel - 드롭다운 트리거 버튼에 처음 표시될 기본 라벨 (ReactNode, 기본값: items[0].label)
  * @param textAlign - 드롭다운 메뉴의 텍스트 정렬 방식 (기본값: center)
  * @param menuAlign - 드롭다운 메뉴의 정렬 기준 (기본값: end)
  * @param isWidthFull - 메뉴의 width를 트리거의 width와 동일하게 설정할지 여부 (기본값: false)
