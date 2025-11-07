@@ -11,13 +11,15 @@ import {
   Reply,
   TaskCard,
   TextInput,
-  TodoHeader,
+  TaskChip,
+  TaskHeader,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
 } from "@/constants/regex";
+
 import { mockComments } from "@/mocks/comment-data";
 import { mockUserData } from "@/mocks/user-data";
 import { MouseEvent, useState } from "react";
@@ -33,6 +35,7 @@ type LoginFormData = {
 }
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
+
   const singleComment = mockComments[0];
   const {
     register,
@@ -141,17 +144,21 @@ const Page = () => {
       </div>
       <div className="flex gap-5">
         <Dropdown
-          trigger={<Profile></Profile>}
           items={[
-            { label: "마이 히스토리" },
-            { label: "계정 설정" },
-            { label: "팀 참여" },
-            { label: "로그아웃" },
+            { label: "법인 등기", addon: <Badge total={5} completed={3} /> },
+            { label: "법인 설립", addon: <Badge total={5} completed={5} /> },
+            { label: "정기 주총", addon: <Badge total={10} completed={2} /> },
           ]}
-          isWidthFull={false}
+          isWidthFull
+          defaultTriggerClassName="w-[241px] h-[54px] font-medium"
         />
         <Dropdown
-          trigger={<Button size="sm">드롭다운</Button>}
+          items={[{ label: "최신순" }, { label: "좋아요 많은순" }]}
+          isWidthFull={true}
+          defaultTriggerClassName="w-[130px] h-[48px]"
+        ></Dropdown>
+        <Dropdown
+          trigger={<Profile></Profile>}
           items={[
             { label: "마이 히스토리" },
             { label: "계정 설정" },
@@ -162,7 +169,7 @@ const Page = () => {
         />
       </div>
       <div className="w-[300px]">
-        <TodoHeader
+        <TaskHeader
           btnClick={() => {
             alert("버튼 클릭");
           }}
@@ -180,9 +187,18 @@ const Page = () => {
         <Badge total={5} completed={5} />
       </div>
       <div className="flex gap-2 bg-slate-600 px-4 py-4">
-        <Badge total={0} completed={0} size="lg" />
+        <Badge total={0} completed={0} size="lg" className="bg-gray-300" />
         <Badge total={5} completed={3} size="lg" />
         <Badge total={5} completed={5} size="lg" />
+      </div>
+      <div className="w-[300px]">
+        <TaskChip
+          id="task-1"
+          radioName="task"
+          taskName="오늘 할 일"
+          count={5}
+        />
+        <TaskChip id="task-2" radioName="task" taskName="진행 중" count={2} />
       </div>
       <div>
         <TaskCard taskTitle="법인 설립" total={5} completed={4} />

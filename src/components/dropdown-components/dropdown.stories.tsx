@@ -1,4 +1,4 @@
-import { Dropdown } from "@/components/index";
+import { Dropdown, Profile } from "@/components/index";
 import { Meta, StoryObj } from "@storybook/nextjs";
 
 const meta: Meta<typeof Dropdown> = {
@@ -15,11 +15,6 @@ const meta: Meta<typeof Dropdown> = {
     },
   },
   args: {
-    trigger: (
-      <button className="w-[200px] rounded-[10px] border border-gray-300 bg-gray-300 px-4 py-2">
-        드롭다운 열기
-      </button>
-    ),
     items: [
       { label: "마이 히스토리" },
       { label: "계정 설정" },
@@ -30,14 +25,16 @@ const meta: Meta<typeof Dropdown> = {
     menuAlign: "end",
     isWidthFull: false,
     isDirectionDown: true,
+    defaultTriggerClassName: "w-[170px]",
   },
   argTypes: {
     trigger: {
       description: "드롭다운 메뉴를 펼치는 트리거 요소",
     },
     items: {
-      description: "드롭다운 메뉴 항목 배열 {label, onClick}",
+      description: "드롭다운 메뉴 항목 배열 {label, onClick, addon}",
     },
+
     textAlign: {
       description: "드롭다운 메뉴의 텍스트 정렬 방식",
     },
@@ -53,10 +50,17 @@ const meta: Meta<typeof Dropdown> = {
     className: {
       description: "추가 스타일 적용",
     },
+    defaultTriggerClassName: {
+      description: "기본 트리거(Button)에 커스텀 스타일을 적용하기 위한 클래스",
+    },
   },
 };
 
 type Story = StoryObj<typeof meta>;
+
+export const CustomTrigger: Story = {
+  args: { trigger: <Profile /> },
+};
 
 export const TextAlignStart: Story = {
   args: { textAlign: "start" },
