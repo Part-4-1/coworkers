@@ -8,7 +8,7 @@ import { MouseEventHandler } from "react";
  * @param userImage - 프로필이미지 URL, 없을시 기본 이미지
  * @param userName - 멤버의 이름
  * @param userEmail - 멤버의 이메일
- * @param onClick - 클릭시 실행되는 콜백함수
+ * @param onClick - 케밥버튼 클릭시 실행되는 콜백함수
  * @param className - 추가 스타일을 부여하기 위해 사용
  */
 
