@@ -15,3 +15,4 @@ export { default as Sidebar } from "./gnb/sidebar/sidebar";
 export { default as GnbHeader } from "./gnb/header/gnb-header";
 export { default as TaskHeader } from "./task-header/task-header";
 export { default as TaskChip } from "./task-chip/task-chip";
+export { default as ImageUpload } from "./image-upload/image-upload";
