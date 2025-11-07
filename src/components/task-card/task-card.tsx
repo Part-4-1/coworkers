@@ -1,13 +1,8 @@
 import cn from "@/utils/clsx";
 import { BadgeProps } from "../badge/badge";
-import { Icon, Badge, Button, Dropdown } from "../index";
+import { Icon, Badge, Button, Dropdown, Checkbox } from "../index";
 import { MouseEvent } from "react";
-
-interface CheckboxProps {
-  id: number;
-  taskName: string;
-  isDone?: string | null;
-}
+import { CheckboxProps } from "../checkbox/checkbox";
 
 interface TaskCardProps extends BadgeProps {
   taskTitle: string;
@@ -53,6 +48,7 @@ const TaskCard = ({
                   id={task.id}
                   taskName={task.taskName}
                   isDone={task.isDone}
+                  size="sm"
                 />
               </li>
             );
@@ -60,34 +56,6 @@ const TaskCard = ({
         </ul>
       )}
     </div>
-  );
-};
-
-const Checkbox = ({ id, taskName, isDone = null }: CheckboxProps) => {
-  return (
-    <label
-      htmlFor={id + ""}
-      className="flex w-full cursor-pointer items-center gap-1"
-    >
-      <input
-        id={id + ""}
-        type="checkbox"
-        className="sr-only"
-        onClick={(e) => e.stopPropagation()}
-      />
-      <Icon
-        icon={isDone ? "checkboxActive" : "checkboxDefault"}
-        className="h-[18px] w-[18px] shrink-0 cursor-pointer"
-      />
-      <p
-        className={cn(
-          "truncate text-xs",
-          isDone && "text-gray-700 line-through"
-        )}
-      >
-        {taskName}
-      </p>
-    </label>
   );
 };
 
