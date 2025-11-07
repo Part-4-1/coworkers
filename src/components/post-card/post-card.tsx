@@ -1,7 +1,7 @@
 import cn from "@/utils/clsx";
 import Image from "next/image";
 import { Icon } from "../index";
-import { div } from "framer-motion/client";
+import { toDotDateString } from "@/utils/date-util";
 
 interface PostCardProps {
   imgUrl?: string;
@@ -57,13 +57,14 @@ const PostCard = ({
         )}
       </div>
       <div className="flex items-center justify-between">
-        <div>
-          <span className="text-sm font-medium">{writer}</span> |{" "}
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium">{writer}</span>
+          <span className="text-sm">|</span>
           <time
             dateTime={createdAt}
             className="text-sm font-medium text-gray-700"
           >
-            {createdAt}
+            {toDotDateString(createdAt)}
           </time>
         </div>
         <div className="gap-1 flex-center">
