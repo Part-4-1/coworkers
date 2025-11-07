@@ -1,3 +1,9 @@
+/**
+ * @author hwitae
+ * @param timestamp 타임스탬프
+ * @description 타임스탬프 날짜 형식을 0000. 00. 00으로 변경합니다.
+ * @returns string
+ */
 export const toDotDateString = (timestamp: string) => {
   const date = new Date(timestamp);
   const year = date.getFullYear();

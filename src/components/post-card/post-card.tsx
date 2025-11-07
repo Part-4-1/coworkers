@@ -49,8 +49,8 @@ const PostCard = ({
         {imgUrl && (
           <Image
             src={imgUrl}
-            width={80}
-            height={80}
+            width={isBest ? 48 : 80}
+            height={isBest ? 48 : 80}
             alt="thumbnail"
             className="shrink-0 rounded-lg"
           />
