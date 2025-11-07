@@ -10,7 +10,8 @@ import {
   Profile,
   Reply,
   TextInput,
-  TodoHeader,
+  TaskChip,
+  TaskHeader,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -163,7 +164,7 @@ const Page = () => {
         />
       </div>
       <div className="w-[300px]">
-        <TodoHeader
+        <TaskHeader
           btnClick={() => {
             alert("버튼 클릭");
           }}
@@ -184,6 +185,15 @@ const Page = () => {
         <Badge total={0} completed={0} size="lg" className="bg-gray-300" />
         <Badge total={5} completed={3} size="lg" />
         <Badge total={5} completed={5} size="lg" />
+      </div>
+      <div className="w-[300px]">
+        <TaskChip
+          id="task-1"
+          radioName="task"
+          taskName="오늘 할 일"
+          count={5}
+        />
+        <TaskChip id="task-2" radioName="task" taskName="진행 중" count={2} />
       </div>
     </div>
   );
