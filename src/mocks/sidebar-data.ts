@@ -1,0 +1,63 @@
+import type { User } from "@/types/user";
+
+export const mockUser: User[] = [
+  {
+    id: 1,
+    teamId: "18-4",
+    email: "email@email.com",
+    image: "/profile.png",
+    nickname: "홍길동",
+    updatedAt: "2024-07-25T06:30:00.000Z",
+    createdAt: "2024-07-25T06:30:00.000Z",
+    memberships: [
+      {
+        userId: 1,
+        groupId: 1,
+        role: "ADMIN",
+        userName: "홍길동",
+        userEmail: "",
+        userImage: "",
+        group: {
+          id: 1,
+          teamId: "18-4",
+          image: null,
+          name: "개발관리팀",
+          createdAt: "2024-07-25T06:30:00.000Z",
+          updatedAt: "2024-07-25T06:30:00.000Z",
+        },
+      },
+      {
+        userId: 1,
+        groupId: 2,
+        role: "ADMIN",
+        userName: "홍길동",
+        userEmail: "",
+        userImage: "",
+        group: {
+          id: 2,
+          teamId: "18-4",
+          image: null,
+          name: "경영지원팀",
+          createdAt: "2024-07-25T06:30:00.000Z",
+          updatedAt: "2024-07-25T06:30:00.000Z",
+        },
+      },
+      {
+        userId: 1,
+        groupId: 3,
+        role: "ADMIN",
+        userName: "홍길동",
+        userEmail: "",
+        userImage: "",
+        group: {
+          id: 3,
+          teamId: "18-4",
+          image: null,
+          name: "마케팅팀",
+          createdAt: "2024-07-25T06:30:00.000Z",
+          updatedAt: "2024-07-25T06:30:00.000Z",
+        },
+      },
+    ],
+  },
+];
