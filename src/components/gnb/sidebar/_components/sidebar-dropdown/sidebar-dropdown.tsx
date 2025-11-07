@@ -33,7 +33,6 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
-  const [isSelected, setIsSelected] = useState(false);
   return (
     <div className="w-full max-w-[238px]">
       <div
