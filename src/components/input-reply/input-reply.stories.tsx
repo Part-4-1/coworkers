@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
-import { InputReply } from "../index";
+import InputReply from "./input-reply";
 
 const meta = {
   title: "Components/InputReply",
