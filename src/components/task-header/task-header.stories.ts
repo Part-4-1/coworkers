@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TodoHeader } from "../index";
+import { TaskHeader } from "../index";
 
 const meta = {
   title: "Components/TodoHeader",
-  component: TodoHeader,
+  component: TaskHeader,
   parameters: {
     layout: "padded",
   },
@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     todoName: { description: "헤더에 표시될 텍스트 내용" },
   },
-} satisfies Meta<typeof TodoHeader>;
+} satisfies Meta<typeof TaskHeader>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
