@@ -14,6 +14,7 @@ export { default as InputBox } from "./input-box/input-box";
 export { default as TextInput } from "./input-components/text-input";
 export { default as InputReply } from "./input-reply/input-reply";
 export { default as ProfileEdit } from "./profile-edit/profile-edit";
+export { default as ProfileMember } from "./profile-member/profile-member";
 export { default as Profile } from "./profile/profile";
 export { default as Reply } from "./reply/reply";
 export { default as TaskChip } from "./task-chip/task-chip";
