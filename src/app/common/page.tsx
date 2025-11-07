@@ -185,6 +185,7 @@ const Page = () => {
         <Badge total={5} completed={5} size="lg" />
       </div>
       <div>
+        <TaskCard taskTitle="법인 설립" total={5} completed={4} />
         <TaskCard
           taskTitle="법인 설립"
           total={5}
@@ -192,6 +193,12 @@ const Page = () => {
           taskList={[
             { id: 12345, taskName: "법인 설립 안내 드리기", isDone: null },
             { id: 12346, taskName: "법인 설립 안내 드리기2", isDone: null },
+            {
+              id: 12347,
+              taskName:
+                "긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트",
+              isDone: "2025-11-01T10:00:00Z",
+            },
           ]}
           onClickCheckbox={(e: MouseEvent<HTMLUListElement>) =>
             console.log(

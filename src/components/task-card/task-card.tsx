@@ -25,8 +25,9 @@ const TaskCard = ({
   return (
     <div
       className={cn(
-        "flex min-h-[54px] min-w-[270px] flex-col justify-center rounded-xl border border-gray-300",
-        "pl-5 pr-4"
+        "flex min-h-[54px] w-[270px] flex-col justify-center rounded-xl border border-gray-300",
+        "gap-4 pl-5 pr-4",
+        taskList && "pb-6 pt-4"
       )}
     >
       <div className="flex items-center justify-between">
@@ -39,11 +40,18 @@ const TaskCard = ({
         </div>
       </div>
       {taskList && (
-        <ul onClick={onClickCheckbox}>
+        <ul
+          onClick={onClickCheckbox}
+          className="flex flex-col justify-start gap-2"
+        >
           {taskList.map((task) => {
             return (
               <li key={task.id} data-id={task.id}>
-                <Checkbox id={task.id} taskName={task.taskName} />
+                <Checkbox
+                  id={task.id}
+                  taskName={task.taskName}
+                  isDone={task.isDone}
+                />
               </li>
             );
           })}
@@ -55,7 +63,7 @@ const TaskCard = ({
 
 const Checkbox = ({ id, taskName, isDone = null }: CheckboxProps) => {
   return (
-    <label htmlFor={id + ""} className="w-full gap-1 flex-center">
+    <label htmlFor={id + ""} className="flex w-full cursor-pointer gap-1">
       <input
         id={id + ""}
         type="checkbox"
@@ -64,7 +72,7 @@ const Checkbox = ({ id, taskName, isDone = null }: CheckboxProps) => {
       />
       <Icon
         icon={isDone ? "checkboxActive" : "checkboxDefault"}
-        className="h-[18px] w-[18px] cursor-pointer"
+        className="h-[18px] w-[18px] shrink-0 cursor-pointer"
       />
       <p className="truncate text-xs">{taskName}</p>
     </label>
