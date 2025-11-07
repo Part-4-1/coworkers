@@ -100,7 +100,7 @@ const Dropdown = ({
     <Button
       variant="outlined-secondary"
       className={cn(
-        "h-[40px] w-[120px] border border-gray-300 tablet:h-[44px]",
+        "h-[40px] w-[120px] border border-gray-300",
         "rounded-[8px] tablet:rounded-[12px]",
         "flex items-center !justify-between px-[14px]",
         "text-xs font-medium text-gray-800",
