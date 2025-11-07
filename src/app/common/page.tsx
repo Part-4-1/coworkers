@@ -220,7 +220,7 @@ const Page = () => {
           isDone={"2025-11-07T00:00:00Z"}
         />
       </div>
-      <div>
+      <div className="w-[500px]">
         <TaskCard taskTitle="법인 설립" total={5} completed={4} />
         <TaskCard
           taskTitle="법인 설립"
@@ -232,7 +232,7 @@ const Page = () => {
             {
               id: 12347,
               taskName:
-                "긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트",
+                "긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트",
               isDone: "2025-11-01T10:00:00Z",
             },
           ]}
