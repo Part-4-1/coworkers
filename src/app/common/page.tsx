@@ -17,6 +17,7 @@ import {
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
 } from "@/constants/regex";
+
 import { mockComments } from "@/mocks/comment-data";
 import { mockUserData } from "@/mocks/user-data";
 import { useState } from "react";
@@ -32,6 +33,7 @@ type LoginFormData = {
 }
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
+
   const singleComment = mockComments[0];
   const {
     register,
