@@ -253,6 +253,7 @@ const Page = () => {
           createdAt="2025-11-07T22:26:18Z"
           likes={1230}
           isLiked={true}
+          isBest
         />
       </div>
     </div>

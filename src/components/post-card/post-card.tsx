@@ -1,6 +1,7 @@
 import cn from "@/utils/clsx";
 import Image from "next/image";
 import { Icon } from "../index";
+import { div } from "framer-motion/client";
 
 interface PostCardProps {
   imgUrl?: string;
@@ -32,6 +33,12 @@ const PostCard = ({
         className
       )}
     >
+      {isBest && (
+        <div className="w-[72px] rounded-full bg-gray-50 px-1 py-[6px] flex-center">
+          <Icon icon="best" className="h-[18px] w-[18px] text-blue-200" />
+          <span className="text-md font-bold text-blue-200">인기</span>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <div className="flex min-w-0 flex-col gap-2">
           <p className="truncate text-lg font-bold">{title}</p>
