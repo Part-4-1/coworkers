@@ -1,6 +1,6 @@
 import cn from "@/utils/clsx";
 import { BadgeProps } from "../badge/badge";
-import { Icon, Badge, Button } from "../index";
+import { Icon, Badge, Button, Dropdown } from "../index";
 import { MouseEvent } from "react";
 
 interface CheckboxProps {
@@ -34,9 +34,14 @@ const TaskCard = ({
         <span className="truncate text-md font-semibold">{taskTitle}</span>
         <div className="flex">
           <Badge total={total} completed={completed} />
-          <Button variant="none">
-            <Icon icon="kebab" className="h-6 w-6 text-gray-400" />
-          </Button>
+          <Dropdown
+            trigger={
+              <Button variant="none">
+                <Icon icon="kebab" className="h-6 w-6 text-gray-400" />
+              </Button>
+            }
+            items={[{ label: "수정하기" }, { label: "삭제하기" }]}
+          />
         </div>
       </div>
       {taskList && (
