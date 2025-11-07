@@ -6,25 +6,17 @@ import { RemoveToastAtom } from "@/atoms/toast-atom";
 import { ToastProps } from "@/types/toast";
 import { Icon } from "@/components";
 
-const TOAST_DURATION = 1000;
-
-const Toast = memo(({ type, message, id }: ToastProps) => {
+const Toast = memo(({ type, message }: ToastProps) => {
   const removeToastItem = useSetAtom(RemoveToastAtom);
   const [show, setShow] = useState(true);
 
   useEffect(() => {
     const fadeOutTimeout = setTimeout(() => {
       setShow(false);
-
-      const removeTimeout = setTimeout(() => {
-        removeToastItem();
-      }, 200);
-
-      return () => clearTimeout(removeTimeout);
-    }, TOAST_DURATION);
+    }, 1000);
 
     return () => clearTimeout(fadeOutTimeout);
-  }, [id, removeToastItem]);
+  }, []);
 
   const getStyles = () => {
     switch (type) {
