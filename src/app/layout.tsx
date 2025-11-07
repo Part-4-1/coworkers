@@ -2,6 +2,7 @@ import pretendard from "@/font/font";
 import "./globals.css";
 import { Metadata } from "next";
 import QueryProviders from "@/providers";
+import GnbWrapper from "@/components/gnb/gnb-wrapper";
 
 export const metadata: Metadata = {
   title: "Coworkers",
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={pretendard.className}>
       <body>
+        <GnbWrapper />
         <QueryProviders>{children}</QueryProviders>
       </body>
     </html>

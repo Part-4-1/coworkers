@@ -19,14 +19,9 @@ const meta = {
   title: "components/SidebarMenu",
   component: SidebarMenu,
   tags: ["autodocs"],
-  argTypes: {
-    onClick: { action: "onClick" },
-  },
+
   args: {
     iconName: "chess",
-    onClick: () => {
-      console.log("사이드바 메뉴 클릭");
-    },
   },
 } satisfies Meta<typeof SidebarMenu>;
 
@@ -36,13 +31,17 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: "기본 메뉴",
+    isSidebarOpen: true,
     isSelected: false,
+    href: "/",
   },
 };
 
 export const Selected: Story = {
   args: {
     title: "선택된 메뉴",
+    isSidebarOpen: true,
     isSelected: true,
+    href: "/",
   },
 };

@@ -17,6 +17,7 @@ import {
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
 } from "@/constants/regex";
+
 import { mockComments } from "@/mocks/comment-data";
 import { mockUserData } from "@/mocks/user-data";
 import { useState } from "react";
@@ -32,6 +33,7 @@ type LoginFormData = {
 }
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
+
   const singleComment = mockComments[0];
   const {
     register,
@@ -179,7 +181,7 @@ const Page = () => {
         <Badge total={5} completed={5} />
       </div>
       <div className="flex gap-2 bg-slate-600 px-4 py-4">
-        <Badge total={0} completed={0} size="lg" />
+        <Badge total={0} completed={0} size="lg" className="bg-gray-300" />
         <Badge total={5} completed={3} size="lg" />
         <Badge total={5} completed={5} size="lg" />
       </div>
