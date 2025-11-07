@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import SidebarMenu from "../_components/sidebar-menu";
+import SidebarMenu from "./sidebar-menu";
 
 const MockIcon = ({ width, height, className }: any) => {
   return (

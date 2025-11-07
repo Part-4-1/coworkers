@@ -1,7 +1,7 @@
 import cn from "@/utils/clsx";
 import React from "react";
 import { Icon } from "@/components/index";
-import ICONS_MAP from "../../../icon/icons-map";
+import ICONS_MAP from "../../../../icon/icons-map";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 

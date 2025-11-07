@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useState } from "react";
 import { Icon } from "@/components/index";
-import SidebarMenu from "./sidebar-menu";
+import SidebarMenu from "../sidebar-menu/sidebar-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import { mockUser } from "@/mocks/sidebar-data";
 import cn from "@/utils/clsx";
@@ -35,7 +35,7 @@ const SidebarDropdown = ({
     <div className="w-full max-w-[238px]">
       <div
         onClick={onToggle}
-        className={`group flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-[9px]"}`}
+        className={`group flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
       >
         <div className="flex items-center gap-3">
           <Icon

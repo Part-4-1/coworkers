@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Button, Icon } from "@/components/index";
 import { mockUser } from "@/mocks/sidebar-data";
-import SidebarMenu from "../sidebar/_components/sidebar-menu";
+import SidebarMenu from "../sidebar/_components/sidebar-menu/sidebar-menu";
 import { usePathname } from "next/navigation";
 import { easeOut, motion } from "framer-motion";
 

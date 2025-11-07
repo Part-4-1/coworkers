@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import SidebarHeader from "./_components/sidebar-header";
-import SidebarDropdown from "./_components/sidebar-dropdown";
-import SidebarFooter from "./_components/sidebar-footer";
+import SidebarHeader from "./_components/sidebar-header/sidebar-header";
+import SidebarDropdown from "./_components/sidebar-dropdown/sidebar-dropdown";
+import SidebarFooter from "./_components/sidebar-footer/sidebar-footer";
 import { Button } from "@/components/index";
-import SidebarMenu from "./_components/sidebar-menu";
+import SidebarMenu from "./_components/sidebar-menu/sidebar-menu";
 import cn from "@/utils/clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import useMediaQuery from "@/hooks/useMediaQuery";
