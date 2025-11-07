@@ -20,7 +20,7 @@ import {
 } from "@/constants/regex";
 import { mockComments } from "@/mocks/comment-data";
 import { mockUserData } from "@/mocks/user-data";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 
 type LoginFormData = {
@@ -185,7 +185,20 @@ const Page = () => {
         <Badge total={5} completed={5} size="lg" />
       </div>
       <div>
-        <TaskCard taskTitle="법인 설립" total={5} completed={2} />
+        <TaskCard
+          taskTitle="법인 설립"
+          total={5}
+          completed={2}
+          taskList={[
+            { id: 12345, taskName: "법인 설립 안내 드리기", isDone: null },
+            { id: 12346, taskName: "법인 설립 안내 드리기2", isDone: null },
+          ]}
+          onClickCheckbox={(e: MouseEvent<HTMLUListElement>) =>
+            console.log(
+              e.target instanceof Element && e.target.closest("li")?.dataset.id
+            )
+          }
+        />
       </div>
     </div>
   );
