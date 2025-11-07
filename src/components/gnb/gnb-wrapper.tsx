@@ -1,6 +1,6 @@
 "use client";
 
-import useMediaQuery from "@/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/use-media-query";
 import React, { useEffect, useState } from "react";
 import Sidebar from "./sidebar/sidebar";
 import GnbHeader from "./header/gnb-header";

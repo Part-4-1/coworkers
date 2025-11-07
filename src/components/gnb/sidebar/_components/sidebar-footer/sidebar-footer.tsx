@@ -3,6 +3,7 @@ import { mockUser } from "@/mocks/sidebar-data";
 import { AnimatePresence, motion } from "framer-motion";
 import { Profile } from "@/components/index";
 import Link from "next/link";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 /**
  * @author leohan
@@ -12,7 +13,8 @@ import Link from "next/link";
  */
 
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
-  const isLoggedIn = true; // 임시 로그인 확인
+  const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  const isLoggedIn = !!userInfo && !isLoading; // 임시 로그인 확인
 
   return isLoggedIn ? (
     <Link

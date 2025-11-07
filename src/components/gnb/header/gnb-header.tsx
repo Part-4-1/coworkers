@@ -6,6 +6,7 @@ import MobileSidebar from "./mobile-sidebar";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 /**
  * @author leohan
@@ -16,7 +17,8 @@ import Image from "next/image";
 const GnbHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const isLoggedIn = true;
+  const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  const isLoggedIn = !!userInfo && !isLoading;
 
   return (
     <div className="w-full max-w-[375px] border-b border-gray-300">
