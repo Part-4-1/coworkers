@@ -63,7 +63,10 @@ const TaskCard = ({
 
 const Checkbox = ({ id, taskName, isDone = null }: CheckboxProps) => {
   return (
-    <label htmlFor={id + ""} className="flex w-full cursor-pointer gap-1">
+    <label
+      htmlFor={id + ""}
+      className="flex w-full cursor-pointer items-center gap-1"
+    >
       <input
         id={id + ""}
         type="checkbox"
@@ -74,7 +77,14 @@ const Checkbox = ({ id, taskName, isDone = null }: CheckboxProps) => {
         icon={isDone ? "checkboxActive" : "checkboxDefault"}
         className="h-[18px] w-[18px] shrink-0 cursor-pointer"
       />
-      <p className="truncate text-xs">{taskName}</p>
+      <p
+        className={cn(
+          "truncate text-xs",
+          isDone && "text-gray-700 line-through"
+        )}
+      >
+        {taskName}
+      </p>
     </label>
   );
 };

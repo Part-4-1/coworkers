@@ -201,9 +201,7 @@ const Page = () => {
             },
           ]}
           onClickCheckbox={(e: MouseEvent<HTMLUListElement>) =>
-            console.log(
-              e.target instanceof Element && e.target.closest("li")?.dataset.id
-            )
+            console.log((e.target as Element).closest("li")?.dataset.id)
           }
         />
       </div>
