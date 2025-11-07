@@ -10,6 +10,7 @@ interface PostCardProps {
   createdAt: string;
   likes: number;
   isLiked: boolean;
+  isBest?: boolean;
   className?: string;
 }
 
@@ -21,6 +22,7 @@ const PostCard = ({
   createdAt,
   likes,
   isLiked,
+  isBest = false,
   className,
 }: PostCardProps) => {
   return (
@@ -31,9 +33,9 @@ const PostCard = ({
       )}
     >
       <div className="flex items-center justify-between">
-        <div className="flex flex-col gap-2 truncate">
+        <div className="flex min-w-0 flex-col gap-2">
           <p className="truncate text-lg font-bold">{title}</p>
-          <p className="h-[38px] resize-none truncate whitespace-pre text-sm leading-[18px] text-gray-800">
+          <p className="line-clamp-2 resize-none whitespace-pre text-sm leading-[18px] text-gray-800">
             {content}
           </p>
         </div>
@@ -50,7 +52,12 @@ const PostCard = ({
       <div className="flex items-center justify-between">
         <div>
           <span className="text-sm font-medium">{writer}</span> |{" "}
-          <span className="text-sm font-medium text-gray-700">{createdAt}</span>
+          <time
+            dateTime={createdAt}
+            className="text-sm font-medium text-gray-700"
+          >
+            {createdAt}
+          </time>
         </div>
         <div className="gap-1 flex-center">
           <Icon
