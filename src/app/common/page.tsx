@@ -25,6 +25,7 @@ import { mockUserData } from "@/mocks/user-data";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
+import useToast from "@/hooks/use-toast";
 
 type LoginFormData = {
   email: string;
@@ -35,6 +36,7 @@ const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const { previews } = useImageUpload({ maxCount: 5 });
+  const { success, error, warning } = useToast();
   const singleComment = mockComments[0];
   const {
     register,
@@ -206,6 +208,13 @@ const Page = () => {
         <div className="w-full max-w-[600px]">
           <ImageUpload maxCount={5} />
         </div>
+      </div>
+      <div className="mt-8 w-full max-w-[300px] gap-2 flex-col-center">
+        <Button onClick={() => success("저장되었습니다")}>성공 토스트</Button>
+        <Button onClick={() => error("오류 발생")}>오류 토스트</Button>
+        <Button onClick={() => warning("변경사항을 저장하세요")}>
+          경고 토스트
+        </Button>
       </div>
     </div>
   );
