@@ -6,6 +6,8 @@ import SidebarMenu from "../sidebar-menu/sidebar-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import { mockUser } from "@/mocks/sidebar-data";
 import cn from "@/utils/clsx";
+import { tooltipStyles } from "@/constants/styles";
+
 /**
  * @author leohan
  * @description Sidebar dropdown 컴포넌트
@@ -31,11 +33,12 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
+  const [isSelected, setIsSelected] = useState(false);
   return (
     <div className="w-full max-w-[238px]">
       <div
         onClick={onToggle}
-        className={`group flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
+        className={`group relative flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
       >
         <div className="flex items-center gap-3">
           <Icon
@@ -59,6 +62,11 @@ const SidebarDropdown = ({
             )}
           </AnimatePresence>
         </div>
+        {!isSidebarOpen && !isOpen && (
+          <div className={cn(tooltipStyles.base, tooltipStyles.before)}>
+            팀 선택
+          </div>
+        )}
         {isSidebarOpen && (
           <Icon
             icon="downArrow"

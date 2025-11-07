@@ -2,6 +2,7 @@ import Image from "next/image";
 import { mockUser } from "@/mocks/sidebar-data";
 import { AnimatePresence, motion } from "framer-motion";
 import { Profile } from "@/components/index";
+import Link from "next/link";
 
 /**
  * @author leohan
@@ -14,7 +15,10 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const isLoggedIn = true; // 임시 로그인 확인
 
   return isLoggedIn ? (
-    <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
+    <Link
+      href={"/userPage"}
+      className="mb-6 flex gap-3 border-t border-gray-300 pt-5"
+    >
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
@@ -38,9 +42,12 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </Link>
   ) : (
-    <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
+    <Link
+      href="/login"
+      className="mb-6 flex gap-3 border-t border-gray-300 pt-5"
+    >
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
@@ -56,7 +63,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
           로그인
         </span>
       )}
-    </div>
+    </Link>
   );
 };
 

@@ -11,8 +11,5 @@ export { default as Badge } from "./badge/badge";
 export { default as InputReply } from "./input-reply/input-reply";
 export { default as InputBox } from "./input-box/input-box";
 export { default as GnbWrapper } from "./gnb/gnb-wrapper";
-export { default as Sidebar } from "./gnb/sidebar/sidebar";
-export { default as GnbHeader } from "./gnb/header/gnb-header";
-export { default as TaskHeader } from "./task-header/task-header";
 export { default as TaskChip } from "./task-chip/task-chip";
 export { default as ImageUpload } from "./image-upload/image-upload";

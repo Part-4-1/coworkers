@@ -5,6 +5,7 @@ import Link from "next/link";
 import MobileSidebar from "./mobile-sidebar";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 /**
  * @author leohan
@@ -27,7 +28,12 @@ const GnbHeader = () => {
             </Button>
 
             <Link href={"/"}>
-              <Icon icon="logo" className="h-6 w-6" />
+              <Image
+                src={"/ic-coworkers-logo.svg"}
+                alt="코워쿼스 로고"
+                width={24}
+                height={24}
+              />
             </Link>
           </div>
           <div className="relative my-3 h-7 w-7 rounded-full">
@@ -57,7 +63,12 @@ const GnbHeader = () => {
           href={"/"}
           className="flex items-center justify-start gap-[3px] p-4"
         >
-          <Icon icon="logo" className="h-4 w-4" />
+          <Image
+            src={"/ic-coworkers-logo.svg"}
+            alt="코워쿼스 로고"
+            width={16}
+            height={16}
+          />
           <h1 className="text-[12.5px] font-bold text-blue-200">COWORKERS</h1>
         </Link>
       )}
