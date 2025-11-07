@@ -45,8 +45,9 @@ const ProfileEdit = ({ image, className, onClick }: ProfileEditProps) => {
         variant="none"
         className={cn(
           "absolute bottom-[5px] right-0 rounded-full bg-gray-300",
-          "h-[18px] w-[18px] border-2 border-white",
-          "tablet:bottom-[6px] tablet:h-[32px] tablet:w-[32px] tablet:border-none"
+          "h-[18px] w-[18px]",
+          "tablet:bottom-[6px] tablet:h-[32px] tablet:w-[32px]",
+          image ? "" : "border-2 border-white"
         )}
       >
         <Icon

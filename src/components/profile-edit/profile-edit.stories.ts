@@ -35,6 +35,8 @@ const meta: Meta<typeof ProfileEdit> = {
 
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {};
+
 export const Image: Story = {
   args: {
     image: "https://randomuser.me/api/portraits/men/12.jpg",
