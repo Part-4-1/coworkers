@@ -18,3 +18,4 @@ export { default as TaskChip } from "./task-chip/task-chip";
 export { default as ImageUpload } from "./image-upload/image-upload";
 export { default as TaskCard } from "./task-card/task-card";
 export { default as Checkbox } from "./checkbox/checkbox";
+export { default as PostCard } from "./post-card/post-card";
