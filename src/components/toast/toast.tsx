@@ -53,7 +53,7 @@ const Toast = memo(({ type, message }: ToastProps) => {
       onClick={() => removeToastItem()}
     >
       <div className="flex items-center gap-3">
-        <Icon icon={icon} className="h-5 w-5 text-white" />
+        <Icon icon={icon} className="h-6 w-6 text-white" />
         <p className="text-sm font-medium text-white">{message}</p>
       </div>
     </div>
