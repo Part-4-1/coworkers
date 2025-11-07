@@ -12,7 +12,7 @@ interface CheckboxProps {
 interface TaskCardProps extends BadgeProps {
   taskTitle: string;
   taskList?: CheckboxProps[];
-  onClickCheckbox?: (e: MouseEvent<HTMLUListElement>) => void;
+  onClickCheckbox?: (e: MouseEvent<HTMLLIElement>) => void;
 }
 
 const TaskCard = ({
@@ -40,13 +40,10 @@ const TaskCard = ({
         </div>
       </div>
       {taskList && (
-        <ul
-          onClick={onClickCheckbox}
-          className="flex flex-col justify-start gap-2"
-        >
+        <ul className="flex flex-col justify-start gap-2">
           {taskList.map((task) => {
             return (
-              <li key={task.id} data-id={task.id}>
+              <li key={task.id} data-id={task.id} onClick={onClickCheckbox}>
                 <Checkbox
                   id={task.id}
                   taskName={task.taskName}

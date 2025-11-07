@@ -200,8 +200,8 @@ const Page = () => {
               isDone: "2025-11-01T10:00:00Z",
             },
           ]}
-          onClickCheckbox={(e: MouseEvent<HTMLUListElement>) =>
-            console.log((e.target as Element).closest("li")?.dataset.id)
+          onClickCheckbox={(e: MouseEvent<HTMLLIElement>) =>
+            console.log(e.currentTarget.dataset.id)
           }
         />
       </div>
