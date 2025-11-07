@@ -35,7 +35,12 @@ const ProfileEdit = ({ image, className, onClick }: ProfileEditProps) => {
         )}
       >
         {image ? (
-          <Image src={image} alt="프로필" fill />
+          <Image
+            src={image}
+            alt="프로필"
+            fill
+            sizes="(max-width: 744px) 64px, 100px"
+          />
         ) : (
           <Icon icon="user" className="bg-gray-300 object-cover"></Icon>
         )}
@@ -52,7 +57,7 @@ const ProfileEdit = ({ image, className, onClick }: ProfileEditProps) => {
       >
         <Icon
           icon="smallPencil"
-          className="h-[9px] w-[7px] tablet:h-[16px] tablet:w-[12px]"
+          className="h-[9px] w-[7px] cursor-pointer tablet:h-[16px] tablet:w-[12px]"
         />
       </Button>
     </div>
