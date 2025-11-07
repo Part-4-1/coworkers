@@ -143,17 +143,21 @@ const Page = () => {
       </div>
       <div className="flex gap-5">
         <Dropdown
-          trigger={<Profile></Profile>}
           items={[
-            { label: "마이 히스토리" },
-            { label: "계정 설정" },
-            { label: "팀 참여" },
-            { label: "로그아웃" },
+            { label: "법인 등기", addon: <Badge total={5} completed={3} /> },
+            { label: "법인 설립", addon: <Badge total={5} completed={5} /> },
+            { label: "정기 주총", addon: <Badge total={10} completed={2} /> },
           ]}
-          isWidthFull={false}
+          isWidthFull
+          defaultTriggerClassName="w-[241px] h-[54px] font-medium"
         />
         <Dropdown
-          trigger={<Button size="sm">드롭다운</Button>}
+          items={[{ label: "최신순" }, { label: "좋아요 많은순" }]}
+          isWidthFull={true}
+          defaultTriggerClassName="w-[130px] h-[48px]"
+        ></Dropdown>
+        <Dropdown
+          trigger={<Profile></Profile>}
           items={[
             { label: "마이 히스토리" },
             { label: "계정 설정" },
