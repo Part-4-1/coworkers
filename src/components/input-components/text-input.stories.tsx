@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { TextInput, Button } from "@/components/index";
+import { Meta, StoryObj } from "@storybook/nextjs";
+import { TextInput, Button } from "../index";
 
 const meta: Meta<typeof TextInput> = {
   title: "Components/Input",
