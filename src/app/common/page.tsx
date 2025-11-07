@@ -13,6 +13,7 @@ import {
   TaskChip,
   TaskHeader,
   ImageUpload,
+  Checkbox,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -206,6 +207,17 @@ const Page = () => {
         <div className="w-full max-w-[600px]">
           <ImageUpload maxCount={5} />
         </div>
+      </div>
+      <div>
+        <Checkbox id={12345} isDone={"2025-11-07T00:00:00Z"} />
+        <Checkbox id={12346} taskName="법인 설립 안내드리기" size="sm" />
+        <Checkbox id={12347} taskName="법인 설립 안내드리기" size="lg" />
+        <Checkbox
+          id={12348}
+          taskName="법인 설립 안내드리기"
+          size="sm"
+          isDone={"2025-11-07T00:00:00Z"}
+        />
       </div>
     </div>
   );
