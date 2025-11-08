@@ -18,6 +18,7 @@ import {
   TextInput,
   TaskCard,
   PostCard,
+  TaskDetail,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -310,6 +311,14 @@ const Page = () => {
           likes={1230}
           isLiked={true}
           isBest
+        />
+      </div>
+      <div className="w-[375px] tablet:w-[520px] pc:w-[780px]">
+        <TaskDetail
+          name="할 일 상세 컴포넌트 제작"
+          writer={{ nickname: "hwitae", id: 1, image: null }}
+          createdAt="2025-11-08T23:47:20Z"
+          frequency="ONCE"
         />
       </div>
     </div>
