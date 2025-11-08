@@ -33,8 +33,8 @@ const Profile = ({ image, size = "lg", className, onClick }: ProfileProps) => {
   }[size];
 
   const profileRadius = {
-    lg: "rounded-full tablet:rounded-[12px]",
-    md: "rounded-full tablet:rounded-[8px]",
+    lg: "rounded-[12px]",
+    md: "rounded-[8px]",
     sm: "rounded-full tablet:rounded-[6px]",
   }[size];
 
