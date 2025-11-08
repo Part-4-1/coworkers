@@ -10,6 +10,7 @@ import { MouseEventHandler } from "react";
  * @param size - "lg", "md", "sm" 프로필 크기 옵션
  * @param className - 추가 스타일을 부여하기 위해 사용
  * @param onClick - 클릭시 실행되는 함수, 존재할떄 cursor-pointer 적용
+ * @param isMobileCircle - true일 때 모바일에서는 원형, tablet 이상에서는 각진 형태 (기본값 true)
  */
 
 interface ProfileProps {
@@ -17,9 +18,16 @@ interface ProfileProps {
   size?: "lg" | "md" | "sm";
   className?: string;
   onClick?: MouseEventHandler<HTMLDivElement>;
+  isMobileCircle?: boolean;
 }
 
-const Profile = ({ image, size = "lg", className, onClick }: ProfileProps) => {
+const Profile = ({
+  image,
+  size = "lg",
+  className,
+  onClick,
+  isMobileCircle = true,
+}: ProfileProps) => {
   const profileSize = {
     lg: "w-[40px] h-[40px]",
     md: "w-[32px] h-[32px]",
@@ -33,9 +41,11 @@ const Profile = ({ image, size = "lg", className, onClick }: ProfileProps) => {
   }[size];
 
   const profileRadius = {
-    lg: "rounded-full tablet:rounded-[12px]",
-    md: "rounded-full tablet:rounded-[8px]",
-    sm: "rounded-full tablet:rounded-[6px]",
+    lg: isMobileCircle
+      ? "rounded-full tablet:rounded-[12px]"
+      : "rounded-[12px]",
+    md: isMobileCircle ? "rounded-full tablet:rounded-[8px]" : "rounded-[8px]",
+    sm: isMobileCircle ? "rounded-full tablet:rounded-[6px]" : "rounded-[6px]",
   }[size];
 
   return (
