@@ -10,8 +10,8 @@ export const mockGroupData = [
       {
         role: "ADMIN",
         userImage: "https://randomuser.me/api/portraits/men/12.jpg",
-        userEmail: "doyoon@example.com",
-        userName: "이도윤",
+        userEmail: "jieun@codeit.com",
+        userName: "우지은",
         groupId: 11,
         userId: 1,
       },

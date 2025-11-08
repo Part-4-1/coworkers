@@ -22,7 +22,7 @@ const ProfileEdit = ({ image, className, onClick }: ProfileEditProps) => {
     <div
       className={cn(
         "relative h-[78px] w-[77px] tablet:h-[116px] tablet:w-[112px]",
-        "flex items-center justify-center",
+        "flex-center",
         className
       )}
     >
