@@ -69,7 +69,7 @@ const Calendar = ({ onDayClick }: CalendarProps) => {
         today: cn(defaultClassNames.today, "text-blue-200 "),
         selected: cn("bg-blue-200 !text-white rounded-[8px] !font-normal"),
       }}
-      className="min-w-[282px] rounded-[24px] border-[1px] border-blue-300 p-[16px] flex-center"
+      className="min-w-[282px] rounded-[12px] border-[1px] border-blue-300 p-[16px] flex-center"
       style={
         {
           "--rdp-nav-height": "32px",
