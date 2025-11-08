@@ -4,7 +4,7 @@ import { Icon } from "../index";
 interface CheckboxProps {
   id: number;
   taskName?: string;
-  isDone?: string | null;
+  isDone: string | null;
   size?: "sm" | "lg";
 }
 
@@ -26,11 +26,11 @@ const Checkbox = ({
 }: CheckboxProps) => {
   return (
     <label
-      htmlFor={id + ""}
+      htmlFor={id.toString()}
       className="flex w-full cursor-pointer items-center gap-2"
     >
       <input
-        id={id + ""}
+        id={id.toString()}
         type="checkbox"
         className="sr-only"
         onClick={(e) => e.stopPropagation()}
