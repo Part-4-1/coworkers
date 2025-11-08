@@ -29,7 +29,7 @@ const ProfileMember = ({
 }: ProfileMemberProps) => {
   return (
     <div className={cn("flex h-[32px] w-[200px] bg-transparent", className)}>
-      <Profile image={userImage} size="md" />
+      <Profile image={userImage} size="md" isMobileCircle={false} />
       <div className="ml-[12px] flex w-[140px] flex-col justify-center">
         <span className="truncate text-sm font-semibold">{userName}</span>
         <span className="truncate text-xs">{userEmail}</span>
