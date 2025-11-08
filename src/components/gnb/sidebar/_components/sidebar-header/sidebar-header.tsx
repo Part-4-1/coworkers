@@ -2,6 +2,7 @@ import React from "react";
 import { Icon, Button } from "@/components/index";
 import Link from "next/link";
 import cn from "@/utils/clsx";
+import Image from "next/image";
 
 /**
  * @author leohan
@@ -21,8 +22,13 @@ const SidebarHeader = ({
 }: SidebarHeaderProps) => {
   return (
     <header className="flex w-full max-w-[270px] items-center justify-between px-6 py-8">
-      <Link href={"/"} className="flex items-center gap-[2px]">
-        <Icon icon="logo" className="h-[18px] w-[18px]" />
+      <Link href={"/"} className="flex flex-shrink-0 items-center gap-[2px]">
+        <Image
+          src={"/ic-coworkers-logo.svg"}
+          alt="코워쿼스 로고"
+          width={18}
+          height={18}
+        />
         {isSidebarOpen && (
           <h1 className="text-xl font-bold text-blue-200">COWORKERS</h1>
         )}
@@ -34,7 +40,7 @@ const SidebarHeader = ({
             "h-7 w-7 transition-transform",
             isSidebarOpen
               ? "rotate-0"
-              : "m-3 h-8 w-8 rotate-180 rounded-full border border-gray-300 bg-white"
+              : "mx-4 h-8 w-8 rotate-180 rounded-full border border-gray-300 bg-white p-1"
           )}
         />
       </Button>

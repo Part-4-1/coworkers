@@ -2,6 +2,8 @@ import Image from "next/image";
 import { mockUser } from "@/mocks/sidebar-data";
 import { AnimatePresence, motion } from "framer-motion";
 import { Profile } from "@/components/index";
+import Link from "next/link";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 /**
  * @author leohan
@@ -11,10 +13,14 @@ import { Profile } from "@/components/index";
  */
 
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
-  const isLoggedIn = true; // 임시 로그인 확인
-
+  const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  //const isLoggedIn = !!userInfo && !isLoading;
+  const isLoggedIn = true;
   return isLoggedIn ? (
-    <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
+    <Link
+      href={"/userPage"}
+      className="mb-6 flex gap-3 border-t border-gray-300 pt-5"
+    >
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
@@ -38,25 +44,23 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </Link>
   ) : (
-    <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
+    <Link
+      href="/login"
+      className="mb-6 flex gap-3 border-t border-gray-300 pt-5"
+    >
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
-        <Image
-          src={"/default-profile.png"}
-          alt="프로파일 이미지"
-          fill
-          style={{ objectFit: "cover" }}
-        />
+        <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
       </div>
       {isSidebarOpen && (
         <span className="flex flex-col justify-center gap-[2px] whitespace-nowrap">
           로그인
         </span>
       )}
-    </div>
+    </Link>
   );
 };
 

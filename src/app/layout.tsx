@@ -16,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="ko" className={pretendard.className}>
       <body>
-        <GnbWrapper />
-        <QueryProviders>{children}</QueryProviders>
+        <QueryProviders>
+          <GnbWrapper />
+          {children}
+        </QueryProviders>
       </body>
     </html>
   );
