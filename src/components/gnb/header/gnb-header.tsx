@@ -21,7 +21,7 @@ const GnbHeader = () => {
   const isLoggedIn = !!userInfo && !isLoading;
 
   return (
-    <div className="w-full max-w-[375px] border-b border-gray-300">
+    <div className="w-full border-b border-gray-300">
       {isLoggedIn ? (
         <div className="flex justify-between pl-4 pr-[14px]">
           <div className="flex gap-3 py-[14px]">

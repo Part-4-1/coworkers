@@ -14,7 +14,7 @@ import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
-  const isLoggedIn = !!userInfo && !isLoading; // 임시 로그인 확인
+  const isLoggedIn = !!userInfo && !isLoading;
 
   return isLoggedIn ? (
     <Link
@@ -53,12 +53,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
-        <Image
-          src={"/default-profile.png"}
-          alt="프로파일 이미지"
-          fill
-          style={{ objectFit: "cover" }}
-        />
+        <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
       </div>
       {isSidebarOpen && (
         <span className="flex flex-col justify-center gap-[2px] whitespace-nowrap">
