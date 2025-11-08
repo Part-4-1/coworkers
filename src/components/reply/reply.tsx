@@ -1,8 +1,5 @@
-"use client";
-
 import cn from "@/utils/clsx";
-import { useState } from "react";
-import { Button, Icon } from "@/components/index";
+import { Button, Icon, Dropdown } from "@/components/index";
 import { Comment } from "@/types/index";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 
@@ -11,7 +8,6 @@ interface CommentProps {
 }
 
 const Reply = ({ comment }: CommentProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const hasImage = comment.writer.image?.trim();
 
   const profileStyle = cn(
@@ -39,48 +35,33 @@ const Reply = ({ comment }: CommentProps) => {
       )}
 
       <div className="flex flex-1 flex-col gap-[6px]">
-        <header className="flex items-center">
+        <div className="flex items-center">
           <strong className="text-md font-semibold text-blue-700">
             {comment.writer.nickname}
           </strong>
 
           <div className="relative ml-auto">
-            <Button
-              variant="none"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-0"
-              aria-label="메뉴"
-            >
-              <Icon icon="kebab" className="h-4 w-4" />
-            </Button>
+            <Dropdown
+              trigger={
+                <Button variant="none" className="p-0" aria-label="메뉴">
+                  <Icon icon="kebab" className="h-4 w-4" />
+                </Button>
+              }
+              items={[{ label: "수정하기" }, { label: "삭제하기" }]}
+              isWidthFull={false}
+            />
           </div>
-        </header>
+        </div>
 
-        <p className="text-md text-gray-800">{comment.content}</p>
+        <p className="w-full text-md text-gray-800 tablet:max-w-[464px] pc:max-w-[704px]">
+          {comment.content}
+        </p>
 
         <time dateTime={comment.createdAt} className="text-md text-gray-700">
           {new Date(comment.createdAt)
             .toLocaleDateString("ko-KR")
             .replace(/\.$/, "")}
         </time>
-
-        {isMenuOpen && (
-          <div className="flex gap-2 self-end">
-            <Button
-              variant="none"
-              className="w-fit rounded-lg px-3 py-2 text-md text-gray-700 hover:text-gray-800"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              취소
-            </Button>
-            <Button
-              variant="outlined"
-              className="w-fit rounded-lg px-3 py-2 text-md"
-            >
-              수정하기
-            </Button>
-          </div>
-        )}
       </div>
     </article>
   );
