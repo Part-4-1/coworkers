@@ -1,7 +1,7 @@
 import cn from "@/utils/clsx";
 import { Icon } from "../index";
 
-interface CheckboxProps {
+export interface CheckboxProps {
   id: number;
   taskName?: string;
   isDone: string | null;

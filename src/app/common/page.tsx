@@ -16,6 +16,7 @@ import {
   TaskChip,
   TaskHeader,
   TextInput,
+  TaskCard,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -27,7 +28,7 @@ import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
 import { mockUserData } from "@/mocks/user-data";
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 
 type LoginFormData = {
@@ -251,6 +252,27 @@ const Page = () => {
           taskName="법인 설립 안내드리기"
           size="sm"
           isDone={"2025-11-07T00:00:00Z"}
+        />
+      </div>
+      <div className="w-[500px]">
+        <TaskCard taskTitle="법인 설립" total={5} completed={4} />
+        <TaskCard
+          taskTitle="법인 설립"
+          total={5}
+          completed={2}
+          taskList={[
+            { id: 12345, taskName: "법인 설립 안내 드리기", isDone: null },
+            { id: 12346, taskName: "법인 설립 안내 드리기2", isDone: null },
+            {
+              id: 12347,
+              taskName:
+                "긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트",
+              isDone: "2025-11-01T10:00:00Z",
+            },
+          ]}
+          onClickCheckbox={(e: MouseEvent<HTMLLIElement>) =>
+            console.log(e.currentTarget.dataset.id)
+          }
         />
       </div>
     </div>
