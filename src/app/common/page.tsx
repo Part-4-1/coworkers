@@ -204,7 +204,7 @@ const Page = () => {
           isWidthFull={false}
         />
       </div>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 flex-center">
         <Button size="sm" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
           캘린더 토글
         </Button>
