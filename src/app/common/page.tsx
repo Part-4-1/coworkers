@@ -16,6 +16,8 @@ import {
   TaskChip,
   TaskHeader,
   TextInput,
+  TaskCard,
+  PostCard,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -27,7 +29,7 @@ import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
 import { mockUserData } from "@/mocks/user-data";
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 
 type LoginFormData = {
@@ -251,6 +253,63 @@ const Page = () => {
           taskName="법인 설립 안내드리기"
           size="sm"
           isDone={"2025-11-07T00:00:00Z"}
+        />
+      </div>
+      <div className="w-[500px]">
+        <TaskCard taskTitle="법인 설립" total={5} completed={4} />
+        <TaskCard
+          taskTitle="법인 설립"
+          total={5}
+          completed={2}
+          taskList={[
+            { id: 12345, taskName: "법인 설립 안내 드리기", isDone: null },
+            { id: 12346, taskName: "법인 설립 안내 드리기2", isDone: null },
+            {
+              id: 12347,
+              taskName:
+                "긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트긴 텍스트 말줄임표 테스트",
+              isDone: "2025-11-01T10:00:00Z",
+            },
+          ]}
+          onClickCheckbox={(e: MouseEvent<HTMLLIElement>) =>
+            console.log(e.currentTarget.dataset.id)
+          }
+        />
+      </div>
+      <div className="w-[340px]">
+        <PostCard
+          imgUrl="https://randomuser.me/api/portraits/men/12.jpg"
+          title="커피머신 고장 신고합니다 ☕️"
+          content={`오늘 아침 출근과 동시에 알게 된 사실...
+커피머신이 고장났습니다. 이로 인해 많은 직원들이 커피를 마시지 못하고 있어 업무 효율이 떨어지고 있습니다.
+빠른 수리 부탁드립니다.`}
+          writer="황휘태"
+          createdAt="2025-11-07T22:26:18Z"
+          likes={123}
+          isLiked={false}
+        />
+        <PostCard
+          imgUrl="https://randomuser.me/api/portraits/men/12.jpg"
+          title="커피머신 고장 신고합니다 ☕️"
+          content={`오늘 아침 출근과 동시에 알게 된 사실...
+커피머신이 고장났습니다. 이로 인해 많은 직원들이 커피를 마시지 못하고 있어 업무 효율이 떨어지고 있습니다.
+빠른 수리 부탁드립니다.`}
+          writer="황휘태"
+          createdAt="2025-11-07T22:26:18Z"
+          likes={1230}
+          isLiked={true}
+          isBest
+        />
+        <PostCard
+          title="커피머신 고장 신고합니다 ☕️"
+          content={`오늘 아침 출근과 동시에 알게 된 사실...
+커피머신이 고장났습니다. 이로 인해 많은 직원들이 커피를 마시지 못하고 있어 업무 효율이 떨어지고 있습니다.
+빠른 수리 부탁드립니다.`}
+          writer="황휘태"
+          createdAt="2025-11-07T22:26:18Z"
+          likes={1230}
+          isLiked={true}
+          isBest
         />
       </div>
     </div>
