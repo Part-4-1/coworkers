@@ -22,23 +22,18 @@ const Toast = memo(({ type, message }: ToastProps) => {
     switch (type) {
       case "success":
         return {
-          bg: "bg-blue-100",
+          bg: "bg-emerald-400",
           icon: "check" as const,
         };
       case "error":
         return {
-          bg: "bg-red-100",
+          bg: "bg-red-200",
           icon: "alert" as const,
         };
       case "warning":
         return {
           bg: "bg-orange",
-          icon: "alert" as const,
-        };
-      default:
-        return {
-          bg: "bg-blue-100",
-          icon: "alert" as const,
+          icon: "pencil" as const,
         };
     }
   };
@@ -47,14 +42,17 @@ const Toast = memo(({ type, message }: ToastProps) => {
 
   return (
     <div
-      className={`flex w-full max-w-[704px] cursor-pointer items-center justify-between rounded-lg px-6 py-3 shadow-lg transition-all duration-300 ease-in-out ${bg} ${
+      className={`flex w-[343px] cursor-pointer items-center rounded-lg px-6 py-3 shadow-lg transition-all duration-300 ease-in-out tablet:w-[434px] ${bg} ${
         show ? "animate-fade-in" : "animate-fade-out"
       }`}
       onClick={() => removeToastItem()}
     >
       <div className="flex items-center gap-3">
-        <Icon icon={icon} className="h-6 w-6 text-white" />
-        <p className="text-sm font-medium text-white">{message}</p>
+        <Icon
+          icon={icon}
+          className="h-[18px] w-[18px] shrink-0 text-white tablet:h-6 tablet:w-6"
+        />
+        <p className="truncate text-md font-normal text-white">{message}</p>
       </div>
     </div>
   );

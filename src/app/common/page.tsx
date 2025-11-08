@@ -315,13 +315,21 @@ const Page = () => {
         />
       </div>
       <div className="mt-8 w-full max-w-[300px] gap-2 flex-col-center">
-        <Button onClick={() => success("성공!")}>성공 토스트</Button>
-        <Button variant="alert" onClick={() => error("오류!")}>
+        <Button
+          className="bg-emerald-400"
+          onClick={() => success("성공적으로 실행되었습니다 !")}
+        >
+          성공 토스트
+        </Button>
+        <Button
+          variant="alert"
+          onClick={() => error("앗, 실패하였습니다. 다시 시도해주세요 !")}
+        >
           오류 토스트
         </Button>
         <Button
           className="bg-orange"
-          onClick={() => warning("변경사항을 저장하세요")}
+          onClick={() => warning("저장하지 않은 변경사항이 있어요 !")}
         >
           경고 토스트
         </Button>
