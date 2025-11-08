@@ -6,11 +6,11 @@ import SidebarDropdown from "./_components/sidebar-dropdown/sidebar-dropdown";
 import SidebarFooter from "./_components/sidebar-footer/sidebar-footer";
 import { Button } from "@/components/index";
 import SidebarMenu from "./_components/sidebar-menu/sidebar-menu";
-import cn from "@/utils/clsx";
 import { AnimatePresence, motion } from "framer-motion";
-import useMediaQuery from "@/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/use-media-query";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 /**
  * @author leohan
@@ -32,6 +32,12 @@ const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const { data: userInfo, isLoading } = useGetUserInfoQuery();
+
+  //const isLoggedIn = !!userInfo && !isLoading;
+  //const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
+  const isLoggedIn = true;
+  const isTeamExist = true;
   useEffect(() => {
     setIsSidebarOpen(isDesktop);
   }, [isDesktop]);
@@ -57,9 +63,6 @@ const Sidebar = () => {
   const handleToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
-  const isTeamExist = true; // 임시 팀 존재 확인
-  const isLoggedIn = true; // 임시 로그인 확인
 
   return createPortal(
     <>
