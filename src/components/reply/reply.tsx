@@ -2,6 +2,7 @@ import cn from "@/utils/clsx";
 import { Button, Icon, Dropdown } from "@/components/index";
 import { Comment } from "@/types/index";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
+import { toDotDateString } from "@/utils/date-util";
 
 interface CommentProps {
   comment: Comment;
@@ -58,9 +59,7 @@ const Reply = ({ comment }: CommentProps) => {
         </p>
 
         <time dateTime={comment.createdAt} className="text-md text-gray-700">
-          {new Date(comment.createdAt)
-            .toLocaleDateString("ko-KR")
-            .replace(/\.$/, "")}
+          {toDotDateString(comment.createdAt)}
         </time>
       </div>
     </article>
