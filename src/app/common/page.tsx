@@ -3,16 +3,19 @@
 import {
   Badge,
   Button,
+  Checkbox,
   Dropdown,
   Icon,
+  ImageUpload,
   InputBox,
   InputReply,
   Profile,
+  ProfileEdit,
+  ProfileMember,
   Reply,
-  TextInput,
   TaskChip,
   TaskHeader,
-  ImageUpload,
+  TextInput,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -20,11 +23,12 @@ import {
   PASSWORD_REGEX,
 } from "@/constants/regex";
 
-import { mockComments } from "@/mocks/comment-data";
-import { mockUserData } from "@/mocks/user-data";
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
+import { mockComments } from "@/mocks/comment-data";
+import { mockGroupData } from "@/mocks/group-data";
+import { mockUserData } from "@/mocks/user-data";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 type LoginFormData = {
   email: string;
@@ -144,6 +148,27 @@ const Page = () => {
         <Profile size="lg"></Profile>
         <Profile image={mockUserData[2].image} size="lg"></Profile>
       </div>
+      <div className="flex items-center justify-center bg-gray-600 px-3 py-3">
+        <ProfileEdit />
+        <ProfileEdit image={mockUserData[0].image} />
+      </div>
+      <div className="flex gap-5">
+        <ProfileMember
+          userImage={mockGroupData[0].members[0].userImage}
+          userEmail={mockGroupData[0].members[0].userEmail}
+          userName={mockGroupData[0].members[0].userName}
+          onClick={() => {
+            console.log("aaa");
+          }}
+        />
+        <ProfileMember
+          userEmail={mockGroupData[0].members[0].userEmail}
+          userName={mockGroupData[0].members[0].userName}
+          onClick={() => {
+            console.log("aaa");
+          }}
+        />
+      </div>
       <div className="flex gap-5">
         <Dropdown
           items={[
@@ -206,6 +231,27 @@ const Page = () => {
         <div className="w-full max-w-[600px]">
           <ImageUpload maxCount={5} />
         </div>
+      </div>
+      <div>
+        <Checkbox id={12345} isDone={"2025-11-07T00:00:00Z"} />
+        <Checkbox
+          id={12346}
+          taskName="법인 설립 안내드리기"
+          isDone={null}
+          size="sm"
+        />
+        <Checkbox
+          id={12347}
+          taskName="법인 설립 안내드리기"
+          size="lg"
+          isDone={null}
+        />
+        <Checkbox
+          id={12348}
+          taskName="법인 설립 안내드리기"
+          size="sm"
+          isDone={"2025-11-07T00:00:00Z"}
+        />
       </div>
     </div>
   );

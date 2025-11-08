@@ -33,6 +33,13 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
+  const selectedMembership = mockUser[0].memberships.find(
+    (membership) => String(membership.group.id) === currentTeamId
+  );
+  const selectedTeamName = selectedMembership
+    ? selectedMembership.group.name
+    : "팀 선택";
+
   return (
     <div className="w-full max-w-[238px]">
       <div
@@ -44,27 +51,31 @@ const SidebarDropdown = ({
             icon="chess"
             className={cn(
               iconStyles.default,
-              isSidebarOpen && iconStyles.sidebarOpen
+              isSidebarOpen && iconStyles.sidebarOpen,
+              !!selectedMembership && "text-blue-200"
             )}
           />
           <AnimatePresence>
             {isSidebarOpen && (
               <motion.span
-                className="whitespace-nowrap text-gray-700 group-hover:text-blue-200"
+                className={cn(
+                  "whitespace-nowrap text-gray-700 group-hover:text-blue-200",
+                  !!selectedMembership && "text-blue-200"
+                )}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                팀 선택
+                {selectedTeamName}
               </motion.span>
             )}
           </AnimatePresence>
         </div>
         {!isSidebarOpen && !isOpen && (
-          <div className={cn(tooltipStyles.base, tooltipStyles.before)}>
-            팀 선택
-          </div>
+          <span className={cn(tooltipStyles.base, tooltipStyles.before)}>
+            {selectedTeamName}
+          </span>
         )}
         {isSidebarOpen && (
           <Icon

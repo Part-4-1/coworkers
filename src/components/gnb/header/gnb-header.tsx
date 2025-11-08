@@ -18,7 +18,8 @@ const GnbHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
-  const isLoggedIn = !!userInfo && !isLoading;
+  //const isLoggedIn = !!userInfo && !isLoading;
+  const isLoggedIn = true;
 
   return (
     <div className="w-full border-b border-gray-300">

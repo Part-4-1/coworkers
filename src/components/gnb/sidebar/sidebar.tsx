@@ -6,7 +6,6 @@ import SidebarDropdown from "./_components/sidebar-dropdown/sidebar-dropdown";
 import SidebarFooter from "./_components/sidebar-footer/sidebar-footer";
 import { Button } from "@/components/index";
 import SidebarMenu from "./_components/sidebar-menu/sidebar-menu";
-import cn from "@/utils/clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import useMediaQuery from "@/hooks/use-media-query";
 import { usePathname } from "next/navigation";
@@ -35,9 +34,10 @@ const Sidebar = () => {
 
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
 
-  const isLoggedIn = !!userInfo && !isLoading;
-  const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
-
+  //const isLoggedIn = !!userInfo && !isLoading;
+  //const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
+  const isLoggedIn = true;
+  const isTeamExist = true;
   useEffect(() => {
     setIsSidebarOpen(isDesktop);
   }, [isDesktop]);

@@ -40,7 +40,7 @@ const SidebarHeader = ({
             "h-7 w-7 transition-transform",
             isSidebarOpen
               ? "rotate-0"
-              : "m-4 h-8 w-8 rotate-180 rounded-full border border-gray-300 bg-white p-1"
+              : "mx-4 h-8 w-8 rotate-180 rounded-full border border-gray-300 bg-white p-1"
           )}
         />
       </Button>

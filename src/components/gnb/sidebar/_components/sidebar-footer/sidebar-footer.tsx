@@ -14,8 +14,8 @@ import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
-  const isLoggedIn = !!userInfo && !isLoading;
-
+  //const isLoggedIn = !!userInfo && !isLoading;
+  const isLoggedIn = true;
   return isLoggedIn ? (
     <Link
       href={"/userPage"}
