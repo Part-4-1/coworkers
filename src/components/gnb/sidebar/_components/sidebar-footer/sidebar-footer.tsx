@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { mockUser } from "@/mocks/sidebar-data";
 import { AnimatePresence, motion } from "framer-motion";
 import { Profile } from "@/components/index";
@@ -39,7 +38,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
               {mockUser[0].nickname}
             </span>
             <span className="whitespace-nowrap text-xs text-gray-700">
-              {mockUser[0].memberships[0].group.name}
+              {mockUser[0]?.memberships?.[0]?.group.name}
             </span>
           </motion.div>
         )}
