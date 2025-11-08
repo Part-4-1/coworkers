@@ -63,17 +63,17 @@ const GnbHeader = () => {
         </div>
       ) : (
         <div className="p-4">
-          <Link
-            href={"/"}
-            className="flex items-center justify-start gap-[3px]"
-          >
+          <Link href={"/"}>
             <Image
               src={"/ic-coworkers-logo.svg"}
               alt="코워쿼스 로고"
               width={16}
               height={16}
+              className="mr-[2px] inline-block"
             />
-            <h1 className="text-[12.5px] font-bold text-blue-200">COWORKERS</h1>
+            <h1 className="inline-block text-[12.5px] font-bold text-blue-200">
+              COWORKERS
+            </h1>
           </Link>
         </div>
       )}
