@@ -1,15 +1,25 @@
-import { Meta, StoryObj } from "@storybook/nextjs";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Provider } from "jotai";
-import { useState } from "react";
 import Toast from "./toast";
-import { Button } from "@/components";
 
 const meta = {
   title: "Components/Toast",
+  component: Toast,
   parameters: {
     layout: "padded",
   },
   tags: ["autodocs"],
+  argTypes: {
+    type: {
+      control: "select",
+      options: ["success", "error", "warning"],
+      description: "토스트 타입",
+    },
+    message: {
+      control: "text",
+      description: "토스트 메시지",
+    },
+  },
   decorators: [
     (Story) => (
       <Provider>
@@ -17,44 +27,31 @@ const meta = {
       </Provider>
     ),
   ],
-} satisfies Meta;
+} satisfies Meta<typeof Toast>;
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Interactive = () => {
-  const [toast, setToast] = useState<{
-    type: "success" | "error" | "warning";
-    message: string;
-  } | null>(null);
+export const Success: Story = {
+  render: (args) => <Toast {...args} />,
+  args: {
+    type: "success",
+    message: "성공 메시지",
+  },
+};
 
-  const showToast = (
-    type: "success" | "error" | "warning",
-    message: string
-  ) => {
-    setToast({ type, message });
-    setTimeout(() => setToast(null), 3200);
-  };
+export const Error: Story = {
+  render: (args) => <Toast {...args} />,
+  args: {
+    type: "error",
+    message: "오류 메시지",
+  },
+};
 
-  return (
-    <div className="min-h-screen flex-col-center">
-      <div className="flex w-full max-w-[300px] flex-col gap-4">
-        <Button onClick={() => showToast("success", "성공 !")}>
-          성공 토스트
-        </Button>
-        <Button variant="alert" onClick={() => showToast("error", "오류 !")}>
-          오류 토스트
-        </Button>
-        <Button
-          className="bg-orange"
-          onClick={() => showToast("warning", "변경사항을 저장하세요")}
-        >
-          경고 토스트
-        </Button>
-
-        <div className="fixed left-1/2 top-8 z-50 -translate-x-1/2">
-          {toast && <Toast {...toast} />}
-        </div>
-      </div>
-    </div>
-  );
+export const Warning: Story = {
+  render: (args) => <Toast {...args} />,
+  args: {
+    type: "warning",
+    message: "경고 메시지",
+  },
 };
