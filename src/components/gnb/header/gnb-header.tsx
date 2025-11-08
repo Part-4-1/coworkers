@@ -19,7 +19,7 @@ const GnbHeader = () => {
 
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
   //const isLoggedIn = !!userInfo && !isLoading;
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <div className="w-full border-b border-gray-300">
@@ -62,18 +62,20 @@ const GnbHeader = () => {
           </AnimatePresence>
         </div>
       ) : (
-        <Link
-          href={"/"}
-          className="flex items-center justify-start gap-[3px] p-4"
-        >
-          <Image
-            src={"/ic-coworkers-logo.svg"}
-            alt="코워쿼스 로고"
-            width={16}
-            height={16}
-          />
-          <h1 className="text-[12.5px] font-bold text-blue-200">COWORKERS</h1>
-        </Link>
+        <div className="p-4">
+          <Link
+            href={"/"}
+            className="flex items-center justify-start gap-[3px]"
+          >
+            <Image
+              src={"/ic-coworkers-logo.svg"}
+              alt="코워쿼스 로고"
+              width={16}
+              height={16}
+            />
+            <h1 className="text-[12.5px] font-bold text-blue-200">COWORKERS</h1>
+          </Link>
+        </div>
       )}
     </div>
   );
