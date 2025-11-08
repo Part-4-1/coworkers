@@ -31,6 +31,7 @@ import { mockGroupData } from "@/mocks/group-data";
 import { mockUserData } from "@/mocks/user-data";
 import { useEffect, useState, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
+import List from "@/components/list/list";
 
 type LoginFormData = {
   email: string;
@@ -312,6 +313,7 @@ const Page = () => {
           isBest
         />
       </div>
+      <List />
     </div>
   );
 };
