@@ -48,7 +48,10 @@ const Reply = ({ comment }: CommentProps) => {
                   <Icon icon="kebab" className="h-4 w-4" />
                 </Button>
               }
-              items={[{ label: "수정하기" }, { label: "삭제하기" }]}
+              items={[
+                { label: "수정하기", onClick: () => {} },
+                { label: "삭제하기", onClick: () => {} },
+              ]}
               isWidthFull={false}
             />
           </div>
