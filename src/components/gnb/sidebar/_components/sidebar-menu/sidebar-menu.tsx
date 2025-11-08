@@ -13,6 +13,8 @@ interface SidebarMenuProps {
   isSidebarOpen?: boolean;
   isSelected?: boolean;
   href: string;
+  className?: string;
+  fontStyle?: string;
 }
 
 const menuStyles = {
@@ -44,6 +46,8 @@ const SidebarMenu = ({
   isSelected,
   isSidebarOpen = true,
   href,
+  className,
+  fontStyle,
 }: SidebarMenuProps) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isSelected) {
@@ -55,7 +59,8 @@ const SidebarMenu = ({
       className={cn(
         menuStyles.default,
         isSelected && menuStyles.selected,
-        !isSidebarOpen && menuStyles.sidebarOpen
+        !isSidebarOpen && menuStyles.sidebarOpen,
+        className
       )}
       href={href}
       onClick={(e) => handleClick(e)}
@@ -87,7 +92,7 @@ const SidebarMenu = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="whitespace-nowrap"
+            className={cn("whitespace-nowrap", fontStyle)}
           >
             {title}
           </motion.span>

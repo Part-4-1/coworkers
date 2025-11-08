@@ -55,6 +55,8 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                     iconName="chess"
                     isSelected={String(data.group.id) === currentTeamId}
                     href={`/${mockUser[0].teamId}/groups/${data.group.id}`}
+                    className="h-[44px]"
+                    fontStyle="h-[17px]"
                   />
                 ))}
                 <Button
@@ -68,6 +70,8 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                 iconName="board"
                 title="자유게시판"
                 href={"/article"}
+                className="h-[44px]"
+                fontStyle="h-[17px]"
               />
             </div>
           </motion.div>
