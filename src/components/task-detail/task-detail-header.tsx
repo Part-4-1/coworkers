@@ -36,9 +36,9 @@ const TaskDetailHeader = ({
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex items-center justify-between">
-        <p className="text-xl font-bold">{name}</p>
+        <p className="text-xl font-bold tablet:text-2xl">{name}</p>
         <Dropdown
-          trigger={<Icon icon="kebab" className="h-6 w-6 text-gray-500" />}
+          trigger={<Icon icon="kebab" className="h-6 w-6 text-gray-800" />}
           items={[
             {
               label: "수정하기",
@@ -54,8 +54,8 @@ const TaskDetailHeader = ({
         />
       </div>
       <div className="flex items-center gap-3">
-        <Profile image={writer.image ? writer.image : ""} />
-        <span>{writer.nickname}</span>
+        <Profile image={writer.image ? writer.image : ""} size="md" />
+        <span className="text-md font-medium">{writer.nickname}</span>
       </div>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col">
@@ -81,9 +81,9 @@ const TaskMetadata = ({ icon, label, text }: TaskMetadataProps) => {
     <div className="flex items-center gap-3">
       <div className="flex items-center gap-[6px]">
         <Icon icon={icon} className="h-4 w-4" />
-        <span>{label}</span>
+        <span className="text-xs text-gray-800">{label}</span>
       </div>
-      <span>{text}</span>
+      <span className="text-xs">{text}</span>
     </div>
   );
 };
