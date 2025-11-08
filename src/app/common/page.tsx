@@ -29,6 +29,7 @@ import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
 import { mockUserData } from "@/mocks/user-data";
+import { mockListData } from "@/mocks/list-data";
 import { useEffect, useState, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 import List from "@/components/list/list";
@@ -313,7 +314,19 @@ const Page = () => {
           isBest
         />
       </div>
-      <List />
+      {mockListData.tasks.map((task) => {
+        return (
+          <List
+            key={task.id}
+            id={task.id}
+            name={task.name}
+            date={task.date}
+            doneAt={task.doneAt}
+            commentCount={task.commentCount}
+            frequency={task.frequency}
+          />
+        );
+      })}
     </div>
   );
 };
