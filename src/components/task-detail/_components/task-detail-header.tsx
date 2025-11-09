@@ -17,6 +17,18 @@ type TaskDetailHeaderPropsWithAction = TaskDetailHeaderProps & {
   onToggleBtnClick: MouseEventHandler;
 };
 
+/**
+ * @author hwitae
+ * @description 할 일 상세 페이지의 제목, 프로필, 시작 날짜, 반복 설정, 완료하기 버튼을 표출하는 컴포넌트
+ * @param name 할 일 제목
+ * @param writer 할 일 작성자
+ * @param createdAt 할 일 등록 날짜
+ * @param frequency 할 일 반복 주기
+ * @param doneAt 할 일 완료 날짜 (할 일 완료 여부로 사용)
+ * @param setEditMode 드롭다운을 통해 수정하기 버튼을 눌러 작성 모드를 변경하는 핸들러
+ * @param onToggleBtnClick 완료하기 버튼 동작 이벤트 핸들러
+ * @returns <TaskDetailHeader />
+ */
 const TaskDetailHeader = ({
   name,
   writer,
