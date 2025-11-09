@@ -5,23 +5,45 @@ import { TIME_LIST } from "@/constants/time-list";
 import cn from "@/utils/clsx";
 import { useEffect, useState } from "react";
 
+/**
+ * @author jinhyuk
+ * @description
+ * 단일 선택형 시간 선택 컴포넌트입니다.
+ * 선택된 시간을 상위 컴포넌트로 전달합니다.
+ *
+ * @param onSelect - 선택된 시간 데이터를 상위로 전달하는 콜백 함수
+ * @param selectedTimeData - 상위에서 내려받은 선택된 시간 데이터 (isAm, time),
+ * 시간선택 캘린더가 부모에서 닫혔다가 열릴때 선택된 값을 유지하기 위한 Props입니다.
+ * @example
+ * <CalendarTime
+    onSelect={({ isAm, time }) => {
+      setCurrentAm(isAm);
+      setCurrentTime(time);
+    }}
+    initialTimeData={{
+      isAm: currentAm,
+      time: currentTime,
+    }}
+  />
+ */
+
 interface CalendarTimeProps {
   onSelect?: (timeData: { isAm: boolean; time: string }) => void;
-  selectedTimeData?: {
+  initialTimeData?: {
     isAm: boolean;
     time: string;
   };
 }
 
-const CalendarTime = ({ onSelect, selectedTimeData }: CalendarTimeProps) => {
+const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
   const [isAm, setIsAm] = useState(true);
   const [selectedTime, setSelectedTime] = useState(TIME_LIST[0]);
   useEffect(() => {
-    if (selectedTimeData) {
-      setIsAm(selectedTimeData.isAm);
-      setSelectedTime(selectedTimeData.time);
+    if (initialTimeData) {
+      setIsAm(initialTimeData.isAm);
+      setSelectedTime(initialTimeData.time);
     }
-  }, [selectedTimeData]);
+  }, [initialTimeData]);
 
   const handleTimeClick = (time: string) => {
     setSelectedTime(time);
