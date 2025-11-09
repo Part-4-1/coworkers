@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 
 import { Button, Icon } from "@/components/index";
 import cn from "@/utils/clsx";
