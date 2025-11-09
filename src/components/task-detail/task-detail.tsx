@@ -9,6 +9,7 @@ const TaskDetail = ({
   writer,
   createdAt,
   frequency,
+  doneAt,
 }: TaskDetailProps) => {
   const [isEdit, setIsEdit] = useState(false);
 
@@ -19,6 +20,7 @@ const TaskDetail = ({
         writer={writer}
         createdAt={createdAt}
         frequency={frequency}
+        doneAt={doneAt}
         setEditMode={setIsEdit}
       />
     </div>

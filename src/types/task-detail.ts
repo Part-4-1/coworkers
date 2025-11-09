@@ -5,6 +5,7 @@ export interface TaskDetailHeaderProps {
   writer: CommentWriter;
   createdAt: string;
   frequency: string;
+  doneAt: string | null;
 }
 
 export interface TaskDetailProps extends TaskDetailHeaderProps {}

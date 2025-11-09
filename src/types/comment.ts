@@ -4,7 +4,7 @@
  *
  */
 export interface CommentWriter {
-  image: string | null;
+  image: string;
   nickname: string;
   id: number;
 }

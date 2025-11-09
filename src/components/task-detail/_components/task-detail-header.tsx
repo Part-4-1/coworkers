@@ -1,5 +1,5 @@
 import { TaskDetailHeaderProps } from "@/types/task-detail";
-import { Button, Dropdown, Icon, Profile } from "../../index";
+import { Dropdown, Icon, Profile } from "../../index";
 import ICONS_MAP from "../../icon/icons-map";
 import { Dispatch, SetStateAction } from "react";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
@@ -19,6 +19,7 @@ const TaskDetailHeader = ({
   writer,
   createdAt,
   frequency,
+  doneAt,
   setEditMode,
 }: TaskDetailHeaderPropsWithDropdownAction) => {
   const taskMetadataArr: TaskMetadataProps[] = [
@@ -55,7 +56,7 @@ const TaskDetailHeader = ({
         />
       </div>
       <div className="flex items-center gap-3">
-        <Profile image={writer.image ? writer.image : ""} size="md" />
+        <Profile image={writer.image} size="md" />
         <span className="text-md font-medium">{writer.nickname}</span>
       </div>
       <div className="flex flex-col gap-6">
@@ -72,7 +73,7 @@ const TaskDetailHeader = ({
               );
             })}
           </div>
-          <TaskDetailToggleBtn isDone={"done"} onClick={() => {}} />
+          <TaskDetailToggleBtn isDone={doneAt} onClick={() => {}} />
         </div>
         <hr className="h-[2px] bg-gray-300" />
       </div>
