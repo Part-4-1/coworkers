@@ -1,3 +1,6 @@
+"use-client";
+
+import { Icon } from "@/components/index";
 import cn from "@/utils/clsx";
 import type { CSSProperties } from "react";
 import { useState } from "react";
@@ -8,7 +11,6 @@ import {
 } from "react-day-picker";
 import { ko } from "react-day-picker/locale";
 import "react-day-picker/style.css";
-import Icon from "../icon/Icon";
 
 /**
  * @author jinhyuk
