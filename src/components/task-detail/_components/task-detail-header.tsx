@@ -2,6 +2,7 @@ import { TaskDetailHeaderProps } from "@/types/task-detail";
 import { Button, Dropdown, Icon, Profile } from "../../index";
 import ICONS_MAP from "../../icon/icons-map";
 import { Dispatch, SetStateAction } from "react";
+import TaskDetailToggleBtn from "./task-detail-complete-btn";
 
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
@@ -71,10 +72,7 @@ const TaskDetailHeader = ({
               );
             })}
           </div>
-          <Button className="h-10 w-[105px] rounded-[40px]">
-            <Icon icon="checkInverse" className="h-4 w-4" />
-            <span className="text-md">완료하기</span>
-          </Button>
+          <TaskDetailToggleBtn isDone={"done"} onClick={() => {}} />
         </div>
         <hr className="h-[2px] bg-gray-300" />
       </div>
