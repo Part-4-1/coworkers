@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import cn from "@/utils/clsx";
 import { Button, Icon, Dropdown } from "@/components/index";
 import { Comment } from "@/types/index";
@@ -44,28 +41,26 @@ const Reply = ({ comment }: CommentProps) => {
         <DefaultProfile className={cn(profileStyle, "object-cover")} />
       )}
 
-      <div className="flex flex-1 flex-col gap-1">
-        <div className="flex items-center">
-          <strong className="text-md font-semibold text-blue-700">
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <div className="flex min-w-0 items-center">
+          <strong className="flex-1 truncate text-md font-semibold text-blue-700">
             {comment.writer.nickname}
           </strong>
 
-          <div className="relative ml-auto h-6 w-6">
+          <div className="relative ml-auto h-6 w-6 flex-shrink-0">
             {!isEditing && (
-              <div className="relative ml-auto">
-                <Dropdown
-                  trigger={
-                    <Button variant="none" className="p-0" aria-label="메뉴">
-                      <Icon icon="kebab" className="h-4 w-4" />
-                    </Button>
-                  }
-                  items={[
-                    { label: "수정하기", onClick: handlers.handleEdit },
-                    { label: "삭제하기", onClick: handlers.handleDelete },
-                  ]}
-                  isWidthFull={false}
-                />
-              </div>
+              <Dropdown
+                trigger={
+                  <Button variant="none" className="p-0" aria-label="메뉴">
+                    <Icon icon="kebab" className="h-4 w-4" />
+                  </Button>
+                }
+                items={[
+                  { label: "수정하기", onClick: handlers.handleEdit },
+                  { label: "삭제하기", onClick: handlers.handleDelete },
+                ]}
+                isWidthFull={false}
+              />
             )}
           </div>
         </div>
@@ -75,7 +70,7 @@ const Reply = ({ comment }: CommentProps) => {
             <TextareaAutosize
               value={editedContent}
               onChange={(e) => setEditedContent(e.target.value)}
-              className="w-full resize-none rounded-lg border border-blue-400 p-3 text-md leading-relaxed focus:outline-none"
+              className="w-full resize-none rounded-lg border border-blue-400 px-2 py-2 text-md leading-relaxed focus:outline-none"
               minRows={3}
             />
             <div className="flex gap-2">
