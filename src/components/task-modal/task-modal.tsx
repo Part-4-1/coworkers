@@ -20,24 +20,26 @@ const TaskModal = () => {
         <TextInput
           id="taskTitle"
           placeholder="할 일 제목을 입력해주세요."
-          className="placeholder:text-gray-800"
+          className="placeholder:text-md placeholder:text-gray-800"
         />
       </div>
 
-      <label htmlFor="taskTitle" className="text- font-medium text-blue-700">
-        시작 날짜 및 시간
-      </label>
-      <div className="flex">
-        <Dropdown
-          items={[{ label: "날짜" }]}
-          menuAlign="start"
-          defaultTriggerClassName="w-[204px] h-[48px]"
-        />
-        <Dropdown
-          items={[{ label: "시간" }]}
-          menuAlign="end"
-          defaultTriggerClassName="w-[124px] h-[48px]"
-        />
+      <div className="flex flex-col gap-2">
+        <label htmlFor="taskTitle" className="text- font-medium text-blue-700">
+          시작 날짜 및 시간
+        </label>
+        <div className="flex">
+          <Dropdown
+            items={[{ label: "날짜" }]}
+            menuAlign="start"
+            defaultTriggerClassName="w-[204px] h-[48px]"
+          />
+          <Dropdown
+            items={[{ label: "시간" }]}
+            menuAlign="end"
+            defaultTriggerClassName="w-[124px] h-[48px]"
+          />
+        </div>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -61,8 +63,12 @@ const TaskModal = () => {
         <label htmlFor="taskTitle" className="text- font-medium text-blue-700">
           할 일 메모
         </label>
-        <InputBox placeholder="메모를 입력해주세요." />
+        <InputBox
+          className="placeholder:text-gray-800"
+          placeholder="메모를 입력해주세요."
+        />
       </div>
+
       <Button>만들기</Button>
     </div>
   );

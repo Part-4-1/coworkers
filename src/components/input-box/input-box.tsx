@@ -12,6 +12,7 @@ interface InputBoxProps {
   placeholder: string;
   width?: string;
   height?: string;
+  className?: string;
 }
 
 /**
@@ -29,6 +30,7 @@ const InputBox = ({
   placeholder,
   width = "w-full",
   height = "h-[75px]",
+  className,
 }: InputBoxProps) => {
   return (
     <textarea
@@ -39,7 +41,8 @@ const InputBox = ({
         "tablet:text-lg tablet:placeholder:text-md",
         "border-blue-400 placeholder-shown:border-gray-300 focus:border-blue-200",
         width,
-        height
+        height,
+        className
       )}
     />
   );
