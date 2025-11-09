@@ -18,6 +18,7 @@ import {
   TextInput,
   TaskCard,
   PostCard,
+  TaskModal,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -312,6 +313,7 @@ const Page = () => {
           isBest
         />
       </div>
+      <TaskModal />
     </div>
   );
 };

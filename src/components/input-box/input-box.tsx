@@ -37,6 +37,7 @@ const InputBox = ({
         "resize-none overflow-y-auto rounded-xl border border-gray-300 px-4 py-3 pb-6 font-normal focus:border-blue-400 focus:outline-none",
         "text-md placeholder:text-sm",
         "tablet:text-lg tablet:placeholder:text-md",
+        "border-blue-400 placeholder-shown:border-gray-300 focus:border-blue-200",
         width,
         height
       )}
