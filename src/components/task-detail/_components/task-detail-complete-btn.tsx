@@ -18,7 +18,7 @@ const TaskDetailToggleBtn = ({ doneAt, onClick }: TaskDetailToggleBtnProps) => {
   return (
     <Button
       variant={doneAt ? "outlined" : "solid"}
-      className="h-10 w-fit rounded-[40px] pl-4 pr-5"
+      className="h-10 w-fit rounded-[40px] pl-4 pr-5 mobile:hidden tablet:flex"
       onClick={onClick}
     >
       <Icon icon="checkInverse" className="h-4 w-4" />
