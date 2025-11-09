@@ -1,7 +1,7 @@
 "use client";
 
 import type { TaskDetailProps } from "@/types/task-detail";
-import TaskDetailHeader from "./task-detail-header";
+import TaskDetailHeader from "./_components/task-detail-header";
 import { useState } from "react";
 
 const TaskDetail = ({

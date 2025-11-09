@@ -1,6 +1,6 @@
 import { TaskDetailHeaderProps } from "@/types/task-detail";
-import { Dropdown, Icon, Profile } from "../index";
-import ICONS_MAP from "../icon/icons-map";
+import { Button, Dropdown, Icon, Profile } from "../../index";
+import ICONS_MAP from "../../icon/icons-map";
 import { Dispatch, SetStateAction } from "react";
 
 interface TaskMetadataProps {
@@ -58,17 +58,23 @@ const TaskDetailHeader = ({
         <span className="text-md font-medium">{writer.nickname}</span>
       </div>
       <div className="flex flex-col gap-6">
-        <div className="flex flex-col">
-          {taskMetadataArr.map((taskMetadata) => {
-            return (
-              <TaskMetadata
-                key={taskMetadata.label}
-                icon={taskMetadata.icon}
-                label={taskMetadata.label}
-                text={taskMetadata.text}
-              />
-            );
-          })}
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-2">
+            {taskMetadataArr.map((taskMetadata) => {
+              return (
+                <TaskMetadata
+                  key={taskMetadata.label}
+                  icon={taskMetadata.icon}
+                  label={taskMetadata.label}
+                  text={taskMetadata.text}
+                />
+              );
+            })}
+          </div>
+          <Button className="h-10 w-[105px] rounded-[40px]">
+            <Icon icon="checkInverse" className="h-4 w-4" />
+            <span className="text-md">완료하기</span>
+          </Button>
         </div>
         <hr className="h-[2px] bg-gray-300" />
       </div>
