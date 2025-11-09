@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import { Button, Icon } from "../../index";
+import { Button, Icon } from "@/components";
 
 interface TaskDetailToggleBtnProps {
   doneAt: string | null;

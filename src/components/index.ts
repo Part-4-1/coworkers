@@ -21,4 +21,3 @@ export { default as TaskChip } from "./task-chip/task-chip";
 export { default as TaskHeader } from "./task-header/task-header";
 export { default as TaskCard } from "./task-card/task-card";
 export { default as PostCard } from "./post-card/post-card";
-export { default as TaskDetail } from "./task-detail/task-detail";
