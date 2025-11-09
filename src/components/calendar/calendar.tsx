@@ -1,6 +1,6 @@
 "use-client";
 
-import { Icon } from "@/components/index";
+import { Button, Icon } from "@/components/index";
 import cn from "@/utils/clsx";
 import type { CSSProperties } from "react";
 import { useState } from "react";
@@ -45,14 +45,14 @@ const Calendar = ({ onDayClick }: CalendarProps) => {
       showOutsideDays
       components={{
         PreviousMonthButton: (props) => (
-          <button {...props}>
+          <Button {...props} variant="none">
             <Icon icon="leftTriangleArrow" />
-          </button>
+          </Button>
         ),
         NextMonthButton: (props) => (
-          <button {...props}>
+          <Button {...props} variant="none">
             <Icon icon="rightTriangleArrow" />
-          </button>
+          </Button>
         ),
       }}
       classNames={{
