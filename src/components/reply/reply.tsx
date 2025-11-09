@@ -18,6 +18,7 @@ const Reply = ({ comment }: CommentProps) => {
     useCommentHandlers(comment);
 
   const hasImage = comment.writer.image?.trim();
+  const isSaveDisabled = !editedContent.trim();
 
   const profileStyle = cn(
     "bg-gray-300 rounded-lg h-[24px] w-[24px]",
@@ -78,7 +79,11 @@ const Reply = ({ comment }: CommentProps) => {
               minRows={3}
             />
             <div className="flex gap-2">
-              <Button onClick={handlers.handleSave} className="text-md">
+              <Button
+                onClick={handlers.handleSave}
+                className="text-md"
+                disabled={isSaveDisabled}
+              >
                 저장
               </Button>
               <Button
