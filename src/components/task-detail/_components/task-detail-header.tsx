@@ -4,6 +4,7 @@ import ICONS_MAP from "../../icon/icons-map";
 import { Dispatch, MouseEventHandler, SetStateAction } from "react";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
 import { toKoreanDateWithTimeString } from "@/utils/date-util";
+import { changeFrequencyCode } from "@/utils/util";
 
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
@@ -34,7 +35,7 @@ const TaskDetailHeader = ({
     {
       icon: "repeat",
       label: "반복 설정",
-      text: frequency,
+      text: changeFrequencyCode(frequency),
     },
   ];
 

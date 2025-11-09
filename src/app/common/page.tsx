@@ -322,7 +322,7 @@ const Page = () => {
             image: "https://randomuser.me/api/portraits/men/12.jpg",
           }}
           createdAt="2025-11-08T23:47:20Z"
-          frequency="ONCE"
+          frequency="DAILY"
           doneAt={null}
         />
       </div>
