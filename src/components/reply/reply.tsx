@@ -1,14 +1,22 @@
+"use client";
+
+import { useState } from "react";
 import cn from "@/utils/clsx";
 import { Button, Icon, Dropdown } from "@/components/index";
 import { Comment } from "@/types/index";
+import TextareaAutosize from "react-textarea-autosize";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 import { toDotDateString } from "@/utils/date-util";
+import { useCommentHandlers } from "@/hooks/comment-handlers/use-comment-handlers";
 
 interface CommentProps {
   comment: Comment;
 }
 
 const Reply = ({ comment }: CommentProps) => {
+  const { isEditing, editedContent, setEditedContent, ...handlers } =
+    useCommentHandlers(comment);
+
   const hasImage = comment.writer.image?.trim();
 
   const profileStyle = cn(
@@ -41,29 +49,56 @@ const Reply = ({ comment }: CommentProps) => {
             {comment.writer.nickname}
           </strong>
 
-          <div className="relative ml-auto">
-            <Dropdown
-              trigger={
-                <Button variant="none" className="p-0" aria-label="메뉴">
-                  <Icon icon="kebab" className="h-4 w-4" />
-                </Button>
-              }
-              items={[
-                { label: "수정하기", onClick: () => {} },
-                { label: "삭제하기", onClick: () => {} },
-              ]}
-              isWidthFull={false}
-            />
-          </div>
+          {!isEditing && (
+            <div className="relative ml-auto">
+              <Dropdown
+                trigger={
+                  <Button variant="none" className="p-0" aria-label="메뉴">
+                    <Icon icon="kebab" className="h-4 w-4" />
+                  </Button>
+                }
+                items={[
+                  { label: "수정하기", onClick: handlers.handleEdit },
+                  { label: "삭제하기", onClick: handlers.handleDelete },
+                ]}
+                isWidthFull={false}
+              />
+            </div>
+          )}
         </div>
 
-        <p className="w-full text-md text-gray-800 tablet:max-w-[464px] pc:max-w-[704px]">
-          {comment.content}
-        </p>
+        {isEditing ? (
+          <div className="flex flex-col gap-2">
+            <TextareaAutosize
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+              className="w-full resize-none rounded-lg border border-blue-400 p-3 text-md focus:outline-none"
+              minRows={3}
+            />
+            <div className="flex gap-2">
+              <Button onClick={handlers.handleSave} className="text-md">
+                저장
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={handlers.handleCancel}
+                className="text-md"
+              >
+                취소
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <p className="w-full text-md text-gray-800 tablet:max-w-[464px] pc:max-w-[704px]">
+            {editedContent}
+          </p>
+        )}
 
-        <time dateTime={comment.createdAt} className="text-md text-gray-700">
-          {toDotDateString(comment.createdAt)}
-        </time>
+        {!isEditing && (
+          <time dateTime={comment.createdAt} className="text-md text-gray-700">
+            {toDotDateString(comment.createdAt)}
+          </time>
+        )}
       </div>
     </article>
   );
