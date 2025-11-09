@@ -3,6 +3,7 @@ import { Dropdown, Icon, Profile } from "../../index";
 import ICONS_MAP from "../../icon/icons-map";
 import { Dispatch, MouseEventHandler, SetStateAction } from "react";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
+import { toKoreanDateWithTimeString } from "@/utils/date-util";
 
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
@@ -28,7 +29,7 @@ const TaskDetailHeader = ({
     {
       icon: "calendar",
       label: "시작 날짜",
-      text: createdAt,
+      text: toKoreanDateWithTimeString(createdAt),
     },
     {
       icon: "repeat",

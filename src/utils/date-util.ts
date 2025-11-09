@@ -30,8 +30,10 @@ export const toKoreanDateString = (timestamp: string) => {
  */
 export const toKoreanDateWithTimeString = (timestamp: string) => {
   const date = new Date(timestamp);
-  const hour = date.getHours();
-  const min = date.getMinutes();
+  const time = date.toLocaleTimeString("ko-KR", {
+    hour: "numeric",
+    minute: "numeric",
+  });
 
-  return `${toKoreanDateString(timestamp)} ${hour >= 12 ? `오후 ${hour - 12}` : `오전 ${hour}`}:${min}`;
+  return `${toKoreanDateString(timestamp)} ${time}`;
 };
