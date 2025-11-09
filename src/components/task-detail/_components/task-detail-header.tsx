@@ -1,7 +1,7 @@
 import { TaskDetailHeaderProps } from "@/types/task-detail";
 import { Dropdown, Icon, Profile } from "../../index";
 import ICONS_MAP from "../../icon/icons-map";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, MouseEventHandler, SetStateAction } from "react";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
 
 interface TaskMetadataProps {
@@ -10,8 +10,9 @@ interface TaskMetadataProps {
   text: string;
 }
 
-type TaskDetailHeaderPropsWithDropdownAction = TaskDetailHeaderProps & {
+type TaskDetailHeaderPropsWithAction = TaskDetailHeaderProps & {
   setEditMode: Dispatch<SetStateAction<boolean>>;
+  onToggleBtnClick: MouseEventHandler;
 };
 
 const TaskDetailHeader = ({
@@ -21,7 +22,8 @@ const TaskDetailHeader = ({
   frequency,
   doneAt,
   setEditMode,
-}: TaskDetailHeaderPropsWithDropdownAction) => {
+  onToggleBtnClick,
+}: TaskDetailHeaderPropsWithAction) => {
   const taskMetadataArr: TaskMetadataProps[] = [
     {
       icon: "calendar",
@@ -73,7 +75,7 @@ const TaskDetailHeader = ({
               );
             })}
           </div>
-          <TaskDetailToggleBtn isDone={doneAt} onClick={() => {}} />
+          <TaskDetailToggleBtn doneAt={doneAt} onClick={onToggleBtnClick} />
         </div>
         <hr className="h-[2px] bg-gray-300" />
       </div>
@@ -81,6 +83,14 @@ const TaskDetailHeader = ({
   );
 };
 
+/**
+ * @author hwitae
+ * @description 할 일 상세 헤더 컴포넌트의 시작 날짜, 반복 설정을 표출합니다.
+ * @param icon 아이콘 이름
+ * @param label 표출하는 정보의 이름 (시작 날짜, 반복 설정)
+ * @param text 표출하는 정보
+ * @returns <TaskMetadata />
+ */
 const TaskMetadata = ({ icon, label, text }: TaskMetadataProps) => {
   return (
     <div className="flex items-center gap-3">

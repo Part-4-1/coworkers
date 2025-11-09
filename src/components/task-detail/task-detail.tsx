@@ -22,6 +22,7 @@ const TaskDetail = ({
         frequency={frequency}
         doneAt={doneAt}
         setEditMode={setIsEdit}
+        onToggleBtnClick={() => {}}
       />
     </div>
   );

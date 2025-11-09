@@ -2,7 +2,7 @@ import { MouseEventHandler } from "react";
 import { Button, Icon } from "../../index";
 
 interface TaskDetailToggleBtnProps {
-  isDone: string | null;
+  doneAt: string | null;
   onClick: MouseEventHandler;
 }
 
@@ -14,11 +14,15 @@ interface TaskDetailToggleBtnProps {
  * @param onClick: 버튼 이벤트 핸들러
  * @returns <Button></Button>
  */
-const TaskDetailToggleBtn = ({ isDone, onClick }: TaskDetailToggleBtnProps) => {
+const TaskDetailToggleBtn = ({ doneAt, onClick }: TaskDetailToggleBtnProps) => {
   return (
-    <Button className="h-10 w-[105px] rounded-[40px]" onClick={onClick}>
+    <Button
+      variant={doneAt ? "outlined" : "solid"}
+      className="h-10 w-fit rounded-[40px] pl-4 pr-5"
+      onClick={onClick}
+    >
       <Icon icon="checkInverse" className="h-4 w-4" />
-      <span className="text-md">{isDone ? "완료취소" : "완료하기"}</span>
+      <span className="text-md">{doneAt ? "완료 취소하기" : "완료하기"}</span>
     </Button>
   );
 };
