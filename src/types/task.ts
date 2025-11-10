@@ -1,6 +1,6 @@
 import type { User } from "./user";
 
-type FrequencyType = "DAILY" | "WEEKLY" | "MONTHLY" | "ONCE";
+export type FrequencyType = "DAILY" | "WEEKLY" | "MONTHLY" | "ONCE";
 
 export const Frequency_Map = {
   DAILY: "매일 반복",
