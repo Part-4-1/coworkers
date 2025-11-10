@@ -1,10 +1,11 @@
-import { TaskDetailHeaderProps } from "@/types/task-detail";
 import { Dropdown, Icon, Profile } from "@/components";
 import ICONS_MAP from "@/components/icon/icons-map";
 import { Dispatch, MouseEventHandler, SetStateAction } from "react";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
 import { toKoreanDateWithTimeString } from "@/utils/date-util";
 import { changeFrequencyCode } from "@/utils/util";
+import type { Writer } from "@/types/user";
+import type { FrequencyType } from "@/types/task";
 
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
@@ -12,11 +13,15 @@ interface TaskMetadataProps {
   text: string;
 }
 
-type TaskDetailHeaderPropsWithAction = TaskDetailHeaderProps & {
+export interface TaskDetailHeaderProps {
+  name: string;
+  writer: Writer;
+  createdAt: string;
+  frequency: FrequencyType;
+  doneAt: string | null;
   setEditMode: Dispatch<SetStateAction<boolean>>;
   onToggleBtnClick: MouseEventHandler;
-};
-
+}
 /**
  * @author hwitae
  * @description 할 일 상세 페이지의 제목, 프로필, 시작 날짜, 반복 설정, 완료하기 버튼을 표출하는 컴포넌트
@@ -37,7 +42,7 @@ const TaskDetailHeader = ({
   doneAt,
   setEditMode,
   onToggleBtnClick,
-}: TaskDetailHeaderPropsWithAction) => {
+}: TaskDetailHeaderProps) => {
   const taskMetadataArr: TaskMetadataProps[] = [
     {
       icon: "calendar",

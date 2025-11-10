@@ -1,5 +1,4 @@
 import { RecurringData } from "./recurring";
-import { FrequencyType } from "./task";
 import { Writer } from "./user";
 
 /**
@@ -22,17 +21,3 @@ export interface TaskDetailData {
   doneBy: Writer;
   commentCount: number;
 }
-
-export interface TaskDetailHeaderProps {
-  name: string;
-  writer: Writer;
-  createdAt: string;
-  frequency: FrequencyType;
-  doneAt: string | null;
-}
-
-export interface TaskDetailContentsProps {
-  isEdit: boolean;
-}
-
-export interface TaskDetailProps extends TaskDetailHeaderProps {}

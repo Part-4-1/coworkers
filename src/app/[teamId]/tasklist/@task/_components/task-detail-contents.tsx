@@ -1,7 +1,13 @@
-import { TaskDetailContentsProps } from "@/types/task-detail";
+export interface TaskDetailContentsProps {
+  isEdit: boolean;
+  description: string;
+}
 
-const TaskDetailContents = ({ isEdit }: TaskDetailContentsProps) => {
-  return <div>{isEdit ? <p></p> : <div></div>}</div>;
+const TaskDetailContents = ({
+  isEdit,
+  description,
+}: TaskDetailContentsProps) => {
+  return <div>{isEdit ? <div></div> : <p>{description}</p>}</div>;
 };
 
 export default TaskDetailContents;
