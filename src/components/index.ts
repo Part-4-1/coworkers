@@ -3,6 +3,7 @@
 
 export { default as Badge } from "./badge/badge";
 export { default as Button } from "./button/button";
+export { default as CalendarTime } from "./calendar-time/calendar-time";
 export { default as Calendar } from "./calendar/calendar";
 export { default as Checkbox } from "./checkbox/checkbox";
 export { default as Dropdown } from "./dropdown-components/dropdown";
