@@ -4,6 +4,7 @@ import {
   Badge,
   Button,
   Calendar,
+  CalendarTime,
   Checkbox,
   Dropdown,
   Icon,
@@ -57,6 +58,9 @@ const Page = () => {
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
   });
+  const [isOpen, setIsOpen] = useState(true);
+  const [am, setAm] = useState(true);
+  const [time, setTime] = useState("");
 
   useEffect(() => {
     setUploadedImages(previews.map((preview) => preview.url));
@@ -167,17 +171,14 @@ const Page = () => {
           userImage={mockGroupData[0].members[0].userImage}
           userEmail={mockGroupData[0].members[0].userEmail}
           userName={mockGroupData[0].members[0].userName}
-          onClick={() => {
-            console.log("aaa");
-          }}
         />
         <ProfileMember
           userEmail={mockGroupData[0].members[0].userEmail}
           userName={mockGroupData[0].members[0].userName}
-          onClick={() => {
-            console.log("aaa");
-          }}
         />
+      </div>
+      <div>
+        <CalendarTime />
       </div>
       <div className="flex gap-5">
         <Dropdown
