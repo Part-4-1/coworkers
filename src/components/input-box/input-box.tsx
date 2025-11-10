@@ -1,3 +1,6 @@
+"use client";
+
+import type { ComponentPropsWithRef } from "react";
 import cn from "@/utils/clsx";
 
 /**
@@ -8,12 +11,10 @@ import cn from "@/utils/clsx";
  * @params height - Textarea의 height
  */
 
-interface InputBoxProps {
-  placeholder: string;
+type InputBoxProps = ComponentPropsWithRef<"textarea"> & {
   width?: string;
   height?: string;
-  className?: string;
-}
+};
 
 /**
  * @author junyeol
@@ -27,13 +28,18 @@ interface InputBoxProps {
  */
 
 const InputBox = ({
+  id,
   placeholder,
   width = "w-full",
   height = "h-[75px]",
   className,
+  ref,
+  ...rest
 }: InputBoxProps) => {
   return (
     <textarea
+      id={id}
+      ref={ref}
       placeholder={placeholder}
       className={cn(
         "resize-none overflow-y-auto rounded-xl border border-gray-300 px-4 py-3 pb-6 font-normal focus:border-blue-400 focus:outline-none",
@@ -44,6 +50,7 @@ const InputBox = ({
         height,
         className
       )}
+      {...rest}
     />
   );
 };
