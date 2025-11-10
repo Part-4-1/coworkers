@@ -18,9 +18,10 @@ const Page = () => {
           onToggleBtnClick={() => {}}
         />
         <TaskDetailContents
-          name="할 일 상세 컴포넌트 제작"
-          isEdit={false}
-          description="할 일 상세 페이지에 들어가는 컴포넌트를 제작합니다."
+          name={data.name}
+          description={
+            "필수 정보 10분 입력하면 3일 안에 법인 설립이 완료되는 법인 설립 서비스의 장점에 대해 상세하게 설명드리기"
+          }
         />
       </div>
     </div>
