@@ -65,8 +65,6 @@ const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
 
   const handleAmPmClick = (nextIsAm: boolean) => {
     setIsAm(nextIsAm);
-    const formattedTime = formatTo24Hour(nextIsAm, selectedTime);
-    onSelect?.(formattedTime);
   };
 
   return (
