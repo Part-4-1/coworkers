@@ -1,6 +1,5 @@
 import type { CommentWriter } from "./comment";
-
-export type FrequencyType = "DAILY" | "WEEKLY" | "MONTHLY" | "ONCE";
+import { FrequencyType } from "./task";
 
 export interface TaskDetailHeaderProps {
   name: string;
