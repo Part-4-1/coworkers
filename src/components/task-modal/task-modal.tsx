@@ -10,16 +10,25 @@ import {
 } from "@/components/index";
 import DaysSelector from "./task-modal-day-selector";
 import { useForm, Controller } from "react-hook-form";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 
 const REPEAT_OPTIONS = [
   { label: "한 번", value: "ONCE" },
   { label: "매일", value: "DAILY" },
   { label: "주 반복", value: "WEEKLY" },
   { label: "월 반복", value: "MONTHLY" },
-];
+] as const;
 
-type FrequencyType = "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
+type FrequencyType = (typeof REPEAT_OPTIONS)[number]["value"];
+
+interface CreateTaskPayload {
+  name: string;
+  description: string;
+  startDate: string;
+  frequencyType: FrequencyType;
+  weekDays?: number[];
+  monthDay?: number;
+}
 
 interface TaskFormData {
   name: string;
@@ -31,7 +40,7 @@ interface TaskFormData {
 }
 
 interface TaskModalProps {
-  onSubmit?: (data: any) => void;
+  onSubmit?: (data: CreateTaskPayload) => void;
   className?: string;
 }
 
@@ -57,8 +66,6 @@ const TaskModal = ({ onSubmit: onSubmitProp, className }: TaskModalProps) => {
   });
 
   const frequencyType = watch("frequencyType");
-  const startDate = watch("startDate");
-  const startTime = watch("startTime");
 
   const formatTime12Hour = (time24: string) => {
     if (!time24) return "시간";
@@ -88,7 +95,7 @@ const TaskModal = ({ onSubmit: onSubmitProp, className }: TaskModalProps) => {
       return;
     }
 
-    const payload: any = {
+    const payload: CreateTaskPayload = {
       name: data.name,
       description: data.description,
       startDate: timestamp,
@@ -127,7 +134,10 @@ const TaskModal = ({ onSubmit: onSubmitProp, className }: TaskModalProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="taskTitle" className="text- font-medium text-blue-700">
+        <label
+          htmlFor="taskTitle"
+          className="text-lg font-medium text-blue-700"
+        >
           할 일 제목
         </label>
         <TextInput
@@ -142,7 +152,7 @@ const TaskModal = ({ onSubmit: onSubmitProp, className }: TaskModalProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text- font-medium text-blue-700">
+        <label className="text-lg font-medium text-blue-700">
           시작 날짜 및 시간
         </label>
         <div className="flex gap-2">
@@ -227,7 +237,7 @@ const TaskModal = ({ onSubmit: onSubmitProp, className }: TaskModalProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text- font-medium text-blue-700">반복 설정</label>
+        <label className="text-lg font-medium text-blue-700">반복 설정</label>
         <Controller
           name="frequencyType"
           control={control}
@@ -268,7 +278,7 @@ const TaskModal = ({ onSubmit: onSubmitProp, className }: TaskModalProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="taskMemo" className="text- font-medium text-blue-700">
+        <label htmlFor="taskMemo" className="text-lg font-medium text-blue-700">
           할 일 메모
         </label>
         <InputBox
