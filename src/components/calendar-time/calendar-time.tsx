@@ -11,28 +11,41 @@ import { useEffect, useState } from "react";
  * 단일 선택형 시간 선택 컴포넌트입니다.
  * 선택된 시간을 상위 컴포넌트로 전달합니다.
  *
- * @param onSelect - 선택된 시간 데이터를 상위로 전달하는 콜백 함수
+ * @param onSelect - "HH:MM" 형식(24시간제)으로 포맷된 시간을 전달하는 콜백 함수
  * @param initialTimeData - 상위에서 내려받은 선택된 시간 데이터 (isAm, time),
  * @example
  * <CalendarTime
-    onSelect={({ isAm, time }) => {
-      setCurrentAm(isAm);
-      setCurrentTime(time);
-    }}
-    initialTimeData={{
-      isAm: currentAm,
-      time: currentTime,
-    }}
+    onSelect={(formattedTime) => {
+ *     setTime(formattedTime);
+ *   }}
   />
  */
 
 interface CalendarTimeProps {
-  onSelect?: (timeData: { isAm: boolean; time: string }) => void;
+  onSelect?: (formattedTime: string) => void;
   initialTimeData?: {
     isAm: boolean;
     time: string;
   };
 }
+
+//utils 관련 다른 PR 머지되면 그쪽으로 옮기겠습니다.
+const formatTo24Hour = (isAm: boolean, time: string): string => {
+  const [hourStr, minuteStr] = time.split(":");
+  let hour = parseInt(hourStr, 10);
+  const minute = parseInt(minuteStr, 10);
+
+  if (isAm) {
+    if (hour === 12) hour = 0;
+  } else {
+    if (hour !== 12) hour += 12;
+  }
+
+  const hour24 = hour.toString().padStart(2, "0");
+  const minute24 = minute.toString().padStart(2, "0");
+
+  return `${hour24}:${minute24}`;
+};
 
 const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
   const [isAm, setIsAm] = useState(true);
@@ -46,12 +59,14 @@ const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
 
   const handleTimeClick = (time: string) => {
     setSelectedTime(time);
-    onSelect?.({ isAm: isAm, time: time });
+    const formattedTime = formatTo24Hour(isAm, time);
+    onSelect?.(formattedTime);
   };
 
   const handleAmPmClick = (nextIsAm: boolean) => {
     setIsAm(nextIsAm);
-    onSelect?.({ isAm: nextIsAm, time: selectedTime });
+    const formattedTime = formatTo24Hour(nextIsAm, selectedTime);
+    onSelect?.(formattedTime);
   };
 
   return (
