@@ -333,7 +333,11 @@ const Page = () => {
           isBest
         />
       </div>
-      <TaskModal />
+      <TaskModal
+        groupId={3304}
+        taskListId={4712}
+        onSuccess={() => success("할 일이 생성되었습니다!")}
+      />
       {mockListData.tasks.map((task) => {
         return (
           <List
