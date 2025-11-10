@@ -72,7 +72,7 @@ const TaskDetailHeader = ({
         />
       </div>
       <div className="flex items-center gap-3">
-        <Profile image={writer.image} size="md" />
+        <Profile image={writer.image ?? ""} size="md" />
         <span className="text-md font-medium">{writer.nickname}</span>
       </div>
       <div className="flex flex-col gap-6">
