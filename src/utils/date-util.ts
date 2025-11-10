@@ -21,3 +21,19 @@ export const toKoreanDateString = (timestamp: string) => {
 
   return `${year}년 ${month}월 ${day}일`;
 };
+
+/**
+ * @author hwitae
+ * @param timestamp 타임스탬프
+ * @description 타임스탬프 날짜 형식을 0000년 00월 00일 오전/오후 0:00 형태로 변경합니다.
+ * @returns string
+ */
+export const toKoreanDateWithTimeString = (timestamp: string) => {
+  const date = new Date(timestamp);
+  const time = date.toLocaleTimeString("ko-KR", {
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  return `${toKoreanDateString(timestamp)} ${time}`;
+};
