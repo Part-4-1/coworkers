@@ -1,4 +1,4 @@
-import { FrequencyType } from "@/types/task-detail";
+import { FrequencyType } from "@/types/task";
 
 /**
  * @author hwitae
