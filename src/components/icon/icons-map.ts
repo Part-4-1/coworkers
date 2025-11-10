@@ -17,12 +17,14 @@ import Invisible from "@/assets/icons/ic-invisible.svg";
 import Kebab from "@/assets/icons/ic-kebab.svg";
 import LeftArrow from "@/assets/icons/ic-left-arrow.svg";
 import LeftFold from "@/assets/icons/ic-left-fold.svg";
+import leftTriangleArrow from "@/assets/icons/ic-left-triangle-arrow.svg";
 import Pencil from "@/assets/icons/ic-pencil.svg";
 import Plus from "@/assets/icons/ic-plus.svg";
 import Progress from "@/assets/icons/ic-progress.svg";
 import Repeat from "@/assets/icons/ic-repeat.svg";
 import RightArrow from "@/assets/icons/ic-right-arrow.svg";
 import RightFold from "@/assets/icons/ic-right-fold.svg";
+import rightTriangleArrow from "@/assets/icons/ic-right-triangle-arrow.svg";
 import Search from "@/assets/icons/ic-search.svg";
 import Secession from "@/assets/icons/ic-secession.svg";
 import Setting from "@/assets/icons/ic-setting.svg";
@@ -68,6 +70,8 @@ const ICONS_MAP = {
   user: User,
   visible: Visible,
   x: X,
+  leftTriangleArrow: leftTriangleArrow,
+  rightTriangleArrow: rightTriangleArrow,
 } as const;
 
 export default ICONS_MAP;
