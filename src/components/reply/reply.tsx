@@ -1,19 +1,21 @@
-"use client";
-
 import cn from "@/utils/clsx";
-import { useState } from "react";
-import { Button, Icon } from "@/components/index";
+import { Button, Icon, Dropdown } from "@/components/index";
 import { Comment } from "@/types/index";
+import TextareaAutosize from "react-textarea-autosize";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 import { toDotDateString } from "@/utils/date-util";
+import { useCommentHandlers } from "@/hooks/comment-handlers/use-comment-handlers";
 
 interface CommentProps {
   comment: Comment;
 }
 
 const Reply = ({ comment }: CommentProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isEditing, editedContent, setEditedContent, ...handlers } =
+    useCommentHandlers(comment);
+
   const hasImage = comment.writer.image?.trim();
+  const isSaveDisabled = !editedContent.trim();
 
   const profileStyle = cn(
     "bg-gray-300 rounded-lg h-[24px] w-[24px]",
@@ -39,46 +41,65 @@ const Reply = ({ comment }: CommentProps) => {
         <DefaultProfile className={cn(profileStyle, "object-cover")} />
       )}
 
-      <div className="flex flex-1 flex-col gap-[6px]">
-        <header className="flex items-center">
-          <strong className="text-md font-semibold text-blue-700">
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <div className="flex min-w-0 items-center">
+          <strong className="flex-1 truncate text-md font-semibold text-blue-700">
             {comment.writer.nickname}
           </strong>
 
-          <div className="relative ml-auto">
-            <Button
-              variant="none"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-0"
-              aria-label="메뉴"
-            >
-              <Icon icon="kebab" className="h-4 w-4" />
-            </Button>
+          <div className="relative ml-auto h-6 w-6 flex-shrink-0">
+            {!isEditing && (
+              <Dropdown
+                trigger={
+                  <Button variant="none" className="p-0" aria-label="메뉴">
+                    <Icon icon="kebab" className="h-4 w-4" />
+                  </Button>
+                }
+                items={[
+                  { label: "수정하기", onClick: handlers.handleEdit },
+                  { label: "삭제하기", onClick: handlers.handleDelete },
+                ]}
+                isWidthFull={false}
+              />
+            )}
           </div>
-        </header>
+        </div>
 
-        <p className="text-md text-gray-800">{comment.content}</p>
-
-        <time dateTime={comment.createdAt} className="text-md text-gray-700">
-          {toDotDateString(comment.createdAt)}
-        </time>
-
-        {isMenuOpen && (
-          <div className="flex gap-2 self-end">
-            <Button
-              variant="none"
-              className="w-fit rounded-lg px-3 py-2 text-md text-gray-700 hover:text-gray-800"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              취소
-            </Button>
-            <Button
-              variant="outlined"
-              className="w-fit rounded-lg px-3 py-2 text-md"
-            >
-              수정하기
-            </Button>
+        {isEditing ? (
+          <div className="flex flex-col gap-2">
+            <TextareaAutosize
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+              className="w-full resize-none rounded-lg border border-blue-400 px-2 py-2 text-md leading-relaxed focus:outline-none"
+              minRows={3}
+            />
+            <div className="flex gap-2">
+              <Button
+                onClick={handlers.handleSave}
+                className="text-md"
+                disabled={isSaveDisabled}
+              >
+                저장
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={handlers.handleCancel}
+                className="text-md"
+              >
+                취소
+              </Button>
+            </div>
           </div>
+        ) : (
+          <p className="w-full text-md leading-relaxed text-gray-800 tablet:max-w-[464px] pc:max-w-[704px]">
+            {editedContent}
+          </p>
+        )}
+
+        {!isEditing && (
+          <time dateTime={comment.createdAt} className="text-md text-gray-700">
+            {toDotDateString(comment.createdAt)}
+          </time>
         )}
       </div>
     </article>
