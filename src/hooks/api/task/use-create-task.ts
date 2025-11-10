@@ -20,7 +20,6 @@ export const useCreateTask = (params: UseCreateTaskParams) => {
       toast.success("할 일 생성에 성공했습니다.");
     },
     onError: (error) => {
-      console.error("Task creation failed:", error);
       toast.error("할 일 생성에 실패했습니다.");
     },
   });
