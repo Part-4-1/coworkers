@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
-import { InputBox } from "../index";
+import InputBox from "./input-box";
 
 const meta = {
   title: "Components/InputBox",

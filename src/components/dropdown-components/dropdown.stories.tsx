@@ -1,4 +1,5 @@
-import { Dropdown, Profile } from "@/components/index";
+import Dropdown from "./dropdown";
+import Profile from "../profile/profile";
 import { Meta, StoryObj } from "@storybook/nextjs";
 
 const meta: Meta<typeof Dropdown> = {

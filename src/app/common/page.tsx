@@ -33,6 +33,7 @@ import { mockListData } from "@/mocks/list-data";
 import { useEffect, useState, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 import List from "@/components/list/list";
+import useToast from "@/hooks/use-toast";
 
 type LoginFormData = {
   email: string;
@@ -43,6 +44,7 @@ const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const { previews } = useImageUpload({ maxCount: 5 });
+  const { success, error, warning } = useToast();
   const singleComment = mockComments[0];
   const {
     register,
@@ -327,6 +329,26 @@ const Page = () => {
           />
         );
       })}
+      <div className="mt-8 w-full max-w-[300px] gap-2 flex-col-center">
+        <Button
+          className="bg-emerald-400"
+          onClick={() => success("성공적으로 실행되었습니다 !")}
+        >
+          성공 토스트
+        </Button>
+        <Button
+          variant="alert"
+          onClick={() => error("앗, 실패하였습니다. 다시 시도해주세요 !")}
+        >
+          오류 토스트
+        </Button>
+        <Button
+          className="bg-orange"
+          onClick={() => warning("저장하지 않은 변경사항이 있어요 !")}
+        >
+          경고 토스트
+        </Button>
+      </div>
     </div>
   );
 };
