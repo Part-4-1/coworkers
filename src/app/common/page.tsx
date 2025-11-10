@@ -170,16 +170,10 @@ const Page = () => {
           userImage={mockGroupData[0].members[0].userImage}
           userEmail={mockGroupData[0].members[0].userEmail}
           userName={mockGroupData[0].members[0].userName}
-          onClick={() => {
-            console.log("aaa");
-          }}
         />
         <ProfileMember
           userEmail={mockGroupData[0].members[0].userEmail}
           userName={mockGroupData[0].members[0].userName}
-          onClick={() => {
-            console.log("aaa");
-          }}
         />
       </div>
       <div>
