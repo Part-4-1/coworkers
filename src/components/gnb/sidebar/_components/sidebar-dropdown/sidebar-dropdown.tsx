@@ -33,7 +33,7 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
-  const selectedMembership = mockUser[0].memberships.find(
+  const selectedMembership = mockUser[0]?.memberships?.find(
     (membership) => String(membership.group.id) === currentTeamId
   );
   const selectedTeamName = selectedMembership
@@ -96,7 +96,7 @@ const SidebarDropdown = ({
               setIsOpen(false);
             }}
           >
-            {mockUser[0].memberships.map((data) => (
+            {mockUser[0]?.memberships?.map((data) => (
               <SidebarMenu
                 key={data.groupId}
                 isSidebarOpen={isSidebarOpen}
