@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button, Icon } from "@/components/index";
 import { Comment } from "@/types/index";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
+import { toDotDateString } from "@/utils/date-util";
 
 interface CommentProps {
   comment: Comment;
@@ -59,9 +60,7 @@ const Reply = ({ comment }: CommentProps) => {
         <p className="text-md text-gray-800">{comment.content}</p>
 
         <time dateTime={comment.createdAt} className="text-md text-gray-700">
-          {new Date(comment.createdAt)
-            .toLocaleDateString("ko-KR")
-            .replace(/\.$/, "")}
+          {toDotDateString(comment.createdAt)}
         </time>
 
         {isMenuOpen && (
