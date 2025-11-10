@@ -10,14 +10,14 @@ import type { FrequencyType } from "@/types/task";
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
   label: string;
-  text: string;
+  text: string | undefined;
 }
 
 export interface TaskDetailHeaderProps {
   name: string;
   writer: Writer;
   createdAt: string;
-  frequency: FrequencyType;
+  frequency: string;
   doneAt: string | null;
   setEditMode: Dispatch<SetStateAction<boolean>>;
   onToggleBtnClick: MouseEventHandler;
