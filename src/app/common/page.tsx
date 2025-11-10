@@ -3,21 +3,23 @@
 import {
   Badge,
   Button,
+  Calendar,
+  CalendarTime,
   Checkbox,
   Dropdown,
   Icon,
   ImageUpload,
   InputBox,
   InputReply,
+  PostCard,
   Profile,
   ProfileEdit,
   ProfileMember,
   Reply,
+  TaskCard,
   TaskChip,
   TaskHeader,
   TextInput,
-  TaskCard,
-  PostCard,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -25,13 +27,15 @@ import {
   PASSWORD_REGEX,
 } from "@/constants/regex";
 
+import List from "@/components/list/list";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
+import useToast from "@/hooks/use-toast";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
+import { mockListData } from "@/mocks/list-data";
 import { mockUserData } from "@/mocks/user-data";
-import { useEffect, useState, MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import useToast from "@/hooks/use-toast";
 
 type LoginFormData = {
   email: string;
@@ -44,6 +48,8 @@ const Page = () => {
   const { previews } = useImageUpload({ maxCount: 5 });
   const { success, error, warning } = useToast();
   const singleComment = mockComments[0];
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
     register,
     formState: { errors },
@@ -51,6 +57,9 @@ const Page = () => {
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
   });
+  const [isOpen, setIsOpen] = useState(true);
+  const [am, setAm] = useState(true);
+  const [time, setTime] = useState("");
 
   useEffect(() => {
     setUploadedImages(previews.map((preview) => preview.url));
@@ -161,17 +170,14 @@ const Page = () => {
           userImage={mockGroupData[0].members[0].userImage}
           userEmail={mockGroupData[0].members[0].userEmail}
           userName={mockGroupData[0].members[0].userName}
-          onClick={() => {
-            console.log("aaa");
-          }}
         />
         <ProfileMember
           userEmail={mockGroupData[0].members[0].userEmail}
           userName={mockGroupData[0].members[0].userName}
-          onClick={() => {
-            console.log("aaa");
-          }}
         />
+      </div>
+      <div>
+        <CalendarTime />
       </div>
       <div className="flex gap-5">
         <Dropdown
@@ -198,6 +204,18 @@ const Page = () => {
           ]}
           isWidthFull={false}
         />
+      </div>
+      <div className="flex flex-col gap-5 flex-center">
+        <Button size="sm" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
+          캘린더 토글
+        </Button>
+        {isCalendarOpen && (
+          <Calendar
+            onDayClick={(date) => {
+              setSelectedDate(date);
+            }}
+          />
+        )}
       </div>
       <div className="w-[300px]">
         <TaskHeader
@@ -314,6 +332,19 @@ const Page = () => {
           isBest
         />
       </div>
+      {mockListData.tasks.map((task) => {
+        return (
+          <List
+            key={task.id}
+            id={task.id}
+            name={task.name}
+            date={task.date}
+            doneAt={task.doneAt}
+            commentCount={task.commentCount}
+            frequency={task.frequency}
+          />
+        );
+      })}
       <div className="mt-8 w-full max-w-[300px] gap-2 flex-col-center">
         <Button
           className="bg-emerald-400"

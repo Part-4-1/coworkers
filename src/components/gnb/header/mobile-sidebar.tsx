@@ -7,7 +7,7 @@ import Icon from "@/components/icon/Icon";
 import { mockUser } from "@/mocks/sidebar-data";
 import SidebarMenu from "../sidebar/_components/sidebar-menu/sidebar-menu";
 import { usePathname } from "next/navigation";
-import { easeOut, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface MobileSidebarProps {
   onClose: () => void;
@@ -49,7 +49,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
             </div>
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 border-b border-gray-300 pb-6">
-                {mockUser[0].memberships.map((data) => (
+                {mockUser[0]?.memberships?.map((data) => (
                   <SidebarMenu
                     key={data.groupId}
                     title={data.group.name}
