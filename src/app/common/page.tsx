@@ -15,6 +15,7 @@ import {
   Profile,
   ProfileEdit,
   ProfileMember,
+  Progressbar,
   Reply,
   TaskCard,
   TaskChip,
@@ -49,7 +50,6 @@ const Page = () => {
   const { success, error, warning } = useToast();
   const singleComment = mockComments[0];
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
     register,
     formState: { errors },
@@ -57,9 +57,6 @@ const Page = () => {
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
   });
-  const [isOpen, setIsOpen] = useState(true);
-  const [am, setAm] = useState(true);
-  const [time, setTime] = useState("");
 
   useEffect(() => {
     setUploadedImages(previews.map((preview) => preview.url));
@@ -212,6 +209,11 @@ const Page = () => {
         <div className={isCalendarOpen ? "" : "hidden"}>
           <Calendar />
         </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Progressbar progressRate={100} />
+        <Progressbar progressRate={25} />
+        <Progressbar progressRate={0} />
       </div>
       <div className="w-[300px]">
         <TaskHeader
