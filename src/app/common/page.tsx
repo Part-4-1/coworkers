@@ -29,8 +29,10 @@ import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
 import { mockUserData } from "@/mocks/user-data";
+import { mockListData } from "@/mocks/list-data";
 import { useEffect, useState, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
+import List from "@/components/list/list";
 import useToast from "@/hooks/use-toast";
 
 type LoginFormData = {
@@ -314,6 +316,19 @@ const Page = () => {
           isBest
         />
       </div>
+      {mockListData.tasks.map((task) => {
+        return (
+          <List
+            key={task.id}
+            id={task.id}
+            name={task.name}
+            date={task.date}
+            doneAt={task.doneAt}
+            commentCount={task.commentCount}
+            frequency={task.frequency}
+          />
+        );
+      })}
       <div className="mt-8 w-full max-w-[300px] gap-2 flex-col-center">
         <Button
           className="bg-emerald-400"
