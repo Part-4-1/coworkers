@@ -209,13 +209,9 @@ const Page = () => {
         <Button size="sm" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
           캘린더 토글
         </Button>
-        {isCalendarOpen && (
-          <Calendar
-            onDayClick={(date) => {
-              setSelectedDate(date);
-            }}
-          />
-        )}
+        <div className={isCalendarOpen ? "" : "hidden"}>
+          <Calendar />
+        </div>
       </div>
       <div className="w-[300px]">
         <TaskHeader
