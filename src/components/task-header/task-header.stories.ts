@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TaskHeader } from "../index";
+import TaskHeader from "./task-header";
 
 const meta = {
-  title: "Components/TodoHeader",
+  title: "Components/TaskHeader",
   component: TaskHeader,
   parameters: {
     layout: "padded",
