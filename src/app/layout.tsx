@@ -2,6 +2,7 @@ import pretendard from "@/font/font";
 import "./globals.css";
 import { Metadata } from "next";
 import QueryProviders from "@/providers";
+import { ToastProvider } from "@/toast-provider";
 import GnbWrapper from "@/components/gnb/gnb-wrapper";
 
 export const metadata: Metadata = {
@@ -17,8 +18,10 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.className}>
       <body>
         <QueryProviders>
-          <GnbWrapper />
-          {children}
+          <ToastProvider>
+            <GnbWrapper />
+            {children}
+          </ToastProvider>
         </QueryProviders>
       </body>
     </html>
