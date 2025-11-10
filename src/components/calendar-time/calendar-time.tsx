@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
  *
  * @param onSelect - 선택된 시간 데이터를 상위로 전달하는 콜백 함수
  * @param initialTimeData - 상위에서 내려받은 선택된 시간 데이터 (isAm, time),
- * 시간선택 캘린더가 부모에서 닫혔다가 열릴때 선택된 값을 유지하기 위한 Props입니다.
  * @example
  * <CalendarTime
     onSelect={({ isAm, time }) => {
