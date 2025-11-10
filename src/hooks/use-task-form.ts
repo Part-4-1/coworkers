@@ -22,6 +22,7 @@ export const useTaskForm = () => {
   });
 
   const frequencyType = form.watch("frequencyType");
+  const { reset } = form;
 
   const createTimestamp = (date: Date | null, time: string): string | null => {
     if (!date || !time) return null;
@@ -80,6 +81,7 @@ export const useTaskForm = () => {
 
   return {
     form,
+    reset,
     frequencyType,
     showCalendar,
     showTime,

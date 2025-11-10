@@ -32,6 +32,7 @@ const TaskModal = ({
       control,
       formState: { errors },
     },
+    reset,
     frequencyType,
     showCalendar,
     showTime,
@@ -54,6 +55,8 @@ const TaskModal = ({
 
     createTask(payload, {
       onSuccess: () => {
+        reset();
+        close();
         onSuccess?.();
       },
     });
