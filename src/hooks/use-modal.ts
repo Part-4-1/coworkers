@@ -3,6 +3,9 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
 
+{
+  /* TODO(준열) : BaseModal 생기면 사용될 예정 */
+}
 export const useModal = (modalName: string) => {
   const router = useRouter();
   const pathname = usePathname();
