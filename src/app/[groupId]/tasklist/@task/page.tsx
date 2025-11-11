@@ -8,30 +8,38 @@ import { mockComments } from "@/mocks/comment-data";
 import { InputReply } from "@/components";
 import TaskDetailWrapper from "./_components/task-detail-wrapper";
 import TaskDetailToggleBtn from "./_components/task-detail-complete-btn";
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import useGetTaskDetail from "@/hooks/api/task/use-get-task-detail";
+import { AnimatePresence } from "framer-motion";
 
 const Page = () => {
+  const router = useRouter();
   const taskId = useSearchParams().get("taskid");
+  const [taskIdKey, setTaskIdKey] = useState(taskId);
+
+  const handleClick = () => {
+    setTaskIdKey(null);
+  };
+
+  const handleClose = () => {
+    router.back();
+  };
+
   const { data: taskDetailData, isPending } = useGetTaskDetail(
     3290,
     4711,
     Number(taskId)
   );
 
-  if (!taskId) {
-    return null;
-  }
-
   useEffect(() => {
-    console.log(taskDetailData);
+    // console.log(taskDetailData);
   });
 
   return (
-    <>
-      {!isPending && (
-        <TaskDetailWrapper>
+    <AnimatePresence mode="wait" onExitComplete={handleClose}>
+      {!isPending && taskIdKey && (
+        <TaskDetailWrapper key={taskIdKey} onClose={handleClick}>
           <div className="flex flex-col gap-5">
             <div className="relative flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
               <div className="flex flex-col gap-6">
@@ -70,7 +78,7 @@ const Page = () => {
           </div>
         </TaskDetailWrapper>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 
