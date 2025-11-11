@@ -27,3 +27,9 @@ export interface User {
   createdAt?: string;
   memberships?: Membership[];
 }
+
+export interface Writer {
+  image: string | null;
+  nickname: string;
+  id: number;
+}
