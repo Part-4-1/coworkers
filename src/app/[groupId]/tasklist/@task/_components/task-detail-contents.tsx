@@ -1,11 +1,7 @@
 "use client";
 
-import usePatchTaskDetail, {
-  PatchTaskDetailData,
-} from "@/hooks/api/task/use-patch-task-detail";
-import { UseMutateFunction } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import usePatchTaskDetail from "@/hooks/api/task/use-patch-task-detail";
+import { ChangeEvent, memo, useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
 export interface TaskDetailContentsProps {
@@ -15,12 +11,6 @@ export interface TaskDetailContentsProps {
   name: string;
   description: string;
   doneAt: string | null;
-  patchFn: UseMutateFunction<
-    AxiosResponse<any, any, {}> | undefined,
-    Error,
-    PatchTaskDetailData,
-    unknown
-  >;
 }
 
 const TaskDetailContents = ({
@@ -30,7 +20,6 @@ const TaskDetailContents = ({
   name,
   description,
   doneAt,
-  patchFn,
 }: TaskDetailContentsProps) => {
   const [text, setText] = useState<string>();
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -71,4 +60,4 @@ const TaskDetailContents = ({
   );
 };
 
-export default TaskDetailContents;
+export default memo(TaskDetailContents);

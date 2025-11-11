@@ -11,7 +11,6 @@ import TaskDetailToggleBtn from "./_components/task-detail-complete-btn";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import useGetTaskDetail from "@/hooks/api/task/use-get-task-detail";
-import usePatchTaskDetail from "@/hooks/api/task/use-patch-task-detail";
 
 const Page = () => {
   const taskId = useSearchParams().get("taskid");
@@ -20,7 +19,6 @@ const Page = () => {
     4711,
     Number(taskId)
   );
-  const { isError, mutate } = usePatchTaskDetail();
 
   if (!taskId) {
     return null;
@@ -53,7 +51,6 @@ const Page = () => {
                   name={taskDetailData.name}
                   description={taskDetailData.description}
                   doneAt={taskDetailData.doneAt}
-                  patchFn={mutate}
                 />
               </div>
               <div className="flex flex-col gap-4">
