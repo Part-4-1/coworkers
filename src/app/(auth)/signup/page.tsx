@@ -10,10 +10,8 @@ import {
   PASSWORD_REGEX,
 } from "@/constants/regex";
 import { Button, Icon } from "@/components";
-import { useSignupQuery } from "@/hooks/api/user/use-signup-query";
+import { useSignupQuery } from "@/hooks/auth/use-signup-query";
 import type { SignupRequest } from "@/api/auth/signup-action";
-
-const labelStyle = {};
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);

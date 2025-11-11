@@ -1,4 +1,6 @@
 import axios from "axios";
+import { cookies } from "next/headers";
+import { getCookie } from "./getCookie";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -11,7 +13,8 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     // 환경변수에서 토큰 가져오기
-    const token = process.env.NEXT_PUBLIC_TEST_TOKEN;
+
+    const token = getCookie("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

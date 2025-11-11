@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Button, Icon } from "@/components/index";
-import { mockUser } from "@/mocks/sidebar-data";
 import SidebarMenu from "../sidebar/_components/sidebar-menu/sidebar-menu";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 interface MobileSidebarProps {
   onClose: () => void;
@@ -16,7 +16,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
   const pathname = usePathname();
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
-
+  const { data: userInfo, isLoading } = useGetUserInfoQuery();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -48,13 +48,13 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
             </div>
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 border-b border-gray-300 pb-6">
-                {mockUser[0]?.memberships?.map((data) => (
+                {userInfo?.memberships?.map((data) => (
                   <SidebarMenu
                     key={data.groupId}
                     title={data.group.name}
                     iconName="chess"
                     isSelected={String(data.group.id) === currentTeamId}
-                    href={`/${mockUser[0].teamId}/groups/${data.group.id}`}
+                    href={`/${userInfo.teamId}/groups/${data.group.id}`}
                     className="h-[44px]"
                     fontStyle="h-[17px]"
                   />

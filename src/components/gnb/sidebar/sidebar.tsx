@@ -34,10 +34,10 @@ const Sidebar = () => {
 
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
 
-  //const isLoggedIn = !!userInfo && !isLoading;
-  //const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
-  const isLoggedIn = true;
-  const isTeamExist = true;
+  const isLoggedIn = !!userInfo && !isLoading;
+  const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
+  // const isLoggedIn = true;
+  // const isTeamExist = true;
   useEffect(() => {
     setIsSidebarOpen(isDesktop);
   }, [isDesktop]);

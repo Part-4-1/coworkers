@@ -1,5 +1,6 @@
 "use server";
 import type { User } from "@/types/user";
+import { cookies } from "next/headers";
 
 export interface SignupRequest {
   email: string;
@@ -35,6 +36,20 @@ export const signupAction = async ({
       }
     );
     const data = await response.json();
+
+    if (response.ok && data.accessToken && data.refreshToken) {
+      const cookieStore = await cookies();
+
+      cookieStore.set("accessToken", data.accessToken, {
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+      });
+
+      cookieStore.set("refreshToken", data.refreshToken, {
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+      });
+    }
 
     if (!response.ok)
       throw new Error(data.message || "회원가입에 실패하였습니다.");
