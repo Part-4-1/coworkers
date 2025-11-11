@@ -1,0 +1,54 @@
+{
+  "id": 4696,
+  "name": "오늘 할 일",
+  "createdAt": "2025-11-05T00:03:35+09:00",
+  "updatedAt": "2025-11-05T17:26:39+09:00",
+  "groupId": 3290,
+  "displayIndex": 1,
+  "tasks": [
+    {
+      "id": 26162,
+      "name": "할 일 넣어보기",
+      "description": "할 일을 넣습니다.",
+      "date": "2025-11-06T09:00:00+09:00",
+      "doneAt": null,
+      "updatedAt": "2025-11-05T17:56:34+09:00",
+      "user": null,
+      "recurringId": 6591,
+      "deletedAt": null,
+      "displayIndex": 0,
+      "writer": {
+        "id": 2348,
+        "nickname": "nickname",
+        "image": null
+      },
+      "doneBy": {
+        "user": null
+      },
+      "commentCount": 0,
+      "frequency": "ONCE"
+    },
+    {
+      "id": 26163,
+      "name": "할 일 넣어보기2",
+      "description": "할 일을 넣습니다.2",
+      "date": "2025-11-06T09:00:00+09:00",
+      "doneAt": null,
+      "updatedAt": "2025-11-05T18:08:40+09:00",
+      "user": null,
+      "recurringId": 6592,
+      "deletedAt": null,
+      "displayIndex": 1,
+      "writer": {
+        "id": 2348,
+        "nickname": "nickname",
+        "image": null
+      },
+      "doneBy": {
+        "user": null
+      },
+      "commentCount": 0,
+      "frequency": "ONCE"
+    }
+  ]
+}
