@@ -32,6 +32,7 @@ import {
 import List from "@/components/list/list";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import useToast from "@/hooks/use-toast";
+import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
 import { mockListData } from "@/mocks/list-data";
@@ -51,6 +52,7 @@ const Page = () => {
   const { success, error, warning } = useToast();
   const singleComment = mockComments[0];
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const { mutate: createComment, isPending } = useCreateComment(26355);
   const {
     register,
     formState: { errors },
@@ -126,7 +128,10 @@ const Page = () => {
         />
       </form>
       <Reply comment={singleComment} />
-      <InputReply />
+      <InputReply
+        onSubmit={(text) => createComment(text)}
+        disabled={isPending}
+      />
       <div className="w-[300px] gap-2 flex-col-center">
         <Button>생성하기</Button>
         <Button variant="outlined">생성하기</Button>
