@@ -1,4 +1,5 @@
-import { Button, Icon } from "../index";
+import Button from "../button/button";
+import Icon from "../icon/Icon";
 
 interface TaskHeaderProps {
   todoName: string;
