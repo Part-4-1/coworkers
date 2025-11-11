@@ -11,7 +11,7 @@ const TaskDetailWrapper = ({ children }: { children: ReactNode }) => {
         "pc:max-w-[780px] pc:gap-5"
       )}
     >
-      <div className="flex flex-col gap-5 tablet:gap-[15px] pc:gap-[74px]">
+      <div className="flex flex-col tablet:gap-[15px] pc:gap-[74px]">
         <Button variant="none">
           <Icon icon="x" className="h-6 w-6" />
         </Button>
