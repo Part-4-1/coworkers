@@ -4,10 +4,12 @@ import TaskDetailComment from "./_components/task-detail-comment";
 import TaskDetailContents from "./_components/task-detail-contents";
 import TaskDetailHeader from "./_components/task-detail-header";
 import data from "@/mocks/task-detail-data.json";
+import { mockComments } from "@/mocks/comment-data";
+import { InputReply } from "@/components";
 
 const Page = () => {
   return (
-    <div className="w-full min-w-[375px] tablet:max-w-[520px] pc:max-w-[780px]">
+    <div className="flex w-full min-w-[375px] flex-col gap-5 tablet:max-w-[520px] tablet:gap-4 pc:max-w-[780px] pc:gap-5">
       <div className="flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
         <div className="flex flex-col gap-6">
           <TaskDetailHeader
@@ -26,8 +28,14 @@ const Page = () => {
             }
           />
         </div>
-        <TaskDetailComment />
+        <div className="flex flex-col gap-4">
+          <p className="text-lg font-bold tablet:text-2lg">
+            댓글 <span className="text-blue-200">{data.commentCount}</span>
+          </p>
+          <InputReply />
+        </div>
       </div>
+      <TaskDetailComment commentData={mockComments} />
     </div>
   );
 };

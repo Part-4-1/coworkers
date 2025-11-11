@@ -13,4 +13,16 @@ export const mockComments: Comment[] = [
     createdAt: "2024-07-25T06:30:00.000Z",
     updatedAt: "2024-07-25T06:30:00.000Z",
   },
+  {
+    id: 2,
+    writer: {
+      id: 102,
+      nickname: "우지은",
+      image:
+        "https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1586271210/noticon/sageach1qrmmyfufwli1.gif",
+    },
+    content: "초콜릿도 드릴게요",
+    createdAt: "2024-07-25T06:30:00.000Z",
+    updatedAt: "2024-07-25T06:30:00.000Z",
+  },
 ];
