@@ -1,0 +1,35 @@
+{
+  "id": 6610,
+  "updatedAt": "2024-08-25T20:10:07+09:00",
+  "date": "2024-08-25T09:00:00+09:00",
+  "doneAt": null,
+  "recurringId": 1094,
+  "name": "주루사 만들지 않기",
+  "description": "",
+  "frequency": "DAILY",
+  "deletedAt": null,
+  "displayIndex": 12,
+  "recurring": {
+    "id": 1094,
+    "name": "주루사 만들지 않기",
+    "description": "",
+    "createdAt": "2024-08-22T03:31:32+09:00",
+    "updatedAt": "2024-08-22T03:31:32+09:00",
+    "startDate": "2024-08-22T03:27:06+09:00",
+    "frequencyType": "DAILY",
+    "weekDays": [],
+    "monthDay": null,
+    "taskListId": 815,
+    "groupId": 509,
+    "writerId": 22
+  },
+  "writer": {
+    "id": 22,
+    "nickname": "지현이",
+    "image": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/22/mulddungkitty.jpeg"
+  },
+  "doneBy": {
+    "user": null
+  },
+  "commentCount": 0
+}
