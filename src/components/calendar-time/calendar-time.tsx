@@ -29,7 +29,6 @@ interface CalendarTimeProps {
   };
 }
 
-//utils 관련 다른 PR 머지되면 그쪽으로 옮기겠습니다.
 const formatTo24Hour = (isAm: boolean, time: string): string => {
   const [hourStr, minuteStr] = time.split(":");
   let hour = parseInt(hourStr, 10);
