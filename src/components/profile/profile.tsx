@@ -1,4 +1,4 @@
-import { Icon } from "@/components/index";
+import Icon from "../icon/Icon";
 import cn from "@/utils/clsx";
 import Image from "next/image";
 import { MouseEventHandler } from "react";

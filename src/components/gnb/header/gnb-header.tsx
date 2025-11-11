@@ -1,6 +1,9 @@
 "use client";
 
-import { Button, Dropdown, Icon, Profile } from "@/components/index";
+import Button from "@/components/button/button";
+import Dropdown from "@/components/dropdown-components/dropdown";
+import Icon from "@/components/icon/Icon";
+import Profile from "@/components/profile/profile";
 import Link from "next/link";
 import MobileSidebar from "./mobile-sidebar";
 import { useState } from "react";
