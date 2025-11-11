@@ -19,6 +19,7 @@ export { default as PostCard } from "./post-card/post-card";
 export { default as ProfileEdit } from "./profile-edit/profile-edit";
 export { default as ProfileMember } from "./profile-member/profile-member";
 export { default as Profile } from "./profile/profile";
+export { default as Progressbar } from "./progressbar/progressbar";
 export { default as Reply } from "./reply/reply";
 export { default as TaskCard } from "./task-card/task-card";
 export { default as TaskChip } from "./task-chip/task-chip";

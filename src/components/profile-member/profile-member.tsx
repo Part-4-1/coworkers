@@ -1,4 +1,5 @@
-import { Icon, Profile } from "@/components/index";
+import Icon from "../icon/Icon";
+import Profile from "../profile/profile";
 import cn from "@/utils/clsx";
 import { MouseEventHandler } from "react";
 
