@@ -15,8 +15,10 @@ interface TextInputProps extends ComponentPropsWithRef<"input"> {
   id: string;
   errorMessage?: string;
   containerClassName?: string;
-  suffix?: ReactNode;
-  suffixClassName?: string;
+  rightIcon?: ReactNode;
+  rightIconClassName?: string;
+  leftIcon?: ReactNode;
+  leftIconClassName?: string;
 }
 
 const TextInput = ({
@@ -25,8 +27,10 @@ const TextInput = ({
   containerClassName,
   errorMessage,
   readOnly,
-  suffix,
-  suffixClassName,
+  rightIcon,
+  rightIconClassName,
+  leftIcon,
+  leftIconClassName,
   ref,
   ...rest
 }: TextInputProps) => {
@@ -57,6 +61,7 @@ const TextInput = ({
               : "border-blue-400 placeholder-shown:border-gray-300",
             readOnly &&
               "pointer-events-none select-none read-only:border-gray-300 read-only:bg-gray-50 read-only:text-gray-700",
+            leftIcon && "pl-[48px]",
             className
           )}
           aria-invalid={showError}
@@ -64,14 +69,25 @@ const TextInput = ({
           {...rest}
         />
 
-        {suffix && (
+        {rightIcon && (
           <div
             className={cn(
               "absolute inset-y-0 right-2 flex items-center",
-              suffixClassName
+              rightIconClassName
             )}
           >
-            {suffix}
+            {rightIcon}
+          </div>
+        )}
+
+        {leftIcon && (
+          <div
+            className={cn(
+              "absolute inset-y-0 left-4 flex items-center",
+              leftIconClassName
+            )}
+          >
+            {leftIcon}
           </div>
         )}
       </div>

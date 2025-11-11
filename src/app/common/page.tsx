@@ -84,8 +84,8 @@ const Page = () => {
           type={showPassword ? "text" : "password"}
           placeholder="비밀번호를 입력하세요."
           errorMessage={errors.password?.message}
-          suffixClassName="pr-2"
-          suffix={
+          rightIconClassName="pr-2"
+          rightIcon={
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -121,7 +121,7 @@ const Page = () => {
           type="password"
           value="********"
           readOnly
-          suffix={<Button size="sm">변경하기</Button>}
+          rightIcon={<Button size="sm">변경하기</Button>}
         />
       </form>
       <Reply comment={singleComment} />
