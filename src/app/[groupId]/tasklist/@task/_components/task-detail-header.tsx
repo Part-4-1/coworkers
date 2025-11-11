@@ -60,7 +60,7 @@ const TaskDetailHeader = ({
     <div className="flex w-full flex-col gap-4">
       <div className="flex items-center justify-between">
         <p className="text-xl font-bold tablet:text-2xl">{name}</p>
-        <Dropdown
+        {/* <Dropdown
           trigger={<Icon icon="kebab" className="h-6 w-6 text-gray-800" />}
           items={[
             {
@@ -74,7 +74,7 @@ const TaskDetailHeader = ({
               onClick: () => {},
             },
           ]}
-        />
+        /> */}
       </div>
       <div className="flex items-center gap-3">
         <Profile image={writer.image ?? ""} size="md" />
@@ -94,7 +94,9 @@ const TaskDetailHeader = ({
               );
             })}
           </div>
-          <TaskDetailToggleBtn doneAt={doneAt} onClick={onToggleBtnClick} />
+          <div className="hidden tablet:flex">
+            <TaskDetailToggleBtn doneAt={doneAt} onClick={onToggleBtnClick} />
+          </div>
         </div>
         <hr className="h-[2px] bg-gray-300" />
       </div>

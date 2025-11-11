@@ -7,18 +7,19 @@ import data from "@/mocks/task-detail-data.json";
 import { mockComments } from "@/mocks/comment-data";
 import { InputReply } from "@/components";
 import TaskDetailWrapper from "./_components/task-detail-wrapper";
+import TaskDetailToggleBtn from "./_components/task-detail-complete-btn";
 
 const Page = () => {
   return (
     <TaskDetailWrapper>
-      <div className="flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
+      <div className="relative flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
         <div className="flex flex-col gap-6">
           <TaskDetailHeader
             name={data.name}
             writer={data.writer}
             createdAt={data.recurring.createdAt}
             frequency={data.recurring.frequencyType}
-            doneAt={null}
+            doneAt={data.doneAt}
             setEditMode={() => {}}
             onToggleBtnClick={() => {}}
           />
@@ -37,6 +38,9 @@ const Page = () => {
         </div>
       </div>
       <TaskDetailComment commentData={mockComments} />
+      <div className="absolute bottom-1 right-1 tablet:hidden">
+        <TaskDetailToggleBtn doneAt={data.doneAt} onClick={() => {}} />
+      </div>
     </TaskDetailWrapper>
   );
 };

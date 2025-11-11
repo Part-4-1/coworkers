@@ -6,7 +6,7 @@ const TaskDetailWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className={cn(
-        "flex w-full min-w-[375px] flex-col gap-5 px-7 pt-3",
+        "flex w-full min-w-[375px] flex-col gap-5 px-7 py-3",
         "tablet:max-w-[520px] tablet:gap-4 tablet:pt-10",
         "pc:max-w-[780px] pc:gap-5"
       )}
