@@ -1,12 +1,23 @@
-import type { CommentWriter } from "./comment";
-import { FrequencyType } from "./task";
+import { RecurringData } from "./recurring";
+import { Writer } from "./user";
 
-export interface TaskDetailHeaderProps {
-  name: string;
-  writer: CommentWriter;
-  createdAt: string;
-  frequency: FrequencyType;
+/**
+ * @author hwitae
+ * @description 할 일 상세 정보 API 타입
+ */
+export interface TaskDetailData {
+  id: number;
+  updatedAt: string;
+  date: string;
   doneAt: string | null;
+  recurringId: number;
+  name: string;
+  description: string;
+  frequency: string;
+  deletedAt: string | null;
+  displayIndex: number;
+  recurring: RecurringData;
+  writer: Writer;
+  doneBy: Writer;
+  commentCount: number;
 }
-
-export interface TaskDetailProps extends TaskDetailHeaderProps {}
