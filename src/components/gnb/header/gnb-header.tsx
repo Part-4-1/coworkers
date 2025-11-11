@@ -21,7 +21,6 @@ const GnbHeader = () => {
 
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
   const isLoggedIn = !!userInfo && !isLoading;
-  //const isLoggedIn = true;
 
   return (
     <div className="w-full border-b border-gray-300 bg-white">
@@ -58,7 +57,6 @@ const GnbHeader = () => {
                   label: "로그아웃",
                   onClick: () => {
                     logoutAction();
-                    router.push("/");
                   },
                 },
               ]}

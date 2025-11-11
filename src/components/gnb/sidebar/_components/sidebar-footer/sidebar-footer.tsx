@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Profile } from "@/components/index";
+import { Dropdown, Profile } from "@/components/index";
 import Link from "next/link";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { logoutAction } from "@/api/auth/logout-action";
 
 /**
  * @author leohan
@@ -13,16 +14,28 @@ import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
   const isLoggedIn = !!userInfo && !isLoading;
-  //const isLoggedIn = true;
   return isLoggedIn ? (
-    <Link
-      href={"/userPage"}
-      className="mb-6 flex gap-3 border-t border-gray-300 pt-5"
-    >
+    <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
-        <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
+        <Dropdown
+          trigger={<Profile size={`${isSidebarOpen ? "lg" : "md"}`} />}
+          items={[
+            { label: "마이 히스토리" },
+            { label: "계정 설정" },
+            { label: "팀 참여" },
+            {
+              label: "로그아웃",
+              onClick: () => {
+                logoutAction();
+              },
+            },
+          ]}
+          isWidthFull={false}
+          isDirectionDown={false}
+          menuAlign="start"
+        />
       </div>
       <AnimatePresence>
         {isSidebarOpen && (
@@ -42,7 +55,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </Link>
+    </div>
   ) : (
     <Link
       href="/login"

@@ -84,6 +84,7 @@ const Page = () => {
                 suffixClassName="pr-2"
                 suffix={
                   <Button
+                    type="button"
                     variant="none"
                     onClick={() => setShowPassword(!showPassword)}
                   >
@@ -95,6 +96,11 @@ const Page = () => {
                 }
                 {...register("password", {
                   required: "비밀번호를 입력해주세요.",
+                  validate: {
+                    complexityCheck: (value) =>
+                      (/[0-9]/.test(value) && /[!@#$%^&*]/.test(value)) ||
+                      "비밀번호에 숫자, 특수문자(!@#$%^&*)가 각각 하나 이상 포함되어야 합니다.",
+                  },
                   pattern: {
                     value: PASSWORD_REGEX,
                     message: "영문, 숫자, !@#$%^&*만 사용할 수 있습니다.",
@@ -116,6 +122,7 @@ const Page = () => {
                 suffixClassName="pr-2"
                 suffix={
                   <Button
+                    type="button"
                     variant="none"
                     onClick={() => setShowPassword(!showPassword)}
                   >
@@ -128,7 +135,9 @@ const Page = () => {
                 {...register("passwordConfirmation", {
                   required: "비밀번호를 입력해주세요.",
                   validate: () =>
-                    getValues("password") === getValues("passwordConfirmation"),
+                    getValues("password") ===
+                      getValues("passwordConfirmation") ||
+                    "비밀번호가 일치하지 않습니다.",
                 })}
               />
             </div>

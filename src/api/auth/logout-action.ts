@@ -19,5 +19,5 @@ export const logoutAction = async () => {
     });
   } catch (error) {}
 
-  redirect("/login");
+  redirect("/");
 };
