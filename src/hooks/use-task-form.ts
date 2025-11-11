@@ -55,9 +55,7 @@ export const useTaskForm = () => {
       frequencyType: data.frequencyType,
     };
 
-    if (data.frequencyType === "DAILY") {
-      payload.weekDays = [0, 1, 2, 3, 4, 5, 6];
-    } else if (data.frequencyType === "WEEKLY") {
+    if (data.frequencyType === "WEEKLY") {
       if (!data.weekDays || data.weekDays.length === 0) {
         toast.error("최소 하나의 요일을 선택해주세요.");
         return null;

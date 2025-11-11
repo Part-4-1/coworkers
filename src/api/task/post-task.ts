@@ -12,7 +12,7 @@ export const createTask = async (
 ) => {
   const { groupId, taskListId } = params;
   const { data } = await instance.post(
-    `/groups/${groupId}/task-lists/${taskListId}/recurring`,
+    `/groups/${groupId}/task-lists/${taskListId}/tasks`,
     payload
   );
   return data;
