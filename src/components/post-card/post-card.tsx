@@ -1,6 +1,6 @@
 import cn from "@/utils/clsx";
 import Image from "next/image";
-import { Icon } from "../index";
+import Icon from "../icon/Icon";
 import { toDotDateString } from "@/utils/date-util";
 
 interface PostCardProps {

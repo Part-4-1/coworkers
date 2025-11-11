@@ -1,7 +1,7 @@
 import cn from "@/utils/clsx";
-import Button from "@/components/button/button";
-import Icon from "@/components/icon/Icon";
-import Dropdown from "@/components/dropdown-components/dropdown";
+import Button from "../button/button";
+import Icon from "../icon/Icon";
+import Dropdown from "../dropdown-components/dropdown";
 import { Comment } from "@/types/index";
 import TextareaAutosize from "react-textarea-autosize";
 import DefaultProfile from "@/assets/icons/ic-user.svg";

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
-import Button from "@/components/button/button";
-import Icon from "@/components/icon/Icon";
+import Icon from "../icon/Icon";
+import Button from "../button/button";
 import cn from "@/utils/clsx";
 
 interface ImageUploadProps {

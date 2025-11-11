@@ -1,9 +1,11 @@
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+"use client";
+
 import "react-circular-progressbar/dist/styles.css";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../tailwind.config";
-import { Icon } from "../index";
+import Icon from "../icon/Icon";
 import cn from "@/utils/clsx";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 
 export interface BadgeProps {
   total: number;

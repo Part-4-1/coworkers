@@ -4,7 +4,7 @@ import { memo, useState, useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { RemoveToastAtom } from "@/atoms/toast-atom";
 import { ToastProps } from "@/types/toast";
-import Icon from "@/components/icon/Icon";
+import Icon from "../icon/Icon";
 
 const Toast = memo(({ type, message }: ToastProps) => {
   const removeToastItem = useSetAtom(RemoveToastAtom);

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import cn from "@/utils/clsx";
-import Button from "@/components/button/button";
-import Icon from "@/components/icon/Icon";
+import Button from "../button/button";
+import Icon from "../icon/Icon";
 import TextareaAutosize from "react-textarea-autosize";
 
 /**

@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Button, Icon } from "@/components/index";
+import Button from "@/components/button/button";
+import Icon from "@/components/icon/Icon";
 import { mockUser } from "@/mocks/sidebar-data";
 import SidebarMenu from "../sidebar/_components/sidebar-menu/sidebar-menu";
 import { usePathname } from "next/navigation";
