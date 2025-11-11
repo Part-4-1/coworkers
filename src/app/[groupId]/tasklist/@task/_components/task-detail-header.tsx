@@ -1,11 +1,9 @@
 import { Dropdown, Icon, Profile } from "@/components";
 import ICONS_MAP from "@/components/icon/icons-map";
-import { Dispatch, MouseEventHandler, SetStateAction } from "react";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
 import { toKoreanDateWithTimeString } from "@/utils/date-util";
 import { changeFrequencyCode } from "@/utils/util";
 import type { Writer } from "@/types/user";
-import type { FrequencyType } from "@/types/task";
 
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
@@ -19,8 +17,6 @@ export interface TaskDetailHeaderProps {
   createdAt: string;
   frequency: string;
   doneAt: string | null;
-  setEditMode: Dispatch<SetStateAction<boolean>>;
-  onToggleBtnClick: MouseEventHandler;
 }
 /**
  * @author hwitae
@@ -40,8 +36,6 @@ const TaskDetailHeader = ({
   createdAt,
   frequency,
   doneAt,
-  setEditMode,
-  onToggleBtnClick,
 }: TaskDetailHeaderProps) => {
   const taskMetadataArr: TaskMetadataProps[] = [
     {
@@ -95,7 +89,7 @@ const TaskDetailHeader = ({
             })}
           </div>
           <div className="hidden tablet:flex">
-            <TaskDetailToggleBtn doneAt={doneAt} onClick={onToggleBtnClick} />
+            <TaskDetailToggleBtn doneAt={doneAt} onClick={() => {}} />
           </div>
         </div>
         <hr className="h-[2px] bg-gray-300" />
