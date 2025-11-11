@@ -10,15 +10,10 @@ import {
   PASSWORD_REGEX,
 } from "@/constants/regex";
 import { Button, Icon } from "@/components";
+import { useSignupQuery } from "@/hooks/api/user/use-signup-query";
+import type { SignupRequest } from "@/api/auth/signup-action";
 
 const labelStyle = {};
-
-interface SignupFormData {
-  name: string;
-  email: string;
-  password: string;
-  passwordCheck: string;
-}
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,26 +22,40 @@ const Page = () => {
     register,
     formState: { errors, isValid },
     getValues,
-  } = useForm<SignupFormData>({
+    handleSubmit,
+  } = useForm<SignupRequest>({
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
   });
 
-  console.log(isValid);
+  const { mutate, isPending } = useSignupQuery();
+
+  const onSubmit = (formData: SignupRequest) => {
+    mutate({
+      nickname: formData.nickname,
+      email: formData.email,
+      password: formData.password,
+      passwordConfirmation: formData.passwordConfirmation,
+    });
+  };
+
   return (
     <>
       <SingUpInFormWrapper className="my-[120px]">
         <div className="gap-16 flex-col-center">
           <h1 className="text-2xl font-bold text-blue-700">회원가입</h1>
-          <form className="flex w-full flex-col gap-6">
+          <form
+            className="flex w-full flex-col gap-6"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="flex flex-col gap-3">
               <label htmlFor="name">이름</label>
               <TextInput
                 id="name"
                 type="text"
                 placeholder="이름을 입력해주세요."
-                errorMessage={errors.name?.message}
-                {...register("name", {
+                errorMessage={errors.nickname?.message}
+                {...register("nickname", {
                   required: "이름을 입력해주세요.",
                 })}
               />
@@ -105,7 +114,7 @@ const Page = () => {
                 id="passwordCheck"
                 type={showPassword ? "text" : "password"}
                 placeholder="비밀번호를 다시 한 번 입력하세요."
-                errorMessage={errors.passwordCheck?.message}
+                errorMessage={errors.passwordConfirmation?.message}
                 suffixClassName="pr-2"
                 suffix={
                   <Button
@@ -118,10 +127,10 @@ const Page = () => {
                     />
                   </Button>
                 }
-                {...register("passwordCheck", {
+                {...register("passwordConfirmation", {
                   required: "비밀번호를 입력해주세요.",
                   validate: () =>
-                    getValues("password") === getValues("passwordCheck"),
+                    getValues("password") === getValues("passwordConfirmation"),
                 })}
               />
             </div>
