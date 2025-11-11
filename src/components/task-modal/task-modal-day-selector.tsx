@@ -46,7 +46,7 @@ const DaysSelector = ({
             key={day.value}
             type="button"
             onClick={() => handleDayClick(day.value)}
-            className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-md font-medium transition-colors ${
+            className={`h-10 w-10 cursor-pointer rounded-lg text-md font-medium transition-colors flex-center ${
               selectedDays.includes(day.value)
                 ? "bg-blue-200 text-white"
                 : "bg-gray-100 text-gray-800 hover:bg-blue-100"
