@@ -22,7 +22,8 @@ import {
   TaskChip,
   TaskHeader,
   TaskModal,
-  TeamBanner,
+  TeamBannerAdmin,
+  TeamBannerMember,
   TextInput,
 } from "@/components/index";
 import {
@@ -221,14 +222,20 @@ const Page = () => {
           <Calendar />
         </div>
       </div>
-      <div className="w-[75vw] bg-gray-50 p-10">
-        <TeamBanner
-          groupName="경영관리팀"
-          tasksTodo={15}
-          tasksDone={2}
+      <div className="flex w-[75vw] flex-col gap-10 bg-gray-50 p-10">
+        <TeamBannerAdmin
+          groupName={mockGroupData[0].name}
+          tasksTodo={20}
+          tasksDone={5}
           members={mockGroupData[0].members}
-          onSettingClick={() => console.log("Click setting icon")}
-          onMemberListClick={() => console.log("Click MemberList")}
+          onSettingClick={() => {}}
+          onMemberListClick={() => {}}
+        />
+        <TeamBannerMember
+          groupName={mockGroupData[0].name}
+          members={mockGroupData[0].members}
+          onSettingClick={() => {}}
+          onMemberListClick={() => {}}
         />
       </div>
       <div className="flex w-full flex-col gap-2 px-[150px] flex-center">

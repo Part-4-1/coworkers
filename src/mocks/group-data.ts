@@ -4,7 +4,7 @@ export const mockGroupData = [
     updatedAt: "2025-11-07T09:21:28.442Z",
     createdAt: "2025-10-25T15:22:18.000Z",
     image: "https://randomuser.me/api/portraits/men/12.jpg",
-    name: "여행일지 프로젝트",
+    name: "경영관리팀",
     id: 11,
     members: [
       {

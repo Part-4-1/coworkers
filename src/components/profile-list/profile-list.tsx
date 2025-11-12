@@ -20,7 +20,7 @@ const ProfileList = ({ members, className }: ProfileListProps) => {
     <Button
       variant="none"
       className={cn(
-        "flex h-[28px] w-auto justify-between rounded-[8px] border-[1px] border-gray-300 py-[4px] pl-[4px] pr-[8px]",
+        "flex h-[28px] justify-between rounded-[8px] border-[1px] border-gray-300 py-[4px] pl-[4px] pr-[8px]",
         "gap-[12px] tablet:h-[32px]",
         className
       )}
