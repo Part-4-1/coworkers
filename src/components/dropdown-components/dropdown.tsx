@@ -99,6 +99,7 @@ const Dropdown = ({
 
   const DefaultTrigger = (
     <Button
+      type="button"
       variant="outlined-secondary"
       className={cn(
         "h-[40px] w-[120px] border border-gray-300",

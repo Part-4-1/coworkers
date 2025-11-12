@@ -85,6 +85,4 @@ const TextInput = ({
   );
 };
 
-TextInput.displayName = "TextInput";
-
 export default TextInput;
