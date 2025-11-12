@@ -28,6 +28,7 @@ import {
   PASSWORD_REGEX,
 } from "@/constants/regex";
 
+import { TaskListCreateModal } from "@/components/modal/common-modal"; // 모달 import 추가
 import List from "@/components/list/list";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import useToast from "@/hooks/use-toast";
@@ -45,6 +46,7 @@ type LoginFormData = {
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isTaskListCreateModalOpen, setIsTaskListCreateModalOpen] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const { previews } = useImageUpload({ maxCount: 5 });
   const { success, error, warning } = useToast();
@@ -363,6 +365,22 @@ const Page = () => {
           경고 토스트
         </Button>
       </div>
+      <div className="mt-8 w-full max-w-[300px] gap-2 flex-col-center">
+        <Button
+          className="bg-purple-600 hover:bg-purple-700"
+          onClick={() => setIsTaskListCreateModalOpen(true)} // 모달 열기
+        >
+          할 일 목록 생성 모달 열기
+        </Button>
+      </div>
+        <TaskListCreateModal
+        isOpen={isTaskListCreateModalOpen}
+        onClose={() => setIsTaskListCreateModalOpen(false)} // 모달 닫기
+        onSubmit={(name) => {
+          success(`새 목록 생성됨: ${name}`); // 성공 토스트 메시지
+          // 실제로는 여기에 API 호출 로직을 구현 필요
+        }}
+        />
     </div>
   );
 };
