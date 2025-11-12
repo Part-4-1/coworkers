@@ -5,31 +5,51 @@ import cn from "@/utils/clsx";
 import Button from "../button/button";
 import Icon from "../icon/Icon";
 import TextareaAutosize from "react-textarea-autosize";
+import { pl } from "react-day-picker/locale";
 
 /**
  * @author junyeol
  * @returns 댓글 작성 컴포넌트
  */
 
-const InputReply = () => {
+interface InputReplyProps {
+  onSubmit: (comment: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+}
+
+const InputReply = ({
+  onSubmit,
+  placeholder = "댓글을 달아주세요",
+  disabled = false,
+}: InputReplyProps) => {
   const [value, setValue] = useState("");
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
 
+  const handleSubmit = () => {
+    if (!value.trim() || disabled) return;
+
+    onSubmit(value.trim());
+    setValue("");
+  };
+
   return (
-    <div className="flex w-full max-w-[732px] flex-col border-y-2 border-gray-300 py-3">
+    <div className="flex w-full max-w-[780px] flex-col border-y-2 border-gray-300 py-3">
       <div className="gap-6 pl-3 pr-3 flex-center">
         <TextareaAutosize
-          placeholder="댓글을 달아주세요"
+          placeholder={placeholder}
           value={value}
           onChange={handleChange}
+          disabled={disabled}
           className="w-full max-w-[708px] resize-none text-xs text-blue-700 placeholder:text-gray-800 focus:outline-none tablet:text-md"
           minRows={1}
         />
         <Button
           variant="none"
-          disabled={!value}
+          disabled={!value.trim() || disabled}
+          onClick={handleSubmit}
           className={cn(
             "h-[24px] w-[24px] flex-shrink-0 rounded-full",
             value ? "bg-blue-100" : "bg-gray-800"

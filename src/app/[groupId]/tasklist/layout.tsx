@@ -8,7 +8,7 @@ const Layout = ({
   task: ReactNode;
 }) => {
   return (
-    <div className="flex">
+    <div className="flex justify-between">
       {children}
       {task}
     </div>

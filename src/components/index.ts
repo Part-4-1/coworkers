@@ -24,3 +24,4 @@ export { default as Reply } from "./reply/reply";
 export { default as TaskCard } from "./task-card/task-card";
 export { default as TaskChip } from "./task-chip/task-chip";
 export { default as TaskHeader } from "./task-header/task-header";
+export { default as TaskModal } from "./task-modal/task-modal";
