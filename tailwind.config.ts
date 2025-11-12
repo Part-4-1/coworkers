@@ -75,6 +75,9 @@ const config: Config = {
       "3xl": ["32px", "38px"],
       "4xl": ["40px", "48px"],
     },
+    boxShadow: {
+      xl: "0px 15px 50px -12px rgba(0, 0, 0, 0.05)",
+    },
   },
   plugins: [flexCenter, flexColCenter],
 };
