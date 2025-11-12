@@ -12,8 +12,7 @@ const usePatchTaskDetail = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ groupId, taskListId, taskId, data }: PatchTaskDetailData) =>
-      patchTaskDetail(groupId, taskListId, taskId, data),
+    mutationFn: patchTaskDetail,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["taskDetail"] });
     },

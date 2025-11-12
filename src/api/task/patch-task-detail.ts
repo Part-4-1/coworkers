@@ -1,4 +1,7 @@
+import { PatchTaskDetailData } from "@/hooks/api/task/use-patch-task-detail";
+import { TaskDetailData } from "@/types/task-detail";
 import instance from "@/utils/axios";
+import { AxiosResponse } from "axios";
 
 export interface PatchData {
   name: string | undefined;
@@ -6,12 +9,12 @@ export interface PatchData {
   done: boolean;
 }
 
-const patchTaskDetail = async (
-  groupId: number,
-  taskListId: number,
-  taskId: number,
-  data: PatchData
-) => {
+const patchTaskDetail = async ({
+  groupId,
+  taskListId,
+  taskId,
+  data,
+}: PatchTaskDetailData): Promise<AxiosResponse<TaskDetailData> | undefined> => {
   try {
     const response = await instance.patch(
       `/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
