@@ -71,6 +71,16 @@ const TaskDetailContents = ({
     setText(e.target.value);
   };
 
+  const handleToggleBtnClick = () => {
+    const patchData = {
+      name: newName.current,
+      description: newDescription.current,
+      done: !doneAt,
+    };
+
+    mutate({ groupId, taskListId, taskId, data: patchData });
+  };
+
   useEffect(() => {
     let patchData = {
       name: newName.current,
@@ -94,7 +104,6 @@ const TaskDetailContents = ({
       <div className="flex flex-col gap-6">
         <div className="flex w-full flex-col gap-4">
           <div className="flex items-center justify-between">
-            {/* <p className="text-xl font-bold tablet:text-2xl">{name}</p> */}
             <TextareaAutosize
               name={name}
               defaultValue={name}
@@ -120,8 +129,11 @@ const TaskDetailContents = ({
                   );
                 })}
               </div>
-              <div className="hidden tablet:flex">
-                <TaskDetailToggleBtn doneAt={doneAt} onClick={() => {}} />
+              <div className="z-10 mobile:fixed mobile:bottom-1 mobile:right-1 tablet:relative tablet:flex">
+                <TaskDetailToggleBtn
+                  doneAt={doneAt}
+                  onClick={handleToggleBtnClick}
+                />
               </div>
             </div>
             <hr className="h-[2px] bg-gray-300" />

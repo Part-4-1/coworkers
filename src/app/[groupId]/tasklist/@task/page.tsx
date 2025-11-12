@@ -45,7 +45,7 @@ const Page = () => {
       {!isPending && taskIdKey && (
         <TaskDetailWrapper key={taskIdKey} onClose={handleClick}>
           <div className="flex flex-col gap-5">
-            <div className="relative flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
+            <div className="flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
               <TaskDetailContents
                 name={taskDetailData.name}
                 writer={taskDetailData.writer}
@@ -68,9 +68,6 @@ const Page = () => {
               </div>
             </div>
             <TaskDetailComment taskId={taskId} />
-          </div>
-          <div className="absolute bottom-1 right-1 tablet:hidden">
-            <TaskDetailToggleBtn doneAt={data.doneAt} onClick={() => {}} />
           </div>
         </TaskDetailWrapper>
       )}

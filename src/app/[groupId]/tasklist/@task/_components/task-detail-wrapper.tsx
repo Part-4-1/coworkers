@@ -41,11 +41,11 @@ const TaskDetailWrapper = ({
       initial="initial"
       animate="visible"
       exit="exit"
-      className={cn(
-        "flex w-full min-w-[375px] flex-col px-7 py-3",
-        "tablet:max-w-[520px] tablet:gap-4 tablet:pt-10",
-        "pc:max-w-[780px] pc:gap-5"
-      )}
+      // className={cn(
+      //   "flex w-full min-w-[375px] flex-col px-7 py-3",
+      //   "tablet:max-w-[520px] tablet:gap-4 tablet:pt-10",
+      //   "pc:max-w-[780px] pc:gap-5"
+      // )}
     >
       <div className="flex flex-col gap-5 tablet:gap-[15px] pc:gap-[74px]">
         <Button variant="none" onClick={onClose}>
