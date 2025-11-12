@@ -95,7 +95,7 @@ export const ReadOnly: Story = {
   ),
 };
 
-export const SuffixButton: Story = {
+export const IconButton: Story = {
   render: () => (
     <div className="flex w-full flex-col gap-4 pc:max-w-[460px]">
       <TextInput
