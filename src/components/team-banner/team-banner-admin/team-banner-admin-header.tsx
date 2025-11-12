@@ -5,19 +5,19 @@ import { Member } from "@/types/members";
 import cn from "@/utils/clsx";
 import { MouseEventHandler } from "react";
 
-interface TeamBannerHeaderProps {
+interface TeamBannerAdminHeaderProps {
   groupName: string;
   members: Member[];
   onSettingClick: MouseEventHandler;
   onMemberListClick: MouseEventHandler;
 }
 
-const TeamBannerHeader = ({
+const TeamBannerAdminHeader = ({
   groupName,
   members,
   onSettingClick,
   onMemberListClick,
-}: TeamBannerHeaderProps) => {
+}: TeamBannerAdminHeaderProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
   const isTablet = useMediaQuery("(min-width: 744px) and (max-width: 1280px)");
 
@@ -30,17 +30,24 @@ const TeamBannerHeader = ({
       )}
     >
       <div
-        className="flex gap-[8px] font-bold flex-center tablet:gap-[12px]"
+        className="flex min-w-0 gap-[8px] font-bold text-blue-700 flex-center tablet:gap-[12px]"
         onClick={onMemberListClick}
       >
-        {groupName}
-        {isPc ? "" : <ProfileList members={members} />}
+        <div className="truncate">{groupName}</div>
+        {isPc ? (
+          ""
+        ) : (
+          <ProfileList
+            members={members}
+            className="w-[75px] shrink-0 tablet:w-[87px]"
+          />
+        )}
       </div>
 
       {isPc ? (
         ""
       ) : (
-        <div onClick={onSettingClick}>
+        <div onClick={onSettingClick} className="flex-center">
           <Icon
             icon="setting"
             className="h-[20px] w-[20px] cursor-pointer tablet:h-[24px] tablet:w-[24px]"
@@ -51,4 +58,4 @@ const TeamBannerHeader = ({
   );
 };
 
-export default TeamBannerHeader;
+export default TeamBannerAdminHeader;

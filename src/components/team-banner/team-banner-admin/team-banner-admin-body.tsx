@@ -1,12 +1,15 @@
 import Progressbar from "@/components/progressbar/progressbar";
 import cn from "@/utils/clsx";
 
-interface TeamBannerBodyProps {
+interface TeamBannerAdminBodyProps {
   tasksTodo: number;
   tasksDone: number;
 }
 
-const TeamBannerBody = ({ tasksTodo, tasksDone }: TeamBannerBodyProps) => {
+const TeamBannerAdminBody = ({
+  tasksTodo,
+  tasksDone,
+}: TeamBannerAdminBodyProps) => {
   const progressRate = Math.round((tasksDone / tasksTodo) * 100);
 
   return (
@@ -56,4 +59,4 @@ const TeamBannerBody = ({ tasksTodo, tasksDone }: TeamBannerBodyProps) => {
   );
 };
 
-export default TeamBannerBody;
+export default TeamBannerAdminBody;

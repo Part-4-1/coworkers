@@ -3,8 +3,8 @@ import useMediaQuery from "@/hooks/use-media-query";
 import { Member } from "@/types/members";
 import cn from "@/utils/clsx";
 import { MouseEventHandler } from "react";
-import TeamBannerBody from "./team-banner-components/team-banner-body";
-import TeamBannerHeader from "./team-banner-components/team-banner-header";
+import TeamBannerAdminBody from "./team-banner-admin-body";
+import TeamBannerAdminHeader from "./team-banner-admin-header";
 
 interface TeamBannerAdminProps {
   groupName: string;
@@ -29,10 +29,10 @@ const teamBannerAdmin = ({
       className={cn(
         "h-[196px] w-full justify-between pb-[30px] pl-[25px] pr-[28px] pt-[20px] tablet:rounded-[20px]",
         "max-w-[1120px] tablet:h-[239px] tablet:pb-[34px] tablet:pt-[30px] pc:pr-[36px] pc:pt-[32px]",
-        "flex min-w-[300px] flex-col justify-between bg-white shadow-xl"
+        "flex min-w-[270px] flex-col justify-between bg-white shadow-xl"
       )}
     >
-      <TeamBannerHeader
+      <TeamBannerAdminHeader
         groupName={groupName}
         members={members}
         onSettingClick={onSettingClick}
@@ -44,7 +44,7 @@ const teamBannerAdmin = ({
           "tablet:h-[108px]"
         )}
       >
-        <TeamBannerBody tasksTodo={tasksTodo} tasksDone={tasksDone} />
+        <TeamBannerAdminBody tasksTodo={tasksTodo} tasksDone={tasksDone} />
         <div onClick={onSettingClick} className="flex cursor-pointer items-end">
           {isPc && <Icon icon="setting" className="h-[24px] w-[24px]" />}
         </div>
