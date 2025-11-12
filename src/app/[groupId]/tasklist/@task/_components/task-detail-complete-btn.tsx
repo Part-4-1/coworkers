@@ -16,14 +16,16 @@ interface TaskDetailToggleBtnProps {
  */
 const TaskDetailToggleBtn = ({ doneAt, onClick }: TaskDetailToggleBtnProps) => {
   return (
-    <Button
-      variant={doneAt ? "outlined" : "solid"}
-      className="h-10 w-fit rounded-[40px] pl-4 pr-5 mobile:hidden tablet:flex"
-      onClick={onClick}
-    >
-      <Icon icon="checkInverse" className="h-4 w-4" />
-      <span className="text-md">{doneAt ? "완료 취소하기" : "완료하기"}</span>
-    </Button>
+    <div className="flex-center">
+      <Button
+        variant={doneAt ? "outlined" : "solid"}
+        className="h-10 w-fit rounded-[40px] pl-4 pr-5"
+        onClick={onClick}
+      >
+        <Icon icon="checkInverse" className="h-4 w-4" />
+        <span className="text-md">{doneAt ? "완료 취소하기" : "완료하기"}</span>
+      </Button>
+    </div>
   );
 };
 

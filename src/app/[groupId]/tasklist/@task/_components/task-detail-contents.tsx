@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 
 export interface TaskDetailContentsProps {
   name: string;
@@ -24,11 +25,11 @@ const TaskDetailContents = ({ name, description }: TaskDetailContentsProps) => {
   }, [text]);
 
   return (
-    <textarea
+    <TextareaAutosize
       name={`${name} description`}
       defaultValue={description}
       onChange={(e) => setText(e.target.value)}
-      className="w-full resize-none focus:outline-none"
+      className="h-auto w-full resize-none focus:outline-none"
     />
   );
 };
