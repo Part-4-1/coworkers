@@ -15,7 +15,7 @@ const TaskDetailComment = ({ taskId }: TaskDetailCommentProps) => {
           {comments.map((comment, idx) => {
             return (
               <li key={comment.id} className="flex flex-col gap-4">
-                {idx !== 0 && idx === comments.length - 1 && <hr />}
+                {idx !== 0 && idx < comments.length && <hr />}
                 <Reply
                   comment={{
                     id: comment.id,

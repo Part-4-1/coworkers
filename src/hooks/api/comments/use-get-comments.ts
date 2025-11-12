@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetComments = (taskId: number) => {
   return useQuery({
-    queryKey: ["comments"],
+    queryKey: ["comments", taskId],
     queryFn: () => getComments(taskId),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,

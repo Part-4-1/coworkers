@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useGetTaskDetail from "@/hooks/api/task/use-get-task-detail";
 import { AnimatePresence } from "framer-motion";
 import useGetComments from "@/hooks/api/comments/use-get-comments";
+import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 
 const Page = () => {
   const router = useRouter();
@@ -32,6 +33,8 @@ const Page = () => {
     4711,
     taskId
   );
+
+  const { mutate: postTaskDetailComment } = useCreateComment(taskId);
 
   useEffect(() => {
     // console.log(comments);
@@ -61,7 +64,7 @@ const Page = () => {
                     {taskDetailData.commentCount}
                   </span>
                 </p>
-                <InputReply onSubmit={() => {}} />
+                <InputReply onSubmit={postTaskDetailComment} />
               </div>
             </div>
             <TaskDetailComment taskId={taskId} />
