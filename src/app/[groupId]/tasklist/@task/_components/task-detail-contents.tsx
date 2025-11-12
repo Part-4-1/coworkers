@@ -72,25 +72,31 @@ const TaskDetailContents = ({
   };
 
   const handleToggleBtnClick = () => {
-    const patchData = {
-      name: newName.current,
-      description: newDescription.current,
-      done: !doneAt,
-    };
-
-    mutate({ groupId, taskListId, taskId, data: patchData });
+    mutate({
+      groupId,
+      taskListId,
+      taskId,
+      data: {
+        name: newName.current,
+        description: newDescription.current,
+        done: !doneAt,
+      },
+    });
   };
 
   useEffect(() => {
-    let patchData = {
-      name: newName.current,
-      description: newDescription.current,
-      done: doneAt ? true : false,
-    };
-
     if (text?.trim() !== "") {
       timer.current = setTimeout(() => {
-        mutate({ groupId, taskListId, taskId, data: patchData });
+        mutate({
+          groupId,
+          taskListId,
+          taskId,
+          data: {
+            name: newName.current,
+            description: newDescription.current,
+            done: !!doneAt,
+          },
+        });
       }, 1500);
     }
 
@@ -120,12 +126,7 @@ const TaskDetailContents = ({
               <div className="flex flex-col gap-2">
                 {taskMetadataArr.map((taskMetadata) => {
                   return (
-                    <TaskMetadata
-                      key={taskMetadata.label}
-                      icon={taskMetadata.icon}
-                      label={taskMetadata.label}
-                      text={taskMetadata.text}
-                    />
+                    <TaskMetadata key={taskMetadata.label} {...taskMetadata} />
                   );
                 })}
               </div>

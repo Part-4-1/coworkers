@@ -1,9 +1,7 @@
 import { TaskDetailComments } from "@/types/task-detail";
 import instance from "@/utils/axios";
 
-const getComments = async (
-  taskId: number
-): Promise<TaskDetailComments[] | undefined> => {
+const getComments = async (taskId: number): Promise<TaskDetailComments[]> => {
   try {
     const response = await instance.get(`/tasks/${taskId}/comments`);
 
@@ -11,7 +9,7 @@ const getComments = async (
 
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 

@@ -40,15 +40,11 @@ const Page = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
               <TaskDetailContents
-                name={taskDetailData.name}
-                writer={taskDetailData.writer}
+                {...taskDetailData}
                 createdAt={taskDetailData.recurring.createdAt}
-                frequency={taskDetailData.recurring.frequencyType}
-                doneAt={taskDetailData.doneAt}
                 groupId={3290}
                 taskListId={4711}
                 taskId={taskId}
-                description={taskDetailData.description}
               />
               <div className="flex flex-col gap-4">
                 <p className="text-lg font-bold tablet:text-2lg">

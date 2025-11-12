@@ -1,4 +1,5 @@
 import patchTaskDetail, { PatchData } from "@/api/task/patch-task-detail";
+import { TaskDetailData } from "@/types/task-detail";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export interface PatchTaskDetailData {
@@ -13,8 +14,15 @@ const usePatchTaskDetail = () => {
 
   return useMutation({
     mutationFn: patchTaskDetail,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["taskDetail"] });
+    onMutate: async () => {
+      const prevData = queryClient.getQueryData([
+        "taskDetail",
+      ]) as TaskDetailData;
+      return prevData;
+    },
+    onSuccess: (data, _, prevData) => {
+      data?.data.doneAt !== prevData.doneAt &&
+        queryClient.invalidateQueries({ queryKey: ["taskDetail"] });
     },
     onError: (error) => {
       console.error(error);
