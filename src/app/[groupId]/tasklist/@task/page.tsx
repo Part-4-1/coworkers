@@ -14,8 +14,8 @@ import { AnimatePresence } from "framer-motion";
 
 const Page = () => {
   const router = useRouter();
-  const taskId = useSearchParams().get("taskid");
-  const [taskIdKey, setTaskIdKey] = useState(taskId);
+  const task = useSearchParams().get("task");
+  const [taskIdKey, setTaskIdKey] = useState(task);
 
   const handleClick = () => {
     setTaskIdKey(null);
@@ -28,7 +28,7 @@ const Page = () => {
   const { data: taskDetailData, isPending } = useGetTaskDetail(
     3290,
     4711,
-    Number(taskId)
+    Number(task)
   );
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Page = () => {
                 doneAt={taskDetailData.doneAt}
                 groupId={3290}
                 taskListId={4711}
-                taskId={Number(taskId)}
+                taskId={Number(task)}
                 description={taskDetailData.description}
               />
               <div className="flex flex-col gap-4">

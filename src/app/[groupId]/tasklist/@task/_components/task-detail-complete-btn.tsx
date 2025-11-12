@@ -16,7 +16,7 @@ interface TaskDetailToggleBtnProps {
  */
 const TaskDetailToggleBtn = ({ doneAt, onClick }: TaskDetailToggleBtnProps) => {
   return (
-    <div className="flex-center">
+    <div className="flex items-center">
       <Button
         variant={doneAt ? "outlined" : "solid"}
         className="h-10 w-fit rounded-[40px] pl-4 pr-5"
