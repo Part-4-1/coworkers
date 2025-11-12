@@ -59,7 +59,7 @@ const Page = () => {
                     {taskDetailData.commentCount}
                   </span>
                 </p>
-                <InputReply />
+                <InputReply onSubmit={() => {}} />
               </div>
             </div>
             <TaskDetailComment commentData={mockComments} />
