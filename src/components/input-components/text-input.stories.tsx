@@ -11,7 +11,8 @@ const meta: Meta<typeof TextInput> = {
     placeholder: "이메일을 입력하세요.",
   },
   argTypes: {
-    suffix: { control: false },
+    rightIcon: { control: false },
+    leftIcon: { control: false },
   },
   decorators: [
     (Story) => (
@@ -108,7 +109,7 @@ export const SuffixButton: Story = {
         type="password"
         value="********"
         readOnly
-        suffix={<Button size="sm">변경하기</Button>}
+        rightIcon={<Button size="sm">변경하기</Button>}
       />
     </div>
   ),
