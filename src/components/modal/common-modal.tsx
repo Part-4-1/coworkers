@@ -6,7 +6,10 @@ import BaseModal from "./base-modal";
 import Button from "@/components/button/button";
 import TextInput from "@/components/input-components/text-input";
 import Icon from "@/components/icon/Icon";
+<<<<<<< HEAD
 import Image from "next/image";
+=======
+>>>>>>> 10d9720aea1aa3f24a7dafd31599fa4522dc75c4
 
 type BasicModalProps = {
   isOpen: boolean;
