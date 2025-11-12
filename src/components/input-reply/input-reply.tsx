@@ -36,7 +36,7 @@ const InputReply = ({
   };
 
   return (
-    <div className="flex w-full max-w-[732px] flex-col border-y-2 border-gray-300 py-3">
+    <div className="flex w-full max-w-[780px] flex-col border-y-2 border-gray-300 py-3">
       <div className="gap-6 pl-3 pr-3 flex-center">
         <TextareaAutosize
           placeholder={placeholder}
