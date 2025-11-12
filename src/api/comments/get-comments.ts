@@ -1,10 +1,9 @@
-import { CommentListResponse } from "@/types";
+import { TaskDetailComments } from "@/types/task-detail";
 import instance from "@/utils/axios";
-import { AxiosResponse } from "axios";
 
 const getComments = async (
   taskId: number
-): Promise<AxiosResponse<CommentListResponse> | undefined> => {
+): Promise<TaskDetailComments[] | undefined> => {
   try {
     const response = await instance.get(`/tasks/${taskId}/comments`);
 

@@ -11,11 +11,13 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import useGetTaskDetail from "@/hooks/api/task/use-get-task-detail";
 import { AnimatePresence } from "framer-motion";
+import useGetComments from "@/hooks/api/comments/use-get-comments";
 
 const Page = () => {
   const router = useRouter();
-  const task = useSearchParams().get("task");
-  const [taskIdKey, setTaskIdKey] = useState(task);
+  const param = useSearchParams().get("task");
+  const taskId = Number(param);
+  const [taskIdKey, setTaskIdKey] = useState(param);
 
   const handleClick = () => {
     setTaskIdKey(null);
@@ -28,11 +30,11 @@ const Page = () => {
   const { data: taskDetailData, isPending } = useGetTaskDetail(
     3290,
     4711,
-    Number(task)
+    taskId
   );
 
   useEffect(() => {
-    // console.log(taskDetailData);
+    // console.log(comments);
   });
 
   return (
@@ -49,7 +51,7 @@ const Page = () => {
                 doneAt={taskDetailData.doneAt}
                 groupId={3290}
                 taskListId={4711}
-                taskId={Number(task)}
+                taskId={taskId}
                 description={taskDetailData.description}
               />
               <div className="flex flex-col gap-4">
@@ -62,7 +64,7 @@ const Page = () => {
                 <InputReply onSubmit={() => {}} />
               </div>
             </div>
-            <TaskDetailComment commentData={mockComments} />
+            <TaskDetailComment taskId={taskId} />
           </div>
           <div className="absolute bottom-1 right-1 tablet:hidden">
             <TaskDetailToggleBtn doneAt={data.doneAt} onClick={() => {}} />
