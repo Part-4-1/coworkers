@@ -35,7 +35,7 @@ const Page = () => {
             <p className="text-lg font-bold tablet:text-2lg">
               댓글 <span className="text-blue-200">{data.commentCount}</span>
             </p>
-            <InputReply />
+            <InputReply onSubmit={() => {}} />
           </div>
         </div>
         <TaskDetailComment commentData={mockComments} />
