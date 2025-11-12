@@ -1,6 +1,15 @@
-import axios from "axios";
-import { cookies } from "next/headers";
+import axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import { getCookie } from "./getCookie";
+import { deleteCookie } from "./deleteCookie";
+
+interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+  _retry?: boolean;
+}
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -10,17 +19,79 @@ const instance = axios.create({
   },
 });
 
-instance.interceptors.request.use(
-  (config) => {
-    // 환경변수에서 토큰 가져오기
+const refreshTokenReIssue = async () => {
+  const refreshToken = getCookie("refreshToken");
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`,
+      {
+        refreshToken,
+      }
+    );
+    const newAccessToken = response.data.accessToken;
+    if (!newAccessToken) {
+      throw new Error("새로운 액세스 토큰 발급 실패");
+    }
+    const isProduction = process.env.NODE_ENV === "production";
+    let cookieString = `accessToken=${newAccessToken}; path=/`;
+    if (isProduction) {
+      cookieString += "; secure";
+    }
+    document.cookie = cookieString;
 
-    const token = getCookie("accessToken");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    return newAccessToken;
+  } catch (error) {
+    deleteCookie("accessToken");
+    deleteCookie("refreshToken");
+  }
+  return null;
+};
+
+instance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const noTokenURls = ["/", "/login", "/signup", "/auth/refresh-token"];
+    if (noTokenURls.includes(config.url ?? "")) {
+      return config;
+    }
+    const accessToken = getCookie("accessToken");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
-  (error) => {
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response;
+  },
+  async (error: AxiosError) => {
+    const originalRequest = error.config as CustomAxiosRequestConfig;
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const newAccessToken = await refreshTokenReIssue();
+
+        if (newAccessToken) {
+          if (!originalRequest.headers) {
+            originalRequest.headers = {};
+          }
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return instance(originalRequest);
+        }
+
+        const currentPath = window.location.pathname;
+        if (currentPath !== "/login") {
+          window.location.href = "/login";
+        }
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
     return Promise.reject(error);
   }
 );
