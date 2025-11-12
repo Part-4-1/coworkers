@@ -6,11 +6,24 @@ import { Member } from "@/types/members";
 import cn from "@/utils/clsx";
 import { MouseEventHandler } from "react";
 
+/**
+ * @author jinhyuk
+ * @description
+ * 팀 멤버용 배너 컴포넌트입니다.
+ * @param groupName - 팀(그룹) 이름
+ * @param members - 팀 멤버 목록
+ * @param onMemberListClick - 멤버 리스트 클릭 시 실행되는 핸들러
+ * @param onSettingClick - 설정 아이콘 클릭 시 실행되는 핸들러
+ * @param className - 추가 스타일을 위해 사용
+ *
+ */
+
 interface TeamBannerMemberProps {
   groupName: string;
   members: Member[];
   onMemberListClick: MouseEventHandler;
   onSettingClick: MouseEventHandler;
+  className?: string;
 }
 
 const TeamBannerMember = ({
@@ -18,6 +31,7 @@ const TeamBannerMember = ({
   members,
   onMemberListClick,
   onSettingClick,
+  className,
 }: TeamBannerMemberProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
   return (
@@ -25,7 +39,8 @@ const TeamBannerMember = ({
       className={cn(
         "flex h-[56px] w-full justify-between bg-white pl-[18px] pr-[16px]",
         "items-center tablet:h-[64px] tablet:rounded-[12px] tablet:pl-[26px] tablet:pr-[20px]",
-        "relative min-w-[270px] overflow-hidden"
+        "relative min-w-[270px] overflow-hidden",
+        className
       )}
     >
       <section
