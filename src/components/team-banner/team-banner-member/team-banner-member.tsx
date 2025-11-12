@@ -62,7 +62,7 @@ const TeamBannerMember = ({
         {isPc && (
           <TeamThumbnail className="absolute -bottom-[8px] right-[120px] scale-[1.8] text-[#C9DAFD]" />
         )}
-        <div onClick={onSettingClick}>
+        <div onClick={onSettingClick} className="cursor-pointer">
           <Icon icon="setting" className="h-[24px] w-[24px]" />
         </div>
       </section>
