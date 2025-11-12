@@ -13,7 +13,7 @@ import { useSignupQuery } from "@/hooks/auth/use-signup-query";
 import type { SignupRequest } from "@/api/auth/signup-action";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import { useRouter } from "next/navigation";
-import { getCookie } from "@/utils/getCookie";
+import { getCookie } from "@/utils/cookie-utils";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);

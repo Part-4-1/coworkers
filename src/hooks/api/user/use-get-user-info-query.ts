@@ -1,5 +1,5 @@
 import { getUserInfo } from "@/api/user/get-user-info";
-import { getCookie } from "@/utils/getCookie";
+import { getCookie } from "@/utils/cookie-utils";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 /**

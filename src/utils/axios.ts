@@ -4,8 +4,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
-import { getCookie } from "./getCookie";
-import { deleteCookie } from "./deleteCookie";
+import { getCookie, deleteCookie } from "./cookie-utils";
 
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
