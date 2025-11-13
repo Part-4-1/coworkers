@@ -1,10 +1,14 @@
 "use client";
 
-import { Button } from "@/components";
+import { Button, TaskModal } from "@/components";
 import usePrompt from "@/hooks/use-prompt";
 
 const Page = () => {
-  const { Modal, openPrompt, closePrompt } = usePrompt(<CreateTask />, true);
+  const { Modal, openPrompt, closePrompt } = usePrompt(
+    <TaskModal groupId={3290} taskListId={4711} />,
+    // <CreateTask />,
+    true
+  );
 
   return (
     <div>
