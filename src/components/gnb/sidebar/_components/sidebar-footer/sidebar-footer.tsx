@@ -3,6 +3,7 @@ import { Dropdown, Profile } from "@/components/index";
 import Link from "next/link";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import { logoutAction } from "@/api/auth/logout-action";
+import { useLogout } from "@/hooks/api/user/use-logout";
 
 /**
  * @author leohan
@@ -13,6 +14,8 @@ import { logoutAction } from "@/api/auth/logout-action";
 
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  const { handleLogout } = useLogout();
+
   const isLoggedIn = !!userInfo && !isLoading;
   return isLoggedIn ? (
     <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
@@ -27,9 +30,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
             { label: "팀 참여" },
             {
               label: "로그아웃",
-              onClick: () => {
-                logoutAction();
-              },
+              onClick: handleLogout,
             },
           ]}
           isWidthFull={false}
