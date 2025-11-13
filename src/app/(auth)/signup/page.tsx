@@ -14,7 +14,6 @@ import type { SignupRequest } from "@/api/auth/signup-action";
 import { useRouter } from "next/navigation";
 import { getCookie } from "@/utils/cookie-utils";
 import SimpleSignUpIn from "../_components/simple-signUpIn";
-import useToast from "@/hooks/use-toast";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,13 +23,10 @@ const Page = () => {
     formState: { errors, isValid },
     getValues,
     handleSubmit,
-    watch,
-    trigger,
   } = useForm<SignupRequest>({
     mode: "all",
     defaultValues: { email: "", password: "" },
   });
-  const password = watch("password");
   const accessToken = getCookie("accessToken");
 
   const { mutate, isPending } = useSignupQuery();
@@ -49,12 +45,6 @@ const Page = () => {
       router.push("/");
     }
   }, [accessToken]);
-
-  useEffect(() => {
-    if (errors.passwordConfirmation) {
-      trigger("passwordConfirmation");
-    }
-  }, [password, trigger]);
 
   return (
     <SingUpInFormWrapper>

@@ -15,6 +15,7 @@ export const useSigninQuery = () => {
       router.push("/");
     },
     onError: (error) => {
+      console.log(error.message);
       ToastError("이메일 혹은 비밀번호가 잘못되었습니다. 다시 시도해주세요.");
     },
   });

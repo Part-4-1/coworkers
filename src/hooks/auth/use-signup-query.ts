@@ -15,7 +15,8 @@ export const useSignupQuery = () => {
       router.push("/");
     },
     onError: (error) => {
-      ToastError(error.message || "회원가입 중 오류가 발생했습니다.");
+      console.log(error.message);
+      ToastError("이미 사용중인 닉네임 혹은 이메일 입니다.");
     },
   });
 };
