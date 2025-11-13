@@ -13,6 +13,7 @@ import { useSignupQuery } from "@/hooks/auth/use-signup-query";
 import type { SignupRequest } from "@/api/auth/signup-action";
 import { useRouter } from "next/navigation";
 import { getCookie } from "@/utils/cookie-utils";
+import SimpleSignUpIn from "../_components/simple-signUpIn";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,13 +31,6 @@ const Page = () => {
   const accessToken = getCookie("accessToken");
 
   const { mutate, isPending } = useSignupQuery();
-
-  useEffect(() => {
-    if (accessToken) {
-      router.push("/");
-    }
-  }, [accessToken]);
-
   const onSubmit = (formData: SignupRequest) => {
     mutate({
       nickname: formData.nickname,
@@ -45,6 +39,12 @@ const Page = () => {
       passwordConfirmation: formData.passwordConfirmation,
     });
   };
+
+  useEffect(() => {
+    if (accessToken) {
+      router.push("/");
+    }
+  }, [accessToken]);
 
   return (
     <SingUpInFormWrapper>
@@ -160,19 +160,7 @@ const Page = () => {
           </Button>
         </form>
       </div>
-      <div className="mb-4 mt-12 flex w-full items-center gap-4">
-        <div className="h-px flex-1 bg-gray-300"></div>
-        <span className="text-gray-800">OR</span>
-        <div className="h-px flex-1 bg-gray-300"></div>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-lg font-medium text-gray-800">
-          간편 회원가입하기
-        </span>
-        <Button variant="none">
-          <Icon icon="kakao" className="h-[42px] w-[42px]" />
-        </Button>
-      </div>
+      <SimpleSignUpIn />
     </SingUpInFormWrapper>
   );
 };

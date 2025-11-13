@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
 import { Button, Icon, TextInput } from "@/components";
-import {
-  EMAIL_REGEX,
-  PASSWORD_MIN_LENGTH,
-  PASSWORD_REGEX,
-} from "@/constants/regex";
+import { EMAIL_REGEX } from "@/constants/regex";
 import { SignupRequest } from "@/api/auth/signup-action";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
+import SimpleSignUpIn from "../_components/simple-signUpIn";
+import { getCookie } from "@/utils/cookie-utils";
+import { useSigninQuery } from "@/hooks/auth/use-signin-query";
+import { SignInRequest } from "@/api/auth/signin-action";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -24,11 +27,31 @@ const Page = () => {
     defaultValues: { email: "", password: "" },
   });
 
+  const accessToken = getCookie("accessToken");
+
+  const { mutate, isPending } = useSigninQuery();
+  const onSubmit = (formData: SignInRequest) => {
+    mutate({
+      email: formData.email,
+      password: formData.password,
+    });
+  };
+
+  useEffect(() => {
+    if (accessToken) {
+      router.push("/");
+    }
+  }, [accessToken]);
+
   return (
     <SingUpInFormWrapper>
       <div className="gap-16 flex-col-center">
         <h1 className="text-2xl font-bold text-blue-700">로그인</h1>
-        <form className="flex w-full flex-col gap-6" aria-label="로그인 폼">
+        <form
+          className="flex w-full flex-col gap-6"
+          onSubmit={handleSubmit(onSubmit)}
+          aria-label="로그인 폼"
+        >
           <div className="flex flex-col gap-3">
             <label htmlFor="email">이메일</label>
             <TextInput
@@ -83,25 +106,16 @@ const Page = () => {
             <p className="flex justify-end text-lg font-medium text-blue-700">
               아직 계정이 없으신가요?
             </p>
-            <span className="flex cursor-pointer justify-end text-lg font-medium text-blue-200 underline hover:text-blue-100">
+            <Link
+              href={"/signup"}
+              className="flex cursor-pointer justify-end text-lg font-medium text-blue-200 underline hover:text-blue-100"
+            >
               가입하기
-            </span>
+            </Link>
           </div>
         </form>
       </div>
-      <div className="mb-4 mt-12 flex w-full items-center gap-4">
-        <div className="h-px flex-1 bg-gray-300"></div>
-        <span className="text-gray-800">OR</span>
-        <div className="h-px flex-1 bg-gray-300"></div>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-lg font-medium text-gray-800">
-          간편 로그인하기
-        </span>
-        <Button variant="none">
-          <Icon icon="kakao" className="h-[42px] w-[42px]" />
-        </Button>
-      </div>
+      <SimpleSignUpIn />
     </SingUpInFormWrapper>
   );
 };
