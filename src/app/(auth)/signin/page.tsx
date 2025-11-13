@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
 import { Button, Icon, TextInput } from "@/components";
-import { EMAIL_REGEX } from "@/constants/regex";
+import { EMAIL_REGEX, PASSWORD_MIN_LENGTH } from "@/constants/regex";
 import { SignupRequest } from "@/api/auth/signup-action";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import { getCookie } from "@/utils/cookie-utils";
 import { useSigninQuery } from "@/hooks/auth/use-signin-query";
 import { SignInRequest } from "@/api/auth/signin-action";
 import { useRouter } from "next/navigation";
+import useToast from "@/hooks/use-toast";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,13 +24,18 @@ const Page = () => {
     getValues,
     handleSubmit,
   } = useForm<SignupRequest>({
-    mode: "onBlur",
+    mode: "all",
     defaultValues: { email: "", password: "" },
   });
 
   const accessToken = getCookie("accessToken");
 
-  const { mutate, isPending } = useSigninQuery();
+  const { mutate, isPending, error: SigninError } = useSigninQuery();
+  const { error: ToastError } = useToast();
+
+  if (SigninError) {
+    ToastError("이메일 혹은 비밀번호가 잘못되었습니다. 다시 시도해주세요 !");
+  }
   const onSubmit = (formData: SignInRequest) => {
     mutate({
       email: formData.email,
@@ -50,7 +56,7 @@ const Page = () => {
         <form
           className="flex w-full flex-col gap-6"
           onSubmit={handleSubmit(onSubmit)}
-          aria-label="로그인 폼"
+          aria-label="Login Form"
         >
           <div className="flex flex-col gap-3">
             <label htmlFor="email">이메일</label>
@@ -78,9 +84,7 @@ const Page = () => {
               suffixClassName="pr-2"
               suffix={
                 <Button
-                  aria-label={
-                    showPassword ? "비밀번호 숨기기" : "비밀번호 표시"
-                  }
+                  aria-label={showPassword ? "hide password" : "show password"}
                   type="button"
                   variant="none"
                   onClick={() => setShowPassword(!showPassword)}
@@ -93,6 +97,10 @@ const Page = () => {
               }
               {...register("password", {
                 required: "비밀번호를 입력해주세요.",
+                minLength: {
+                  value: PASSWORD_MIN_LENGTH,
+                  message: "",
+                },
               })}
             />
             <p className="flex cursor-pointer justify-end text-lg font-medium text-blue-200 underline hover:text-blue-100">

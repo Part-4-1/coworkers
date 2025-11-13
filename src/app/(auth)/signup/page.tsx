@@ -14,6 +14,7 @@ import type { SignupRequest } from "@/api/auth/signup-action";
 import { useRouter } from "next/navigation";
 import { getCookie } from "@/utils/cookie-utils";
 import SimpleSignUpIn from "../_components/simple-signUpIn";
+import useToast from "@/hooks/use-toast";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,14 +24,22 @@ const Page = () => {
     formState: { errors, isValid },
     getValues,
     handleSubmit,
+    watch,
+    trigger,
   } = useForm<SignupRequest>({
-    mode: "onBlur",
+    mode: "all",
     defaultValues: { email: "", password: "" },
   });
-
+  const password = watch("password");
   const accessToken = getCookie("accessToken");
 
-  const { mutate, isPending } = useSignupQuery();
+  const { mutate, isPending, error: SignupError } = useSignupQuery();
+
+  const { error: ToastError } = useToast();
+  if (SignupError) {
+    ToastError("이미 존재하는 이름 혹은 이메일입니다. 다시 시도해주세요");
+  }
+
   const onSubmit = (formData: SignupRequest) => {
     mutate({
       nickname: formData.nickname,
@@ -46,6 +55,12 @@ const Page = () => {
     }
   }, [accessToken]);
 
+  useEffect(() => {
+    if (errors.passwordConfirmation) {
+      trigger("passwordConfirmation");
+    }
+  }, [password, trigger]);
+
   return (
     <SingUpInFormWrapper>
       <div className="gap-16 flex-col-center">
@@ -53,7 +68,7 @@ const Page = () => {
         <form
           className="flex w-full flex-col gap-6"
           onSubmit={handleSubmit(onSubmit)}
-          aria-label="회원가입 폼"
+          aria-label="Signup Form"
         >
           <div className="flex flex-col gap-3">
             <label htmlFor="nickname">이름</label>
@@ -93,9 +108,7 @@ const Page = () => {
               suffixClassName="pr-2"
               suffix={
                 <Button
-                  aria-label={
-                    showPassword ? "비밀번호 숨기기" : "비밀번호 표시"
-                  }
+                  aria-label={showPassword ? "hide password" : "show password"}
                   type="button"
                   variant="none"
                   onClick={() => setShowPassword(!showPassword)}
@@ -134,9 +147,7 @@ const Page = () => {
               suffixClassName="pr-2"
               suffix={
                 <Button
-                  aria-label={
-                    showPassword ? "비밀번호 숨기기" : "비밀번호 표시"
-                  }
+                  aria-label={showPassword ? "hide password" : "show password"}
                   type="button"
                   variant="none"
                   onClick={() => setShowPassword(!showPassword)}

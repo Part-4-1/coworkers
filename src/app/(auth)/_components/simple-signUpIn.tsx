@@ -13,7 +13,7 @@ const SimpleSignUpIn = () => {
         <span className="text-lg font-medium text-gray-800">
           간편 로그인하기
         </span>
-        <Button variant="none">
+        <Button variant="none" aria-label="kakao login">
           <Icon icon="kakao" className="h-[42px] w-[42px]" />
         </Button>
       </div>
