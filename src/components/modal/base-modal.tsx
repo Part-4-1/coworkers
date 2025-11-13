@@ -6,7 +6,6 @@ import Button from "@/components/button/button";
 import Icon from "@/components/icon/Icon";
 import { useEffect, useState } from "react";
 import useMediaQuery from "@/hooks/use-media-query";
-
 interface BaseModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -40,7 +39,7 @@ const BaseModal = ({
     setMounted(true);
   }, []);
 
-  // 반응형 애니메이션/포지션 제어: 모바일은 바텀 시트 느낌으로 슬라이드
+  // 반응형 애니메이션/포지션 제어
   const isMobile = useMediaQuery("(max-width: 743px)");
   const contentVariants = isMobile
     ? {
@@ -55,7 +54,7 @@ const BaseModal = ({
       };
   const modalPositionClass = isMobile
     ? "bottom-0 top-auto translate-y-0"
-    : "top-1/2 -translate-y-1/2";
+    : "";
 
   if (!mounted) return null;
 
@@ -71,26 +70,26 @@ const BaseModal = ({
             transition={{ duration: 0.15, ease: "easeOut" }}
             onClick={onClose}
           />
-
+          <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
           <motion.div 
-            className={`fixed z-50 ${modalPositionClass} ${widthClassName} md:rounded-2xl rounded-t-2xl bg-white shadow-lg flex flex-col ${containerClassName ?? ""} max-h-[calc(100vh-48px)]`} 
-            initial={contentVariants.initial} 
-            animate={contentVariants.animate} 
-            exit={contentVariants.exit} 
-            transition={{ duration: 0.15, ease: "easeOut" }} 
-          > 
-            <div
-              className={`relative rounded-2xl bg-white shadow-lg ${containerClassName ?? ""} min-h-[220px] flex flex-col items-center justify-center gap-4 px-5 py-5`}
+              className={`md:relative fixed bottom-0 z-50 ${modalPositionClass} ${widthClassName} flex flex-col rounded-t-2xl bg-white shadow-lg md:rounded-2xl ${containerClassName ?? ""} max-h-[calc(100vh-48px)]`}
+              initial={contentVariants.initial}
+              animate={contentVariants.animate}
+              exit={contentVariants.exit}
+              transition={{ duration: 0.15, ease: "easeOut" }}
             >
+            <div
+                className={`relative rounded-2xl bg-white shadow-lg ${containerClassName ?? ""} flex min-h-[220px] flex-col items-center justify-center gap-4 px-5 py-5`}
+              >
               {/* Header */}
-              {(title || !hideCloseButton) && (
-                <div className="flex h-8 items-center justify-center">
-                  {title && (
-                    <h2 className="text-sm font-semibold text-gray-900">
-                      {title}
-                    </h2>
-                  )}
-                </div>
+                {(title || !hideCloseButton) && (
+                  <div className="flex h-8 items-center justify-center">
+                    {title && (
+                      <h2 className="text-sm font-semibold text-gray-900">
+                        {title}
+                      </h2>
+                    )}
+                  </div>
               )}
               {!hideCloseButton && (
                 <Button
@@ -109,6 +108,7 @@ const BaseModal = ({
               {footer && <div className="w-full">{footer}</div>}
             </div>
           </motion.div>
+        </div>
         </>
       )}
     </AnimatePresence>,
