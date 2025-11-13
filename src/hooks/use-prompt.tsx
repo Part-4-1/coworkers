@@ -24,26 +24,27 @@ const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
     window.scrollTo(0, currentScrollY);
   }, []);
 
-  const openPrompt = useCallback(() => {
-    setIsOpen(true);
-  }, []);
+  const openPrompt = useCallback(() => setIsOpen(true), []);
 
-  const closePrompt = useCallback(() => {
-    setIsOpen(false);
-  }, []);
+  const closePrompt = useCallback(() => setIsOpen(false), []);
 
   useEffect(() => {
     const currentScrollY = window.scrollY;
+
     if (!dialogRef.current) return;
 
     if (isOpen && !dialogRef.current.open) {
       lockingScroll(currentScrollY);
       dialogRef.current.showModal();
+      document.addEventListener("mousedown", closePrompt);
     } else {
       dialogRef.current.close();
     }
 
-    return () => allowScroll(currentScrollY);
+    return () => {
+      allowScroll(currentScrollY);
+      document.removeEventListener("mousedown", closePrompt);
+    };
   }, [isOpen]);
 
   const Modal = useCallback(() => {
