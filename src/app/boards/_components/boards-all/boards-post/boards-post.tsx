@@ -1,3 +1,4 @@
+import cn from "@/utils/clsx";
 import { PostCard } from "@/components/index";
 import { mockBoardPosts } from "@/mocks/board-post";
 
@@ -18,7 +19,13 @@ interface BoardPostProps {
 
 const BoardPost = ({ posts = mockBoardPosts }: BoardPostProps) => {
   return (
-    <div className="mx-auto grid w-full max-w-[340px] grid-cols-1 gap-4 tablet:max-w-[620px] tablet:grid-cols-1 pc:max-w-[1074px] pc:grid-cols-2">
+    <div
+      className={cn(
+        "mx-auto grid w-full max-w-[340px] grid-cols-1 gap-4",
+        "tablet:max-w-[620px] tablet:grid-cols-1",
+        "pc:max-w-[1074px] pc:grid-cols-2"
+      )}
+    >
       {posts.map((post) => (
         <PostCard key={post.id} {...post} isBest={false} />
       ))}
