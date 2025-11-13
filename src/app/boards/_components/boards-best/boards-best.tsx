@@ -13,9 +13,9 @@ const BoardsBest = () => {
     >
       <div
         className={cn(
-          "mx-auto flex h-[218px] w-full flex-col gap-[25px] pt-[41px]",
-          "tablet:h-[177px] tablet:max-w-[620px]",
-          "pc:h-[255px] pc:max-w-[1074px]"
+          "mx-auto flex w-full max-w-[340px] flex-col gap-[25px] pt-[41px]",
+          "tablet:max-w-[620px]",
+          "pc:max-w-[1074px]"
         )}
       >
         <BoardsBestHeader />
