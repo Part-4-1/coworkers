@@ -58,7 +58,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
     </div>
   ) : (
     <Link
-      href="/login"
+      href="/signin"
       className="mb-6 flex gap-3 border-t border-gray-300 pt-5"
     >
       <div
