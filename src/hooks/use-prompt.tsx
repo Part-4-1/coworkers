@@ -2,7 +2,14 @@
 
 import { Button, Icon } from "@/components";
 import cn from "@/utils/clsx";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import {
+  MouseEvent,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 
 const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
@@ -25,8 +32,13 @@ const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
   }, []);
 
   const openPrompt = useCallback(() => setIsOpen(true), []);
-
   const closePrompt = useCallback(() => setIsOpen(false), []);
+
+  const handleBackdropClick = (e: MouseEvent<HTMLDialogElement>) => {
+    if (e.target === e.currentTarget) {
+      closePrompt();
+    }
+  };
 
   useEffect(() => {
     const currentScrollY = window.scrollY;
@@ -36,7 +48,7 @@ const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
     if (isOpen && !dialogRef.current.open) {
       lockingScroll(currentScrollY);
       dialogRef.current.showModal();
-      document.addEventListener("mousedown", closePrompt);
+      // document.addEventListener("mousedown", closePrompt);
     } else {
       dialogRef.current.close();
     }
@@ -45,7 +57,7 @@ const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
       allowScroll(currentScrollY);
       document.removeEventListener("mousedown", closePrompt);
     };
-  }, [isOpen]);
+  }, [isOpen, showCloseBtn, contents, closePrompt]);
 
   const Modal = useCallback(() => {
     if (!isOpen) return null;
@@ -54,6 +66,7 @@ const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
       <dialog
         ref={dialogRef}
         onClose={closePrompt}
+        onClick={handleBackdropClick}
         className={cn(
           "mx-0 mb-0 mt-auto flex max-w-none flex-col items-end",
           "rounded-3xl rounded-b-none px-4 pb-8 pt-4",

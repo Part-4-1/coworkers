@@ -4,7 +4,7 @@ import { Button } from "@/components";
 import usePrompt from "@/hooks/use-prompt";
 
 const Page = () => {
-  const { Modal, openPrompt, closePrompt } = usePrompt(<CreateTask />);
+  const { Modal, openPrompt, closePrompt } = usePrompt(<CreateTask />, true);
 
   return (
     <div>
