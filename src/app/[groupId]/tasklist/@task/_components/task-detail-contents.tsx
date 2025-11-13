@@ -13,7 +13,7 @@ import { changeFrequencyCode } from "@/utils/util";
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
   label: string;
-  text: string | undefined;
+  text: string;
 }
 
 export interface TaskDetailHeaderProps {
