@@ -66,8 +66,6 @@ const Page = () => {
     setUploadedImages(previews.map((preview) => preview.url));
   }, [previews]);
 
-  const { Prompt, openPrompt, closePrompt } = usePrompt(<>test</>);
-
   return (
     <div className="mb-[300px] mt-10 w-full gap-4 flex-col-center">
       <form className="mt-10 w-full gap-4 flex-col-center">
@@ -376,13 +374,6 @@ const Page = () => {
         >
           경고 토스트
         </Button>
-      </div>
-
-      <div>
-        <Button type="button" onClick={openPrompt}>
-          모달 열기
-        </Button>
-        <Prompt />
       </div>
     </div>
   );
