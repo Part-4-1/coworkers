@@ -31,6 +31,7 @@ export const signinAction = async ({
       }
     );
     const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "로그인에 실패했습니다.");
 
     if (response.ok && data.accessToken && data.refreshToken) {
       const cookieStore = await cookies();
@@ -46,10 +47,11 @@ export const signinAction = async ({
       });
     }
 
-    if (!response.ok) throw new Error(data.message || "로그인에 실패했습니다.");
-
     return data;
   } catch (error) {
-    throw error;
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("로그인 중 알 수 없는 오류가 발생했습니다.");
   }
 };

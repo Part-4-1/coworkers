@@ -33,12 +33,7 @@ const Page = () => {
   const password = watch("password");
   const accessToken = getCookie("accessToken");
 
-  const { mutate, isPending, error: SignupError } = useSignupQuery();
-
-  const { error: ToastError } = useToast();
-  if (SignupError) {
-    ToastError("이미 존재하는 이름 혹은 이메일입니다. 다시 시도해주세요");
-  }
+  const { mutate, isPending } = useSignupQuery();
 
   const onSubmit = (formData: SignupRequest) => {
     mutate({

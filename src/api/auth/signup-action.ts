@@ -37,7 +37,10 @@ export const signupAction = async ({
     );
     const data = await response.json();
 
-    if (response.ok && data.accessToken && data.refreshToken) {
+    if (!response.ok)
+      throw new Error(data.message || "회원가입에 실패하였습니다.");
+
+    if (data.accessToken && data.refreshToken) {
       const cookieStore = await cookies();
 
       cookieStore.set("accessToken", data.accessToken, {
@@ -51,11 +54,11 @@ export const signupAction = async ({
       });
     }
 
-    if (!response.ok)
-      throw new Error(data.message || "회원가입에 실패하였습니다.");
-
     return data;
   } catch (error) {
-    throw error;
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("회원가입 중 알 수 없는 오류가 발생했습니다.");
   }
 };

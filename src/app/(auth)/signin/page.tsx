@@ -21,7 +21,6 @@ const Page = () => {
   const {
     register,
     formState: { errors, isValid },
-    getValues,
     handleSubmit,
   } = useForm<SignupRequest>({
     mode: "all",
@@ -30,12 +29,8 @@ const Page = () => {
 
   const accessToken = getCookie("accessToken");
 
-  const { mutate, isPending, error: SigninError } = useSigninQuery();
-  const { error: ToastError } = useToast();
+  const { mutate, isPending } = useSigninQuery();
 
-  if (SigninError) {
-    ToastError("이메일 혹은 비밀번호가 잘못되었습니다. 다시 시도해주세요 !");
-  }
   const onSubmit = (formData: SignInRequest) => {
     mutate({
       email: formData.email,
