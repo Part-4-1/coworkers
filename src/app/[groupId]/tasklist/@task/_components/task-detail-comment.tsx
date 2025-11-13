@@ -18,11 +18,8 @@ const TaskDetailComment = ({ taskId }: TaskDetailCommentProps) => {
                 {idx !== 0 && idx < comments.length && <hr />}
                 <Reply
                   comment={{
-                    id: comment.id,
-                    content: comment.content,
+                    ...comment,
                     writer: comment.user,
-                    updatedAt: comment.updatedAt,
-                    createdAt: comment.createdAt,
                   }}
                 />
               </li>
