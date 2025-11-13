@@ -48,7 +48,6 @@ const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
     if (isOpen && !dialogRef.current.open) {
       lockingScroll(currentScrollY);
       dialogRef.current.showModal();
-      // document.addEventListener("mousedown", closePrompt);
     } else {
       dialogRef.current.close();
     }
@@ -82,7 +81,7 @@ const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
       </dialog>,
       document.body
     );
-  }, [isOpen]);
+  }, [isOpen, contents, showCloseBtn]);
 
   return { Modal, openPrompt, closePrompt };
 };
