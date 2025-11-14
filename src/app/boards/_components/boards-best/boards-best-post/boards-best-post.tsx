@@ -64,7 +64,7 @@ const BoardBestPost = () => {
         >
           {visiblePosts.map((post) => (
             <PostCard
-              className="w-full max-w-[340px] py-5 tablet:max-w-[304px] tablet:px-5 pc:h-[206px] pc:max-w-[350px] pc:py-6"
+              className="h-[177px] w-full max-w-[340px] py-5 tablet:max-w-[304px] tablet:px-5 pc:h-[206px] pc:max-w-[350px] pc:py-6"
               key={post.id}
               {...post}
               isBest={true}

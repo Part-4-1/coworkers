@@ -49,8 +49,20 @@ const PostCard = ({
                 isBest && "mobile:h-[67px] tablet:h-[67px] pc:h-[71px]"
               )}
             >
-              <p className="truncate text-lg font-bold">{title}</p>
-              <p className="line-clamp-2 h-[42px] resize-none truncate whitespace-pre text-sm leading-[18px] text-gray-800">
+              <p
+                className={cn(
+                  "truncate text-lg font-bold tablet:text-2lg",
+                  isBest && "tablet:text-lg pc:text-2lg"
+                )}
+              >
+                {title}
+              </p>
+              <p
+                className={cn(
+                  "line-clamp-2 h-[42px] resize-none truncate whitespace-pre text-sm leading-[18px] text-gray-800 tablet:text-md",
+                  isBest && "tablet:text-sm pc:text-md"
+                )}
+              >
                 {content}
               </p>
             </div>
@@ -71,11 +83,16 @@ const PostCard = ({
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">{writer}</span>
+            <span className={cn("text-sm font-medium", isBest && "pc:text-md")}>
+              {writer}
+            </span>
             <span className="text-sm">|</span>
             <time
               dateTime={createdAt}
-              className="text-sm font-medium text-gray-700"
+              className={cn(
+                "text-sm font-medium text-gray-700",
+                isBest && "pc:text-md"
+              )}
             >
               {toDotDateString(createdAt)}
             </time>
