@@ -28,3 +28,4 @@ export { default as TaskHeader } from "./task-header/task-header";
 export { default as TaskModal } from "./task-modal/task-modal";
 export { default as TeamBannerAdmin } from "./team-banner/team-banner-admin/team-banner-admin";
 export { default as TeamBannerMember } from "./team-banner/team-banner-member/team-banner-member";
+export { default as DatePicker } from "./date-picker/date-picker";

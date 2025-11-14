@@ -11,7 +11,7 @@ import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import { useRouter } from "next/navigation";
-import { logoutAction } from "@/api/auth/logout-action";
+import { useLogout } from "@/hooks/api/user/use-logout";
 /**
  * @author leohan
  * @description 모바일/태블릿 환경(375px 이하)에서 사용되는 상단 네비게이션 바(GNB) 컴포넌트입니다.
@@ -23,6 +23,7 @@ const GnbHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  const { handleLogout } = useLogout();
   const isLoggedIn = !!userInfo && !isLoading;
 
   return (
@@ -58,9 +59,7 @@ const GnbHeader = () => {
                 { label: "팀 참여", onClick: () => router.push("/team/") },
                 {
                   label: "로그아웃",
-                  onClick: () => {
-                    logoutAction();
-                  },
+                  onClick: handleLogout,
                 },
               ]}
               isWidthFull={false}
