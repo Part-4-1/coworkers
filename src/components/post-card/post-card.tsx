@@ -30,51 +30,65 @@ const PostCard = ({
     <div
       className={cn(
         "flex w-full flex-col gap-3 rounded-[20px] border border-gray-300 bg-white px-4 py-4",
+        "tablet:px-6 tablet:py-5",
         className
       )}
     >
-      {isBest && (
-        <div className="w-[72px] rounded-full bg-gray-50 px-1 py-[6px] flex-center">
-          <Icon icon="best" className="h-[18px] w-[18px] text-blue-200" />
-          <span className="text-md font-bold text-blue-200">인기</span>
-        </div>
-      )}
-      <div className="flex items-center justify-between">
-        <div className="flex min-w-0 flex-col gap-2">
-          <p className="truncate text-lg font-bold">{title}</p>
-          <p className="line-clamp-2 resize-none whitespace-pre text-sm leading-[18px] text-gray-800">
-            {content}
-          </p>
-        </div>
-        {imgUrl && (
-          <Image
-            src={imgUrl}
-            width={isBest ? 48 : 80}
-            height={isBest ? 48 : 80}
-            alt="thumbnail"
-            className="shrink-0 rounded-lg"
-          />
+      <div className={cn("flex flex-col gap-4", isBest && "gap-3")}>
+        {isBest && (
+          <div className="w-[72px] rounded-full bg-gray-50 px-1 py-[6px] flex-center">
+            <Icon icon="best" className="h-[18px] w-[18px] text-blue-200" />
+            <span className="text-md font-bold text-blue-200">인기</span>
+          </div>
         )}
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">{writer}</span>
-          <span className="text-sm">|</span>
-          <time
-            dateTime={createdAt}
-            className="text-sm font-medium text-gray-700"
-          >
-            {toDotDateString(createdAt)}
-          </time>
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <div
+              className={cn(
+                "flex h-[80px] min-w-0 flex-col justify-center gap-2 tablet:h-[88px]",
+                isBest && "mobile:h-[67px] tablet:h-[67px] pc:h-[71px]"
+              )}
+            >
+              <p className="truncate text-lg font-bold">{title}</p>
+              <p className="line-clamp-2 h-[42px] resize-none truncate whitespace-pre text-sm leading-[18px] text-gray-800">
+                {content}
+              </p>
+            </div>
+            {imgUrl && (
+              <Image
+                src={imgUrl}
+                width={isBest ? 48 : 88}
+                height={isBest ? 48 : 88}
+                alt="thumbnail"
+                className={cn(
+                  "shrink-0 rounded-lg",
+                  isBest && "pc:h-[66px] pc:w-[66px]"
+                )}
+                draggable={false}
+              />
+            )}
+          </div>
         </div>
-        <div className="gap-1 flex-center">
-          <Icon
-            icon={isLiked ? "heartActive" : "heartDefault"}
-            className="h-4 w-4 text-gray-700"
-          />
-          <span className="text-sm font-medium text-gray-700">
-            {likes > 1000 ? "999+" : likes}
-          </span>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">{writer}</span>
+            <span className="text-sm">|</span>
+            <time
+              dateTime={createdAt}
+              className="text-sm font-medium text-gray-700"
+            >
+              {toDotDateString(createdAt)}
+            </time>
+          </div>
+          <div className="gap-1 flex-center">
+            <Icon
+              icon={isLiked ? "heartActive" : "heartDefault"}
+              className="h-4 w-4 text-gray-700"
+            />
+            <span className="text-sm font-medium text-gray-700">
+              {likes > 1000 ? "999+" : likes}
+            </span>
+          </div>
         </div>
       </div>
     </div>
