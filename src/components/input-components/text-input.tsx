@@ -9,7 +9,8 @@ import cn from "@/utils/clsx";
  * @param id - input 요소의 id
  * @param errorMessage - 에러 메시지
  * @param containerClassName - 컨테이너의 className
- * @param suffix - 입력 오른쪽에 표시할 버튼/아이콘 등 추가 요소
+ * @param rightIcon - 입력 오른쪽에 표시할 버튼/아이콘 등 추가 요소
+ * @param leftIcon - 입력 왼쪽에 표시할 버튼/아이콘 등 추가 요소
  */
 interface TextInputProps extends ComponentPropsWithRef<"input"> {
   id: string;
