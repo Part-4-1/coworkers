@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={pretendard.className}>
-      <body>
+      <body className="bg-gray-50">
         <QueryProviders>
           <ToastProvider>
             <GnbWrapper />
