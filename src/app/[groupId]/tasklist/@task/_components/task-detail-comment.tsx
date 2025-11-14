@@ -1,20 +1,27 @@
 import { Reply } from "@/components";
-import { Comment } from "@/types";
+import useGetComments from "@/hooks/api/comments/use-get-comments";
 
 interface TaskDetailCommentProps {
-  commentData: Comment[];
+  taskId: number;
 }
 
-const TaskDetailComment = ({ commentData }: TaskDetailCommentProps) => {
+const TaskDetailComment = ({ taskId }: TaskDetailCommentProps) => {
+  const { data: comments, isPending } = useGetComments(Number(taskId));
+
   return (
     <div>
-      {commentData && (
+      {!isPending && comments && (
         <ul className="flex flex-col gap-4">
-          {commentData.map((comment, idx) => {
+          {comments.map((comment, idx) => {
             return (
               <li key={comment.id} className="flex flex-col gap-4">
-                {idx !== 0 && idx === commentData.length - 1 && <hr />}
-                <Reply comment={comment} />
+                {idx !== 0 && idx < comments.length && <hr />}
+                <Reply
+                  comment={{
+                    ...comment,
+                    writer: comment.user,
+                  }}
+                />
               </li>
             );
           })}

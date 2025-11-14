@@ -14,14 +14,17 @@ import {
   PostCard,
   Profile,
   ProfileEdit,
+  ProfileList,
   ProfileMember,
   Progressbar,
   Reply,
   TaskCard,
   TaskChip,
   TaskHeader,
-  TextInput,
   TaskModal,
+  TeamBannerAdmin,
+  TeamBannerMember,
+  TextInput,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -30,9 +33,9 @@ import {
 } from "@/constants/regex";
 
 import List from "@/components/list/list";
+import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import useToast from "@/hooks/use-toast";
-import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
 import { mockListData } from "@/mocks/list-data";
@@ -181,6 +184,9 @@ const Page = () => {
         />
       </div>
       <div>
+        <ProfileList members={mockGroupData[0].members} />
+      </div>
+      <div>
         <CalendarTime />
       </div>
       <div className="flex gap-5">
@@ -217,7 +223,23 @@ const Page = () => {
           <Calendar />
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex w-[75vw] flex-col gap-10 bg-gray-50 p-10">
+        <TeamBannerAdmin
+          groupName={mockGroupData[0].name}
+          tasksTodo={20}
+          tasksDone={5}
+          members={mockGroupData[0].members}
+          onSettingClick={() => {}}
+          onMemberListClick={() => {}}
+        />
+        <TeamBannerMember
+          groupName={mockGroupData[0].name}
+          members={mockGroupData[0].members}
+          onSettingClick={() => {}}
+          onMemberListClick={() => {}}
+        />
+      </div>
+      <div className="flex w-full flex-col gap-2 px-[150px] flex-center">
         <Progressbar progressRate={100} />
         <Progressbar progressRate={25} />
         <Progressbar progressRate={0} />

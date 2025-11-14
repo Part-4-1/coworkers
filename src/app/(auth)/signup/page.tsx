@@ -11,9 +11,9 @@ import {
 import { Button, Icon, TextInput } from "@/components";
 import { useSignupQuery } from "@/hooks/auth/use-signup-query";
 import type { SignupRequest } from "@/api/auth/signup-action";
-import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import { useRouter } from "next/navigation";
 import { getCookie } from "@/utils/cookie-utils";
+import SimpleSignUpIn from "../_components/simple-signUpIn";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,19 +24,12 @@ const Page = () => {
     getValues,
     handleSubmit,
   } = useForm<SignupRequest>({
-    mode: "onBlur",
+    mode: "all",
     defaultValues: { email: "", password: "" },
   });
-
   const accessToken = getCookie("accessToken");
 
   const { mutate, isPending } = useSignupQuery();
-
-  useEffect(() => {
-    if (accessToken) {
-      router.push("/");
-    }
-  }, [accessToken]);
 
   const onSubmit = (formData: SignupRequest) => {
     mutate({
@@ -47,24 +40,30 @@ const Page = () => {
     });
   };
 
+  useEffect(() => {
+    if (accessToken) {
+      router.push("/");
+    }
+  }, [accessToken]);
+
   return (
-    <SingUpInFormWrapper className="my-[120px]">
+    <SingUpInFormWrapper>
       <div className="gap-16 flex-col-center">
         <h1 className="text-2xl font-bold text-blue-700">회원가입</h1>
         <form
           className="flex w-full flex-col gap-6"
           onSubmit={handleSubmit(onSubmit)}
-          aria-label="회원가입 폼"
+          aria-label="Signup Form"
         >
           <div className="flex flex-col gap-3">
-            <label htmlFor="nickname">이름</label>
+            <label htmlFor="nickname">닉네임</label>
             <TextInput
               id="nickname"
               type="text"
-              placeholder="이름을 입력해주세요."
+              placeholder="닉네임을 입력해주세요."
               errorMessage={errors.nickname?.message}
               {...register("nickname", {
-                required: "이름을 입력해주세요.",
+                required: "닉네임을 입력해주세요.",
               })}
             />
           </div>
@@ -94,9 +93,7 @@ const Page = () => {
               suffixClassName="pr-2"
               suffix={
                 <Button
-                  aria-label={
-                    showPassword ? "비밀번호 숨기기" : "비밀번호 표시"
-                  }
+                  aria-label={showPassword ? "hide password" : "show password"}
                   type="button"
                   variant="none"
                   onClick={() => setShowPassword(!showPassword)}
@@ -135,9 +132,7 @@ const Page = () => {
               suffixClassName="pr-2"
               suffix={
                 <Button
-                  aria-label={
-                    showPassword ? "비밀번호 숨기기" : "비밀번호 표시"
-                  }
+                  aria-label={showPassword ? "hide password" : "show password"}
                   type="button"
                   variant="none"
                   onClick={() => setShowPassword(!showPassword)}
@@ -161,19 +156,7 @@ const Page = () => {
           </Button>
         </form>
       </div>
-      <div className="mb-4 mt-12 flex w-full items-center gap-4">
-        <div className="h-px flex-1 bg-gray-300"></div>
-        <span className="text-gray-800">OR</span>
-        <div className="h-px flex-1 bg-gray-300"></div>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-lg font-medium text-gray-800">
-          간편 회원가입하기
-        </span>
-        <Button variant="none">
-          <Icon icon="kakao" className="h-[42px] w-[42px]" />
-        </Button>
-      </div>
+      <SimpleSignUpIn />
     </SingUpInFormWrapper>
   );
 };

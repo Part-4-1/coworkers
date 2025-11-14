@@ -48,14 +48,21 @@ const refreshTokenReIssue = async () => {
 
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const noTokenURls = [
-      "/",
-      "/login",
-      "/signup",
-      "/auth/refresh-token",
-      "/articles",
-    ];
-    if (noTokenURls.includes(config.url ?? "")) {
+    const url = config.url ?? "";
+    const method = config.method?.toLocaleLowerCase();
+
+    const noTokenURls = ["/", "/signin", "/signup", "/auth/refresh-token"];
+    if (noTokenURls.includes(url)) {
+      return config;
+    }
+
+    const articleGetPattern = /^\/articles(\/[^\/]+)?$/;
+    if (method === "get" && articleGetPattern.test(url)) {
+      return config;
+    }
+
+    const commentGetPattern = /^\/articles\/[^\/]+\/comments$/;
+    if (method === "get" && commentGetPattern.test(url)) {
       return config;
     }
     const accessToken = getCookie("accessToken");
@@ -90,8 +97,8 @@ instance.interceptors.response.use(
         }
 
         const currentPath = window.location.pathname;
-        if (currentPath !== "/login") {
-          window.location.href = "/login";
+        if (currentPath !== "/signin") {
+          window.location.href = "/signin";
         }
       } catch (error) {
         return Promise.reject(error);
