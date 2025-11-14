@@ -74,7 +74,7 @@ const BoardAllPost = ({ posts = mockBoardPosts }) => {
 
         <Button
           variant="none"
-          disabled={currentPage - 1 <= 0}
+          disabled={currentPage <= 1}
           onClick={() => setCurrentPage(currentPage - 1)}
           className="disabled:opacity-50"
         >
