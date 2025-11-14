@@ -75,8 +75,8 @@ const Page = () => {
               type={showPassword ? "text" : "password"}
               placeholder="비밀번호를 입력하세요."
               errorMessage={errors.password?.message}
-              suffixClassName="pr-2"
-              suffix={
+              rightIconClassName="pr-2"
+              rightIcon={
                 <Button
                   aria-label={showPassword ? "hide password" : "show password"}
                   type="button"
