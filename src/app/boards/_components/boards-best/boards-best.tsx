@@ -13,7 +13,7 @@ const BoardsBest = () => {
     >
       <div
         className={cn(
-          "mx-auto flex w-full max-w-[340px] flex-col gap-[25px] pt-[41px]",
+          "talbet:gap-[20px] mx-auto flex w-full max-w-[340px] flex-col gap-[20px] pt-[41px] pc:gap-[25px]",
           "tablet:max-w-[620px]",
           "pc:max-w-[1074px]"
         )}
