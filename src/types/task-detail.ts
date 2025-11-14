@@ -21,3 +21,13 @@ export interface TaskDetailData {
   doneBy: Writer;
   commentCount: number;
 }
+
+export interface TaskDetailComments {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  taskId: number;
+  userId: number;
+  user: Writer;
+}
