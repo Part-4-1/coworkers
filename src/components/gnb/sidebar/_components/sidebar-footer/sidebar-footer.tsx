@@ -1,7 +1,8 @@
-import Image from "next/image";
-import { mockUser } from "@/mocks/sidebar-data";
 import { AnimatePresence, motion } from "framer-motion";
-import { Profile } from "@/components/index";
+import { Dropdown, Profile } from "@/components/index";
+import Link from "next/link";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { useLogout } from "@/hooks/api/user/use-logout";
 
 /**
  * @author leohan
@@ -11,14 +12,30 @@ import { Profile } from "@/components/index";
  */
 
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
-  const isLoggedIn = true; // 임시 로그인 확인
+  const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  const { handleLogout } = useLogout();
 
+  const isLoggedIn = !!userInfo && !isLoading;
   return isLoggedIn ? (
     <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
-        <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
+        <Dropdown
+          trigger={<Profile size={`${isSidebarOpen ? "lg" : "md"}`} />}
+          items={[
+            { label: "마이 히스토리" },
+            { label: "계정 설정" },
+            { label: "팀 참여" },
+            {
+              label: "로그아웃",
+              onClick: handleLogout,
+            },
+          ]}
+          isWidthFull={false}
+          isDirectionDown={false}
+          menuAlign="start"
+        />
       </div>
       <AnimatePresence>
         {isSidebarOpen && (
@@ -30,33 +47,31 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
             <span className="whitespace-nowrap text-sm font-medium text-blue-700">
-              {mockUser[0].nickname}
+              {userInfo.nickname}
             </span>
             <span className="whitespace-nowrap text-xs text-gray-700">
-              {mockUser[0].memberships[0].group.name}
+              {userInfo?.memberships?.[0]?.group.name}
             </span>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   ) : (
-    <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
+    <Link
+      href="/signin"
+      className="mb-6 flex gap-3 border-t border-gray-300 pt-5"
+    >
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
-        <Image
-          src={"/default-profile.png"}
-          alt="프로파일 이미지"
-          fill
-          style={{ objectFit: "cover" }}
-        />
+        <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
       </div>
       {isSidebarOpen && (
         <span className="flex flex-col justify-center gap-[2px] whitespace-nowrap">
           로그인
         </span>
       )}
-    </div>
+    </Link>
   );
 };
 

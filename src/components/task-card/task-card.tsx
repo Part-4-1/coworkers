@@ -1,6 +1,10 @@
 import cn from "@/utils/clsx";
 import { BadgeProps } from "../badge/badge";
-import { Icon, Badge, Button, Dropdown, Checkbox } from "../index";
+import Icon from "../icon/Icon";
+import Badge from "../badge/badge";
+import Button from "../button/button";
+import Dropdown from "../dropdown-components/dropdown";
+import Checkbox from "../checkbox/checkbox";
 import { MouseEvent } from "react";
 import { CheckboxProps } from "../checkbox/checkbox";
 

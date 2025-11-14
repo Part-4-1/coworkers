@@ -1,5 +1,5 @@
 import cn from "@/utils/clsx";
-import { Icon } from "../index";
+import Icon from "../icon/Icon";
 
 export interface CheckboxProps {
   id: number;

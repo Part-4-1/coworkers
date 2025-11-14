@@ -19,11 +19,17 @@ export interface Membership {
 
 export interface User {
   id: number;
-  teamId: string;
-  email: string;
+  teamId?: string;
+  email?: string;
+  image: string | null;
+  nickname?: string;
+  updatedAt?: string;
+  createdAt?: string;
+  memberships?: Membership[];
+}
+
+export interface Writer {
   image: string | null;
   nickname: string;
-  updatedAt: string;
-  createdAt: string;
-  memberships: Membership[];
+  id: number;
 }

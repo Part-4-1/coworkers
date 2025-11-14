@@ -4,6 +4,7 @@ import { Icon } from "@/components/index";
 import ICONS_MAP from "../../../../icon/icons-map";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { tooltipStyles } from "@/constants/styles";
 
 type IconKeys = keyof typeof ICONS_MAP;
 interface SidebarMenuProps {
@@ -12,11 +13,13 @@ interface SidebarMenuProps {
   isSidebarOpen?: boolean;
   isSelected?: boolean;
   href: string;
+  className?: string;
+  fontStyle?: string;
 }
 
 const menuStyles = {
   default:
-    "flex bg-white w-full cursor-pointer items-center gap-3 rounded-xl p-4 hover:bg-gray-100 text-lg",
+    "flex bg-white w-full cursor-pointer items-center gap-3 rounded-xl p-4 hover:bg-gray-100 text-lg relative group",
   selected: "bg-gray-200 text-blue-200 hover:bg-gray-200 cursor-default",
   sidebarOpen: "p-2",
 };
@@ -43,15 +46,24 @@ const SidebarMenu = ({
   isSelected,
   isSidebarOpen = true,
   href,
+  className,
+  fontStyle,
 }: SidebarMenuProps) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isSelected) {
+      e.preventDefault();
+    }
+  };
   return (
     <Link
       className={cn(
         menuStyles.default,
         isSelected && menuStyles.selected,
-        !isSidebarOpen && menuStyles.sidebarOpen
+        !isSidebarOpen && menuStyles.sidebarOpen,
+        className
       )}
       href={href}
+      onClick={(e) => handleClick(e)}
     >
       <Icon
         icon={iconName}
@@ -61,6 +73,18 @@ const SidebarMenu = ({
           isSidebarOpen && iconStyles.SidebarOpen
         )}
       />
+      {!isSidebarOpen && (
+        <div
+          className={cn(
+            tooltipStyles.base,
+            tooltipStyles.before,
+            isSelected && "text-blue-200"
+          )}
+        >
+          {title}
+        </div>
+      )}
+
       <AnimatePresence>
         {isSidebarOpen && (
           <motion.span
@@ -68,7 +92,7 @@ const SidebarMenu = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="whitespace-nowrap"
+            className={cn("whitespace-nowrap", fontStyle)}
           >
             {title}
           </motion.span>

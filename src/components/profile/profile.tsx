@@ -1,7 +1,7 @@
-import { Icon } from "@/components/index";
 import cn from "@/utils/clsx";
 import Image from "next/image";
 import { MouseEventHandler } from "react";
+import Icon from "../icon/Icon";
 
 /**
  * @author jinhyuk
@@ -15,7 +15,7 @@ import { MouseEventHandler } from "react";
 
 interface ProfileProps {
   image?: string;
-  size?: "lg" | "md" | "sm";
+  size?: "lg" | "md" | "sm" | "xs";
   className?: string;
   onClick?: MouseEventHandler<HTMLDivElement>;
   isMobileCircle?: boolean;
@@ -32,12 +32,14 @@ const Profile = ({
     lg: "w-[40px] h-[40px]",
     md: "w-[32px] h-[32px]",
     sm: "w-[24px] h-[24px]",
+    xs: "w-[20px] h-[20px]",
   }[size];
 
   const profileImageSize = {
     lg: 40,
     md: 32,
     sm: 24,
+    xs: 20,
   }[size];
 
   const profileRadius = {
@@ -46,6 +48,7 @@ const Profile = ({
       : "rounded-[12px]",
     md: isMobileCircle ? "rounded-full tablet:rounded-[8px]" : "rounded-[8px]",
     sm: isMobileCircle ? "rounded-full tablet:rounded-[6px]" : "rounded-[6px]",
+    xs: isMobileCircle ? "rounded-full tablet:rounded-[6px]" : "rounded-[6px]",
   }[size];
 
   return (

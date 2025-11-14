@@ -6,6 +6,8 @@ import SidebarMenu from "../sidebar-menu/sidebar-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import { mockUser } from "@/mocks/sidebar-data";
 import cn from "@/utils/clsx";
+import { tooltipStyles } from "@/constants/styles";
+
 /**
  * @author leohan
  * @description Sidebar dropdown 컴포넌트
@@ -31,34 +33,50 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
+  const selectedMembership = mockUser[0]?.memberships?.find(
+    (membership) => String(membership.group.id) === currentTeamId
+  );
+  const selectedTeamName = selectedMembership
+    ? selectedMembership.group.name
+    : "팀 선택";
+
   return (
     <div className="w-full max-w-[238px]">
       <div
         onClick={onToggle}
-        className={`group flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
+        className={`group relative flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
       >
         <div className="flex items-center gap-3">
           <Icon
             icon="chess"
             className={cn(
               iconStyles.default,
-              isSidebarOpen && iconStyles.sidebarOpen
+              isSidebarOpen && iconStyles.sidebarOpen,
+              !!selectedMembership && "text-blue-200"
             )}
           />
           <AnimatePresence>
             {isSidebarOpen && (
               <motion.span
-                className="whitespace-nowrap text-gray-700 group-hover:text-blue-200"
+                className={cn(
+                  "whitespace-nowrap text-gray-700 group-hover:text-blue-200",
+                  !!selectedMembership && "text-blue-200"
+                )}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                팀 선택
+                {selectedTeamName}
               </motion.span>
             )}
           </AnimatePresence>
         </div>
+        {!isSidebarOpen && !isOpen && (
+          <span className={cn(tooltipStyles.base, tooltipStyles.before)}>
+            {selectedTeamName}
+          </span>
+        )}
         {isSidebarOpen && (
           <Icon
             icon="downArrow"
@@ -78,7 +96,7 @@ const SidebarDropdown = ({
               setIsOpen(false);
             }}
           >
-            {mockUser[0].memberships.map((data) => (
+            {mockUser[0]?.memberships?.map((data) => (
               <SidebarMenu
                 key={data.groupId}
                 isSidebarOpen={isSidebarOpen}

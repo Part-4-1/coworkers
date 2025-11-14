@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Icon } from "@/components/index";
+import Button from "../button/button";
+import Icon from "../icon/Icon";
 import useClickOutside from "@/hooks/click-outside/use-click-outside";
 import cn from "@/utils/clsx";
 import { cloneElement, useRef, useState } from "react";
@@ -98,6 +99,7 @@ const Dropdown = ({
 
   const DefaultTrigger = (
     <Button
+      type="button"
       variant="outlined-secondary"
       className={cn(
         "h-[40px] w-[120px] border border-gray-300",

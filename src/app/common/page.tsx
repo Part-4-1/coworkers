@@ -3,21 +3,28 @@
 import {
   Badge,
   Button,
+  Calendar,
+  CalendarTime,
   Checkbox,
   Dropdown,
   Icon,
   ImageUpload,
   InputBox,
   InputReply,
+  PostCard,
   Profile,
   ProfileEdit,
+  ProfileList,
   ProfileMember,
+  Progressbar,
   Reply,
+  TaskCard,
   TaskChip,
   TaskHeader,
+  TaskModal,
+  TeamBannerAdmin,
+  TeamBannerMember,
   TextInput,
-  TaskCard,
-  PostCard,
 } from "@/components/index";
 import {
   EMAIL_REGEX,
@@ -25,12 +32,17 @@ import {
   PASSWORD_REGEX,
 } from "@/constants/regex";
 
+import List from "@/components/list/list";
+import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
+import useToast from "@/hooks/use-toast";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
+import { mockListData } from "@/mocks/list-data";
 import { mockUserData } from "@/mocks/user-data";
-import { useEffect, useState, MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import usePrompt from "@/hooks/use-prompt";
 
 type LoginFormData = {
   email: string;
@@ -41,7 +53,10 @@ const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const { previews } = useImageUpload({ maxCount: 5 });
+  const { success, error, warning } = useToast();
   const singleComment = mockComments[0];
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const { mutate: createComment, isPending } = useCreateComment(26355);
   const {
     register,
     formState: { errors },
@@ -76,8 +91,8 @@ const Page = () => {
           type={showPassword ? "text" : "password"}
           placeholder="비밀번호를 입력하세요."
           errorMessage={errors.password?.message}
-          suffixClassName="pr-2"
-          suffix={
+          rightIconClassName="pr-2"
+          rightIcon={
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -113,11 +128,14 @@ const Page = () => {
           type="password"
           value="********"
           readOnly
-          suffix={<Button size="sm">변경하기</Button>}
+          rightIcon={<Button size="sm">변경하기</Button>}
         />
       </form>
       <Reply comment={singleComment} />
-      <InputReply />
+      <InputReply
+        onSubmit={(text) => createComment(text)}
+        disabled={isPending}
+      />
       <div className="w-[300px] gap-2 flex-col-center">
         <Button>생성하기</Button>
         <Button variant="outlined">생성하기</Button>
@@ -159,17 +177,17 @@ const Page = () => {
           userImage={mockGroupData[0].members[0].userImage}
           userEmail={mockGroupData[0].members[0].userEmail}
           userName={mockGroupData[0].members[0].userName}
-          onClick={() => {
-            console.log("aaa");
-          }}
         />
         <ProfileMember
           userEmail={mockGroupData[0].members[0].userEmail}
           userName={mockGroupData[0].members[0].userName}
-          onClick={() => {
-            console.log("aaa");
-          }}
         />
+      </div>
+      <div>
+        <ProfileList members={mockGroupData[0].members} />
+      </div>
+      <div>
+        <CalendarTime />
       </div>
       <div className="flex gap-5">
         <Dropdown
@@ -196,6 +214,35 @@ const Page = () => {
           ]}
           isWidthFull={false}
         />
+      </div>
+      <div className="flex flex-col gap-5 flex-center">
+        <Button size="sm" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
+          캘린더 토글
+        </Button>
+        <div className={isCalendarOpen ? "" : "hidden"}>
+          <Calendar />
+        </div>
+      </div>
+      <div className="flex w-[75vw] flex-col gap-10 bg-gray-50 p-10">
+        <TeamBannerAdmin
+          groupName={mockGroupData[0].name}
+          tasksTodo={20}
+          tasksDone={5}
+          members={mockGroupData[0].members}
+          onSettingClick={() => {}}
+          onMemberListClick={() => {}}
+        />
+        <TeamBannerMember
+          groupName={mockGroupData[0].name}
+          members={mockGroupData[0].members}
+          onSettingClick={() => {}}
+          onMemberListClick={() => {}}
+        />
+      </div>
+      <div className="flex w-full flex-col gap-2 px-[150px] flex-center">
+        <Progressbar progressRate={100} />
+        <Progressbar progressRate={25} />
+        <Progressbar progressRate={0} />
       </div>
       <div className="w-[300px]">
         <TaskHeader
@@ -311,6 +358,44 @@ const Page = () => {
           isLiked={true}
           isBest
         />
+      </div>
+      <TaskModal
+        groupId={3304}
+        taskListId={4712}
+        onSuccess={() => success("할 일이 생성되었습니다!")}
+      />
+      {mockListData.tasks.map((task) => {
+        return (
+          <List
+            key={task.id}
+            id={task.id}
+            name={task.name}
+            date={task.date}
+            doneAt={task.doneAt}
+            commentCount={task.commentCount}
+            frequency={task.frequency}
+          />
+        );
+      })}
+      <div className="mt-8 w-full max-w-[300px] gap-2 flex-col-center">
+        <Button
+          className="bg-emerald-400"
+          onClick={() => success("성공적으로 실행되었습니다 !")}
+        >
+          성공 토스트
+        </Button>
+        <Button
+          variant="alert"
+          onClick={() => error("앗, 실패하였습니다. 다시 시도해주세요 !")}
+        >
+          오류 토스트
+        </Button>
+        <Button
+          className="bg-orange"
+          onClick={() => warning("저장하지 않은 변경사항이 있어요 !")}
+        >
+          경고 토스트
+        </Button>
       </div>
     </div>
   );

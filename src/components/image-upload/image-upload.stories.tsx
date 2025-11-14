@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ImageUpload } from "../index";
+import ImageUpload from "./image-upload";
 
 const queryClient = new QueryClient();
 

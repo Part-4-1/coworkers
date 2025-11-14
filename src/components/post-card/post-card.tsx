@@ -1,6 +1,6 @@
 import cn from "@/utils/clsx";
 import Image from "next/image";
-import { Icon } from "../index";
+import Icon from "../icon/Icon";
 import { toDotDateString } from "@/utils/date-util";
 
 interface PostCardProps {
@@ -29,7 +29,7 @@ const PostCard = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-col gap-3 rounded-[20px] border border-gray-300 px-4 py-4",
+        "flex w-full flex-col gap-3 rounded-[20px] border border-gray-300 bg-white px-4 py-4",
         className
       )}
     >
