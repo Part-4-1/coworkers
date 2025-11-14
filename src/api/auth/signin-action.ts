@@ -1,46 +1,39 @@
 "use server";
-import type { User } from "@/types/user";
+
+import { User } from "@/types/user";
 import { cookies } from "next/headers";
 
-export interface SignupRequest {
+export interface SignInRequest {
   email: string;
-  nickname: string;
   password: string;
-  passwordConfirmation: string;
 }
 
-export interface SignupResponse {
+export interface SignInResponse {
   accessToken: string;
   refreshToken: string;
   user: User;
 }
 
-export const signupAction = async ({
+export const signinAction = async ({
   email,
-  nickname,
   password,
-  passwordConfirmation,
-}: SignupRequest): Promise<SignupResponse> => {
+}: SignInRequest): Promise<SignInResponse> => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/signUp`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/signIn`,
       {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          nickname,
           password,
-          passwordConfirmation,
         }),
         method: "POST",
       }
     );
     const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
 
-    if (!response.ok)
-      throw new Error(data.message || "회원가입에 실패하였습니다.");
-
-    if (data.accessToken && data.refreshToken) {
+    if (response.ok && data.accessToken && data.refreshToken) {
       const cookieStore = await cookies();
 
       cookieStore.set("accessToken", data.accessToken, {
@@ -59,6 +52,6 @@ export const signupAction = async ({
     if (error instanceof Error) {
       throw new Error(error.message);
     }
-    throw new Error("회원가입 중 알 수 없는 오류가 발생했습니다.");
+    throw new Error("로그인 중 알 수 없는 오류가 발생했습니다.");
   }
 };
