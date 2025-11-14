@@ -27,4 +27,5 @@ export const isFrequencyCode = (
  */
 export const changeFrequencyCode = (frequencyCode: string) => {
   if (isFrequencyCode(frequencyCode)) return FREQUENCIES[frequencyCode];
+  return FREQUENCIES["ONCE"];
 };
