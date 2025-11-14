@@ -1,4 +1,4 @@
-import { Dropdown, PostCard } from "@/components/index";
+import { Dropdown } from "@/components/index";
 
 const BoardsAllHeader = () => {
   return (
