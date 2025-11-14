@@ -20,6 +20,7 @@ import Icon from "../icon/Icon";
  * @param isDirectionDown - 메뉴가 나타나는 방향을 설정 (기본값: true)
  * @param className - Dropdown 전체 컨테이너에 추가할 클래스
  * @param defaultTriggerClassName - 기본 트리거(Button)에 커스텀 스타일을 적용하기 위한 클래스
+ * @param itemClassName - 드롭다운 요소들에 스타일을 적용하기 위한 클래스
  */
 
 interface DropdownProps {
