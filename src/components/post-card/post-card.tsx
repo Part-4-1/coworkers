@@ -34,7 +34,7 @@ const PostCard = ({
         className
       )}
     >
-      <div className={cn("flex flex-col gap-4", isBest && "gap-3")}>
+      <div className={cn("flex flex-col gap-3")}>
         {isBest && (
           <div className="w-[72px] rounded-full bg-gray-50 px-1 py-[6px] flex-center">
             <Icon icon="best" className="h-[18px] w-[18px] text-blue-200" />
