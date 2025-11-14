@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Dropdown, Profile } from "@/components/index";
 import Link from "next/link";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
-import { logoutAction } from "@/api/auth/logout-action";
 import { useLogout } from "@/hooks/api/user/use-logout";
 
 /**

@@ -31,7 +31,7 @@ export const signinAction = async ({
       }
     );
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "로그인에 실패했습니다.");
+    if (!response.ok) throw new Error(data.message);
 
     if (response.ok && data.accessToken && data.refreshToken) {
       const cookieStore = await cookies();

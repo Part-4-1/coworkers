@@ -11,7 +11,6 @@ import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import { useRouter } from "next/navigation";
-import { logoutAction } from "@/api/auth/logout-action";
 import { useLogout } from "@/hooks/api/user/use-logout";
 /**
  * @author leohan
