@@ -35,7 +35,7 @@ const Reply = ({ comment }: CommentProps) => {
     >
       {hasImage ? (
         <img
-          src={comment.writer.image}
+          src={comment.writer.image ?? ""}
           alt={`${comment.writer.nickname}의 프로필`}
           className={cn(profileStyle, "object-cover")}
         />
