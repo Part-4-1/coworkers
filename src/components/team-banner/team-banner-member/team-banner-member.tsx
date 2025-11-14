@@ -60,7 +60,7 @@ const TeamBannerMember = ({
       </section>
       <section className="relative flex gap-[19px] flex-center">
         {isPc && (
-          <TeamThumbnail className="absolute -bottom-[8px] right-[120px] scale-[1.8] text-[#C9DAFD]" />
+          <TeamThumbnail className="absolute -bottom-[8px] right-[120px] scale-[1.8] text-blue-50" />
         )}
         <div onClick={onSettingClick} className="cursor-pointer">
           <Icon icon="setting" className="h-[24px] w-[24px]" />
