@@ -11,6 +11,7 @@ export const useCreateComment = (taskId: number) => {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", taskId] });
+      queryClient.invalidateQueries({ queryKey: ["taskDetail"] });
       success("댓글이 작성되었습니다.");
     },
 
