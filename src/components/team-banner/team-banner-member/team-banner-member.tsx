@@ -21,9 +21,10 @@ import { MouseEventHandler } from "react";
 interface TeamBannerMemberProps {
   groupName: string;
   members: Member[];
-  onMemberListClick: MouseEventHandler;
+  onMemberListClick?: MouseEventHandler;
   onSettingClick: MouseEventHandler;
   className?: string;
+  isProfileList?: boolean;
 }
 
 const TeamBannerMember = ({
@@ -32,6 +33,7 @@ const TeamBannerMember = ({
   onMemberListClick,
   onSettingClick,
   className,
+  isProfileList = true,
 }: TeamBannerMemberProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
   return (
@@ -51,11 +53,11 @@ const TeamBannerMember = ({
       >
         <div className="truncate">{groupName}</div>
         <div onClick={onMemberListClick}>
-          {isPc ? (
-            ""
-          ) : (
-            <ProfileList members={members} className="w-[87px] shrink-0" />
-          )}
+          {isPc
+            ? ""
+            : isProfileList && (
+                <ProfileList members={members} className="w-[87px] shrink-0" />
+              )}
         </div>
       </section>
       <section className="relative flex gap-[19px] flex-center">
