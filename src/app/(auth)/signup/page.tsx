@@ -56,14 +56,14 @@ const Page = () => {
           aria-label="Signup Form"
         >
           <div className="flex flex-col gap-3">
-            <label htmlFor="nickname">이름</label>
+            <label htmlFor="nickname">닉네임</label>
             <TextInput
               id="nickname"
               type="text"
-              placeholder="이름을 입력해주세요."
+              placeholder="닉네임을 입력해주세요."
               errorMessage={errors.nickname?.message}
               {...register("nickname", {
-                required: "이름을 입력해주세요.",
+                required: "닉네임을 입력해주세요.",
               })}
             />
           </div>
