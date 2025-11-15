@@ -16,7 +16,7 @@ import { MouseEventHandler } from "react";
  * @param onMemberListClick - 멤버 리스트 클릭 시 실행되는 핸들러
  * @param onSettingClick - 설정 아이콘 클릭 시 실행되는 핸들러
  * @param className - 추가 스타일을 위해 사용
- *
+ * @param showProfileListonPc - PC 화면에서 ProfileList를 표시할지 여부를 결정합니다.
  */
 
 interface TeamBannerMemberProps {
