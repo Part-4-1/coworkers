@@ -5,7 +5,7 @@ export const mockArticleData: Article = {
   createdAt: "2025-11-15T05:30:03.864Z",
   likeCount: 0,
   writer: {
-    nickname: "우지은",
+    nickname: "우지금",
     id: 1,
     image: "https://randomuser.me/api/portraits/men/12.jpg",
   },
