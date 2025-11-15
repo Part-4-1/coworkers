@@ -8,7 +8,7 @@ interface ArticleContentsProps {
 
 const ArticleContents = ({ article }: ArticleContentsProps) => {
   return (
-    <div className="flex w-full flex-col gap-5 tablet:gap-6">
+    <div className="mb-4 flex w-full flex-col gap-5 tablet:mb-[28px] tablet:gap-6 pc:mb-[40px]">
       <Image
         src={article.image || ""}
         alt={`${article.image} 게시글 이미지`}
