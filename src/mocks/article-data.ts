@@ -9,7 +9,7 @@ export const mockArticleData: Article = {
     id: 1,
     image: "https://randomuser.me/api/portraits/men/12.jpg",
   },
-  image: "https://example.com/image.jpg",
+  image: "https://randomuser.me/api/portraits/men/12.jpg",
   title: "커피 머신 고장 신고합니다 ☕🚨",
   id: 1,
   commentCount: 5,
