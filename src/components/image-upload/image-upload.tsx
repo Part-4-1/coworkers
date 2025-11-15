@@ -52,7 +52,7 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
             onDragOver={handleDrag}
             onDrop={handleDrop}
             className={cn(
-              "h-[120px] w-[120px] flex-shrink-0 cursor-pointer rounded-lg border-2 border-dashed p-[10px] transition-colors flex-center",
+              "h-[80px] w-[80px] flex-shrink-0 cursor-pointer rounded-lg border-2 border-dashed p-[10px] transition-colors flex-center tablet:h-[120px] tablet:w-[120px]",
               isDragActive
                 ? "border-blue-400 bg-blue-50"
                 : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"

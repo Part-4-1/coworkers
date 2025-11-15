@@ -4,7 +4,7 @@ import { InputBox, ImageUpload, Button } from "@/components/index";
 
 const ArticleWriteContents = () => {
   return (
-    <div className="flex w-full flex-col gap-[57px] p-[22px] tablet:px-[40px] tablet:py-[73px] pc:px-[70px]">
+    <div className="flex w-full flex-col gap-[48px] px-[22px] py-[45px] tablet:gap-[57px] tablet:px-[40px] tablet:py-[73px] pc:px-[70px]">
       <div className="flex flex-col gap-[32px]">
         <h2 className="text-xl font-bold text-blue-700">게시글 쓰기</h2>
         <div className="flex flex-col items-start gap-3">
