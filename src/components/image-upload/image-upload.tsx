@@ -64,7 +64,7 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
                 className="hidden"
                 multiple
               />
-              <Icon icon="imgUpload" className="h-6 w-6" />
+              <Icon icon="imgUpload" className="h-6 w-6 text-gray-700" />
               <p className="text-lg text-gray-800">
                 {previews.length}/{maxCount}
               </p>
