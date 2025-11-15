@@ -24,8 +24,6 @@ const Page = () => {
   const handleClickNextWeek = () => {
     if (!currentSunday) return;
     setCurrentSunday(getNextSunday(currentSunday));
-    // const nextSunday = getNextSunday(currentSunday);
-    // setWeek(getWeek(nextSunday));
   };
 
   const handleClickPrevWeek = () => {
