@@ -17,10 +17,10 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <main className="mx-auto my-[68px] w-full max-w-[343px] rounded-[20px] bg-white tablet:max-w-[620px] pc:max-w-[900px]">
-      <article className="px-[20px] py-[88px] tablet:px-[40px] pc:px-[60px]">
+      <article className="px-[20px] py-[40px] tablet:px-[40px] tablet:py-[60px] pc:px-[60px] pc:py-[88px]">
         <ArticleHeader article={article} />
         <ArticleContents article={article} />
-        <ArticleComments />
+        <ArticleComments article={article} comments={comments} />
       </article>
     </main>
   );
