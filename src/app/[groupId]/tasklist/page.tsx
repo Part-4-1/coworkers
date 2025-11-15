@@ -4,7 +4,12 @@ import groupData from "@/mocks/group.json";
 import TaskListContainer from "./_components/task-list-container";
 import { ChangeEvent, useEffect, useState } from "react";
 import TaskListDatePicker from "./_components/task-list-date-picker";
-import { getCurrentSunday, getWeek } from "@/utils/date-util";
+import {
+  getCurrentSunday,
+  getNextSunday,
+  getPrevSunday,
+  getWeek,
+} from "@/utils/date-util";
 
 const Page = () => {
   const [taskListId, setTaskListId] = useState<number>();
@@ -16,6 +21,18 @@ const Page = () => {
     setDay(e.target.value);
   };
 
+  const handleClickNextWeek = () => {
+    if (!currentSunday) return;
+    setCurrentSunday(getNextSunday(currentSunday));
+    // const nextSunday = getNextSunday(currentSunday);
+    // setWeek(getWeek(nextSunday));
+  };
+
+  const handleClickPrevWeek = () => {
+    if (!currentSunday) return;
+    setCurrentSunday(getPrevSunday(currentSunday));
+  };
+
   useEffect(() => {
     const date = new Date();
     const sunday = getCurrentSunday();
@@ -23,6 +40,13 @@ const Page = () => {
     setCurrentSunday(sunday);
     setWeek(getWeek(sunday));
   }, []);
+
+  useEffect(() => {
+    if (!currentSunday) return;
+    console.log(currentSunday);
+
+    setWeek(getWeek(currentSunday));
+  }, [currentSunday]);
 
   return (
     <div className="flex w-full max-w-[1120px] flex-col tablet:px-[26px]">
@@ -35,7 +59,14 @@ const Page = () => {
       <div className="bg-white">
         <TaskListDatePicker
           name="진행 중인 일"
-          {...{ currentSunday, week, day, handleChangeDay }}
+          {...{
+            currentSunday,
+            week,
+            day,
+            handleChangeDay,
+            handleClickNextWeek,
+            handleClickPrevWeek,
+          }}
         />
       </div>
     </div>

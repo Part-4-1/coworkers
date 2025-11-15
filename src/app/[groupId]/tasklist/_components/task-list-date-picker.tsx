@@ -10,6 +10,8 @@ interface TaskListDatePickerProps {
   week: number[] | null;
   day: string;
   handleChangeDay: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleClickNextWeek: () => void;
+  handleClickPrevWeek: () => void;
 }
 
 const TaskListDatePicker = ({
@@ -18,9 +20,11 @@ const TaskListDatePicker = ({
   week,
   day,
   handleChangeDay,
+  handleClickNextWeek,
+  handleClickPrevWeek,
 }: TaskListDatePickerProps) => {
   return (
-    <div className="flex w-full flex-col gap-6 px-4">
+    <div className="flex w-full flex-col gap-6 px-4 pt-[38px]">
       <div className="flex items-center justify-between">
         <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
           {name}
@@ -34,12 +38,14 @@ const TaskListDatePicker = ({
             <Button
               variant="none"
               className="h-4 w-4 rounded-full border border-gray-300 bg-white"
+              onClick={handleClickPrevWeek}
             >
               <Icon icon="leftArrow" className="h-3 w-3 text-gray-800" />
             </Button>
             <Button
               variant="none"
               className="h-4 w-4 rounded-full border border-gray-300 bg-white"
+              onClick={handleClickNextWeek}
             >
               <Icon icon="rightArrow" className="h-3 w-3 text-gray-800" />
             </Button>

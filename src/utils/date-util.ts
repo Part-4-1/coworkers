@@ -51,10 +51,43 @@ export const getCurrentSunday = () => {
   return currentSunday;
 };
 
+/**
+ * @author hwitae
+ * @description 다음주 일요일 날짜를 반환합니다.
+ * @param currentSunday 현재 일요일 Date 객체
+ * @returns Date
+ */
+export const getNextSunday = (currentSunday: Date) => {
+  const nextSunday = new Date(currentSunday);
+  nextSunday.setDate(currentSunday.getDate() + 7);
+  nextSunday.setHours(0, 0, 0, 0);
+  return nextSunday;
+};
+
+/**
+ * @author hwitae
+ * @description 저번주 일요일 날짜를 반환합니다.
+ * @param currentSunday 현재 일요일 Date 객체
+ * @returns Date
+ */
+export const getPrevSunday = (currentSunday: Date) => {
+  const prevSunday = new Date(currentSunday);
+  prevSunday.setDate(currentSunday.getDate() - 7);
+  prevSunday.setHours(0, 0, 0, 0);
+  return prevSunday;
+};
+
+/**
+ * @author hwitae
+ * @description 오늘 날짜를 포함한 일주일 배열 반환
+ * @param sunday 이번 주 일요일 날짜를 담은 Date 객체
+ * @returns number[]
+ */
 export const getWeek = (sunday: Date): number[] => {
   const week = Array.from({ length: 7 }, (_, index) => {
-    const date = sunday.getDate() + index;
-    return date;
+    const nextDay = new Date(sunday);
+    nextDay.setDate(sunday.getDate() + index);
+    return nextDay.getDate();
   });
   return week;
 };
