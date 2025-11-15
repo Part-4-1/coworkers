@@ -16,6 +16,7 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
     useImageUpload({
       maxCount,
     });
+  const checkingSlots = maxCount - previews.length;
 
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -29,12 +30,14 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
     setIsDragActive(false);
 
     const files = Array.from(e.dataTransfer.files);
-    files.forEach(handleFile);
+
+    files.slice(0, checkingSlots).forEach(handleFile);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.currentTarget.files || []);
-    files.forEach(handleFile);
+
+    files.slice(0, checkingSlots).forEach(handleFile);
   };
 
   const isFull = previews.length >= maxCount;
