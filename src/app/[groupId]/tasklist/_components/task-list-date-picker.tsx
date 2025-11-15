@@ -1,26 +1,34 @@
 "use client";
 
 import { Button, Icon } from "@/components";
+import { ChangeEvent } from "react";
+import DatePickerList from "./date-picker-list";
 
 interface TaskListDatePickerProps {
   name: string;
+  currentSunday: Date | null;
+  week: number[] | null;
+  day: string;
+  handleChangeDay: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const date = new Date();
-
-const TaskListDatePicker = ({ name }: TaskListDatePickerProps) => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-
+const TaskListDatePicker = ({
+  name,
+  currentSunday,
+  week,
+  day,
+  handleChangeDay,
+}: TaskListDatePickerProps) => {
   return (
-    <div className="px-4">
+    <div className="flex w-full flex-col gap-6 px-4">
       <div className="flex items-center justify-between">
         <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
           {name}
         </span>
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
-            {year}년 {month}월
+            {currentSunday &&
+              `${currentSunday.getFullYear()}년 ${currentSunday.getMonth() + 1}월`}
           </p>
           <div className="flex items-center gap-1">
             <Button
@@ -41,6 +49,11 @@ const TaskListDatePicker = ({ name }: TaskListDatePickerProps) => {
           </Button>
         </div>
       </div>
+      <DatePickerList
+        dateList={week}
+        checkedDay={day}
+        handleChangeDay={handleChangeDay}
+      />
     </div>
   );
 };

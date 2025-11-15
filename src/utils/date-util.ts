@@ -37,3 +37,24 @@ export const toKoreanDateWithTimeString = (timestamp: string) => {
 
   return `${toKoreanDateString(timestamp)} ${time}`;
 };
+
+/**
+ * @author hwitae
+ * @description 이번 주 일요일 날짜를 반환한다.
+ * @returns Date
+ */
+export const getCurrentSunday = () => {
+  const date = new Date();
+  const currentSunday = new Date();
+  currentSunday.setDate(date.getDate() - date.getDay());
+  currentSunday.setHours(0, 0, 0, 0);
+  return currentSunday;
+};
+
+export const getWeek = (sunday: Date): number[] => {
+  const week = Array.from({ length: 7 }, (_, index) => {
+    const date = sunday.getDate() + index;
+    return date;
+  });
+  return week;
+};
