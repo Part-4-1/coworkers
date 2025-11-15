@@ -1,4 +1,5 @@
 import TeamThumbnail from "@/assets/images/ic-thumbnail-team.svg";
+import Dropdown from "@/components/dropdown-components/dropdown";
 import Icon from "@/components/icon/Icon";
 import ProfileList from "@/components/profile-list/profile-list";
 import useMediaQuery from "@/hooks/use-media-query";
@@ -22,51 +23,64 @@ interface TeamBannerMemberProps {
   groupName: string;
   members: Member[];
   onMemberListClick?: MouseEventHandler;
-  onSettingClick: MouseEventHandler;
   className?: string;
-  isProfileList?: boolean;
+  showProfileListonPc?: boolean;
 }
 
 const TeamBannerMember = ({
   groupName,
   members,
   onMemberListClick,
-  onSettingClick,
   className,
-  isProfileList = true,
+  showProfileListonPc = true,
 }: TeamBannerMemberProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
   return (
     <div
       className={cn(
-        "flex h-[56px] w-full justify-between bg-white pl-[18px] pr-[16px]",
+        "relative flex h-[56px] w-full max-w-[1120px] justify-between bg-white pl-[18px] pr-[16px]",
         "items-center tablet:h-[64px] tablet:rounded-[12px] tablet:pl-[26px] tablet:pr-[20px]",
-        "relative min-w-[270px] overflow-hidden",
+        "min-w-[270px]",
         className
       )}
     >
+      {isPc && (
+        <div className="absolute inset-0 overflow-hidden">
+          <TeamThumbnail className="absolute -bottom-[8px] right-[120px] scale-[1.8] text-blue-50" />
+        </div>
+      )}
+
       <section
         className={cn(
-          "flex gap-[12px] text-xl font-bold text-blue-700 flex-center",
+          "relative z-10 flex gap-[12px] text-xl font-bold text-blue-700 flex-center",
           "min-w-0 tablet:text-2xl"
         )}
       >
         <div className="truncate">{groupName}</div>
         <div onClick={onMemberListClick}>
-          {isPc
-            ? ""
-            : isProfileList && (
-                <ProfileList members={members} className="w-[87px] shrink-0" />
-              )}
+          {isPc ? (
+            showProfileListonPc && (
+              <ProfileList
+                members={members}
+                className="max-w-[75px] shrink-0 tablet:max-w-[87px]"
+              />
+            )
+          ) : (
+            <ProfileList
+              members={members}
+              className="max-w-[75px] shrink-0 tablet:max-w-[87px]"
+            />
+          )}
         </div>
       </section>
-      <section className="relative flex gap-[19px] flex-center">
-        {isPc && (
-          <TeamThumbnail className="absolute -bottom-[8px] right-[120px] scale-[1.8] text-blue-50" />
-        )}
-        <div onClick={onSettingClick} className="cursor-pointer">
-          <Icon icon="setting" className="h-[24px] w-[24px]" />
-        </div>
+
+      <section className="relative z-10 flex gap-[19px] flex-center">
+        <Dropdown
+          trigger={<Icon icon="setting" className="h-[24px] w-[24px]" />}
+          items={[{ label: "수정하기" }, { label: "삭제하기" }]}
+          //TODO: 클릭시 로직 추가
+          menuAlign="start"
+        />
       </section>
     </div>
   );

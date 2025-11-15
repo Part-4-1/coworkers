@@ -42,7 +42,6 @@ import { mockListData } from "@/mocks/list-data";
 import { mockUserData } from "@/mocks/user-data";
 import { MouseEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import usePrompt from "@/hooks/use-prompt";
 
 type LoginFormData = {
   email: string;
@@ -229,13 +228,11 @@ const Page = () => {
           tasksTodo={20}
           tasksDone={5}
           members={mockGroupData[0].members}
-          onSettingClick={() => {}}
           onMemberListClick={() => {}}
         />
         <TeamBannerMember
           groupName={mockGroupData[0].name}
           members={mockGroupData[0].members}
-          onSettingClick={() => {}}
           onMemberListClick={() => {}}
         />
       </div>

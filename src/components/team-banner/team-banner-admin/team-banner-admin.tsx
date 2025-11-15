@@ -1,3 +1,4 @@
+import Dropdown from "@/components/dropdown-components/dropdown";
 import Icon from "@/components/icon/Icon";
 import useMediaQuery from "@/hooks/use-media-query";
 import { Member } from "@/types/members";
@@ -25,8 +26,8 @@ interface TeamBannerAdminProps {
   tasksTodo: number;
   tasksDone: number;
   members: Member[];
-  onSettingClick: MouseEventHandler;
   onMemberListClick: MouseEventHandler;
+  showProfileListOnPc?: boolean;
   className?: string;
 }
 
@@ -36,7 +37,7 @@ const TeamBannerAdmin = ({
   tasksDone,
   members,
   onMemberListClick,
-  onSettingClick,
+  showProfileListOnPc = true,
   className,
 }: TeamBannerAdminProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
@@ -45,15 +46,31 @@ const TeamBannerAdmin = ({
       className={cn(
         "h-[196px] w-full justify-between pb-[30px] pl-[25px] pr-[28px] pt-[20px] tablet:rounded-[20px]",
         "max-w-[1120px] tablet:h-[239px] tablet:pb-[34px] tablet:pt-[30px] pc:pr-[36px] pc:pt-[32px]",
-        "flex min-w-[270px] flex-col justify-between bg-white shadow-xl",
+        "relative flex min-w-[270px] flex-col justify-between bg-white shadow-xl",
         className
       )}
     >
+      {!isPc && (
+        <div className="absolute right-[24px] top-[24px] tablet:right-[28px] tablet:top-[34px]">
+          <Dropdown
+            trigger={
+              <Icon
+                icon="setting"
+                className="h-[20px] w-[20px] cursor-pointer tablet:h-[24px] tablet:w-[24px]"
+              />
+            }
+            items={[{ label: "수정하기" }, { label: "삭제하기" }]}
+            menuAlign="start"
+            //TODO: 추후 로직 추가
+          />
+        </div>
+      )}
+
       <TeamBannerAdminHeader
         groupName={groupName}
         members={members}
-        onSettingClick={onSettingClick}
         onMemberListClick={onMemberListClick}
+        showProfileListonPc={showProfileListOnPc}
       />
       <div
         className={cn(
@@ -62,8 +79,28 @@ const TeamBannerAdmin = ({
         )}
       >
         <TeamBannerAdminBody tasksTodo={tasksTodo} tasksDone={tasksDone} />
-        <div onClick={onSettingClick} className="flex cursor-pointer items-end">
-          {isPc && <Icon icon="setting" className="h-[24px] w-[24px]" />}
+
+        <div className="flex items-end">
+          {isPc && (
+            <Dropdown
+              trigger={
+                <Icon
+                  icon="setting"
+                  className="h-[24px] w-[24px] cursor-pointer"
+                />
+              }
+              items={[
+                {
+                  label: "수정하기",
+                },
+                {
+                  label: "삭제하기",
+                },
+                //TODO: 클릭시 로직 추가
+              ]}
+              menuAlign="start"
+            />
+          )}
         </div>
       </div>
     </div>
