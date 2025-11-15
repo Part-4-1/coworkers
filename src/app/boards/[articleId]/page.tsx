@@ -5,12 +5,13 @@ import { mockArticleData } from "@/mocks/article-data";
 import { mockComments } from "@/mocks/comment-data";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-const Page = ({ params }: PageProps) => {
+const Page = async ({ params }: PageProps) => {
+  const { id } = await params;
   const article = mockArticleData;
   const comments = mockComments;
 
