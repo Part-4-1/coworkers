@@ -25,7 +25,7 @@ const TaskCard = ({
     <div
       className={cn(
         "flex min-h-[54px] min-w-[270px] flex-col justify-center rounded-xl border border-gray-300",
-        "gap-4 pl-5 pr-4",
+        "gap-4 bg-white pl-5 pr-4",
         taskList && "pb-6 pt-4"
       )}
     >

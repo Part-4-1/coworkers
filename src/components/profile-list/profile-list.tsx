@@ -33,7 +33,7 @@ const ProfileList = ({ members, className }: ProfileListProps) => {
             style={{ zIndex: MAX_VISIBLE - index }}
           >
             <Profile
-              image={member.userImage}
+              image={member.userImage ?? ""}
               size={profileSize}
               isMobileCircle={false}
               className="rounded-[8px] border-[1px] border-white"
