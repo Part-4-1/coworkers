@@ -10,7 +10,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
-    imgUrl: { control: "text", description: "이미지 URL 입력" },
+    image: { control: "text", description: "이미지 URL 입력" },
     title: { control: "text", description: "게시글 제목" },
     content: { control: "text", description: "게시글 내용" },
     writer: { control: "text", description: "게시글 작성자" },
@@ -31,7 +31,7 @@ const mockWriter: Writer = {
 
 export const Default: Story = {
   args: {
-    imgUrl: "",
+    image: "",
     title: "커피 머신 고장 신고합니다 ☕️",
     content: `오늘 아침 출근과 동시에 알게 된 사실...
 커피머신이 고장났습니다. 이로 인해 많은 직원들이 커피를 마시지 못하고 있어 업무 효율이 떨어지고 있습니다.
@@ -45,7 +45,7 @@ export const Default: Story = {
 
 export const UploadPostImage: Story = {
   args: {
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "커피 머신 고장 신고합니다 ☕️",
     content: `오늘 아침 출근과 동시에 알게 된 사실...
 커피머신이 고장났습니다. 이로 인해 많은 직원들이 커피를 마시지 못하고 있어 업무 효율이 떨어지고 있습니다.
@@ -59,7 +59,7 @@ export const UploadPostImage: Story = {
 
 export const BestPost: Story = {
   args: {
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "커피 머신 고장 신고합니다 ☕️",
     content: `오늘 아침 출근과 동시에 알게 된 사실...
 커피머신이 고장났습니다. 이로 인해 많은 직원들이 커피를 마시지 못하고 있어 업무 효율이 떨어지고 있습니다.

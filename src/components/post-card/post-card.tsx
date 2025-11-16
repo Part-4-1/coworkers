@@ -5,7 +5,7 @@ import { toDotDateString } from "@/utils/date-util";
 import { Writer } from "@/types/article";
 
 interface PostCardProps {
-  imgUrl?: string;
+  image?: string;
   title: string;
   content: string;
   writer: Writer;
@@ -17,7 +17,7 @@ interface PostCardProps {
 }
 
 const PostCard = ({
-  imgUrl,
+  image,
   title,
   content,
   writer,
@@ -67,9 +67,9 @@ const PostCard = ({
                 {content}
               </p>
             </div>
-            {imgUrl && (
+            {image && (
               <Image
-                src={imgUrl}
+                src={image}
                 width={isBest ? 48 : 88}
                 height={isBest ? 48 : 88}
                 alt="thumbnail"

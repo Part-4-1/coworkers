@@ -1,7 +1,7 @@
 export const mockBoardPosts = [
   {
     id: 1,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "1번 게시물",
     content:
       "오늘 아침 중근구 동시에 앞쪽 세상...\n1층 커피 머신에 물린 나왔습니다. (커피는 상음 🍵)...",
@@ -12,7 +12,7 @@ export const mockBoardPosts = [
   },
   {
     id: 2,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "2번 게시물",
     content:
       "현재 회의실 예약이 너무 복잡해요. 더 간단하게 개선할 수 있을까요?",
@@ -23,7 +23,7 @@ export const mockBoardPosts = [
   },
   {
     id: 3,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "3번 게시물",
     content: "주변에 맛있는 식당 추천 부탁드립니다!",
     writer: "이지훈",
@@ -33,7 +33,7 @@ export const mockBoardPosts = [
   },
   {
     id: 4,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "4번 게시물",
     content: "주말에 주차 자리가 너무 부족합니다. 지하 주차장 개방 부탁드려요.",
     writer: "박준호",
@@ -53,7 +53,7 @@ export const mockBoardPosts = [
   },
   {
     id: 6,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "6번 게시물",
     content: "이번 달 말 사내 체육대회가 있습니다. 많은 참여 부탁드립니다!",
     writer: "이벤트팀",
@@ -63,7 +63,7 @@ export const mockBoardPosts = [
   },
   {
     id: 7,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "7번 게시물",
     content: "이번 달 말 사내 체육대회가 있습니다. 많은 참여 부탁드립니다!",
     writer: "이벤트팀",
@@ -73,7 +73,7 @@ export const mockBoardPosts = [
   },
   {
     id: 8,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "8번 게시물",
     content: "이번 달 말 사내 체육대회가 있습니다. 많은 참여 부탁드립니다!",
     writer: "이벤트팀",
@@ -83,7 +83,7 @@ export const mockBoardPosts = [
   },
   {
     id: 9,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "9번 게시물",
     content: "이번 달 말 사내 체육대회가 있습니다. 많은 참여 부탁드립니다!",
     writer: "이벤트팀",
@@ -93,7 +93,7 @@ export const mockBoardPosts = [
   },
   {
     id: 10,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "10번 게시물",
     content: "이번 달 말 사내 체육대회가 있습니다. 많은 참여 부탁드립니다!",
     writer: "이벤트팀",
@@ -103,7 +103,7 @@ export const mockBoardPosts = [
   },
   {
     id: 11,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "11번 게시물",
     content: "이번 달 말 사내 체육대회가 있습니다. 많은 참여 부탁드립니다!",
     writer: "이벤트팀",
@@ -113,7 +113,7 @@ export const mockBoardPosts = [
   },
   {
     id: 12,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "12번 게시물",
     content: "이번 달 말 사내 체육대회가 있습니다. 많은 참여 부탁드립니다!",
     writer: "이벤트팀",
@@ -123,7 +123,7 @@ export const mockBoardPosts = [
   },
   {
     id: 13,
-    imgUrl: "https://randomuser.me/api/portraits/men/12.jpg",
+    image: "https://randomuser.me/api/portraits/men/12.jpg",
     title: "13번 게시물",
     content: "이번 달 말 사내 체육대회가 있습니다. 많은 참여 부탁드립니다!",
     writer: "이벤트팀",

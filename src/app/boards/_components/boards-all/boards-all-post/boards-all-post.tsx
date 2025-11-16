@@ -1,41 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import cn from "@/utils/clsx";
 import Link from "next/link";
 import { PostCard, Icon, Button } from "@/components/index";
 import { Article } from "@/types/article";
+import { useState } from "react";
 
-const PER_PAGE_COUNT = 6;
 const PAGE_COUNT = 5;
 
 interface BoardAllArticlesProps {
   articles: Article[];
   currentPage: number;
   onPageChange: (page: number) => void;
+  totalCount?: number; // 전체 게시글 수
 }
 
 const BoardAllPost = ({
   articles,
   currentPage,
   onPageChange,
+  totalCount = 0,
 }: BoardAllArticlesProps) => {
   const [startPage, setStartPage] = useState(1);
 
-  const totalPage = Math.ceil(articles.length / PER_PAGE_COUNT);
+  const PER_PAGE_COUNT = 6;
+  const totalPage = Math.ceil(totalCount / PER_PAGE_COUNT);
   const lastPage = Math.min(startPage + PAGE_COUNT - 1, totalPage);
-  const startIdx = (currentPage - 1) * PER_PAGE_COUNT;
-  const currentPosts = articles.slice(startIdx, startIdx + PER_PAGE_COUNT);
-
-  useEffect(() => {
-    const newStartPage = Math.max(
-      1,
-      Math.floor((currentPage - 1) / PAGE_COUNT) * PAGE_COUNT + 1
-    );
-    setStartPage(newStartPage);
-  }, [currentPage]);
 
   const handlePageClick = (page: number) => {
+    const newStartPage = Math.max(
+      1,
+      Math.floor((page - 1) / PAGE_COUNT) * PAGE_COUNT + 1
+    );
+    setStartPage(newStartPage);
     onPageChange(page);
   };
 
@@ -66,9 +63,9 @@ const BoardAllPost = ({
           "pc:max-w-[1074px] pc:grid-cols-2"
         )}
       >
-        {currentPosts.map((article) => (
+        {articles.map((article) => (
           <Link key={article.id} href={`/boards/${article.id}`}>
-            <PostCard {...article} isBest={false} />
+            <PostCard {...article} image={article.image} isBest={false} />
           </Link>
         ))}
       </div>

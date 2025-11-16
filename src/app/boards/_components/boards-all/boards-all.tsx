@@ -28,6 +28,7 @@ const BoardsAll = ({ keyword }: { keyword: string }) => {
         articles={allArticles?.list || []}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
+        totalCount={allArticles?.totalCount || 0}
       />
     </div>
   );
