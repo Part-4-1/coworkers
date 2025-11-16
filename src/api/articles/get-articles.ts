@@ -7,7 +7,7 @@ interface GetArticle {
   keyword?: string;
 }
 
-export const getArticles = async (params?: GetArticle) => {
+const getArticles = async (params?: GetArticle) => {
   try {
     const response = await instance.get("/articles", { params });
 
@@ -18,3 +18,5 @@ export const getArticles = async (params?: GetArticle) => {
     console.error(error);
   }
 };
+
+export default getArticles;

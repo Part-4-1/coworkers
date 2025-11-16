@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getArticles } from "@/api/articles/get-articles";
+import getArticles from "@/api/articles/get-articles";
 
 export const useGetArticles = (
   page: number = 1,

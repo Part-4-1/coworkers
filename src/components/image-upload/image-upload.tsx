@@ -8,13 +8,15 @@ import cn from "@/utils/clsx";
 
 interface ImageUploadProps {
   maxCount?: number;
+  onImagesChange?: (images: string[]) => void;
 }
 
-const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
+const ImageUpload = ({ maxCount = 5, onImagesChange }: ImageUploadProps) => {
   const [isDragActive, setIsDragActive] = useState(false);
   const { previews, error, isLoading, handleFile, removeImage } =
     useImageUpload({
       maxCount,
+      onImagesChange,
     });
   const checkingSlots = maxCount - previews.length;
 
@@ -30,13 +32,11 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
     setIsDragActive(false);
 
     const files = Array.from(e.dataTransfer.files);
-
     files.slice(0, checkingSlots).forEach(handleFile);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.currentTarget.files || []);
-
     files.slice(0, checkingSlots).forEach(handleFile);
   };
 

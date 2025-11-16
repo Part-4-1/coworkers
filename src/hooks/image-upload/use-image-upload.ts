@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import postImage from "../../api/image/post-image";
 
@@ -12,16 +12,22 @@ interface ImagePreview {
 interface UseImageUploadOptions {
   onError?: (error: string) => void;
   maxCount?: number;
+  onImagesChange?: (images: string[]) => void;
 }
 
 export const useImageUpload = ({
   onError,
   maxCount = 5,
+  onImagesChange,
 }: UseImageUploadOptions = {}) => {
   const [previews, setPreviews] = useState<ImagePreview[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const MAX_SIZE = 10 * 1024 * 1024;
+
+  useEffect(() => {
+    onImagesChange?.(previews.map((p) => p.url));
+  }, [previews, onImagesChange]);
 
   const validateFile = (file: File): boolean => {
     if (previews.length >= maxCount) {
