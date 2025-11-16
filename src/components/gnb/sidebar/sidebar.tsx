@@ -124,7 +124,7 @@ const Sidebar = () => {
                   iconName="board"
                   isSidebarOpen={isSidebarOpen}
                   title="자유게시판"
-                  href={"/article"}
+                  href={"/boards"}
                 />
               </div>
             </div>
