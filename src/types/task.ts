@@ -1,4 +1,4 @@
-import type { User } from "./user";
+import type { User, Writer } from "./user";
 
 export type FrequencyType = "DAILY" | "WEEKLY" | "MONTHLY" | "ONCE";
 
@@ -10,19 +10,21 @@ export const Frequency_Map = {
 };
 
 interface DoneBy {
-  user: User | null;
+  user: Writer | null;
 }
 
 export interface Task {
   id: number;
   name: string;
-  description?: string;
+  description: string | null;
   date: string;
   doneAt: string | null;
-  updatedAt?: string;
-  recurringId?: number | null;
-  writer?: User;
-  doneBy?: DoneBy | null;
+  updatedAt: string;
+  recurringId: number;
+  writer: Writer;
+  doneBy: DoneBy;
   commentCount: number;
   frequency: FrequencyType;
+  displayIndex: number | null;
+  deletedAt: string | null;
 }

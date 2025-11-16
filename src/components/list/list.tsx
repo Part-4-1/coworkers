@@ -1,10 +1,16 @@
 import React from "react";
 import { Button, Checkbox, Dropdown, Icon } from "@/components/index";
-import { Frequency_Map, type Task } from "@/types/task";
 import cn from "@/utils/clsx";
 import { toKoreanDateString } from "@/utils/date-util";
+import { changeFrequencyCode } from "@/utils/util";
 
-interface ListProps extends Task {
+interface ListProps {
+  id: number;
+  date: string;
+  name: string;
+  doneAt: string | null;
+  commentCount: number;
+  frequency: string;
   className?: string;
 }
 
@@ -17,7 +23,7 @@ const List = ({
   frequency,
   className,
 }: ListProps) => {
-  const repeatPeriod = Frequency_Map[frequency] || null;
+  const repeatPeriod = changeFrequencyCode(frequency);
 
   return (
     <div
@@ -29,7 +35,7 @@ const List = ({
       <div className="flex justify-between">
         <div className="gap-3 flex-center">
           <Checkbox id={id} isDone={doneAt} taskName={name} />
-          {!!commentCount && (
+          {commentCount && (
             <Button
               variant="none"
               className="flex items-center gap-[2px]"
