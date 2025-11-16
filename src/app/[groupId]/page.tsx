@@ -11,7 +11,7 @@ import TeamNoGroup from "./_components/team-no-group/team-no-group";
 const TeamPage = () => {
   const currentGroup = mockGroupData[0]; // TODO: 동적으로 수정
   const isAdmin = true; // TODO: 동적으로 수정
-  const isNoGroup = true; // TODO: 동적으로 수정
+  const isNoGroup = false; // TODO: 동적으로 수정
   const isPc = useMediaQuery("(min-width: 1280px)");
   const tasksTodo = currentGroup.taskLists.reduce(
     (sum, list) => sum + list.tasks.length,
