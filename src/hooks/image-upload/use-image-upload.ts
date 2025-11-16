@@ -13,14 +13,18 @@ interface UseImageUploadOptions {
   onError?: (error: string) => void;
   maxCount?: number;
   onImagesChange?: (images: string[]) => void;
+  initialImages?: string[];
 }
 
 export const useImageUpload = ({
   onError,
   maxCount = 5,
   onImagesChange,
+  initialImages = [],
 }: UseImageUploadOptions = {}) => {
-  const [previews, setPreviews] = useState<ImagePreview[]>([]);
+  const [previews, setPreviews] = useState<ImagePreview[]>(
+    initialImages.map((url) => ({ id: crypto.randomUUID(), url }))
+  );
   const [error, setError] = useState<string | null>(null);
 
   const MAX_SIZE = 10 * 1024 * 1024;

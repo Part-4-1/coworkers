@@ -17,6 +17,8 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
   const createdAt = toKoreanDateString(article.createdAt);
   const { mutate: deleteArticleMutate, isPending } = useDeleteArticle();
 
+  console.log("article.id:", article.id);
+  console.log("article:", article);
   const handleDelete = () => {
     if (confirm("정말 삭제하시겠습니까?")) {
       deleteArticleMutate(article.id, {
@@ -42,7 +44,10 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
             </Button>
           }
           items={[
-            { label: "수정하기", onClick: () => {} },
+            {
+              label: "수정하기",
+              onClick: () => router.push(`/boards/${article.id}/edit`),
+            },
             { label: "삭제하기", onClick: handleDelete },
           ]}
         />
