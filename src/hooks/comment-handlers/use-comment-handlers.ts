@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { Comment } from "@/types/index";
+import useDeleteArticleComment from "@/hooks/api/articles/use-delete-article-comment";
 
 export const useCommentHandlers = (comment: Comment) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
 
-  {
-    /* TODO(준열) : 향후, api 호출, api 훅 작성하여 연결 예정*/
-  }
+  const { mutate: deleteComment } = useDeleteArticleComment();
+
   const handleEdit = () => {
     setIsEditing(true);
   };
@@ -20,7 +20,7 @@ export const useCommentHandlers = (comment: Comment) => {
   };
 
   const handleDelete = () => {
-    console.log("삭제될 댓글 ID:", comment.id);
+    deleteComment(comment.id);
   };
 
   const handleCancel = () => {
