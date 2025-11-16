@@ -5,7 +5,7 @@
 
 export interface Member {
   role: string;
-  userImage: string;
+  userImage: string | null;
   userEmail: string;
   userName: string;
   groupId: number;

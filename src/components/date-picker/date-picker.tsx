@@ -1,21 +1,32 @@
 import cn from "@/utils/clsx";
+import { ChangeEvent } from "react";
 
 export interface DatePickerProps {
   day: string;
   date: number;
+  checkedDay: string;
+  handleChangeDay: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const DatePicker = ({ day, date }: DatePickerProps) => {
+const DatePicker = ({
+  day,
+  date,
+  checkedDay,
+  handleChangeDay,
+}: DatePickerProps) => {
   return (
     <div className="w-full">
       <input
-        id={day.toString()}
+        id={date.toString()}
         type="radio"
         className="peer hidden"
         name="date-picker"
+        value={date.toString()}
+        checked={date.toString() === checkedDay}
+        onChange={handleChangeDay}
       />
       <label
-        htmlFor={day.toString()}
+        htmlFor={date.toString()}
         className={cn(
           "cursor-pointer gap-[2px] rounded-lg border border-gray-300 py-2 flex-col-center",
           "peer-checked:border-blue-700 peer-checked:bg-blue-700",
