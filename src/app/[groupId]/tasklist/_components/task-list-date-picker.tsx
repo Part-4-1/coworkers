@@ -12,18 +12,13 @@ import {
   getPrevSunday,
   getWeek,
 } from "@/utils/date-util";
-import dynamic from "next/dynamic";
+import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-list";
 
 interface TaskListDatePickerProps {
   name: string;
   selectedDate: Date | null;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
-
-const DynamicDatePickerList = dynamic(
-  () => import("@/app/[groupId]/tasklist/_components/date-picker-list"),
-  { ssr: false, loading: () => <div>date picker loading ...</div> }
-);
 
 const TaskListDatePicker = ({
   name,
@@ -113,7 +108,7 @@ const TaskListDatePicker = ({
         )}
       </div>
 
-      <DynamicDatePickerList
+      <DatePickerList
         dateList={week}
         checkedDay={day}
         handleChangeDay={handleChangeDay}
