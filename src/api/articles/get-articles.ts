@@ -8,6 +8,13 @@ interface GetArticle {
 }
 
 export const getArticles = async (params?: GetArticle) => {
-  const response = await instance.get("/articles", { params });
-  return response.data;
+  try {
+    const response = await instance.get("/articles", { params });
+
+    if (!response) throw new Error("데이터를 불러오지 못했습니다.");
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };

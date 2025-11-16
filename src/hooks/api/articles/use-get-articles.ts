@@ -16,5 +16,6 @@ export const useGetArticles = (
         orderBy,
         keyword,
       }),
+    placeholderData: (previousData) => previousData,
   });
 };
