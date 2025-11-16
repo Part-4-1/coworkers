@@ -1,4 +1,3 @@
-import Icon from "@/components/icon/Icon";
 import ProfileList from "@/components/profile-list/profile-list";
 import useMediaQuery from "@/hooks/use-media-query";
 import { Member } from "@/types/members";
@@ -8,15 +7,15 @@ import { MouseEventHandler } from "react";
 interface TeamBannerAdminHeaderProps {
   groupName: string;
   members: Member[];
-  onSettingClick: MouseEventHandler;
   onMemberListClick: MouseEventHandler;
+  showProfileListonPc?: boolean;
 }
 
 const TeamBannerAdminHeader = ({
   groupName,
   members,
-  onSettingClick,
   onMemberListClick,
+  showProfileListonPc = true,
 }: TeamBannerAdminHeaderProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
   const isTablet = useMediaQuery("(min-width: 744px) and (max-width: 1280px)");
@@ -35,25 +34,19 @@ const TeamBannerAdminHeader = ({
       >
         <div className="truncate">{groupName}</div>
         {isPc ? (
-          ""
+          showProfileListonPc && (
+            <ProfileList
+              members={members}
+              className="max-w-[75px] shrink-0 tablet:max-w-[87px]"
+            />
+          )
         ) : (
           <ProfileList
             members={members}
-            className="w-[75px] shrink-0 tablet:w-[87px]"
+            className="max-w-[75px] shrink-0 tablet:max-w-[87px]"
           />
         )}
       </div>
-
-      {isPc ? (
-        ""
-      ) : (
-        <div onClick={onSettingClick} className="flex-center">
-          <Icon
-            icon="setting"
-            className="h-[20px] w-[20px] cursor-pointer tablet:h-[24px] tablet:w-[24px]"
-          />
-        </div>
-      )}
     </div>
   );
 };
