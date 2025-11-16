@@ -1,38 +1,86 @@
-"use client";
-
-import { Button, Icon } from "@/components";
-import { ChangeEvent } from "react";
-import DatePickerList from "./date-picker-list";
+import { Button, Calendar, Icon } from "@/components";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import {
+  getCurrentSunday,
+  getNextSunday,
+  getPrevSunday,
+  getWeek,
+} from "@/utils/date-util";
+import dynamic from "next/dynamic";
 
 interface TaskListDatePickerProps {
   name: string;
-  currentSunday: Date | null;
-  week: number[] | null;
-  day: string;
-  handleChangeDay: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleClickNextWeek: () => void;
-  handleClickPrevWeek: () => void;
+  selectedDate: Date | null;
+  setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
+
+const DynamicDatePickerList = dynamic(
+  () => import("@/app/[groupId]/tasklist/_components/date-picker-list"),
+  { ssr: false, loading: () => <div>date picker loading ...</div> }
+);
 
 const TaskListDatePicker = ({
   name,
-  currentSunday,
-  week,
-  day,
-  handleChangeDay,
-  handleClickNextWeek,
-  handleClickPrevWeek,
+  selectedDate,
+  setSelectedDate,
 }: TaskListDatePickerProps) => {
+  const [currentSunday, setCurrentSunday] = useState<Date | null>(null);
+  const [week, setWeek] = useState<number[] | null>(null);
+  const [day, setDay] = useState<string>("");
+  const [showCalendar, setShowCalendar] = useState(false);
+
+  const initDate = (date: Date) => {
+    const sunday = getCurrentSunday(date);
+    setDay(date.getDate().toString());
+    setCurrentSunday(sunday);
+    setWeek(getWeek(sunday));
+    setSelectedDate(date);
+  };
+
+  const handleChangeDay = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!currentSunday) return;
+    setDay(e.target.value);
+    const newDate = new Date(currentSunday);
+    newDate.setDate(Number(e.target.value));
+    setSelectedDate(newDate);
+  };
+
+  const handleClickNextWeek = () => {
+    if (!currentSunday) return;
+    setCurrentSunday(getNextSunday(currentSunday));
+  };
+
+  const handleClickPrevWeek = () => {
+    if (!currentSunday) return;
+    setCurrentSunday(getPrevSunday(currentSunday));
+  };
+
+  useEffect(() => {
+    initDate(new Date());
+  }, []);
+
+  useEffect(() => {
+    if (!currentSunday) return;
+    setWeek(getWeek(currentSunday));
+  }, [currentSunday]);
+
   return (
     <div className="flex w-full flex-col gap-6 px-4 pt-[38px]">
-      <div className="flex items-center justify-between">
+      <div className="relative flex items-center justify-between">
         <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
           {name}
         </span>
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
-            {currentSunday &&
-              `${currentSunday.getFullYear()}년 ${currentSunday.getMonth() + 1}월`}
+            {selectedDate
+              ? `${selectedDate.getFullYear()}년 ${selectedDate.getMonth() + 1}월`
+              : "date loading..."}
           </p>
           <div className="flex items-center gap-1">
             <Button
@@ -50,12 +98,22 @@ const TaskListDatePicker = ({
               <Icon icon="rightArrow" className="h-3 w-3 text-gray-800" />
             </Button>
           </div>
-          <Button variant="none" className="h-6 w-6 rounded-full bg-gray-50">
+          <Button
+            variant="none"
+            className="h-6 w-6 rounded-full bg-gray-50"
+            onClick={() => setShowCalendar((prevState) => !prevState)}
+          >
             <Icon icon="calendar" className="h-3 w-3 text-gray-800" />
           </Button>
         </div>
+        {showCalendar && (
+          <div className="absolute right-px top-8 bg-white">
+            <Calendar onDayClick={(value) => initDate(value)} />
+          </div>
+        )}
       </div>
-      <DatePickerList
+
+      <DynamicDatePickerList
         dateList={week}
         checkedDay={day}
         handleChangeDay={handleChangeDay}

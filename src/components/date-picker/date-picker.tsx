@@ -22,7 +22,7 @@ const DatePicker = ({
         className="peer hidden"
         name="date-picker"
         value={date.toString()}
-        defaultChecked={date.toString() === checkedDay}
+        checked={date.toString() === checkedDay}
         onChange={handleChangeDay}
       />
       <label

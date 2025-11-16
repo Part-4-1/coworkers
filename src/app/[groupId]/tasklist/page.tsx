@@ -2,49 +2,19 @@
 
 import groupData from "@/mocks/group.json";
 import TaskListContainer from "./_components/task-list-container";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TaskListDatePicker from "./_components/task-list-date-picker";
-import {
-  getCurrentSunday,
-  getNextSunday,
-  getPrevSunday,
-  getWeek,
-} from "@/utils/date-util";
-
 const Page = () => {
   const [taskListId, setTaskListId] = useState<number>();
-  const [currentSunday, setCurrentSunday] = useState<Date | null>(null);
-  const [week, setWeek] = useState<number[] | null>(null);
-  const [day, setDay] = useState<string>("");
-
-  const handleChangeDay = (e: ChangeEvent<HTMLInputElement>) => {
-    setDay(e.target.value);
-  };
-
-  const handleClickNextWeek = () => {
-    if (!currentSunday) return;
-    setCurrentSunday(getNextSunday(currentSunday));
-  };
-
-  const handleClickPrevWeek = () => {
-    if (!currentSunday) return;
-    setCurrentSunday(getPrevSunday(currentSunday));
-  };
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
-    const date = new Date();
-    const sunday = getCurrentSunday();
-    setDay(date.getDate().toString());
-    setCurrentSunday(sunday);
-    setWeek(getWeek(sunday));
+    setSelectedDate(new Date());
   }, []);
 
   useEffect(() => {
-    if (!currentSunday) return;
-    console.log(currentSunday);
-
-    setWeek(getWeek(currentSunday));
-  }, [currentSunday]);
+    console.log(selectedDate);
+  }, [selectedDate]);
 
   return (
     <div className="flex w-full max-w-[1120px] flex-col tablet:px-[26px]">
@@ -57,14 +27,7 @@ const Page = () => {
       <div className="bg-white">
         <TaskListDatePicker
           name="진행 중인 일"
-          {...{
-            currentSunday,
-            week,
-            day,
-            handleChangeDay,
-            handleClickNextWeek,
-            handleClickPrevWeek,
-          }}
+          {...{ selectedDate, setSelectedDate }}
         />
       </div>
     </div>

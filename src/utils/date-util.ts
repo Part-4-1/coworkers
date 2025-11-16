@@ -43,8 +43,7 @@ export const toKoreanDateWithTimeString = (timestamp: string) => {
  * @description 이번 주 일요일 날짜를 반환한다.
  * @returns Date
  */
-export const getCurrentSunday = () => {
-  const date = new Date();
+export const getCurrentSunday = (date: Date) => {
   const currentSunday = new Date();
   currentSunday.setDate(date.getDate() - date.getDay());
   currentSunday.setHours(0, 0, 0, 0);
