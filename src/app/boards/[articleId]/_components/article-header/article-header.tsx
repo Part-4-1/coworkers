@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Button, Icon, Dropdown } from "@/components/index";
 import { Article } from "@/types/article";
 import { toKoreanDateString } from "@/utils/date-util";
@@ -29,13 +28,6 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
         />
       </div>
       <div className="flex items-center gap-2 border-b pb-3">
-        <Image
-          src={article.writer.image || ""}
-          alt={article.writer.nickname}
-          width={24}
-          height={24}
-          className="rounded-md"
-        />
         <div className="flex items-center gap-2">
           <span className="text-xs font-medium text-blue-700 tablet:text-md">
             {article.writer.nickname}

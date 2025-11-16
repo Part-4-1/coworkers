@@ -18,20 +18,22 @@ const ArticleComments = ({ article, comments }: ArticleCommentsProps) => {
         <span className="text-blue-200">{article.commentCount}</span>
       </h3>
       <div className="mb-[28px] flex items-center gap-4 tablet:mb-[36px]">
-        <Image
-          src={article.image || ""}
-          alt={`${article.image} 게시글 이미지`}
-          width={24}
-          height={24}
-          className="tablet:h-[32px] tablet:w-[32px]"
-        />
+        {article.writer.image && (
+          <Image
+            src={article.writer.image}
+            alt="프로필"
+            width={24}
+            height={24}
+            className="rounded-md tablet:h-[32px] tablet:w-[32px]"
+          />
+        )}
         <InputReply onSubmit={() => {}} />
       </div>
       <div className="flex flex-col gap-4">
         {comments.map((comment) => (
           <div key={comment.id}>
             <hr className="border-gray-300 pb-5" />
-            <Reply key={comment.id} comment={comment} />
+            <Reply comment={comment} />
           </div>
         ))}
       </div>

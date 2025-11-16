@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import cn from "@/utils/clsx";
+import Link from "next/link";
 import { PostCard, Icon, Button } from "@/components/index";
 import { Article } from "@/types/article";
 
@@ -65,8 +66,10 @@ const BoardAllPost = ({
           "pc:max-w-[1074px] pc:grid-cols-2"
         )}
       >
-        {currentPosts.map((post) => (
-          <PostCard key={post.id} {...post} isBest={false} />
+        {currentPosts.map((article) => (
+          <Link key={article.id} href={`/boards/${article.id}`}>
+            <PostCard {...article} isBest={false} />
+          </Link>
         ))}
       </div>
 
