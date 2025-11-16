@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Article } from "@/types/article";
 import { Comment } from "@/types/comment";
 import { InputReply, Reply } from "@/components/index";
+import { usePostArticleComment } from "@/hooks/api/articles/use-post-article-comment";
 
 interface ArticleCommentsProps {
   article: Article;
@@ -11,6 +12,17 @@ interface ArticleCommentsProps {
 }
 
 const ArticleComments = ({ article, comments }: ArticleCommentsProps) => {
+  const { mutate, isPending } = usePostArticleComment();
+
+  const handleCommentSubmit = (content: string) => {
+    mutate({
+      articleId: article.id,
+      data: {
+        content,
+      },
+    });
+  };
+
   return (
     <div>
       <h3 className="mb-3 mt-4 flex gap-1 text-2lg font-bold tablet:mb-4 tablet:mt-[28px] pc:mt-[40px]">
@@ -27,7 +39,7 @@ const ArticleComments = ({ article, comments }: ArticleCommentsProps) => {
             className="rounded-md tablet:h-[32px] tablet:w-[32px]"
           />
         )}
-        <InputReply onSubmit={() => {}} />
+        <InputReply onSubmit={handleCommentSubmit} disabled={isPending} />
       </div>
       <div className="flex flex-col gap-4">
         {comments.map((comment) => (
