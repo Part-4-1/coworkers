@@ -78,8 +78,8 @@ const TaskListDatePicker = ({
         </span>
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
-            {selectedDate
-              ? `${selectedDate.getFullYear()}년 ${selectedDate.getMonth() + 1}월`
+            {currentSunday
+              ? `${currentSunday.getFullYear()}년 ${currentSunday.getMonth() + 1}월`
               : "date loading..."}
           </p>
           <div className="flex items-center gap-1">
