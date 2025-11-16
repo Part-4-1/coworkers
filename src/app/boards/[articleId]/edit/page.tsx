@@ -7,7 +7,7 @@ import ArticleEditContents from "./_components/article-edit-contents/article-edi
 
 export default function EditPage() {
   const params = useParams();
-  const articleId = params.articleId as string;
+  const articleId = params.articleId;
 
   const { data, isPending } = useGetArticleDetail(Number(articleId));
 

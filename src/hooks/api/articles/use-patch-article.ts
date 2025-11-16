@@ -6,13 +6,8 @@ const usePatchArticle = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({
-      articleId,
-      data,
-    }: {
-      articleId: string | number;
-      data: any;
-    }) => patchArticle(Number(articleId), data),
+    mutationFn: ({ articleId, data }: { articleId: number; data: any }) =>
+      patchArticle(articleId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["articles"] });
       queryClient.invalidateQueries({ queryKey: ["articleDetail"] });

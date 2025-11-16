@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 
 export default function Page() {
   const params = useParams();
-  const articleId = params.articleId as string;
+  const articleId = params.articleId;
 
   const { data, isPending } = useGetArticleDetail(Number(articleId));
 
