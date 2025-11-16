@@ -1,15 +1,35 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Button, Icon, Dropdown } from "@/components/index";
 import { Article } from "@/types/article";
 import { toKoreanDateString } from "@/utils/date-util";
+import { useDeleteArticle } from "@/hooks/api/articles/use-delete-article";
+import useToast from "@/hooks/use-toast";
 
 interface ArticleHeaderProps {
   article: Article;
 }
 
 const ArticleHeader = ({ article }: ArticleHeaderProps) => {
+  const router = useRouter();
+  const Toast = useToast();
   const createdAt = toKoreanDateString(article.createdAt);
+  const { mutate: deleteArticleMutate, isPending } = useDeleteArticle();
+
+  const handleDelete = () => {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      deleteArticleMutate(article.id, {
+        onSuccess: () => {
+          Toast.success("게시글 삭제에 성공했습니다.");
+          router.push("/boards");
+        },
+        onError: () => {
+          Toast.error("게시글 삭제에 실패했습니다.");
+        },
+      });
+    }
+  };
 
   return (
     <div className="flex w-full flex-col gap-4 pb-[16px] tablet:pb-[28px]">
@@ -23,7 +43,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
           }
           items={[
             { label: "수정하기", onClick: () => {} },
-            { label: "삭제하기", onClick: () => {} },
+            { label: "삭제하기", onClick: handleDelete },
           ]}
         />
       </div>
