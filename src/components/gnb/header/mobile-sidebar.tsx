@@ -69,7 +69,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
               <SidebarMenu
                 iconName="board"
                 title="자유게시판"
-                href={"/article"}
+                href={"/boards"}
                 className="h-[44px]"
                 fontStyle="h-[17px]"
               />
