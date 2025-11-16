@@ -3,19 +3,21 @@
 import { useState } from "react";
 import { Comment } from "@/types/index";
 import useDeleteArticleComment from "@/hooks/api/articles/use-delete-article-comment";
+import usePatchArticleComment from "@/hooks/api/articles/use-patch-article-comment";
 
 export const useCommentHandlers = (comment: Comment) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
 
   const { mutate: deleteComment } = useDeleteArticleComment();
+  const { mutate: patchComment } = usePatchArticleComment();
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
   const handleSave = () => {
-    console.log("저장될 내용:", editedContent);
+    patchComment({ commentId: comment.id, content: editedContent });
     setIsEditing(false);
   };
 
