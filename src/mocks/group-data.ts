@@ -91,6 +91,15 @@ export const mockGroupData = [
         id: 102,
         tasks: ["로그인 페이지 구현", "프로필 수정 기능 추가"],
       },
+      {
+        displayIndex: 2,
+        groupId: 11,
+        updatedAt: "2025-11-07T08:10:11.000Z",
+        createdAt: "2025-10-31T10:40:00.000Z",
+        name: "완료",
+        id: 103,
+        tasks: ["로그인 페이지 구현", "프로필 수정 기능 추가"],
+      },
     ],
   },
   {
