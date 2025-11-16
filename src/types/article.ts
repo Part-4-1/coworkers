@@ -6,7 +6,7 @@
 export interface Writer {
   nickname: string;
   id: number;
-  image: string | null;
+  image?: string | null;
 }
 
 export interface Article {

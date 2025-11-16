@@ -2,14 +2,15 @@ import cn from "@/utils/clsx";
 import Image from "next/image";
 import Icon from "../icon/Icon";
 import { toDotDateString } from "@/utils/date-util";
+import { Writer } from "@/types/article";
 
 interface PostCardProps {
   imgUrl?: string;
   title: string;
   content: string;
-  writer: string;
+  writer: Writer;
   createdAt: string;
-  likes: number;
+  likeCount: number;
   isLiked: boolean;
   isBest?: boolean;
   className?: string;
@@ -21,7 +22,7 @@ const PostCard = ({
   content,
   writer,
   createdAt,
-  likes,
+  likeCount,
   isLiked,
   isBest = false,
   className,
@@ -84,7 +85,7 @@ const PostCard = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className={cn("text-sm font-medium", isBest && "pc:text-md")}>
-              {writer}
+              {writer.nickname}
             </span>
             <span className="text-sm">|</span>
             <time
@@ -103,7 +104,7 @@ const PostCard = ({
               className="h-4 w-4 text-gray-700"
             />
             <span className="text-sm font-medium text-gray-700">
-              {likes > 1000 ? "999+" : likes}
+              {likeCount > 1000 ? "999+" : likeCount}
             </span>
           </div>
         </div>

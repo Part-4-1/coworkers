@@ -4,9 +4,13 @@ import cn from "@/utils/clsx";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PostCard, Button, Icon } from "@/components/index";
-import { mockBoardPosts } from "@/mocks/board-post";
+import { Article } from "@/types/article";
 
-const BoardBestPost = () => {
+interface BoardBestArticlesProps {
+  articles: Article[];
+}
+
+const BoardBestPost = ({ articles }: BoardBestArticlesProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsToShow, setCardsToShow] = useState<number | null>(null);
   const [maxItems, setMaxItems] = useState<number | null>(null);
@@ -37,7 +41,7 @@ const BoardBestPost = () => {
 
   if (cardsToShow === null || maxItems === null) return null;
 
-  const postsToUse = mockBoardPosts.slice(0, maxItems);
+  const postsToUse = articles.slice(0, maxItems);
   const totalSlides = Math.ceil(postsToUse.length / cardsToShow);
 
   const handlePrev = () => {
