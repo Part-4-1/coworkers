@@ -299,7 +299,7 @@ const Page = () => {
           isDone={"2025-11-07T00:00:00Z"}
         />
       </div>
-      <div className="w-[500px]">
+      {/* <div className="w-[500px]">
         <TaskCard taskTitle="법인 설립" total={5} completed={4} />
         <TaskCard
           taskTitle="법인 설립"
@@ -316,7 +316,7 @@ const Page = () => {
             },
           ]}
         />
-      </div>
+      </div> */}
       <div className="w-[340px]">
         <PostCard
           imgUrl="https://randomuser.me/api/portraits/men/12.jpg"
