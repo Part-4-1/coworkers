@@ -14,15 +14,16 @@ const TaskListItem = ({ taskItems }: { taskItems: Task[] }) => {
 
   return (
     <ul className="flex flex-col gap-3 overflow-auto">
-      {taskItems.map((task) => {
-        return (
-          <li key={task.id}>
-            <Link href={`${pathname}?task=${task.id}`}>
-              <List {...task} onClickCheckbox={handleClickCheckbox} />
-            </Link>
-          </li>
-        );
-      })}
+      {taskItems &&
+        taskItems.map((task) => {
+          return (
+            <li key={task.id}>
+              <Link href={`${pathname}?task=${task.id}`}>
+                <List {...task} onClickCheckbox={handleClickCheckbox} />
+              </Link>
+            </li>
+          );
+        })}
     </ul>
   );
 };

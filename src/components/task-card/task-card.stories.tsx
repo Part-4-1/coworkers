@@ -21,6 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    taskListId: 3290,
     taskTitle: "법인 설립",
     total: 5,
     completed: 2,
@@ -29,6 +30,7 @@ export const Default: Story = {
 
 export const HasTaskList: Story = {
   args: {
+    taskListId: 3290,
     taskTitle: "법인 설립",
     total: 5,
     completed: 2,
