@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { Button, Checkbox, Dropdown, Icon } from "@/components/index";
 import cn from "@/utils/clsx";
 import { toKoreanDateString } from "@/utils/date-util";
@@ -12,6 +12,7 @@ interface ListProps {
   commentCount: number;
   frequency: string;
   className?: string;
+  onClickCheckbox: MouseEventHandler<HTMLInputElement>;
 }
 
 const List = ({
@@ -22,6 +23,7 @@ const List = ({
   commentCount,
   frequency,
   className,
+  onClickCheckbox,
 }: ListProps) => {
   const repeatPeriod = changeFrequencyCode(frequency);
 
@@ -34,8 +36,13 @@ const List = ({
     >
       <div className="flex justify-between">
         <div className="gap-3 flex-center">
-          <Checkbox id={id} isDone={doneAt} taskName={name} />
-          {commentCount && (
+          <Checkbox
+            id={id}
+            isDone={doneAt}
+            taskName={name}
+            onClickCheckbox={onClickCheckbox}
+          />
+          {!!commentCount && (
             <Button
               variant="none"
               className="flex items-center gap-[2px]"

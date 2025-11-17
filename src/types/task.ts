@@ -24,7 +24,7 @@ export interface Task {
   writer: Writer;
   doneBy: DoneBy;
   commentCount: number;
-  frequency: FrequencyType;
+  frequency: string;
   displayIndex: number | null;
   deletedAt: string | null;
 }
