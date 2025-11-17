@@ -27,7 +27,7 @@ const PasswordResetModal = () => {
     if (isValid === false) {
       return;
     }
-    const redirectUrl = `${window.location.origin}/passwordReset`;
+    const redirectUrl = `${window.location.origin}`;
     mutate({ email, redirectUrl });
   };
 

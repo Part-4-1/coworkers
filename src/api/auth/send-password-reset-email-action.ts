@@ -1,6 +1,6 @@
 "use server";
 
-export interface passwordReset {
+export interface sendResetPassword {
   email: string;
   redirectUrl: string;
 }
@@ -8,8 +8,7 @@ export interface passwordReset {
 export const sendPasswordResetEmailAction = async ({
   email,
   redirectUrl,
-}: passwordReset) => {
-  console.log(email, redirectUrl);
+}: sendResetPassword) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/user/send-reset-password-email`,

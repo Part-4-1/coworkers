@@ -5,26 +5,50 @@ import SingUpInFormWrapper from "../_components/form_wrapper";
 import { Button, Icon, TextInput } from "@/components";
 import { useForm } from "react-hook-form";
 import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX } from "@/constants/regex";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useResetPassword } from "@/hooks/api/user/use-reset-password";
+import { resetPasswordTypes } from "@/api/auth/reset-password";
 
-interface passwordRestType {
-  passwordConfirmation: string;
-  password: string;
-  token: string;
-}
+import useToast from "@/hooks/use-toast";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const resetPasswordToken = searchParams.get("token");
+
+  const { mutate, isPending } = useResetPassword();
+  const { error: ToastError } = useToast();
+
   const {
     register,
     formState: { errors, isValid },
     getValues,
-  } = useForm<passwordRestType>({ mode: "all" });
+    handleSubmit,
+  } = useForm<resetPasswordTypes>({ mode: "all" });
+
+  const onSubmit = (formData: resetPasswordTypes) => {
+    if (!resetPasswordToken) {
+      ToastError("유효하지 않은 링크입니다. 이메일을 다시 확인해보세요");
+      router.push("/");
+      return;
+    }
+    mutate({
+      passwordConfirmation: formData.passwordConfirmation,
+      password: formData.password,
+      token: resetPasswordToken,
+    });
+  };
 
   return (
     <SingUpInFormWrapper>
       <div className="gap-16 flex-col-center">
         <h1 className="text-2xl font-bold text-blue-700">비밀번호 재설정</h1>
-        <form className="flex w-full flex-col gap-6" aria-label="Login Form">
+        <form
+          className="flex w-full flex-col gap-6"
+          aria-label="reset password form"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="flex flex-col gap-3">
             <label htmlFor="password">새 비밀번호</label>
             <TextInput
@@ -99,7 +123,7 @@ const Page = () => {
             disabled={!isValid}
             aria-label="password-reset"
           >
-            재설정
+            {isPending ? "전송 중..." : "재설정"}
           </Button>
         </form>
       </div>
