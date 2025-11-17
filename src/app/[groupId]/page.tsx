@@ -61,7 +61,7 @@ const TeamPage = () => {
           <section className="pc:mx-auto pc:w-full pc:max-w-[1120px]">
             <TeamBody taskLists={currentTasksGroup.taskLists} />
           </section>
-          <section className="mt-[48px] px-[16px] tablet:px-[0px] pc:mx-auto pc:w-full pc:max-w-[1120px]">
+          <section className="mb-[290px] mt-[48px] px-[16px] tablet:mb-[230px] tablet:px-[0px] pc:mx-auto pc:mb-[67px] pc:w-full pc:max-w-[1120px]">
             <TeamMembersSection members={currentGroup.members} />
           </section>
         </main>
