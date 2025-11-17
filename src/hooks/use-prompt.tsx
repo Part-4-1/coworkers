@@ -24,38 +24,33 @@ const usePrompt = (contents: ReactNode, showCloseBtn = false) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const lockingScroll = useCallback((currentScrollY: number) => {
-    document.body.style.position = "fixed";
-    document.body.style.width = "100%";
-    document.body.style.top = `-${currentScrollY}px`;
-    document.body.style.overflowY = "scroll";
+  const lockingScroll = useCallback(() => {
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
   }, []);
 
-  const allowScroll = useCallback((currentScrollY: number) => {
-    document.body.style.position = "";
-    document.body.style.width = "";
-    document.body.style.top = "";
-    document.body.style.overflowY = "";
-    window.scrollTo(0, currentScrollY);
+  const allowScroll = useCallback(() => {
+    document.documentElement.style.overflow = "unset";
+    document.body.style.paddingRight = "0px";
   }, []);
 
   const openPrompt = useCallback(() => setIsOpen(true), []);
   const closePrompt = useCallback(() => setIsOpen(false), []);
 
   useEffect(() => {
-    const currentScrollY = window.scrollY;
-
     if (!dialogRef.current) return;
 
     if (isOpen && !dialogRef.current.open) {
-      lockingScroll(currentScrollY);
+      lockingScroll();
       dialogRef.current.showModal();
     } else {
       dialogRef.current.close();
     }
 
     return () => {
-      allowScroll(currentScrollY);
+      allowScroll();
       document.removeEventListener("mousedown", closePrompt);
     };
   }, [isOpen, showCloseBtn, contents, closePrompt]);
