@@ -7,7 +7,7 @@ import TaskListDatePicker from "./_components/task-list-date-picker";
 import TaskListItem from "./_components/task-list-item";
 import taskList from "@/mocks/task-lists-data.json";
 import cn from "@/utils/clsx";
-import { TeamBannerMember } from "@/components";
+import { Button, Icon, TeamBannerMember } from "@/components";
 const Page = () => {
   const [taskListId, setTaskListId] = useState<number>();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -28,7 +28,7 @@ const Page = () => {
         onMemberListClick={() => {}}
         className="py-3 tablet:mt-[69px] tablet:py-4"
       />
-      <div className="flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
+      <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
         <TaskListContainer taskList={groupData.taskLists} />
         <div
           className={cn(
@@ -43,6 +43,9 @@ const Page = () => {
           />
           <TaskListItem taskItems={taskList.tasks} />
         </div>
+        <Button className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full">
+          <Icon icon="plus" className="h-6 w-6" />
+        </Button>
       </div>
     </div>
   );

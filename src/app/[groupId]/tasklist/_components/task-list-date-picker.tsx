@@ -13,7 +13,6 @@ import {
   getWeek,
 } from "@/utils/date-util";
 import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-list";
-import cn from "@/utils/clsx";
 
 interface TaskListDatePickerProps {
   name: string;
@@ -66,11 +65,16 @@ const TaskListDatePicker = ({
   }, [currentSunday]);
 
   return (
-    <div className={cn("flex w-full flex-col gap-6", "tablet:gap-8")}>
+    <div className="flex w-full flex-col gap-6 tablet:gap-8">
       <div className="relative flex items-center justify-between">
-        <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
-          {name}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
+            {name}
+          </span>
+          <Button className="h-5 w-5 rounded-full py-0">
+            <Icon icon="plus" className="h-3 w-3" />
+          </Button>
+        </div>
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
             {currentSunday
