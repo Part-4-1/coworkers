@@ -32,11 +32,11 @@ const TeamBody = ({ taskLists }: TeamBodyProps) => {
             <span className="mr-[8px] text-lg font-medium text-blue-700">
               할 일 목록
             </span>
-            <span className="text-lg font-normal text-gray-800">
+            <span className="text-lg text-gray-800">
               ({sortedTaskLists.length}개)
             </span>
           </div>
-          <div className="cursor-pointer text-md font-normal text-blue-200">
+          <div className="cursor-pointer text-md text-blue-200">
             + 새로운 목록 추가하기
           </div>
         </header>

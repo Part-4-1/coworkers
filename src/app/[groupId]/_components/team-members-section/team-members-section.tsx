@@ -11,11 +11,9 @@ const TeamMembersSection = ({ members }: TeamMembersSectionProps) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-[8px]">
           <span className="text-lg font-medium text-blue-700">멤버</span>
-          <span className="text-lg font-normal text-gray-800">
-            ({members.length}명)
-          </span>
+          <span className="text-lg text-gray-800">({members.length}명)</span>
         </div>
-        <div className="cursor-pointer text-md font-normal text-blue-200">
+        <div className="cursor-pointer text-md text-blue-200">
           + 새로운 멤버 초대하기
         </div>
       </div>

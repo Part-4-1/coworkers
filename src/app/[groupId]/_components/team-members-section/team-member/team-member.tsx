@@ -24,9 +24,7 @@ const TeamMember = ({ member }: TeamMemberProps) => {
             {member.userName}
           </div>
         </div>
-        <div className="truncate text-xs font-normal text-blue-700">
-          {member.userEmail}
-        </div>
+        <div className="truncate text-xs text-blue-700">{member.userEmail}</div>
       </div>
 
       <div>
