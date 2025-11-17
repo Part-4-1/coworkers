@@ -26,7 +26,7 @@ const Page = () => {
         onSettingClick={() => {}}
       /> */}
       <TaskListContainer taskList={groupData.taskLists} />
-      <div className="flex flex-col gap-[37px] bg-white px-4 pt-[38px] tablet:rounded-[20px] tablet:px-[30px] tablet:pt-[46px] pc:px-[42px]">
+      <div className="flex h-screen flex-col gap-[37px] bg-white px-4 pt-[38px] tablet:rounded-[20px] tablet:px-[30px] tablet:pt-[46px] pc:px-[42px]">
         <TaskListDatePicker
           name="진행 중인 일"
           {...{ selectedDate, setSelectedDate }}

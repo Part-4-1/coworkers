@@ -11,7 +11,7 @@ import { CheckboxProps } from "../checkbox/checkbox";
 interface TaskCardProps extends BadgeProps {
   taskTitle: string;
   taskList?: CheckboxProps[];
-  onClickCheckbox: MouseEventHandler<HTMLInputElement>;
+  handleClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
 
 const TaskCard = ({
@@ -19,7 +19,7 @@ const TaskCard = ({
   taskList,
   total,
   completed,
-  onClickCheckbox,
+  handleClickCheckbox,
 }: TaskCardProps) => {
   return (
     <div
@@ -53,7 +53,7 @@ const TaskCard = ({
                   taskName={task.taskName}
                   isDone={task.isDone}
                   size="sm"
-                  onClickCheckbox={onClickCheckbox}
+                  onClickCheckbox={handleClickCheckbox}
                 />
               </li>
             );

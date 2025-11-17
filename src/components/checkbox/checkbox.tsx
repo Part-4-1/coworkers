@@ -7,7 +7,7 @@ export interface CheckboxProps {
   taskName?: string;
   isDone: string | null;
   size?: "sm" | "lg";
-  onClickCheckbox: MouseEventHandler<HTMLInputElement>;
+  onClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
 
 const checkboxSizes = {
