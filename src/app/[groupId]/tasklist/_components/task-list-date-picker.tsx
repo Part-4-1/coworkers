@@ -17,14 +17,10 @@ import { useSearchParams } from "next/navigation";
 import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 
 interface TaskListDatePickerProps {
-  name: string;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
 
-const TaskListDatePicker = ({
-  name,
-  setSelectedDate,
-}: TaskListDatePickerProps) => {
+const TaskListDatePicker = ({ setSelectedDate }: TaskListDatePickerProps) => {
   const [currentSunday, setCurrentSunday] = useState<Date | null>(null);
   const [week, setWeek] = useState<number[] | null>(null);
   const [day, setDay] = useState<string>("");

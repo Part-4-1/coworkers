@@ -44,10 +44,7 @@ const Page = () => {
             "w-full pc:h-[970px]"
           )}
         >
-          <TaskListDatePicker
-            name={groupData?.name || "..."}
-            setSelectedDate={setSelectedDate}
-          />
+          <TaskListDatePicker setSelectedDate={setSelectedDate} />
           <TaskListItem taskItems={taskList.tasks} />
         </div>
         <Button className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full">
