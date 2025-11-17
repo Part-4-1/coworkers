@@ -5,6 +5,7 @@ import Link from "next/link";
 import { PostCard, Icon, Button } from "@/components/index";
 import { Article } from "@/types/article";
 import { useState } from "react";
+import BoardsArticleWrapper from "../../boards-article-wrapper";
 
 const PAGE_COUNT = 5;
 
@@ -12,7 +13,7 @@ interface BoardAllArticlesProps {
   articles: Article[];
   currentPage: number;
   onPageChange: (page: number) => void;
-  totalCount?: number; // 전체 게시글 수
+  totalCount?: number;
 }
 
 const BoardAllPost = ({
@@ -65,7 +66,7 @@ const BoardAllPost = ({
       >
         {articles.map((article) => (
           <Link key={article.id} href={`/boards/${article.id}`}>
-            <PostCard {...article} image={article.image} isBest={false} />
+            <BoardsArticleWrapper article={article} />
           </Link>
         ))}
       </div>

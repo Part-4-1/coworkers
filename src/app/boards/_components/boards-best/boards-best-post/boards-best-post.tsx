@@ -4,8 +4,9 @@ import Link from "next/link";
 import cn from "@/utils/clsx";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PostCard, Button, Icon } from "@/components/index";
+import { Button, Icon } from "@/components/index";
 import { Article } from "@/types/article";
+import BoardsArticleWrapper from "@/app/boards/_components/boards-article-wrapper";
 
 interface BoardBestArticlesProps {
   articles: Article[];
@@ -69,11 +70,10 @@ const BoardBestPost = ({ articles }: BoardBestArticlesProps) => {
         >
           {visiblePosts.map((post) => (
             <Link key={post.id} href={`/boards/${post.id}`}>
-              <PostCard
-                className="h-[177px] w-full max-w-[340px] py-5 tablet:max-w-[304px] tablet:px-5 pc:h-[206px] pc:max-w-[350px] pc:py-6"
-                {...post}
-                image={post.image}
+              <BoardsArticleWrapper
+                article={post}
                 isBest={true}
+                className="h-[177px] w-full max-w-[340px] py-5 tablet:max-w-[304px] tablet:px-5 pc:h-[206px] pc:max-w-[350px] pc:py-6"
               />
             </Link>
           ))}
