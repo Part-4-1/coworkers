@@ -7,6 +7,7 @@ import TaskListDatePicker from "./_components/task-list-date-picker";
 import TaskListItem from "./_components/task-list-item";
 import taskList from "@/mocks/task-lists-data.json";
 import cn from "@/utils/clsx";
+import { TeamBannerMember } from "@/components";
 const Page = () => {
   const [taskListId, setTaskListId] = useState<number>();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -20,19 +21,20 @@ const Page = () => {
   }, [selectedDate]);
 
   return (
-    <div className="flex w-full max-w-[1120px] flex-col">
-      {/* <TeamBannerMember
+    <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
+      <TeamBannerMember
         groupName={groupData.name}
         members={groupData.members}
-        onSettingClick={() => {}}
-      /> */}
-      <div className="flex w-full flex-col gap-[22px] tablet:gap-7 tablet:px-[26px] pc:max-w-full pc:flex-row">
+        onMemberListClick={() => {}}
+        className="py-3 tablet:mt-[69px] tablet:py-4"
+      />
+      <div className="flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
         <TaskListContainer taskList={groupData.taskLists} />
         <div
           className={cn(
             "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[57px] pt-[38px]",
             "tablet:h-[938px] tablet:rounded-[20px] tablet:px-[30px] tablet:pb-[102px] tablet:pt-[46px]",
-            "w-full pc:h-[970px] pc:px-[42px]"
+            "w-full pc:h-[970px]"
           )}
         >
           <TaskListDatePicker

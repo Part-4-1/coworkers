@@ -1,4 +1,4 @@
-import type { User, Writer } from "./user";
+import type { Writer } from "./user";
 
 export type FrequencyType = "DAILY" | "WEEKLY" | "MONTHLY" | "ONCE";
 
