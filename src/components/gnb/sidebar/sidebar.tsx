@@ -34,10 +34,9 @@ const Sidebar = () => {
 
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
 
-  //const isLoggedIn = !!userInfo && !isLoading;
-  //const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
-  const isLoggedIn = true;
-  const isTeamExist = true;
+  const isLoggedIn = !!userInfo && !isLoading;
+  const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
+
   useEffect(() => {
     setIsSidebarOpen(isDesktop);
   }, [isDesktop]);
@@ -125,7 +124,7 @@ const Sidebar = () => {
                   iconName="board"
                   isSidebarOpen={isSidebarOpen}
                   title="자유게시판"
-                  href={"/article"}
+                  href={"/boards"}
                 />
               </div>
             </div>

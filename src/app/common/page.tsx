@@ -14,12 +14,16 @@ import {
   PostCard,
   Profile,
   ProfileEdit,
+  ProfileList,
   ProfileMember,
   Progressbar,
   Reply,
   TaskCard,
   TaskChip,
   TaskHeader,
+  TaskModal,
+  TeamBannerAdmin,
+  TeamBannerMember,
   TextInput,
 } from "@/components/index";
 import {
@@ -30,6 +34,7 @@ import {
 
 import { TaskListCreateModal } from "@/components/modal/common-modal"; // 모달 import 추가
 import List from "@/components/list/list";
+import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import useToast from "@/hooks/use-toast";
 import { mockComments } from "@/mocks/comment-data";
@@ -46,12 +51,14 @@ type LoginFormData = {
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isTaskListCreateModalOpen, setIsTaskListCreateModalOpen] = useState(false);
+  const [isTaskListCreateModalOpen, setIsTaskListCreateModalOpen] =
+    useState(false);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const { previews } = useImageUpload({ maxCount: 5 });
   const { success, error, warning } = useToast();
   const singleComment = mockComments[0];
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const { mutate: createComment, isPending } = useCreateComment(26355);
   const {
     register,
     formState: { errors },
@@ -86,8 +93,8 @@ const Page = () => {
           type={showPassword ? "text" : "password"}
           placeholder="비밀번호를 입력하세요."
           errorMessage={errors.password?.message}
-          suffixClassName="pr-2"
-          suffix={
+          rightIconClassName="pr-2"
+          rightIcon={
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -123,11 +130,14 @@ const Page = () => {
           type="password"
           value="********"
           readOnly
-          suffix={<Button size="sm">변경하기</Button>}
+          rightIcon={<Button size="sm">변경하기</Button>}
         />
       </form>
       <Reply comment={singleComment} />
-      <InputReply />
+      <InputReply
+        onSubmit={(text) => createComment(text)}
+        disabled={isPending}
+      />
       <div className="w-[300px] gap-2 flex-col-center">
         <Button>생성하기</Button>
         <Button variant="outlined">생성하기</Button>
@@ -176,6 +186,9 @@ const Page = () => {
         />
       </div>
       <div>
+        <ProfileList members={mockGroupData[0].members} />
+      </div>
+      <div>
         <CalendarTime />
       </div>
       <div className="flex gap-5">
@@ -212,7 +225,21 @@ const Page = () => {
           <Calendar />
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex w-[75vw] flex-col gap-10 bg-gray-50 p-10">
+        <TeamBannerAdmin
+          groupName={mockGroupData[0].name}
+          tasksTodo={20}
+          tasksDone={5}
+          members={mockGroupData[0].members}
+          onMemberListClick={() => {}}
+        />
+        <TeamBannerMember
+          groupName={mockGroupData[0].name}
+          members={mockGroupData[0].members}
+          onMemberListClick={() => {}}
+        />
+      </div>
+      <div className="flex w-full flex-col gap-2 px-[150px] flex-center">
         <Progressbar progressRate={100} />
         <Progressbar progressRate={25} />
         <Progressbar progressRate={0} />
@@ -332,6 +359,11 @@ const Page = () => {
           isBest
         />
       </div>
+      <TaskModal
+        groupId={3304}
+        taskListId={4712}
+        onSuccess={() => success("할 일이 생성되었습니다!")}
+      />
       {mockListData.tasks.map((task) => {
         return (
           <List
@@ -373,14 +405,14 @@ const Page = () => {
           할 일 목록 생성 모달 열기
         </Button>
       </div>
-        <TaskListCreateModal
+      <TaskListCreateModal
         isOpen={isTaskListCreateModalOpen}
         onClose={() => setIsTaskListCreateModalOpen(false)} // 모달 닫기
         onSubmit={(name) => {
           success(`새 목록 생성됨: ${name}`); // 성공 토스트 메시지
           // 실제로는 여기에 API 호출 로직을 구현 필요
         }}
-        />
+      />
     </div>
   );
 };
