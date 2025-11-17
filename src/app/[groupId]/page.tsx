@@ -1,33 +1,47 @@
 "use client";
 
 import { TeamBannerAdmin, TeamBannerMember } from "@/components/index";
-import useMediaQuery from "@/hooks/use-media-query";
 import { mockGroupData } from "@/mocks/group-data";
+import { mockGroupTasksData } from "@/mocks/group-tasks";
 import cn from "@/utils/clsx";
-import TeamBodyMobileTablet from "./_components/team-body-mobile-tablet/team-body-mobile-tablet";
-import TeamBodyPc from "./_components/team-body-pc/team-body-pc";
-import TeamNoGroup from "./_components/team-no-group/team-no-group";
+import TeamBody from "./_components/team-body/team-body";
+import TeamNoGroup from "./_components/team-body/team-no-group";
+import TeamMembersSection from "./_components/team-members-section/team-members-section";
 
 const TeamPage = () => {
   const currentGroup = mockGroupData[0]; // TODO: 동적으로 수정
   const isAdmin = true; // TODO: 동적으로 수정
   const isNoGroup = false; // TODO: 동적으로 수정
-  const isPc = useMediaQuery("(min-width: 1280px)");
-  const tasksTodo = currentGroup.taskLists.reduce(
-    (sum, list) => sum + list.tasks.length,
+  const currentTasksGroup = mockGroupTasksData[0];
+
+  const tasksTodo = currentTasksGroup.taskLists.reduce(
+    (sum: number, list: any) => sum + list.tasks.length,
     0
   );
-  const tasksDone =
-    currentGroup.taskLists.find((list) => list.displayIndex === 2)?.tasks
-      .length ?? 0;
+
+  const tasksDone = currentTasksGroup.taskLists.reduce(
+    (sum: number, list: any) => {
+      const doneCount = list.tasks.filter(
+        (task: any) => task.doneAt !== null
+      ).length;
+      return sum + doneCount;
+    },
+    0
+  );
 
   return (
     <div>
       {isNoGroup ? (
         <TeamNoGroup />
       ) : (
-        <main className="flex flex-col">
-          <section className="tablet:mx-[26px] tablet:mt-[74px] pc:ml-[85px] pc:mt-[120px]">
+        <main
+          className={cn(
+            "flex flex-col",
+            "tablet:px-[24px] tablet:pt-[74px]",
+            "min-w-[270px] pc:pt-[120px]"
+          )}
+        >
+          <section className="pc:flex pc:justify-center">
             {isAdmin ? (
               <TeamBannerAdmin
                 groupName={currentGroup.name}
@@ -35,27 +49,20 @@ const TeamPage = () => {
                 tasksDone={tasksDone}
                 members={currentGroup.members}
                 onMemberListClick={() => {}}
-                showProfileListOnPc={false}
               />
             ) : (
               <TeamBannerMember
                 groupName={currentGroup.name}
                 members={currentGroup.members}
-                showProfileListonPc={false}
               />
             )}
           </section>
-          <section
-            className={cn(
-              "mt-[34px] px-[16px] pc:ml-[91px] pc:px-[0px]",
-              "tablet:mt-[43px] tablet:px-[26px] pc:mt-[0px] pc:w-[1120px]"
-            )}
-          >
-            {isPc ? (
-              <TeamBodyPc members={currentGroup.members} />
-            ) : (
-              <TeamBodyMobileTablet />
-            )}
+
+          <section className="pc:mx-auto pc:w-full pc:max-w-[1120px]">
+            <TeamBody taskLists={currentTasksGroup.taskLists} />
+          </section>
+          <section className="mt-[48px]">
+            <TeamMembersSection members={currentGroup.members} />
           </section>
         </main>
       )}
