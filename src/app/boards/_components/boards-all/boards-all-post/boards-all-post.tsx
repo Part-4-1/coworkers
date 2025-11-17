@@ -8,6 +8,7 @@ import { useState } from "react";
 import BoardsArticleWrapper from "../../boards-article-wrapper";
 
 const PAGE_COUNT = 5;
+const PER_PAGE_COUNT = 6;
 
 interface BoardAllArticlesProps {
   articles: Article[];
@@ -23,8 +24,6 @@ const BoardAllPost = ({
   totalCount = 0,
 }: BoardAllArticlesProps) => {
   const [startPage, setStartPage] = useState(1);
-
-  const PER_PAGE_COUNT = 6;
   const totalPage = Math.ceil(totalCount / PER_PAGE_COUNT);
   const lastPage = Math.min(startPage + PAGE_COUNT - 1, totalPage);
 
