@@ -93,7 +93,12 @@ const Page = () => {
               })}
             />
           </div>
-          <Button className="mt-4" type="submit" disabled={!isValid}>
+          <Button
+            className="mt-4"
+            type="submit"
+            disabled={!isValid}
+            aria-label="password-reset"
+          >
             재설정
           </Button>
         </form>
