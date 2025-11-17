@@ -1,4 +1,3 @@
-// hooks/api/use-delete-article.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteArticle } from "@/api/articles/delete-articles";
 
