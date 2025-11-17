@@ -31,7 +31,12 @@ const ArticleContents = ({ article }: ArticleContentsProps) => {
       )}
       <p className="whitespace-pre-wrap break-words">{article.content}</p>
       <div className="mx-auto w-full max-w-[180px] gap-6 flex-center">
-        <Button variant="none" onClick={handleLikeClick} disabled={isPending}>
+        <Button
+          variant="none"
+          onClick={handleLikeClick}
+          disabled={isPending}
+          className="min-w-[60px]"
+        >
           <Icon
             icon={article.isLiked ? "heartActive" : "heartDefault"}
             className="h-7 w-7"
