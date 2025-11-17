@@ -38,7 +38,7 @@ const BoardsAllHeader = ({
       <Dropdown
         items={items}
         isWidthFull={true}
-        defaultTriggerClassName="w-[130px] h-[48px]"
+        defaultTriggerClassName="w-[130px] h-[48px] text-md"
         textAlign={"start"}
         itemClassName="text-md"
       />
