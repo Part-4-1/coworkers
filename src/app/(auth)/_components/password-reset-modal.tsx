@@ -1,7 +1,7 @@
 import { Button, TextInput } from "@/components";
 import React from "react";
 
-const PasswordRestModal = () => {
+const PasswordResetModal = () => {
   return (
     <div className="flex h-[260px] w-[384px] flex-col gap-6 px-[56px] pt-[48px]">
       <div className="flex flex-col gap-4">
@@ -27,4 +27,4 @@ const PasswordRestModal = () => {
   );
 };
 
-export default PasswordRestModal;
+export default PasswordResetModal;
