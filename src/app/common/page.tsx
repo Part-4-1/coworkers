@@ -42,7 +42,6 @@ import { mockListData } from "@/mocks/list-data";
 import { mockUserData } from "@/mocks/user-data";
 import { MouseEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import usePrompt from "@/hooks/use-prompt";
 
 type LoginFormData = {
   email: string;
@@ -91,8 +90,8 @@ const Page = () => {
           type={showPassword ? "text" : "password"}
           placeholder="비밀번호를 입력하세요."
           errorMessage={errors.password?.message}
-          suffixClassName="pr-2"
-          suffix={
+          rightIconClassName="pr-2"
+          rightIcon={
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -128,7 +127,7 @@ const Page = () => {
           type="password"
           value="********"
           readOnly
-          suffix={<Button size="sm">변경하기</Button>}
+          rightIcon={<Button size="sm">변경하기</Button>}
         />
       </form>
       <Reply comment={singleComment} />
@@ -229,13 +228,11 @@ const Page = () => {
           tasksTodo={20}
           tasksDone={5}
           members={mockGroupData[0].members}
-          onSettingClick={() => {}}
           onMemberListClick={() => {}}
         />
         <TeamBannerMember
           groupName={mockGroupData[0].name}
           members={mockGroupData[0].members}
-          onSettingClick={() => {}}
           onMemberListClick={() => {}}
         />
       </div>

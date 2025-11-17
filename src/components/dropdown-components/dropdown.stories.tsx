@@ -1,6 +1,6 @@
-import Dropdown from "./dropdown";
-import Profile from "../profile/profile";
 import { Meta, StoryObj } from "@storybook/nextjs";
+import Profile from "../profile/profile";
+import Dropdown from "./dropdown";
 
 const meta: Meta<typeof Dropdown> = {
   title: "Components/Dropdown",
@@ -53,6 +53,9 @@ const meta: Meta<typeof Dropdown> = {
     },
     defaultTriggerClassName: {
       description: "기본 트리거(Button)에 커스텀 스타일을 적용하기 위한 클래스",
+    },
+    itemClassName: {
+      description: "메뉴요소들에 스타일을 적용하기 위한 클래스",
     },
   },
 };

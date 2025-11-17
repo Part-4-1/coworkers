@@ -20,7 +20,9 @@ export default function RootLayout({
         <QueryProviders>
           <ToastProvider>
             <GnbWrapper />
-            {children}
+            <main className="ml-0 tablet:ml-[72px] pc:ml-[270px]">
+              {children}
+            </main>
           </ToastProvider>
         </QueryProviders>
       </body>

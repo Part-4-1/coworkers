@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createComment } from "@/api/comments/comments";
+import { createComment } from "@/api/comments/post-comments";
 import useToast from "@/hooks/use-toast";
 
 export const useCreateComment = (taskId: number) => {
