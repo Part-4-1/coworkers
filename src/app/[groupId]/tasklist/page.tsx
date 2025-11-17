@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import TaskListDatePicker from "./_components/task-list-date-picker";
 import TaskListItem from "./_components/task-list-item";
 import taskList from "@/mocks/task-lists-data.json";
+import cn from "@/utils/clsx";
 const Page = () => {
   const [taskListId, setTaskListId] = useState<number>();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -19,19 +20,27 @@ const Page = () => {
   }, [selectedDate]);
 
   return (
-    <div className="flex w-full max-w-[1120px] flex-col tablet:px-[26px]">
+    <div className="flex w-full max-w-[1120px] flex-col">
       {/* <TeamBannerMember
         groupName={groupData.name}
         members={groupData.members}
         onSettingClick={() => {}}
       /> */}
-      <TaskListContainer taskList={groupData.taskLists} />
-      <div className="flex h-screen flex-col gap-[37px] bg-white px-4 pt-[38px] tablet:rounded-[20px] tablet:px-[30px] tablet:pt-[46px] pc:px-[42px]">
-        <TaskListDatePicker
-          name="진행 중인 일"
-          {...{ selectedDate, setSelectedDate }}
-        />
-        <TaskListItem taskItems={taskList.tasks} />
+      <div className="flex w-full flex-col gap-[22px] tablet:gap-7 tablet:px-[26px] pc:max-w-full pc:flex-row">
+        <TaskListContainer taskList={groupData.taskLists} />
+        <div
+          className={cn(
+            "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[57px] pt-[38px]",
+            "tablet:h-[938px] tablet:rounded-[20px] tablet:px-[30px] tablet:pb-[102px] tablet:pt-[46px]",
+            "w-full pc:h-[970px] pc:px-[42px]"
+          )}
+        >
+          <TaskListDatePicker
+            name="진행 중인 일"
+            {...{ selectedDate, setSelectedDate }}
+          />
+          <TaskListItem taskItems={taskList.tasks} />
+        </div>
       </div>
     </div>
   );

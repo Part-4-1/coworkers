@@ -1,7 +1,6 @@
 import { TaskList } from "@/types/taskList";
 import cn from "@/utils/clsx";
 import { Badge, Button, Dropdown, Icon, TaskCard } from "@/components";
-import { MouseEventHandler } from "react";
 
 interface TodoContainerProps {
   taskList: TaskList[];
@@ -11,9 +10,9 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
   return (
     <div
       className={cn(
-        "mb-[22px] mt-6 flex w-full max-w-[1280px] flex-col justify-between gap-2 px-4",
-        "tablet:mb-6 tablet:mt-[34px] tablet:gap-3 tablet:px-0",
-        "pc:w-[270px] pc:gap-6"
+        "flex w-full max-w-[1280px] flex-col justify-between gap-2 px-4",
+        "tablet:gap-3 tablet:px-0",
+        "pc:w-[270px] pc:justify-start pc:gap-6"
       )}
     >
       <p className="text-xs font-semibold text-gray-800 tablet:text-lg pc:text-xl pc:font-bold pc:text-blue-700">

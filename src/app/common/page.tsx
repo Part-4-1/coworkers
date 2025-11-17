@@ -315,9 +315,6 @@ const Page = () => {
               isDone: "2025-11-01T10:00:00Z",
             },
           ]}
-          handleClickCheckbox={(e: MouseEvent<HTMLLIElement>) =>
-            console.log(e.currentTarget.dataset.id)
-          }
         />
       </div>
       <div className="w-[340px]">
@@ -371,6 +368,7 @@ const Page = () => {
             doneAt={task.doneAt}
             commentCount={task.commentCount}
             frequency={task.frequency}
+            onClickCheckbox={() => {}}
           />
         );
       })}

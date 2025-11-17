@@ -30,7 +30,7 @@ const List = ({
   return (
     <div
       className={cn(
-        "mx-auto flex w-full max-w-[343px] flex-col gap-[10px] rounded-lg border border-gray-300 bg-white px-[14px] py-3 hover:bg-gray-100 tablet:max-w-[733px] pc:max-w-[1200px]",
+        "mx-auto flex w-full flex-col gap-[10px] rounded-lg border border-gray-300 bg-white px-[14px] py-3 hover:bg-gray-100",
         className
       )}
     >
