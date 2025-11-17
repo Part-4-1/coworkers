@@ -29,7 +29,7 @@ const ArticleContents = ({ article }: ArticleContentsProps) => {
           onError={() => console.log("이미지 로드 실패:", article.image)}
         />
       )}
-      <p className="whitespace-pre-wrap">{article.content}</p>
+      <p className="whitespace-pre-wrap break-words">{article.content}</p>
       <div className="mx-auto w-full max-w-[180px] gap-6 flex-center">
         <Button variant="none" onClick={handleLikeClick} disabled={isPending}>
           <Icon
