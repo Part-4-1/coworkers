@@ -42,8 +42,8 @@ export const mockGroupData = [
       {
         role: "MEMBER",
         userImage: "https://randomuser.me/api/portraits/women/33.jpg",
-        userEmail: "seoyeon@example.com",
-        userName: "박서연",
+        userEmail: "seoyeon@exampleexampleexampleexampleexample.com",
+        userName: "박하늘별님구름햇님보다사랑스러우리",
         groupId: 11,
         userId: 5,
       },
