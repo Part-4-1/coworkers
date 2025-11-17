@@ -26,6 +26,7 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
         <Button
           variant="outlined"
           className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold mobile:hidden pc:flex"
+          //TODO: 모달 열기
         >
           <Icon icon="plus" className="h-4 w-4" />
           목록 추가

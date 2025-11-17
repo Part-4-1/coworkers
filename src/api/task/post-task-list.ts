@@ -7,7 +7,7 @@ interface PostTaskListData {
 
 const postTaskList = async ({ groupId, name }: PostTaskListData) => {
   try {
-    const response = await instance.post(`/groups/${groupId}/task-list$`, {
+    const response = await instance.post(`/groups/${groupId}/task-lists`, {
       name,
     });
 
