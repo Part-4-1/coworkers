@@ -1,6 +1,5 @@
 "use client";
 
-import groupData from "@/mocks/group.json";
 import TaskListContainer from "./_components/task-list-container";
 import { useEffect, useState } from "react";
 import TaskListDatePicker from "./_components/task-list-date-picker";
@@ -8,9 +7,11 @@ import TaskListItem from "./_components/task-list-item";
 import taskList from "@/mocks/task-lists-data.json";
 import cn from "@/utils/clsx";
 import { Button, Icon, TeamBannerMember } from "@/components";
+import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 const Page = () => {
   const [taskListId, setTaskListId] = useState<number>();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const { data: groupData, isPending } = useGetGroupInfo(3290);
 
   useEffect(() => {
     setSelectedDate(new Date());
@@ -22,14 +23,20 @@ const Page = () => {
 
   return (
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
-      <TeamBannerMember
-        groupName={groupData.name}
-        members={groupData.members}
-        onMemberListClick={() => {}}
-        className="py-3 tablet:mt-[69px] tablet:py-4"
-      />
+      {!isPending && groupData && (
+        <TeamBannerMember
+          groupName={groupData.name}
+          members={groupData.members}
+          onMemberListClick={() => {}}
+          className="py-3 tablet:mt-[69px] tablet:py-4"
+        />
+      )}
       <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
-        <TaskListContainer taskList={groupData.taskLists} />
+        {!isPending && groupData ? (
+          <TaskListContainer taskList={groupData.taskLists} />
+        ) : (
+          "아직 할 일이 없습니다!"
+        )}
         <div
           className={cn(
             "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[57px] pt-[38px]",
@@ -38,8 +45,8 @@ const Page = () => {
           )}
         >
           <TaskListDatePicker
-            name="진행 중인 일"
-            {...{ selectedDate, setSelectedDate }}
+            name={groupData?.name || "..."}
+            setSelectedDate={setSelectedDate}
           />
           <TaskListItem taskItems={taskList.tasks} />
         </div>

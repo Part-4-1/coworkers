@@ -53,7 +53,7 @@ const Dropdown = ({
   itemClassName,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const initialLabel = items[0].label;
+  const initialLabel = items[0]?.label;
   const [selectedLabel, setSelectedLabel] = useState<string>(initialLabel);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -92,7 +92,7 @@ const Dropdown = ({
       : "rotate-180";
 
   const selectedItem = items[selectedIndex];
-  const triggerAddon = selectedItem.addon
+  const triggerAddon = selectedItem?.addon
     ? isOpen
       ? cloneElement(selectedItem.addon, {
           className: cn(selectedItem.addon.props.className, "bg-gray-300"),

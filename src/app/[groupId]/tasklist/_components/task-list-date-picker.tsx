@@ -13,10 +13,11 @@ import {
   getWeek,
 } from "@/utils/date-util";
 import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-list";
+import { useSearchParams } from "next/navigation";
+import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 
 interface TaskListDatePickerProps {
   name: string;
-  selectedDate: Date | null;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
 
@@ -28,6 +29,11 @@ const TaskListDatePicker = ({
   const [week, setWeek] = useState<number[] | null>(null);
   const [day, setDay] = useState<string>("");
   const [showCalendar, setShowCalendar] = useState(false);
+  const listId = useSearchParams().get("list");
+  const { data: taskListData, isPending } = useGetTaskList(
+    3290,
+    Number(listId)
+  );
 
   const initDate = (date: Date) => {
     const sunday = getCurrentSunday(date);
@@ -69,7 +75,7 @@ const TaskListDatePicker = ({
       <div className="relative flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
-            {name}
+            {taskListData?.name}
           </span>
           <Button className="h-5 w-5 rounded-full py-0">
             <Icon icon="plus" className="h-3 w-3" />

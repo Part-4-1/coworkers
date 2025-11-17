@@ -1,6 +1,7 @@
 import { TaskList } from "@/types/taskList";
 import cn from "@/utils/clsx";
 import { Badge, Button, Dropdown, Icon, TaskCard } from "@/components";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface TodoContainerProps {
   taskList: TaskList[];
@@ -46,18 +47,20 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
           />
         </div>
         {/* pc */}
-        <div className="hidden pc:block">
+        <ul className="hidden pc:flex pc:flex-col pc:gap-1">
           {taskList.map((task) => {
             return (
-              <TaskCard
-                key={task.id}
-                taskTitle={task.name}
-                total={task.tasks.length}
-                completed={0}
-              />
+              <li key={task.id}>
+                <TaskCard
+                  taskListId={task.id}
+                  taskTitle={task.name}
+                  total={task.tasks.length}
+                  completed={0}
+                />
+              </li>
             );
           })}
-        </div>
+        </ul>
         <div className="flex pc:hidden">
           <Button
             variant="outlined"

@@ -1,3 +1,5 @@
+"use client";
+
 import cn from "@/utils/clsx";
 import { BadgeProps } from "../badge/badge";
 import Icon from "../icon/Icon";
@@ -7,20 +9,27 @@ import Dropdown from "../dropdown-components/dropdown";
 import Checkbox from "../checkbox/checkbox";
 import { MouseEventHandler } from "react";
 import { CheckboxProps } from "../checkbox/checkbox";
+import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 interface TaskCardProps extends BadgeProps {
+  taskListId: number;
   taskTitle: string;
   taskList?: CheckboxProps[];
   handleClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
 
 const TaskCard = ({
+  taskListId,
   taskTitle,
   taskList,
   total,
   completed,
   handleClickCheckbox,
 }: TaskCardProps) => {
+  const listId = useSearchParams().get("list");
+  const pathName = usePathname();
+
   return (
     <div
       className={cn(
@@ -30,7 +39,13 @@ const TaskCard = ({
       )}
     >
       <div className="flex items-center justify-between">
-        <span className="truncate text-md font-semibold">{taskTitle}</span>
+        <Link href={`${pathName}?list=${taskListId}`}>
+          <span
+            className={`cursor-pointer truncate text-md font-semibold ${taskListId.toString() === listId && "rounded-xl text-blue-200"}`}
+          >
+            {taskTitle}
+          </span>
+        </Link>
         <div className="flex">
           <Badge total={total} completed={completed} />
           <Dropdown
