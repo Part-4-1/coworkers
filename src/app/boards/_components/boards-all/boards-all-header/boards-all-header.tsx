@@ -40,6 +40,7 @@ const BoardsAllHeader = ({
         isWidthFull={true}
         defaultTriggerClassName="w-[130px] h-[48px]"
         textAlign={"start"}
+        itemClassName="text-md"
       />
     </div>
   );
