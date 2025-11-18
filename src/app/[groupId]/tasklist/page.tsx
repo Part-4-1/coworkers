@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import TaskListDatePicker from "./_components/task-list-date-picker";
 import TaskListItem from "./_components/task-list-item";
 import cn from "@/utils/clsx";
-import { Button, Icon, TeamBannerMember } from "@/components";
+import { TeamBannerMember } from "@/components";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
 import { useParams, useSearchParams } from "next/navigation";
@@ -21,8 +21,6 @@ const Page = () => {
     taskListId,
     selectedDate?.toLocaleDateString("sv-SE") || ""
   );
-
-  // TODO: useGetTaskList 여기로 옮겨서 task-list-date-picker로 내려주기
 
   useEffect(() => {
     setSelectedDate(new Date());
@@ -57,9 +55,6 @@ const Page = () => {
           />
           <TaskListItem taskListId={taskListId} taskItems={taskItems} />
         </div>
-        {/* <Button className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full">
-          <Icon icon="plus" className="h-6 w-6" />
-        </Button> */}
       </div>
     </div>
   );

@@ -12,7 +12,6 @@ import {
   TaskMemoField,
 } from "./index";
 import cn from "@/utils/clsx";
-import { useEffect } from "react";
 
 interface TaskModalProps {
   groupId: number;

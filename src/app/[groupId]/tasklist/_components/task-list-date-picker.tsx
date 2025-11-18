@@ -129,7 +129,7 @@ const TaskListDatePicker = ({
       />
       <Modal>
         <TaskModal
-          groupId={3290}
+          groupId={groupId}
           taskListId={taskListId}
           className="px-2 pt-8"
           onSuccess={closePrompt}
