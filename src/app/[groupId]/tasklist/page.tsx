@@ -58,7 +58,7 @@ const Page = () => {
             taskListId={taskListId}
             setSelectedDate={setSelectedDate}
           />
-          <TaskListItem taskItems={taskItems} />
+          <TaskListItem taskListId={taskListId} taskItems={taskItems} />
         </div>
         <Button className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full">
           <Icon icon="plus" className="h-6 w-6" />

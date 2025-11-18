@@ -17,6 +17,8 @@ interface TaskCardProps extends BadgeProps {
   taskTitle: string;
   taskList?: CheckboxProps[];
   handleClickCheckbox?: MouseEventHandler<HTMLInputElement>;
+  handleClickFix?: () => void;
+  handleClickDelete?: () => void;
 }
 
 const TaskCard = ({
@@ -26,6 +28,8 @@ const TaskCard = ({
   total,
   completed,
   handleClickCheckbox,
+  handleClickFix,
+  handleClickDelete,
 }: TaskCardProps) => {
   const listId = useSearchParams().get("list");
   const pathName = usePathname();

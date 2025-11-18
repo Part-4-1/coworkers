@@ -4,7 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MouseEvent, useEffect } from "react";
 
-const TaskListItem = ({ taskItems }: { taskItems: Task[] }) => {
+const TaskListItem = ({
+  taskListId,
+  taskItems,
+}: {
+  taskListId: number;
+  taskItems: Task[];
+}) => {
   const pathname = usePathname();
   const handleClickCheckbox = (e: MouseEvent<HTMLInputElement>) => {
     console.log(e.currentTarget.id);
@@ -18,7 +24,7 @@ const TaskListItem = ({ taskItems }: { taskItems: Task[] }) => {
         taskItems.map((task) => {
           return (
             <li key={task.id}>
-              <Link href={`${pathname}?task=${task.id}`}>
+              <Link href={`${pathname}?list=${taskListId}&task=${task.id}`}>
                 <List {...task} onClickCheckbox={handleClickCheckbox} />
               </Link>
             </li>
