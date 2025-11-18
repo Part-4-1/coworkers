@@ -151,8 +151,13 @@ const Page = () => {
               })}
             />
           </div>
-          <Button className="mt-4" type="submit" disabled={!isValid}>
-            회원가입
+          <Button
+            className="mt-4"
+            type="submit"
+            disabled={!isValid}
+            aria-label="Signup"
+          >
+            {isPending ? "전송 중..." : "회원가입"}
           </Button>
         </form>
       </div>

@@ -41,7 +41,7 @@ const TextInput = ({
   return (
     <div
       className={cn(
-        "flex w-full max-w-[300px] flex-col gap-2",
+        "flex w-full flex-col gap-2",
         "tablet:max-w-[460px]",
         "pc:max-w-[460px]",
         containerClassName
