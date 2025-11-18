@@ -29,7 +29,7 @@ export const resetPassword = async ({
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "비밀번호 변경에 실패했습니다.");
+      throw new Error("비밀번호 변경에 실패했습니다.");
     }
 
     return data;

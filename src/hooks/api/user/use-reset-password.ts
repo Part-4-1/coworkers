@@ -10,7 +10,7 @@ export const useResetPassword = () => {
   const router = useRouter();
   return useMutation({
     mutationFn: resetPassword,
-    onSuccess: (data) => {
+    onSuccess: () => {
       ToastSuccess("비밀번호 재설정에 성공하였습니다. 로그인을 해주세요.");
       router.push("/signin");
     },
