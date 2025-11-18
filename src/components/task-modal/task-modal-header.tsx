@@ -1,6 +1,6 @@
 const TaskModalHeader = () => {
   return (
-    <div className="gap-4 flex-col-center">
+    <div className="w-full gap-4 flex-col-center">
       <h2 className="text-lg font-medium text-blue-700">할 일 만들기</h2>
       <div className="flex-col-center">
         <p className="text-center text-md font-medium text-gray-800">

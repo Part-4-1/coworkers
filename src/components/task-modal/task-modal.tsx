@@ -66,7 +66,7 @@ const TaskModal = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={cn("flex w-full max-w-[336px] flex-col gap-6", className)}
+      className={cn("flex w-full flex-col gap-6", className)}
     >
       <TaskModalHeader />
 
