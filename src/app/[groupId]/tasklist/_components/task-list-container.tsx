@@ -10,6 +10,8 @@ import {
 } from "@/components";
 import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
+import { useEffect } from "react";
+import { countDoneTask } from "@/utils/util";
 
 interface TodoContainerProps {
   groupId: number;
@@ -50,10 +52,15 @@ const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
         {/* mobile ~ tablet */}
         <div className="flex items-center justify-between pc:hidden">
           <Dropdown
-            items={taskList.map((task) => {
+            items={taskList.map((task, idx) => {
               return {
                 label: task.name,
-                addon: <Badge total={task.tasks.length} completed={0} />,
+                addon: (
+                  <Badge
+                    total={task.tasks.length}
+                    completed={countDoneTask(task.tasks)}
+                  />
+                ),
               };
             })}
             isWidthFull
