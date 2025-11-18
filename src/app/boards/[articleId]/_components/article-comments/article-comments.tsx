@@ -5,7 +5,9 @@ import { useEffect, useRef } from "react";
 import { Article } from "@/types/article";
 import { InputReply, Reply } from "@/components/index";
 import { usePostArticleComment } from "@/hooks/api/articles/use-post-article-comment";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import useGetArticleComments from "@/hooks/api/articles/use-get-article-comments";
+import DefaultProfile from "@/assets/icons/ic-user.svg";
 
 interface ArticleCommentsProps {
   article: Article;
@@ -13,8 +15,11 @@ interface ArticleCommentsProps {
 
 const ArticleComments = ({ article }: ArticleCommentsProps) => {
   const { mutate, isPending } = usePostArticleComment();
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetArticleComments({ articleId: article.id });
+
+  const { data: userInfo } = useGetUserInfoQuery();
 
   const observerTarget = useRef<HTMLDivElement>(null);
 
@@ -58,14 +63,16 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
         <span className="text-blue-200">{article.commentCount}</span>
       </h3>
       <div className="mb-[28px] flex items-center gap-4 tablet:mb-[36px]">
-        {article.writer.image && (
+        {userInfo?.image ? (
           <Image
-            src={article.writer.image}
+            src={userInfo.image}
             alt="프로필"
             width={24}
             height={24}
             className="rounded-md tablet:h-[32px] tablet:w-[32px]"
           />
+        ) : (
+          <DefaultProfile className="h-[24px] w-[24px] rounded-md bg-gray-300 tablet:h-[32px] tablet:w-[32px]" />
         )}
         <InputReply onSubmit={handleCommentSubmit} disabled={isPending} />
       </div>
