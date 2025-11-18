@@ -1,11 +1,18 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { Button, Checkbox, Dropdown, Icon } from "@/components/index";
-import { Frequency_Map, type Task } from "@/types/task";
 import cn from "@/utils/clsx";
 import { toKoreanDateString } from "@/utils/date-util";
+import { changeFrequencyCode } from "@/utils/util";
 
-interface ListProps extends Task {
+interface ListProps {
+  id: number;
+  date: string;
+  name: string;
+  doneAt: string | null;
+  commentCount: number;
+  frequency: string;
   className?: string;
+  onClickCheckbox: MouseEventHandler<HTMLInputElement>;
 }
 
 const List = ({
@@ -16,19 +23,25 @@ const List = ({
   commentCount,
   frequency,
   className,
+  onClickCheckbox,
 }: ListProps) => {
-  const repeatPeriod = Frequency_Map[frequency] || null;
+  const repeatPeriod = changeFrequencyCode(frequency);
 
   return (
     <div
       className={cn(
-        "mx-auto flex w-full max-w-[343px] flex-col gap-[10px] rounded-lg border border-gray-300 bg-white px-[14px] py-3 hover:bg-gray-100 tablet:max-w-[733px] pc:max-w-[1200px]",
+        "mx-auto flex w-full flex-col gap-[10px] rounded-lg border border-gray-300 bg-white px-[14px] py-3 hover:bg-gray-100",
         className
       )}
     >
       <div className="flex justify-between">
         <div className="gap-3 flex-center">
-          <Checkbox id={id} isDone={doneAt} taskName={name} />
+          <Checkbox
+            id={id}
+            isDone={doneAt}
+            taskName={name}
+            onClickCheckbox={onClickCheckbox}
+          />
           {!!commentCount && (
             <Button
               variant="none"
