@@ -1,12 +1,18 @@
 "use client";
 
+import Link from "next/link";
 import cn from "@/utils/clsx";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PostCard, Button, Icon } from "@/components/index";
-import { mockBoardPosts } from "@/mocks/board-post";
+import { Button, Icon } from "@/components/index";
+import { Article } from "@/types/article";
+import BoardsArticleWrapper from "@/app/boards/_components/boards-article-wrapper";
 
-const BoardBestPost = () => {
+interface BoardBestArticlesProps {
+  articles: Article[];
+}
+
+const BoardBestPost = ({ articles }: BoardBestArticlesProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsToShow, setCardsToShow] = useState<number | null>(null);
   const [maxItems, setMaxItems] = useState<number | null>(null);
@@ -37,7 +43,7 @@ const BoardBestPost = () => {
 
   if (cardsToShow === null || maxItems === null) return null;
 
-  const postsToUse = mockBoardPosts.slice(0, maxItems);
+  const postsToUse = articles.slice(0, maxItems);
   const totalSlides = Math.ceil(postsToUse.length / cardsToShow);
 
   const handlePrev = () => {
@@ -63,12 +69,13 @@ const BoardBestPost = () => {
           className="grid flex-1 grid-cols-1 gap-4 tablet:grid-cols-2 pc:grid-cols-3"
         >
           {visiblePosts.map((post) => (
-            <PostCard
-              className="h-[177px] w-full max-w-[340px] py-5 tablet:max-w-[304px] tablet:px-5 pc:h-[206px] pc:max-w-[350px] pc:py-6"
-              key={post.id}
-              {...post}
-              isBest={true}
-            />
+            <Link key={post.id} href={`/boards/${post.id}`}>
+              <BoardsArticleWrapper
+                article={post}
+                isBest={true}
+                className="h-[177px] w-full max-w-[340px] py-5 tablet:max-w-[304px] tablet:px-5 pc:h-[206px] pc:max-w-[350px] pc:py-6"
+              />
+            </Link>
           ))}
         </motion.div>
       </AnimatePresence>
