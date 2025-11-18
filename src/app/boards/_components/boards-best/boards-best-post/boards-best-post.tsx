@@ -17,6 +17,13 @@ const BoardBestPost = ({ articles }: BoardBestArticlesProps) => {
   const [cardsToShow, setCardsToShow] = useState<number | null>(null);
   const [maxItems, setMaxItems] = useState<number | null>(null);
 
+  if (articles.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20">
+        <p className="text-lg text-gray-400">등록된 게시글이 없습니다</p>
+      </div>
+    );
+  }
   useEffect(() => {
     setCurrentIndex(0);
 
