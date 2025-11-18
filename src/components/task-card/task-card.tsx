@@ -11,14 +11,14 @@ import { MouseEventHandler } from "react";
 import { CheckboxProps } from "../checkbox/checkbox";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import usePrompt from "@/hooks/use-prompt";
+import ChangeTaskListModalUI from "@/app/[groupId]/tasklist/_components/change-task-list-modal-ui";
 
 interface TaskCardProps extends BadgeProps {
   taskListId: number;
   taskTitle: string;
   taskList?: CheckboxProps[];
   handleClickCheckbox?: MouseEventHandler<HTMLInputElement>;
-  handleClickFix?: () => void;
-  handleClickDelete?: () => void;
 }
 
 const TaskCard = ({
@@ -28,11 +28,19 @@ const TaskCard = ({
   total,
   completed,
   handleClickCheckbox,
-  handleClickFix,
-  handleClickDelete,
 }: TaskCardProps) => {
   const listId = useSearchParams().get("list");
   const pathName = usePathname();
+  const {
+    Modal: DeleteModal,
+    openPrompt: openDeleteModal,
+    closePrompt: closeDeleteModal,
+  } = usePrompt(true);
+  const {
+    Modal: ChangeModal,
+    openPrompt: openChangeModal,
+    closePrompt: closeChangeModal,
+  } = usePrompt(true);
 
   return (
     <div
@@ -58,7 +66,10 @@ const TaskCard = ({
                 <Icon icon="kebab" className="h-6 w-6 text-gray-400" />
               </Button>
             }
-            items={[{ label: "수정하기" }, { label: "삭제하기" }]}
+            items={[
+              { label: "수정하기", onClick: openChangeModal },
+              { label: "삭제하기", onClick: openDeleteModal },
+            ]}
           />
         </div>
       </div>
@@ -79,6 +90,10 @@ const TaskCard = ({
           })}
         </ul>
       )}
+      <DeleteModal>""</DeleteModal>
+      <ChangeModal>
+        <ChangeTaskListModalUI taskTitle={taskTitle} handleClick={() => {}} />
+      </ChangeModal>
     </div>
   );
 };

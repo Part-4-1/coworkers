@@ -6,15 +6,16 @@ import usePrompt from "@/hooks/use-prompt";
 import AddTaskListModalUI from "./add-task-list-modal-ui";
 
 interface TodoContainerProps {
+  groupId: number;
   taskList: TaskList[];
 }
 
-const TaskListContainer = ({ taskList }: TodoContainerProps) => {
-  const { mutate: createTaskList, isPending } = usePostTaskList(3290);
+const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
+  const { mutate: createTaskList, isPending } = usePostTaskList(groupId);
   const { Modal: AddTaskListModal, openPrompt, closePrompt } = usePrompt(true);
   const handleClick = (name: string) => {
     closePrompt();
-    createTaskList({ groupId: 3290, name: name });
+    createTaskList({ groupId: groupId, name: name });
   };
 
   return (

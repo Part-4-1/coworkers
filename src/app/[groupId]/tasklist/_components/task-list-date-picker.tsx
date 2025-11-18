@@ -18,11 +18,13 @@ import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 import usePrompt from "@/hooks/use-prompt";
 
 interface TaskListDatePickerProps {
+  groupId: number;
   taskListId: number;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
 
 const TaskListDatePicker = ({
+  groupId,
   taskListId,
   setSelectedDate,
 }: TaskListDatePickerProps) => {
@@ -32,7 +34,7 @@ const TaskListDatePicker = ({
   const [showCalendar, setShowCalendar] = useState(false);
   const listId = useSearchParams().get("list");
   const { data: taskListData, isPending } = useGetTaskList(
-    3290,
+    groupId,
     Number(listId)
   );
   const { Modal, openPrompt, closePrompt } = usePrompt();

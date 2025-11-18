@@ -8,20 +8,23 @@ import cn from "@/utils/clsx";
 import { Button, Icon, TeamBannerMember } from "@/components";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 const Page = () => {
-  const param = useSearchParams().get("list");
-  const taskListId = Number(param);
+  const param = useParams();
+  const query = useSearchParams().get("list");
+  const groupId = Number(param.groupId);
+  const taskListId = Number(query);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { data: groupData, isPending } = useGetGroupInfo(3290);
   const { data: taskItems } = useGetTaskItems(
-    3290,
-    Number(taskListId),
+    groupId,
+    taskListId,
     selectedDate?.toLocaleDateString("sV-SE") || ""
   );
 
   useEffect(() => {
     setSelectedDate(new Date());
+    console.log(groupId);
   }, []);
 
   useEffect(() => {
@@ -43,7 +46,7 @@ const Page = () => {
       )}
       <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
         {!isPending && groupData ? (
-          <TaskListContainer taskList={groupData.taskLists} />
+          <TaskListContainer groupId={groupId} taskList={groupData.taskLists} />
         ) : (
           "아직 할 일이 없습니다!"
         )}
@@ -55,6 +58,7 @@ const Page = () => {
           )}
         >
           <TaskListDatePicker
+            groupId={groupId}
             taskListId={taskListId}
             setSelectedDate={setSelectedDate}
           />
