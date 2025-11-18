@@ -19,10 +19,7 @@ const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-  const { Modal, openPrompt, closePrompt } = usePrompt(
-    <PasswordRestModal />,
-    true
-  );
+  const { Modal, openPrompt, closePrompt } = usePrompt(<PasswordRestModal />);
 
   const {
     register,

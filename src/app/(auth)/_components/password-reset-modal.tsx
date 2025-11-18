@@ -37,7 +37,7 @@ const PasswordResetModal = () => {
   };
 
   return (
-    <div className="flex h-[260px] w-[384px] flex-col gap-6 px-[56px] pt-[48px]">
+    <div className="mx-auto flex h-[260px] w-full flex-col gap-6 pt-[48px] tablet:w-[384px] tablet:px-14">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col items-center gap-2">
           <span className="text-lg font-medium text-blue-700">
@@ -56,9 +56,9 @@ const PasswordResetModal = () => {
         />
       </div>
       <div className="flex gap-2">
-        {/* <Button type="button" variant="outlined">
+        <Button type="button" variant="outlined">
           닫기
-        </Button> */}
+        </Button>
         <Button
           type="button"
           variant="solid"
