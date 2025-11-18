@@ -7,13 +7,13 @@ import TeamNoGroup from "./_components/team-body/team-no-group";
 import TeamMembersSection from "./_components/team-members-section/team-members-section";
 
 interface TeamPageProps {
-  params: {
+  params: Promise<{
     groupId: string;
-  };
+  }>;
 }
 
-const TeamPage = ({ params }: TeamPageProps) => {
-  const groupId = params.groupId;
+const TeamPage = async ({ params }: TeamPageProps) => {
+  const { groupId } = await params;
   const currentGroup = mockGroupData[0]; // TODO: 동적으로 수정
   const isAdmin = true; // TODO: 동적으로 수정
   const isNoGroup = false; // TODO: 동적으로 수정

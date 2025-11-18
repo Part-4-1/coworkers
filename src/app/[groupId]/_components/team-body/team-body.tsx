@@ -1,6 +1,9 @@
+"use client";
+
 import { Badge, Icon } from "@/components";
 import { TASK_LIST_COLORS } from "@/constants/task-list-color";
-
+import usePrompt from "@/hooks/use-prompt";
+import AddTaskListModal from "./add-task-list-modal";
 interface Task {
   id: number;
   name: string;
@@ -23,6 +26,12 @@ const TeamBody = ({ taskLists }: TeamBodyProps) => {
     (a, b) => a.displayIndex - b.displayIndex
   );
   const isTaskListsEmpty = taskLists.length === 0 || taskLists === null;
+  const { Modal, openPrompt, closePrompt } = usePrompt(true);
+
+  const handleAddTaskList = (name: string) => {
+    closePrompt();
+    //TODO: API 호출 및 로직 추가
+  };
 
   return (
     <div className="px-[16px] tablet:px-[0px] pc:px-[0px]">
@@ -37,7 +46,10 @@ const TeamBody = ({ taskLists }: TeamBodyProps) => {
               ({sortedTaskLists.length}개)
             </span>
           </div>
-          <div className="cursor-pointer text-md text-blue-200">
+          <div
+            className="cursor-pointer text-md text-blue-200"
+            onClick={openPrompt}
+          >
             + 새로운 목록 추가하기
           </div>
         </header>
@@ -84,6 +96,9 @@ const TeamBody = ({ taskLists }: TeamBodyProps) => {
           </div>
         }
       </div>
+      <Modal>
+        <AddTaskListModal handleClick={handleAddTaskList} />
+      </Modal>
     </div>
   );
 };
