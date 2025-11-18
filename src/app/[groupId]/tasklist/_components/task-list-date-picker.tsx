@@ -1,4 +1,4 @@
-import { Button, Calendar, Icon } from "@/components";
+import { Button, Calendar, Icon, TaskModal } from "@/components";
 import {
   ChangeEvent,
   Dispatch,
@@ -15,12 +15,17 @@ import {
 import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-list";
 import { useSearchParams } from "next/navigation";
 import useGetTaskList from "@/hooks/api/task/use-get-task-list";
+import usePrompt from "@/hooks/use-prompt";
 
 interface TaskListDatePickerProps {
+  taskListId: number;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
 
-const TaskListDatePicker = ({ setSelectedDate }: TaskListDatePickerProps) => {
+const TaskListDatePicker = ({
+  taskListId,
+  setSelectedDate,
+}: TaskListDatePickerProps) => {
   const [currentSunday, setCurrentSunday] = useState<Date | null>(null);
   const [week, setWeek] = useState<number[] | null>(null);
   const [day, setDay] = useState<string>("");
@@ -30,6 +35,7 @@ const TaskListDatePicker = ({ setSelectedDate }: TaskListDatePickerProps) => {
     3290,
     Number(listId)
   );
+  const { Modal, openPrompt, closePrompt } = usePrompt();
 
   const initDate = (date: Date) => {
     const sunday = getCurrentSunday(date);
@@ -73,7 +79,7 @@ const TaskListDatePicker = ({ setSelectedDate }: TaskListDatePickerProps) => {
           <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
             {taskListData?.name}
           </span>
-          <Button className="h-5 w-5 rounded-full py-0">
+          <Button className="h-5 w-5 rounded-full py-0" onClick={openPrompt}>
             <Icon icon="plus" className="h-3 w-3" />
           </Button>
         </div>
@@ -118,6 +124,13 @@ const TaskListDatePicker = ({ setSelectedDate }: TaskListDatePickerProps) => {
         checkedDay={day}
         handleChangeDay={handleChangeDay}
       />
+      <Modal>
+        <TaskModal
+          groupId={3290}
+          taskListId={taskListId}
+          className="px-2 pt-8"
+        />
+      </Modal>
     </div>
   );
 };

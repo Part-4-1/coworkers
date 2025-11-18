@@ -15,7 +15,7 @@ const TaskMemoField = ({ register }: TaskMemoFieldProps) => {
       <InputBox
         id="taskMemo"
         {...register("description")}
-        className="placeholder:text-gray-800"
+        className="h-[75px] placeholder:text-gray-800"
         placeholder="메모를 입력해주세요."
       />
     </div>

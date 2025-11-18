@@ -10,12 +10,13 @@ import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
 import { useSearchParams } from "next/navigation";
 const Page = () => {
-  const listId = useSearchParams().get("list");
+  const param = useSearchParams().get("list");
+  const taskListId = Number(param);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { data: groupData, isPending } = useGetGroupInfo(3290);
   const { data: taskItems } = useGetTaskItems(
     3290,
-    Number(listId),
+    Number(taskListId),
     selectedDate?.toLocaleDateString("sV-SE") || ""
   );
 
@@ -53,7 +54,10 @@ const Page = () => {
             "w-full pc:h-[970px]"
           )}
         >
-          <TaskListDatePicker setSelectedDate={setSelectedDate} />
+          <TaskListDatePicker
+            taskListId={taskListId}
+            setSelectedDate={setSelectedDate}
+          />
           <TaskListItem taskItems={taskItems} />
         </div>
         <Button className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full">

@@ -11,6 +11,7 @@ import {
   TaskFrequencyField,
   TaskMemoField,
 } from "./index";
+import cn from "@/utils/clsx";
 
 interface TaskModalProps {
   groupId: number;
@@ -65,7 +66,7 @@ const TaskModal = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full max-w-[336px] flex-col gap-6"
+      className={cn("flex w-full max-w-[336px] flex-col gap-6", className)}
     >
       <TaskModalHeader />
 
