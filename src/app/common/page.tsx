@@ -191,7 +191,11 @@ const Page = () => {
       <div className="flex gap-5">
         <Dropdown
           items={[
-            { label: "법인 등기", addon: <Badge total={5} completed={3} /> },
+            {
+              label:
+                "법인 등기등기등기등기등기등기등기등기등기등기등기등기등기등기",
+              addon: <Badge total={5} completed={3} />,
+            },
             { label: "법인 설립", addon: <Badge total={5} completed={5} /> },
             { label: "정기 주총", addon: <Badge total={10} completed={2} /> },
           ]}
