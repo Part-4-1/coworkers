@@ -50,7 +50,7 @@ const TeamBannerAdmin = ({
   const { Modal, openPrompt, closePrompt } = usePrompt(false);
 
   const handleEditDropdown = () => {
-    router.push(`/${groupId}/edit`);
+    router.push(`/${groupId}/editteam`);
   };
 
   const handleDeleteDropdown = () => {

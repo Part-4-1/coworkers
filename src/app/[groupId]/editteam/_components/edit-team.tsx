@@ -1,21 +1,20 @@
+"use client";
+
 import { Button, ProfileEdit, TextInput } from "@/components";
 import { mockGroupData } from "@/mocks/group-data";
 import cn from "@/utils/clsx";
 import { useState } from "react";
 
-interface EditTeamPageProps {
-  params: {
-    groupId: string;
-  };
+interface EditTeamProps {
+  groupId: string;
 }
 
-const EditTeamPage = ({ params }: EditTeamPageProps) => {
-  const groupId = params.groupId;
+const EditTeam = ({ groupId }: EditTeamProps) => {
   const currentGroup = mockGroupData[0];
   const [groupName, setGroupName] = useState(currentGroup.name);
 
   const onSubmit = () => {
-    //TODO API 호출
+    console.log("API 호출", { groupId, groupName });
   };
 
   return (
@@ -60,4 +59,4 @@ const EditTeamPage = ({ params }: EditTeamPageProps) => {
   );
 };
 
-export default EditTeamPage;
+export default EditTeam;
