@@ -5,13 +5,13 @@ import Badge from "../badge/badge";
 import Button from "../button/button";
 import Dropdown from "../dropdown-components/dropdown";
 import Checkbox from "../checkbox/checkbox";
-import { MouseEvent } from "react";
+import { MouseEventHandler } from "react";
 import { CheckboxProps } from "../checkbox/checkbox";
 
 interface TaskCardProps extends BadgeProps {
   taskTitle: string;
   taskList?: CheckboxProps[];
-  onClickCheckbox?: (e: MouseEvent<HTMLLIElement>) => void;
+  handleClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
 
 const TaskCard = ({
@@ -19,7 +19,7 @@ const TaskCard = ({
   taskList,
   total,
   completed,
-  onClickCheckbox,
+  handleClickCheckbox,
 }: TaskCardProps) => {
   return (
     <div
@@ -47,12 +47,13 @@ const TaskCard = ({
         <ul className="flex flex-col justify-start gap-2">
           {taskList.map((task) => {
             return (
-              <li key={task.id} data-id={task.id} onClick={onClickCheckbox}>
+              <li key={task.id} data-id={task.id}>
                 <Checkbox
                   id={task.id}
                   taskName={task.taskName}
                   isDone={task.isDone}
                   size="sm"
+                  onClickCheckbox={handleClickCheckbox}
                 />
               </li>
             );

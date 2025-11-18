@@ -14,7 +14,7 @@ import Icon from "../icon/Icon";
  */
 
 interface ProfileProps {
-  image?: string;
+  image?: string | null;
   size?: "lg" | "md" | "sm" | "xs";
   className?: string;
   onClick?: MouseEventHandler<HTMLDivElement>;

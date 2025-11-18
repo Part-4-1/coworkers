@@ -1,7 +1,7 @@
-import Icon from "../icon/Icon";
-import Profile from "../profile/profile";
 import cn from "@/utils/clsx";
 import { MouseEventHandler } from "react";
+import Icon from "../icon/Icon";
+import Profile from "../profile/profile";
 
 /**
  * @author jinhyuk
@@ -17,7 +17,7 @@ interface ProfileMemberProps {
   userImage?: string;
   userName: string;
   userEmail: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  onKebabClick?: MouseEventHandler<HTMLDivElement>;
   className?: string;
 }
 
@@ -25,7 +25,7 @@ const ProfileMember = ({
   userImage,
   userName,
   userEmail,
-  onClick,
+  onKebabClick: onKebabClick,
   className,
 }: ProfileMemberProps) => {
   return (
@@ -38,7 +38,7 @@ const ProfileMember = ({
 
       <div
         className="flex w-[16px] cursor-pointer justify-center"
-        onClick={onClick}
+        onClick={onKebabClick}
       >
         <Icon icon="kebab" />
       </div>
