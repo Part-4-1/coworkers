@@ -1,11 +1,13 @@
 import cn from "@/utils/clsx";
 import Icon from "../icon/Icon";
+import { MouseEventHandler } from "react";
 
 export interface CheckboxProps {
   id: number;
   taskName?: string;
   isDone: string | null;
   size?: "sm" | "lg";
+  onClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
 
 const checkboxSizes = {
@@ -23,6 +25,7 @@ const Checkbox = ({
   taskName = "할 일을 입력해주세요.",
   isDone = null,
   size,
+  onClickCheckbox,
 }: CheckboxProps) => {
   return (
     <label
@@ -33,7 +36,7 @@ const Checkbox = ({
         id={id.toString()}
         type="checkbox"
         className="sr-only"
-        onClick={(e) => e.stopPropagation()}
+        onClick={onClickCheckbox}
       />
       <Icon
         icon={isDone ? "checkboxActive" : "checkboxDefault"}

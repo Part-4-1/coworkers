@@ -12,7 +12,7 @@ import {
   getPrevSunday,
   getWeek,
 } from "@/utils/date-util";
-import dynamic from "next/dynamic";
+import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-list";
 
 interface TaskListDatePickerProps {
   name: string;
@@ -20,14 +20,8 @@ interface TaskListDatePickerProps {
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
 
-const DynamicDatePickerList = dynamic(
-  () => import("@/app/[groupId]/tasklist/_components/date-picker-list"),
-  { ssr: false, loading: () => <div>date picker loading ...</div> }
-);
-
 const TaskListDatePicker = ({
   name,
-  selectedDate,
   setSelectedDate,
 }: TaskListDatePickerProps) => {
   const [currentSunday, setCurrentSunday] = useState<Date | null>(null);
@@ -71,11 +65,16 @@ const TaskListDatePicker = ({
   }, [currentSunday]);
 
   return (
-    <div className="flex w-full flex-col gap-6 px-4 pt-[38px]">
+    <div className="flex w-full flex-col gap-6 tablet:gap-8">
       <div className="relative flex items-center justify-between">
-        <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
-          {name}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
+            {name}
+          </span>
+          <Button className="h-5 w-5 rounded-full py-0">
+            <Icon icon="plus" className="h-3 w-3" />
+          </Button>
+        </div>
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
             {currentSunday
@@ -112,8 +111,7 @@ const TaskListDatePicker = ({
           </div>
         )}
       </div>
-
-      <DynamicDatePickerList
+      <DatePickerList
         dateList={week}
         checkedDay={day}
         handleChangeDay={handleChangeDay}
