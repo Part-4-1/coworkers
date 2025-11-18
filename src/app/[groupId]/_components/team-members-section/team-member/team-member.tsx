@@ -3,9 +3,9 @@
 import { Icon, Profile } from "@/components";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
+import useToast from "@/hooks/use-toast";
 import { Member } from "@/types/members";
 import MemberProfileModal from "./member-profile-modal";
-
 interface TeamMemberProps {
   member: Member;
 }
@@ -13,9 +13,17 @@ interface TeamMemberProps {
 const TeamMember = ({ member }: TeamMemberProps) => {
   const isMobile = useMediaQuery("(max-width: 744px)");
   const { Modal, openPrompt, closePrompt } = usePrompt(true);
+  const { success, error, warning } = useToast();
 
-  const handleCopyEmail = () => {
-    closePrompt();
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(member.userEmail);
+      success("이메일이 클립보드에 복사되었습니다.");
+    } catch (err) {
+      error("이메일 복사에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      closePrompt();
+    }
   };
 
   return (
