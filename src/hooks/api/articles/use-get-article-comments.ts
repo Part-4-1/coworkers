@@ -15,6 +15,7 @@ const useGetArticleComments = ({ articleId }: UseGetArticleCommentsParams) => {
       }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
+    gcTime: 0,
   });
 };
 

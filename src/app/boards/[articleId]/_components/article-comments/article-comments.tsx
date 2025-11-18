@@ -73,7 +73,7 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
         {allComments.map((comment) => (
           <div key={comment.id}>
             <hr className="border-gray-300 pb-5" />
-            <Reply comment={comment} />
+            <Reply comment={comment} articleId={article.id} />
           </div>
         ))}
         <div ref={observerTarget} className="h-4" />
