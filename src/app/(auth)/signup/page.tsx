@@ -93,7 +93,7 @@ const Page = () => {
               rightIconClassName="pr-2"
               rightIcon={
                 <Button
-                  aria-label={showPassword ? "hide password" : "show password"}
+                  aria-label={showPassword ? "show password" : "hide password"}
                   type="button"
                   variant="none"
                   onClick={() => setShowPassword(!showPassword)}
@@ -132,7 +132,7 @@ const Page = () => {
               rightIconClassName="pr-2"
               rightIcon={
                 <Button
-                  aria-label={showPassword ? "hide password" : "show password"}
+                  aria-label={showPassword ? "show password" : "hide password"}
                   type="button"
                   variant="none"
                   onClick={() => setShowPassword(!showPassword)}
@@ -151,8 +151,13 @@ const Page = () => {
               })}
             />
           </div>
-          <Button className="mt-4" type="submit" disabled={!isValid}>
-            회원가입
+          <Button
+            className="mt-4"
+            type="submit"
+            disabled={!isValid}
+            aria-label="Signup"
+          >
+            {isPending ? "전송 중..." : "회원가입"}
           </Button>
         </form>
       </div>

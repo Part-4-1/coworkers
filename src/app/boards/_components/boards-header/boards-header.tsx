@@ -1,7 +1,18 @@
+"use client";
+
 import cn from "@/utils/clsx";
 import { TextInput, Button, Icon } from "@/components/index";
+import { ChangeEvent } from "react";
 
-const BoardsHeader = () => {
+const BoardsHeader = ({
+  onSearch,
+}: {
+  onSearch: (keyword: string) => void;
+}) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    onSearch(e.target.value);
+  };
+
   return (
     <div
       className={cn(
@@ -15,6 +26,7 @@ const BoardsHeader = () => {
         className="w-full rounded-full border-2"
         placeholder="검색어를 입력해주세요"
         id="search"
+        onChange={handleSearch}
         leftIcon={
           <Button variant="none">
             <Icon icon="search" className="h-8 w-8"></Icon>

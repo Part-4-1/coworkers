@@ -113,8 +113,8 @@ const Dropdown = ({
         defaultTriggerClassName
       )}
     >
-      <div className="flex items-center gap-[8px]">
-        {selectedLabel}
+      <div className="flex min-w-0 flex-1 items-center gap-[8px]">
+        <span className="truncate">{selectedLabel}</span>
         {triggerAddon}
       </div>
       <Icon
@@ -150,7 +150,7 @@ const Dropdown = ({
                   itemClassName
                 )}
               >
-                {label}
+                <span className="truncate">{label}</span>
               </li>
             ))}
           </ul>

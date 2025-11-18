@@ -27,7 +27,7 @@ const Progressbar = ({ progressRate }: ProgressbarProps) => {
     <div
       className={cn(
         "relative h-[20px] w-full overflow-hidden rounded-[1000px] bg-gray-50",
-        "min-w-[120px] max-w-[1010px] tablet:h-[27px]"
+        "min-w-[120px] tablet:h-[27px]"
       )}
       style={{
         backgroundImage: patternStyle,
