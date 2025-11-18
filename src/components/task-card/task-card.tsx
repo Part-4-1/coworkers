@@ -15,6 +15,7 @@ import usePrompt from "@/hooks/use-prompt";
 import ChangeTaskListModalUI from "@/components/modal-ui/change-task-list-modal-ui";
 import DeleteModalUI from "../modal-ui/delete-modal-ui";
 import useDeleteTaskList from "@/hooks/api/task/use-delete-task-list";
+import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
 
 interface TaskCardProps extends BadgeProps {
   groupId: number;
@@ -50,6 +51,13 @@ const TaskCard = ({
   const handleDelete = () => {
     deleteTaskList({ groupId, taskListId });
     closeDeleteModal();
+  };
+
+  const { mutate: patchTaskList, isPending: patchPending } =
+    usePatchTaskList(groupId);
+  const handlePatch = (name: string) => {
+    patchTaskList({ groupId, taskListId, name });
+    closeChangeModal();
   };
 
   return (
@@ -113,7 +121,10 @@ const TaskCard = ({
         />
       </DeleteModal>
       <ChangeModal>
-        <ChangeTaskListModalUI taskTitle={taskTitle} handleClick={() => {}} />
+        <ChangeTaskListModalUI
+          taskTitle={taskTitle}
+          handleClick={handlePatch}
+        />
       </ChangeModal>
     </div>
   );
