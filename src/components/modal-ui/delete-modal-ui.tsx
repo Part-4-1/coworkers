@@ -26,18 +26,18 @@ const DeleteModalUI = ({
           </p>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex w-full gap-2">
         <Button
           onClick={handleClose}
           variant="outlined-secondary"
-          className="h-[48px] w-[136px]"
+          className="h-[48px] tablet:w-[138px]"
         >
           닫기
         </Button>
         <Button
           variant="alert"
           onClick={handleClick}
-          className="h-[48px] w-[136px]"
+          className="h-[48px] tablet:w-[138px]"
         >
           삭제하기
         </Button>

@@ -14,8 +14,10 @@ import Link from "next/link";
 import usePrompt from "@/hooks/use-prompt";
 import ChangeTaskListModalUI from "@/components/modal-ui/change-task-list-modal-ui";
 import DeleteModalUI from "../modal-ui/delete-modal-ui";
+import useDeleteTaskList from "@/hooks/api/task/use-delete-task-list";
 
 interface TaskCardProps extends BadgeProps {
+  groupId: number;
   taskListId: number;
   taskTitle: string;
   taskList?: CheckboxProps[];
@@ -23,6 +25,7 @@ interface TaskCardProps extends BadgeProps {
 }
 
 const TaskCard = ({
+  groupId,
   taskListId,
   taskTitle,
   taskList,
@@ -42,6 +45,12 @@ const TaskCard = ({
     openPrompt: openChangeModal,
     closePrompt: closeChangeModal,
   } = usePrompt(true);
+
+  const { mutate: deleteTaskList, isPending } = useDeleteTaskList(groupId);
+  const handleDelete = () => {
+    deleteTaskList({ groupId, taskListId });
+    closeDeleteModal();
+  };
 
   return (
     <div
@@ -99,7 +108,7 @@ const TaskCard = ({
               <br />할 일을 정말 삭제하시겠어요?
             </>
           }
-          handleClick={() => {}}
+          handleClick={handleDelete}
           handleClose={closeDeleteModal}
         />
       </DeleteModal>

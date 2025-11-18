@@ -21,6 +21,7 @@ const Page = () => {
     taskListId,
     selectedDate?.toLocaleDateString("sV-SE") || ""
   );
+  // TODO: useGetTaskList 여기로 옮겨서 task-list-date-picker로 내려주기
 
   useEffect(() => {
     setSelectedDate(new Date());
@@ -33,6 +34,7 @@ const Page = () => {
   }, [selectedDate]);
 
   return (
+    //TODO: 관리자 배너 추가하기
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
       {!isPending ? (
         <TeamBannerMember

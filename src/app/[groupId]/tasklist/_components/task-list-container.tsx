@@ -70,6 +70,7 @@ const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
                 return (
                   <li key={task.id}>
                     <TaskCard
+                      groupId={groupId}
                       taskListId={task.id}
                       taskTitle={task.name}
                       total={task.tasks.length}

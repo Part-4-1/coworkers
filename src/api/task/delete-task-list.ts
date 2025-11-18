@@ -9,7 +9,7 @@ const deleteTaskList = async ({
 }) => {
   try {
     const response = await instance.delete(
-      `/groups${groupId}/task-lists/${taskListId}`
+      `/groups/${groupId}/task-lists/${taskListId}`
     );
 
     if (!response) throw new Error("요청에 실패했습니다.");
