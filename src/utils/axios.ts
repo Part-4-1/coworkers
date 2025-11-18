@@ -20,6 +20,9 @@ const instance = axios.create({
 
 const refreshTokenReIssue = async () => {
   const refreshToken = getCookie("refreshToken");
+  if (!refreshToken) {
+    return null;
+  }
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`,
