@@ -46,6 +46,7 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
             defaultValue={currentGroup.name}
             spellCheck={false}
             onChange={(e) => setGroupName(e.target.value)}
+            placeholder="팀 이름을 입력해주세요."
           />
         </div>
         <div className="mb-[20px] w-full tablet:mb-[24px]">

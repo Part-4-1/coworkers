@@ -1,11 +1,15 @@
 import EditTeam from "./_components/edit-team";
 
 interface EditTeamPageProps {
-  params: { groupId: string };
+  params: Promise<{
+    groupId: string;
+  }>;
 }
 
-const EditTeamPage = ({ params }: EditTeamPageProps) => {
-  return <EditTeam groupId={params.groupId} />;
+const EditTeamPage = async ({ params }: EditTeamPageProps) => {
+  const { groupId } = await params;
+
+  return <EditTeam groupId={groupId} />;
 };
 
 export default EditTeamPage;
