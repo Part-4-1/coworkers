@@ -1,5 +1,3 @@
-"use client";
-
 import { TeamBannerAdmin, TeamBannerMember } from "@/components/index";
 import { mockGroupData } from "@/mocks/group-data";
 import { mockGroupTasksData } from "@/mocks/group-tasks";
@@ -8,7 +6,14 @@ import TeamBody from "./_components/team-body/team-body";
 import TeamNoGroup from "./_components/team-body/team-no-group";
 import TeamMembersSection from "./_components/team-members-section/team-members-section";
 
-const TeamPage = () => {
+interface TeamPageProps {
+  params: {
+    groupId: string;
+  };
+}
+
+const TeamPage = ({ params }: TeamPageProps) => {
+  const groupId = params.groupId;
   const currentGroup = mockGroupData[0]; // TODO: 동적으로 수정
   const isAdmin = true; // TODO: 동적으로 수정
   const isNoGroup = false; // TODO: 동적으로 수정
@@ -48,7 +53,7 @@ const TeamPage = () => {
                 tasksTodo={tasksTodo}
                 tasksDone={tasksDone}
                 members={currentGroup.members}
-                onMemberListClick={() => {}}
+                groupId={groupId}
               />
             ) : (
               <TeamBannerMember

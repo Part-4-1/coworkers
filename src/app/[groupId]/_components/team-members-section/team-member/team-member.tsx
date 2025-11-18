@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon, Profile } from "@/components";
 import useMediaQuery from "@/hooks/use-media-query";
 import { Member } from "@/types/members";
