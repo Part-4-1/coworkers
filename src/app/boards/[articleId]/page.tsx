@@ -21,10 +21,7 @@ export default function Page() {
       <article className="px-[20px] py-[88px] tablet:px-[40px] pc:px-[60px]">
         <ArticleHeader article={articleData} />
         <ArticleContents article={articleData} />
-        <ArticleComments
-          article={articleData}
-          comments={data?.comments?.list || []}
-        />
+        <ArticleComments article={articleData} />
       </article>
     </main>
   );

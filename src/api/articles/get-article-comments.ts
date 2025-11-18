@@ -3,19 +3,17 @@ import { CommentListResponse } from "@/types/comment";
 
 interface GetArticleCommentsParams {
   articleId: number;
-  limit: number;
   cursor?: number;
 }
 
 const getArticleComments = async ({
   articleId,
-  limit,
   cursor,
 }: GetArticleCommentsParams): Promise<CommentListResponse> => {
   try {
     const response = await instance.get(`/articles/${articleId}/comments`, {
       params: {
-        limit,
+        limit: 7,
         cursor,
       },
     });

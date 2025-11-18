@@ -1,18 +1,44 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { Article } from "@/types/article";
-import { Comment } from "@/types/comment";
 import { InputReply, Reply } from "@/components/index";
 import { usePostArticleComment } from "@/hooks/api/articles/use-post-article-comment";
+import useGetArticleComments from "@/hooks/api/articles/use-get-article-comments";
 
 interface ArticleCommentsProps {
   article: Article;
-  comments: Comment[];
 }
 
-const ArticleComments = ({ article, comments }: ArticleCommentsProps) => {
+const ArticleComments = ({ article }: ArticleCommentsProps) => {
   const { mutate, isPending } = usePostArticleComment();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetArticleComments({ articleId: article.id });
+
+  const observerTarget = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   const handleCommentSubmit = (content: string) => {
     mutate({
@@ -22,6 +48,8 @@ const ArticleComments = ({ article, comments }: ArticleCommentsProps) => {
       },
     });
   };
+
+  const allComments = data?.pages.flatMap((page) => page.list) ?? [];
 
   return (
     <div>
@@ -42,12 +70,13 @@ const ArticleComments = ({ article, comments }: ArticleCommentsProps) => {
         <InputReply onSubmit={handleCommentSubmit} disabled={isPending} />
       </div>
       <div className="flex flex-col gap-4">
-        {comments.map((comment) => (
+        {allComments.map((comment) => (
           <div key={comment.id}>
             <hr className="border-gray-300 pb-5" />
             <Reply comment={comment} />
           </div>
         ))}
+        <div ref={observerTarget} className="h-4" />
       </div>
     </div>
   );
