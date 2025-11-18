@@ -27,7 +27,7 @@ const meta: Meta<typeof ProfileMember> = {
     userEmail: {
       description: "멤버의 이메일",
     },
-    onClick: {
+    onKebabClick: {
       description: "클릭시 실행되는 콜백함수",
       action: "clicked",
       table: { category: "Events" },
