@@ -12,6 +12,7 @@ import {
   TaskMemoField,
 } from "./index";
 import cn from "@/utils/clsx";
+import { useEffect } from "react";
 
 interface TaskModalProps {
   groupId: number;
@@ -31,6 +32,7 @@ const TaskModal = ({
       register,
       handleSubmit,
       control,
+      watch,
       formState: { errors },
     },
     reset,
@@ -45,9 +47,12 @@ const TaskModal = ({
     setShowTime,
   } = useTaskForm();
 
+  const date = watch("startDate")?.toLocaleDateString("sv-SE") || "";
+
   const { mutate: createTask, isPending } = useCreateTask({
     groupId,
     taskListId,
+    date,
   });
 
   const onSubmit = (data: TaskFormData) => {

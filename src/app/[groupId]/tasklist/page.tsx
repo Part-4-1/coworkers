@@ -15,37 +15,28 @@ const Page = () => {
   const groupId = Number(param.groupId);
   const taskListId = Number(query);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const { data: groupData, isPending } = useGetGroupInfo(3290);
+  const { data: groupData, isPending } = useGetGroupInfo(groupId);
   const { data: taskItems } = useGetTaskItems(
     groupId,
     taskListId,
-    selectedDate?.toLocaleDateString("sV-SE") || ""
+    selectedDate?.toLocaleDateString("sv-SE") || ""
   );
+
   // TODO: useGetTaskList 여기로 옮겨서 task-list-date-picker로 내려주기
 
   useEffect(() => {
     setSelectedDate(new Date());
-    console.log(groupId);
   }, []);
-
-  useEffect(() => {
-    console.log(taskItems);
-    console.log(selectedDate?.toLocaleDateString("sV-SE"));
-  }, [selectedDate]);
 
   return (
     //TODO: 관리자 배너 추가하기
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
-      {!isPending ? (
-        <TeamBannerMember
-          groupName={groupData?.name || ""}
-          members={groupData?.members || []}
-          onMemberListClick={() => {}}
-          className="py-3 tablet:mt-[69px] tablet:py-4"
-        />
-      ) : (
-        ""
-      )}
+      <TeamBannerMember
+        groupName={groupData?.name || ""}
+        members={groupData?.members || []}
+        onMemberListClick={() => {}}
+        className="py-3 tablet:mt-[69px] tablet:py-4"
+      />
       <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
         {!isPending && groupData ? (
           <TaskListContainer groupId={groupId} taskList={groupData.taskLists} />
@@ -66,9 +57,9 @@ const Page = () => {
           />
           <TaskListItem taskListId={taskListId} taskItems={taskItems} />
         </div>
-        <Button className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full">
+        {/* <Button className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full">
           <Icon icon="plus" className="h-6 w-6" />
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
