@@ -38,7 +38,7 @@ import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import useToast from "@/hooks/use-toast";
 import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
-import { mockListData } from "@/mocks/list-data";
+// import { mockListData } from "@/mocks/list-data";
 import { mockUserData } from "@/mocks/user-data";
 import { MouseEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -191,7 +191,11 @@ const Page = () => {
       <div className="flex gap-5">
         <Dropdown
           items={[
-            { label: "법인 등기", addon: <Badge total={5} completed={3} /> },
+            {
+              label:
+                "법인 등기등기등기등기등기등기등기등기등기등기등기등기등기등기",
+              addon: <Badge total={5} completed={3} />,
+            },
             { label: "법인 설립", addon: <Badge total={5} completed={5} /> },
             { label: "정기 주총", addon: <Badge total={10} completed={2} /> },
           ]}
@@ -315,9 +319,6 @@ const Page = () => {
               isDone: "2025-11-01T10:00:00Z",
             },
           ]}
-          onClickCheckbox={(e: MouseEvent<HTMLLIElement>) =>
-            console.log(e.currentTarget.dataset.id)
-          }
         />
       </div>
       <div className="w-[340px]">
@@ -370,7 +371,7 @@ const Page = () => {
         taskListId={4712}
         onSuccess={() => success("할 일이 생성되었습니다!")}
       />
-      {mockListData.tasks.map((task) => {
+      {/* {mockListData.tasks.map((task) => {
         return (
           <List
             key={task.id}
@@ -380,9 +381,10 @@ const Page = () => {
             doneAt={task.doneAt}
             commentCount={task.commentCount}
             frequency={task.frequency}
+            onClickCheckbox={() => {}}
           />
         );
-      })}
+      })} */}
       <div className="mt-8 w-full max-w-[300px] gap-2 flex-col-center">
         <Button
           className="bg-emerald-400"

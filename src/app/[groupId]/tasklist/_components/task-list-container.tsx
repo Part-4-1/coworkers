@@ -10,14 +10,23 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
   return (
     <div
       className={cn(
-        "mb-[22px] mt-6 flex w-full max-w-[1280px] flex-col justify-between gap-2 px-4",
-        "tablet:mb-6 tablet:mt-[34px] tablet:gap-3 tablet:px-0",
-        "pc:w-[270px] pc:gap-6"
+        "flex w-full max-w-[1280px] flex-col justify-between gap-2 px-4",
+        "tablet:gap-3 tablet:px-0",
+        "pc:w-[270px] pc:justify-start pc:gap-6"
       )}
     >
-      <p className="text-xs font-semibold text-gray-800 tablet:text-lg pc:text-xl pc:font-bold pc:text-blue-700">
-        할 일
-      </p>
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold text-gray-800 tablet:text-lg pc:text-xl pc:font-bold pc:text-blue-700">
+          할 일
+        </p>
+        <Button
+          variant="outlined"
+          className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold mobile:hidden pc:flex"
+        >
+          <Icon icon="plus" className="h-4 w-4" />
+          목록 추가
+        </Button>
+      </div>
 
       <div className="flex items-center justify-between pc:flex-col pc:gap-[38px]">
         {/* mobile ~ tablet */}
@@ -49,12 +58,13 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
             );
           })}
         </div>
-        <div className="flex pc:justify-center">
+        <div className="flex pc:hidden">
           <Button
             variant="outlined"
             className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold"
           >
-            <Icon icon="plus" className="h-4 w-4" />할 일 추가
+            <Icon icon="plus" className="h-4 w-4" />
+            목록 추가
           </Button>
         </div>
       </div>

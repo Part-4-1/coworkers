@@ -19,7 +19,7 @@ const DatePickerList = ({
   }
 
   return (
-    <ul className="flex w-full items-center gap-1">
+    <ul className="flex w-full items-center gap-1 tablet:gap-2 pc:gap-3">
       {dateList.map((date, idx) => {
         return (
           <li key={DAYS[idx]} className="flex-1">
