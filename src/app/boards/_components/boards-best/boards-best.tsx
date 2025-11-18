@@ -1,8 +1,15 @@
+"use client";
+
 import cn from "@/utils/clsx";
+import { useGetArticles } from "@/hooks/api/articles/use-get-articles";
 import BoardsBestHeader from "./boards-best-header/boards-best-header";
 import BoardBestPost from "./boards-best-post/boards-best-post";
 
 const BoardsBest = () => {
+  const { data: bestArticles, isPending } = useGetArticles(1, 15, "like");
+
+  if (isPending) return <div>로딩중...</div>;
+
   return (
     <div
       className={cn(
@@ -19,7 +26,7 @@ const BoardsBest = () => {
         )}
       >
         <BoardsBestHeader />
-        <BoardBestPost />
+        <BoardBestPost articles={bestArticles?.list || []} />
       </div>
     </div>
   );

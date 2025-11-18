@@ -58,6 +58,10 @@ instance.interceptors.request.use(
 
     const articleGetPattern = /^\/articles(\/[^\/]+)?$/;
     if (method === "get" && articleGetPattern.test(url)) {
+      const accessToken = getCookie("accessToken");
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
       return config;
     }
 

@@ -46,6 +46,7 @@ const InputBox = ({
         "text-md placeholder:text-sm",
         "tablet:text-lg tablet:placeholder:text-md",
         "border-blue-400 placeholder-shown:border-gray-300 focus:border-blue-200",
+        "break-words",
         width,
         height,
         className
