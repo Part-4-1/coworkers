@@ -1,7 +1,6 @@
 import { TaskList } from "@/types/taskList";
 import cn from "@/utils/clsx";
 import { Badge, Button, Dropdown, Icon, TaskCard } from "@/components";
-import { useRouter, useSearchParams } from "next/navigation";
 import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import AddTaskListModalUI from "./add-task-list-modal-ui";
@@ -13,6 +12,10 @@ interface TodoContainerProps {
 const TaskListContainer = ({ taskList }: TodoContainerProps) => {
   const { mutate: createTaskList, isPending } = usePostTaskList(3290);
   const { Modal: AddTaskListModal, openPrompt, closePrompt } = usePrompt(true);
+  const handleClick = (name: string) => {
+    closePrompt();
+    createTaskList({ groupId: 3290, name: name });
+  };
 
   return (
     <div
@@ -29,7 +32,6 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
         <Button
           variant="outlined"
           className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold mobile:hidden pc:flex"
-          //TODO: 모달 열기
           onClick={openPrompt}
         >
           <Icon icon="plus" className="h-4 w-4" />
@@ -75,6 +77,7 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
           <Button
             variant="outlined"
             className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold"
+            onClick={openPrompt}
           >
             <Icon icon="plus" className="h-4 w-4" />
             목록 추가
@@ -82,7 +85,7 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
         </div>
       </div>
       <AddTaskListModal>
-        <AddTaskListModalUI onClick={() => {}} />
+        <AddTaskListModalUI handleClick={handleClick} />
       </AddTaskListModal>
     </div>
   );
