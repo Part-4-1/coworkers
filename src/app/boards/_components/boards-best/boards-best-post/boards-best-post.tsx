@@ -14,16 +14,9 @@ interface BoardBestArticlesProps {
 
 const BoardBestPost = ({ articles }: BoardBestArticlesProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsToShow, setCardsToShow] = useState<number | null>(null);
-  const [maxItems, setMaxItems] = useState<number | null>(null);
+  const [cardsToShow, setCardsToShow] = useState<number>(1);
+  const [maxItems, setMaxItems] = useState<number>(5);
 
-  if (articles.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20">
-        <p className="text-lg text-gray-400">등록된 게시글이 없습니다</p>
-      </div>
-    );
-  }
   useEffect(() => {
     setCurrentIndex(0);
 
@@ -48,7 +41,13 @@ const BoardBestPost = ({ articles }: BoardBestArticlesProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (cardsToShow === null || maxItems === null) return null;
+  if (articles.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20">
+        <p className="text-lg text-gray-400">등록된 게시글이 없습니다</p>
+      </div>
+    );
+  }
 
   const postsToUse = articles.slice(0, maxItems);
   const totalSlides = Math.ceil(postsToUse.length / cardsToShow);

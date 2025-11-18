@@ -6,8 +6,8 @@ export const useDeleteArticle = () => {
 
   return useMutation({
     mutationFn: deleteArticle,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["articles"],
       });
     },
