@@ -12,7 +12,8 @@ import { CheckboxProps } from "../checkbox/checkbox";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import usePrompt from "@/hooks/use-prompt";
-import ChangeTaskListModalUI from "@/app/[groupId]/tasklist/_components/change-task-list-modal-ui";
+import ChangeTaskListModalUI from "@/components/modal-ui/change-task-list-modal-ui";
+import DeleteModalUI from "../modal-ui/delete-modal-ui";
 
 interface TaskCardProps extends BadgeProps {
   taskListId: number;
@@ -35,7 +36,7 @@ const TaskCard = ({
     Modal: DeleteModal,
     openPrompt: openDeleteModal,
     closePrompt: closeDeleteModal,
-  } = usePrompt(true);
+  } = usePrompt();
   const {
     Modal: ChangeModal,
     openPrompt: openChangeModal,
@@ -90,7 +91,18 @@ const TaskCard = ({
           })}
         </ul>
       )}
-      <DeleteModal>""</DeleteModal>
+      <DeleteModal>
+        <DeleteModalUI
+          contents={
+            <>
+              '{taskTitle}'
+              <br />할 일을 정말 삭제하시겠어요?
+            </>
+          }
+          handleClick={() => {}}
+          handleClose={closeDeleteModal}
+        />
+      </DeleteModal>
       <ChangeModal>
         <ChangeTaskListModalUI taskTitle={taskTitle} handleClick={() => {}} />
       </ChangeModal>
