@@ -22,7 +22,9 @@ const AddTaskListModalUI = ({
           }
         />
       </div>
-      <Button onClick={() => handleClick(input)}>만들기</Button>
+      <Button onClick={() => handleClick(input)} disabled={input.length < 1}>
+        만들기
+      </Button>
     </div>
   );
 };
