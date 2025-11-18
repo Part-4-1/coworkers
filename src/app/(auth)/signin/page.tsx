@@ -19,10 +19,7 @@ const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-  const { Modal, openPrompt, closePrompt } = usePrompt(
-    <PasswordRestModal />,
-    true
-  );
+  const { Modal, openPrompt, closePrompt } = usePrompt();
 
   const {
     register,
@@ -108,13 +105,23 @@ const Page = () => {
                 })}
               />
               <div className="flex cursor-pointer justify-end text-lg font-medium text-blue-200 underline hover:text-blue-100">
-                <Button type="button" onClick={openPrompt} variant="none">
+                <Button
+                  type="button"
+                  onClick={openPrompt}
+                  variant="none"
+                  aria-label="Forget Password?"
+                >
                   비밀번호를 잊으셨나요?
                 </Button>
               </div>
             </div>
-            <Button className="mt-4" type="submit" disabled={!isValid}>
-              로그인
+            <Button
+              className="mt-4"
+              type="submit"
+              disabled={!isValid}
+              aria-label="Login"
+            >
+              {isPending ? "전송 중..." : "로그인"}
             </Button>
             <div className="gap-3 flex-center">
               <p className="flex justify-end text-lg font-medium text-blue-700">
@@ -123,6 +130,7 @@ const Page = () => {
               <Link
                 href={"/signup"}
                 className="flex cursor-pointer justify-end text-lg font-medium text-blue-200 underline hover:text-blue-100"
+                aria-label="Signup"
               >
                 가입하기
               </Link>
@@ -131,7 +139,9 @@ const Page = () => {
         </div>
         <SimpleSignUpIn />
       </SingUpInFormWrapper>
-      <Modal />
+      <Modal>
+        <PasswordRestModal closePrompt={closePrompt} />
+      </Modal>
     </>
   );
 };

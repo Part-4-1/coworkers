@@ -1,39 +1,46 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import cn from "@/utils/clsx";
+import Link from "next/link";
 import { PostCard, Icon, Button } from "@/components/index";
-import { mockBoardPosts } from "@/mocks/board-post";
+import { Article } from "@/types/article";
+import { useState } from "react";
+import BoardsArticleWrapper from "../../boards-article-wrapper";
 
-const PER_PAGE_COUNT = 6;
 const PAGE_COUNT = 5;
+const PER_PAGE_COUNT = 6;
 
-const BoardAllPost = ({ posts = mockBoardPosts }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+interface BoardAllArticlesProps {
+  articles: Article[];
+  currentPage: number;
+  onPageChange: (page: number) => void;
+  totalCount?: number;
+}
+
+const BoardAllPost = ({
+  articles,
+  currentPage,
+  onPageChange,
+  totalCount = 0,
+}: BoardAllArticlesProps) => {
   const [startPage, setStartPage] = useState(1);
-
-  const totalPage = Math.ceil(posts.length / PER_PAGE_COUNT);
+  const totalPage = Math.ceil(totalCount / PER_PAGE_COUNT);
   const lastPage = Math.min(startPage + PAGE_COUNT - 1, totalPage);
-  const startIdx = (currentPage - 1) * PER_PAGE_COUNT;
-  const currentPosts = posts.slice(startIdx, startIdx + PER_PAGE_COUNT);
-
-  useEffect(() => {
-    const newStartPage = Math.max(
-      1,
-      Math.floor((currentPage - 1) / PAGE_COUNT) * PAGE_COUNT + 1
-    );
-    setStartPage(newStartPage);
-  }, [currentPage]);
 
   const handlePageClick = (page: number) => {
-    setCurrentPage(page);
+    const newStartPage = Math.max(
+      1,
+      Math.floor((page - 1) / PAGE_COUNT) * PAGE_COUNT + 1
+    );
+    setStartPage(newStartPage);
+    onPageChange(page);
   };
 
   const handlePrevGroup = () => {
     if (startPage > 1) {
       const newStartPage = startPage - PAGE_COUNT;
       setStartPage(newStartPage);
-      setCurrentPage(newStartPage);
+      onPageChange(newStartPage);
     }
   };
 
@@ -41,7 +48,7 @@ const BoardAllPost = ({ posts = mockBoardPosts }) => {
     if (startPage + PAGE_COUNT <= totalPage) {
       const newStartPage = startPage + PAGE_COUNT;
       setStartPage(newStartPage);
-      setCurrentPage(newStartPage);
+      onPageChange(newStartPage);
     }
   };
 
@@ -56,8 +63,10 @@ const BoardAllPost = ({ posts = mockBoardPosts }) => {
           "pc:max-w-[1074px] pc:grid-cols-2"
         )}
       >
-        {currentPosts.map((post) => (
-          <PostCard key={post.id} {...post} isBest={false} />
+        {articles.map((article) => (
+          <Link key={article.id} href={`/boards/${article.id}`}>
+            <BoardsArticleWrapper article={article} />
+          </Link>
         ))}
       </div>
 
@@ -75,7 +84,7 @@ const BoardAllPost = ({ posts = mockBoardPosts }) => {
         <Button
           variant="none"
           disabled={currentPage <= 1}
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => onPageChange(currentPage - 1)}
           className="disabled:opacity-50"
         >
           <Icon icon="leftArrow" className="h-4 w-4" />
@@ -102,7 +111,7 @@ const BoardAllPost = ({ posts = mockBoardPosts }) => {
         <Button
           variant="none"
           disabled={currentPage + 1 > totalPage}
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={() => onPageChange(currentPage + 1)}
           className="disabled:opacity-50"
         >
           <Icon icon="rightArrow" className="h-4 w-4" />

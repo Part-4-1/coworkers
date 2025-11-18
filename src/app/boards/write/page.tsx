@@ -1,5 +1,5 @@
 import cn from "@/utils/clsx";
-import ArticleWriteContents from "./article-write-contents/article-write-contents";
+import ArticleWriteContents from "./_components/article-write-contents/article-write-contents";
 
 const Page = () => {
   return (
