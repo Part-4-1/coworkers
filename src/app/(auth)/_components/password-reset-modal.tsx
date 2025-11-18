@@ -5,7 +5,7 @@ import { EMAIL_REGEX } from "@/constants/regex";
 import { useSendPasswordResetQuery } from "@/hooks/api/user/use-send-password-reset-email-action";
 import React, { useState } from "react";
 
-const PasswordResetModal = () => {
+const PasswordResetModal = ({ closePrompt }: { closePrompt: () => void }) => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -56,7 +56,7 @@ const PasswordResetModal = () => {
         />
       </div>
       <div className="flex gap-2">
-        <Button type="button" variant="outlined">
+        <Button type="button" variant="outlined" onClick={closePrompt}>
           닫기
         </Button>
         <Button

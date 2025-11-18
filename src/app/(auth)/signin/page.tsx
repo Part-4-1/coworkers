@@ -19,7 +19,7 @@ const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-  const { Modal, openPrompt, closePrompt } = usePrompt(<PasswordRestModal />);
+  const { Modal, openPrompt, closePrompt } = usePrompt();
 
   const {
     register,
@@ -139,7 +139,9 @@ const Page = () => {
         </div>
         <SimpleSignUpIn />
       </SingUpInFormWrapper>
-      <Modal />
+      <Modal>
+        <PasswordRestModal closePrompt={closePrompt} />
+      </Modal>
     </>
   );
 };
