@@ -1,7 +1,7 @@
 "use server";
 
 import { User } from "@/types/user";
-import { cookies } from "next/headers";
+import { setAuthCookies } from "@/utils/setAuthCookies";
 
 export interface SignInRequest {
   email: string;
@@ -34,17 +34,7 @@ export const signinAction = async ({
     if (!response.ok) throw new Error(data.message);
 
     if (response.ok && data.accessToken && data.refreshToken) {
-      const cookieStore = await cookies();
-
-      cookieStore.set("accessToken", data.accessToken, {
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-      });
-
-      cookieStore.set("refreshToken", data.refreshToken, {
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-      });
+      await setAuthCookies(data.accessToken, data.refreshToken);
     }
 
     return data;

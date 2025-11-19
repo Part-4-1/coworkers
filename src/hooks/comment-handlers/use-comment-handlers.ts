@@ -5,7 +5,7 @@ import { Comment } from "@/types/index";
 import useDeleteArticleComment from "@/hooks/api/articles/use-delete-article-comment";
 import usePatchArticleComment from "@/hooks/api/articles/use-patch-article-comment";
 
-export const useCommentHandlers = (comment: Comment) => {
+export const useCommentHandlers = (comment: Comment, articleId?: number) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
 
@@ -22,7 +22,8 @@ export const useCommentHandlers = (comment: Comment) => {
   };
 
   const handleDelete = () => {
-    deleteComment(comment.id);
+    if (!articleId) return;
+    deleteComment({ commentId: comment.id, articleId });
   };
 
   const handleCancel = () => {

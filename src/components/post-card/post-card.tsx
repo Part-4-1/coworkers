@@ -5,7 +5,7 @@ import { toDotDateString } from "@/utils/date-util";
 import { Writer } from "@/types/article";
 
 interface PostCardProps {
-  image?: string;
+  image?: string | null;
   title: string;
   content: string;
   writer: Writer;

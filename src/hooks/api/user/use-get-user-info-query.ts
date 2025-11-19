@@ -1,3 +1,5 @@
+"use client";
+
 import { getUserInfo } from "@/api/user/get-user-info";
 import { getCookie } from "@/utils/cookie-utils";
 import { useQuery } from "@tanstack/react-query";
@@ -19,5 +21,6 @@ export const useGetUserInfoQuery = () => {
       }
       return failCount < 2;
     },
+    staleTime: 0,
   });
 };

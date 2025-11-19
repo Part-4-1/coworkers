@@ -3,7 +3,7 @@
 import { Button } from "@/components";
 import { ChangeEvent, useState } from "react";
 
-const AddTaskListModalUI = ({
+const AddTaskListModal = ({
   handleClick,
 }: {
   handleClick: (name: string) => void;
@@ -24,11 +24,9 @@ const AddTaskListModalUI = ({
           }
         />
       </div>
-      <Button onClick={() => handleClick(input)} disabled={input.length < 1}>
-        만들기
-      </Button>
+      <Button onClick={() => handleClick(input)}>만들기</Button>
     </div>
   );
 };
 
-export default AddTaskListModalUI;
+export default AddTaskListModal;

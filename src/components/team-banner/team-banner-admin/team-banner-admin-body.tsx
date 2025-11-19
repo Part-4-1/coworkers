@@ -10,7 +10,8 @@ const TeamBannerAdminBody = ({
   tasksTodo,
   tasksDone,
 }: TeamBannerAdminBodyProps) => {
-  const progressRate = Math.round((tasksDone / tasksTodo) * 100);
+  const progressRate =
+    tasksTodo === 0 ? 0 : Math.round((tasksDone / tasksTodo) * 100);
 
   return (
     <div className="flex h-full w-full flex-col justify-between">
