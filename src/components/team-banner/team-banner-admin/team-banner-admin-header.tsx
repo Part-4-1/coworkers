@@ -7,7 +7,7 @@ import { MouseEventHandler } from "react";
 interface TeamBannerAdminHeaderProps {
   groupName: string;
   members: Member[];
-  onMemberListClick: MouseEventHandler;
+  onMemberListClick?: MouseEventHandler;
   showProfileListonPc?: boolean;
 }
 

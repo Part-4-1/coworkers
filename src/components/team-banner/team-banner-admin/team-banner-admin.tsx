@@ -1,9 +1,13 @@
+"use client";
+
 import Dropdown from "@/components/dropdown-components/dropdown";
 import Icon from "@/components/icon/Icon";
 import useMediaQuery from "@/hooks/use-media-query";
+import usePrompt from "@/hooks/use-prompt";
 import { Member } from "@/types/members";
 import cn from "@/utils/clsx";
-import { MouseEventHandler } from "react";
+import { useRouter } from "next/navigation";
+import DeleteTeamModal from "./delete-team-modal";
 import TeamBannerAdminBody from "./team-banner-admin-body";
 import TeamBannerAdminHeader from "./team-banner-admin-header";
 
@@ -27,9 +31,9 @@ interface TeamBannerAdminProps {
   tasksTodo: number;
   tasksDone: number;
   members: Member[];
-  onMemberListClick: MouseEventHandler;
   showProfileListOnPc?: boolean;
   className?: string;
+  groupId?: string;
 }
 
 const TeamBannerAdmin = ({
@@ -37,11 +41,26 @@ const TeamBannerAdmin = ({
   tasksTodo,
   tasksDone,
   members,
-  onMemberListClick,
   showProfileListOnPc = true,
   className,
+  groupId,
 }: TeamBannerAdminProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
+  const router = useRouter();
+  const { Modal, openPrompt, closePrompt } = usePrompt(false);
+
+  const handleEditDropdown = () => {
+    router.push(`/${groupId}/editteam`);
+  };
+
+  const handleDeleteDropdown = () => {
+    openPrompt();
+  };
+
+  const handleConfirmDelete = () => {
+    //TODO: API 호출 및 로직 추가
+  };
+
   return (
     <div
       className={cn(
@@ -60,9 +79,13 @@ const TeamBannerAdmin = ({
                 className="h-[20px] w-[20px] cursor-pointer tablet:h-[24px] tablet:w-[24px]"
               />
             }
-            items={[{ label: "수정하기" }, { label: "삭제하기" }]}
-            menuAlign="start"
-            //TODO: 추후 로직 추가
+            items={[
+              {
+                label: "수정하기",
+                onClick: handleEditDropdown,
+              },
+              { label: "삭제하기", onClick: handleDeleteDropdown },
+            ]}
           />
         </div>
       )}
@@ -70,7 +93,6 @@ const TeamBannerAdmin = ({
       <TeamBannerAdminHeader
         groupName={groupName}
         members={members}
-        onMemberListClick={onMemberListClick}
         showProfileListonPc={showProfileListOnPc}
       />
       <div
@@ -93,9 +115,11 @@ const TeamBannerAdmin = ({
               items={[
                 {
                   label: "수정하기",
+                  onClick: handleEditDropdown,
                 },
                 {
                   label: "삭제하기",
+                  onClick: handleDeleteDropdown,
                 },
                 //TODO: 클릭시 로직 추가
               ]}
@@ -104,6 +128,12 @@ const TeamBannerAdmin = ({
           )}
         </div>
       </div>
+      <Modal>
+        <DeleteTeamModal
+          onConfirm={handleConfirmDelete}
+          onClose={closePrompt}
+        />
+      </Modal>
     </div>
   );
 };
