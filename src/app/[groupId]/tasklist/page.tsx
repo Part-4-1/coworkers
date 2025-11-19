@@ -1,35 +1,46 @@
 "use client";
 
-import groupData from "@/mocks/group.json";
 import TaskListContainer from "./_components/task-list-container";
 import { useEffect, useState } from "react";
 import TaskListDatePicker from "./_components/task-list-date-picker";
 import TaskListItem from "./_components/task-list-item";
-import taskList from "@/mocks/task-lists-data.json";
 import cn from "@/utils/clsx";
-import { Button, Icon, TeamBannerMember } from "@/components";
+import { TeamBannerMember } from "@/components";
+import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
+import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
+import { useParams, useSearchParams } from "next/navigation";
 const Page = () => {
-  const [taskListId, setTaskListId] = useState<number>();
+  const param = useParams();
+  const query = useSearchParams().get("list");
+  const groupId = Number(param.groupId);
+  const taskListId = Number(query);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const { data: groupData, isPending } = useGetGroupInfo(groupId);
+  const { data: taskItems } = useGetTaskItems(
+    groupId,
+    taskListId,
+    selectedDate?.toLocaleDateString("sv-SE") || ""
+  );
 
   useEffect(() => {
     setSelectedDate(new Date());
   }, []);
 
-  useEffect(() => {
-    console.log(selectedDate);
-  }, [selectedDate]);
-
   return (
+    //TODO: 관리자 배너 추가하기
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
       <TeamBannerMember
-        groupName={groupData.name}
-        members={groupData.members}
+        groupName={groupData?.name || ""}
+        members={groupData?.members || []}
         onMemberListClick={() => {}}
         className="py-3 tablet:mt-[69px] tablet:py-4"
       />
       <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
-        <TaskListContainer taskList={groupData.taskLists} />
+        {!isPending && groupData ? (
+          <TaskListContainer groupId={groupId} taskList={groupData.taskLists} />
+        ) : (
+          "아직 할 일이 없습니다!"
+        )}
         <div
           className={cn(
             "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[57px] pt-[38px]",
@@ -38,14 +49,12 @@ const Page = () => {
           )}
         >
           <TaskListDatePicker
-            name="진행 중인 일"
-            {...{ selectedDate, setSelectedDate }}
+            groupId={groupId}
+            taskListId={taskListId}
+            setSelectedDate={setSelectedDate}
           />
-          <TaskListItem taskItems={taskList.tasks} />
+          <TaskListItem taskListId={taskListId} taskItems={taskItems} />
         </div>
-        <Button className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full">
-          <Icon icon="plus" className="h-6 w-6" />
-        </Button>
       </div>
     </div>
   );

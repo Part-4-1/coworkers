@@ -1,12 +1,30 @@
 import { TaskList } from "@/types/taskList";
 import cn from "@/utils/clsx";
-import { Badge, Button, Dropdown, Icon, TaskCard } from "@/components";
+import {
+  Badge,
+  Button,
+  Dropdown,
+  Icon,
+  TaskCard,
+  AddTaskListModalUI,
+} from "@/components";
+import usePostTaskList from "@/hooks/api/task/use-post-task-list";
+import usePrompt from "@/hooks/use-prompt";
+import { countDoneTask } from "@/utils/util";
 
 interface TodoContainerProps {
+  groupId: number;
   taskList: TaskList[];
 }
 
-const TaskListContainer = ({ taskList }: TodoContainerProps) => {
+const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
+  const { mutate: createTaskList, isPending } = usePostTaskList(groupId);
+  const { Modal: AddTaskListModal, openPrompt, closePrompt } = usePrompt(true);
+  const handleClick = (name: string) => {
+    closePrompt();
+    createTaskList({ groupId: groupId, name: name });
+  };
+
   return (
     <div
       className={cn(
@@ -22,6 +40,7 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
         <Button
           variant="outlined"
           className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold mobile:hidden pc:flex"
+          onClick={openPrompt}
         >
           <Icon icon="plus" className="h-4 w-4" />
           목록 추가
@@ -35,7 +54,12 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
             items={taskList.map((task) => {
               return {
                 label: task.name,
-                addon: <Badge total={task.tasks.length} completed={0} />,
+                addon: (
+                  <Badge
+                    total={task.tasks.length}
+                    completed={countDoneTask(task.tasks)}
+                  />
+                ),
               };
             })}
             isWidthFull
@@ -46,28 +70,37 @@ const TaskListContainer = ({ taskList }: TodoContainerProps) => {
           />
         </div>
         {/* pc */}
-        <div className="hidden pc:block">
-          {taskList.map((task) => {
-            return (
-              <TaskCard
-                key={task.id}
-                taskTitle={task.name}
-                total={task.tasks.length}
-                completed={0}
-              />
-            );
-          })}
-        </div>
+        <ul className="hidden pc:flex pc:flex-col pc:gap-1">
+          {taskList
+            ? taskList.map((task) => {
+                return (
+                  <li key={task.id}>
+                    <TaskCard
+                      groupId={groupId}
+                      taskListId={task.id}
+                      taskTitle={task.name}
+                      total={task.tasks.length}
+                      completed={countDoneTask(task.tasks)}
+                    />
+                  </li>
+                );
+              })
+            : ""}
+        </ul>
         <div className="flex pc:hidden">
           <Button
             variant="outlined"
             className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold"
+            onClick={openPrompt}
           >
             <Icon icon="plus" className="h-4 w-4" />
             목록 추가
           </Button>
         </div>
       </div>
+      <AddTaskListModal>
+        <AddTaskListModalUI handleClick={handleClick} />
+      </AddTaskListModal>
     </div>
   );
 };
