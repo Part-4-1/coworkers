@@ -2,7 +2,7 @@ import List from "@/components/list/list";
 import { Task } from "@/types/task";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MouseEvent, useEffect } from "react";
+import { MouseEvent } from "react";
 
 const TaskListItem = ({
   taskListId,
@@ -15,8 +15,6 @@ const TaskListItem = ({
   const handleClickCheckbox = (e: MouseEvent<HTMLInputElement>) => {
     console.log(e.currentTarget.id);
   };
-
-  useEffect(() => {}, []);
 
   return (
     <ul className="flex flex-col gap-3 overflow-auto">

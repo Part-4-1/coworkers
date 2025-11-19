@@ -24,11 +24,9 @@ const Page = () => {
 
   useEffect(() => {
     setSelectedDate(new Date());
-    console.log(
-      getDoneTaskList(userHistory?.tasksDone, taskListId, selectedDate)
-    );
-    console.log(userHistory?.tasksDone);
-  }, [userHistory]);
+  }, []);
+
+  useEffect(() => {}, [taskListId, selectedDate]);
 
   return (
     <div className="flex w-full max-w-[1120px] flex-col gap-4 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
@@ -44,7 +42,10 @@ const Page = () => {
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
-          <HistoryTaskChipList groupData={groupData} />
+          <HistoryTaskChipList
+            groupData={groupData}
+            setTaskListId={setTaskListId}
+          />
         </div>
       </div>
     </div>
