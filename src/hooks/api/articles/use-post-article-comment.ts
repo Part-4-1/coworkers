@@ -14,6 +14,9 @@ export const usePostArticleComment = () => {
       queryClient.invalidateQueries({
         queryKey: ["articleDetail", variables.articleId],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["articleComments", variables.articleId],
+      });
     },
     onError: () => {
       toast.error("댓글 등록에 실패했습니다 !");

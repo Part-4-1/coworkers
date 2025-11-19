@@ -26,7 +26,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
       deleteArticleMutate(article.id, {
         onSuccess: () => {
           Toast.success("게시글 삭제에 성공했습니다.");
-          router.push("/boards");
+          router.replace("/boards");
         },
         onError: () => {
           Toast.error("게시글 삭제에 실패했습니다.");
