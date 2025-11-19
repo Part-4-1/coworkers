@@ -1,11 +1,11 @@
 "use client";
 
-import { Icon, Profile } from "@/components";
+import { Icon, MemberProfileModal, Profile } from "@/components/index";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
 import useToast from "@/hooks/use-toast";
 import { Member } from "@/types/members";
-import MemberProfileModal from "./member-profile-modal";
+
 interface TeamMemberProps {
   member: Member;
 }

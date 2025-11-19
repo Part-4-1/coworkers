@@ -1,11 +1,11 @@
 import { Button } from "@/components";
 import cn from "@/utils/clsx";
 
-interface InviteMemberModalProps {
+interface InviteMemberModalUIProps {
   onClick?: () => void;
 }
 
-const InviteMemberModal = ({ onClick }: InviteMemberModalProps) => {
+const InviteMemberModalUI = ({ onClick }: InviteMemberModalUIProps) => {
   return (
     <div
       className={cn(
@@ -26,4 +26,4 @@ const InviteMemberModal = ({ onClick }: InviteMemberModalProps) => {
   );
 };
 
-export default InviteMemberModal;
+export default InviteMemberModalUI;

@@ -1,8 +1,8 @@
 "use client";
 
+import { InviteMemberModal } from "@/components";
 import usePrompt from "@/hooks/use-prompt";
 import { Member } from "@/types/members";
-import InviteMemberModal from "./team-member/invite-member-modal";
 import TeamMember from "./team-member/team-member";
 interface TeamMembersSectionProps {
   members: Member[];

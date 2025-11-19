@@ -1,9 +1,9 @@
 "use client";
 
-import { Badge, Icon } from "@/components";
+import { AddTaskListModalUI, Badge, Icon } from "@/components";
 import { TASK_LIST_COLORS } from "@/constants/task-list-color";
 import usePrompt from "@/hooks/use-prompt";
-import AddTaskListModal from "./add-task-list-modal";
+
 interface Task {
   id: number;
   name: string;
@@ -97,7 +97,7 @@ const TeamBody = ({ taskLists }: TeamBodyProps) => {
         }
       </div>
       <Modal>
-        <AddTaskListModal handleClick={handleAddTaskList} />
+        <AddTaskListModalUI handleClick={handleAddTaskList} />
       </Modal>
     </div>
   );

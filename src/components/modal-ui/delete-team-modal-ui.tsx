@@ -1,12 +1,12 @@
 import Button from "@/components/button/button";
 import Icon from "@/components/icon/Icon";
 
-interface DeleteTeamModalProps {
+interface DeleteTeamModalUIProps {
   onConfirm: () => void;
   onClose?: () => void;
 }
 
-const DeleteTeamModal = ({ onConfirm, onClose }: DeleteTeamModalProps) => (
+const DeleteTeamModalUI = ({ onConfirm, onClose }: DeleteTeamModalUIProps) => (
   <div className="flex w-full flex-col px-[36px] pt-[24px] flex-center">
     <div className="mb-[16px]">
       <Icon icon="alert" className="h-[24px] w-[24px] text-red-200" />
@@ -37,4 +37,4 @@ const DeleteTeamModal = ({ onConfirm, onClose }: DeleteTeamModalProps) => (
   </div>
 );
 
-export default DeleteTeamModal;
+export default DeleteTeamModalUI;

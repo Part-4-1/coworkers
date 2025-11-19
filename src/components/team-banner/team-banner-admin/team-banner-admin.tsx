@@ -2,12 +2,12 @@
 
 import Dropdown from "@/components/dropdown-components/dropdown";
 import Icon from "@/components/icon/Icon";
+import DeleteTeamModalUI from "@/components/modal-ui/delete-team-modal-ui";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
 import { Member } from "@/types/members";
 import cn from "@/utils/clsx";
 import { useRouter } from "next/navigation";
-import DeleteTeamModal from "./delete-team-modal";
 import TeamBannerAdminBody from "./team-banner-admin-body";
 import TeamBannerAdminHeader from "./team-banner-admin-header";
 
@@ -129,7 +129,7 @@ const TeamBannerAdmin = ({
         </div>
       </div>
       <Modal>
-        <DeleteTeamModal
+        <DeleteTeamModalUI
           onConfirm={handleConfirmDelete}
           onClose={closePrompt}
         />

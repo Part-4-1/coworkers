@@ -50,7 +50,9 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
           />
         </div>
         <div className="mb-[20px] w-full tablet:mb-[24px]">
-          <Button onClick={onSubmit}>수정하기</Button>
+          <Button onClick={onSubmit} disabled={groupName.length < 1}>
+            수정하기
+          </Button>
         </div>
         <div className="text-center text-xs text-gray-800 tablet:text-lg">
           팀 이름은 회사명이나 모임 이름 등으로 설정하면 좋아요.
