@@ -28,13 +28,14 @@ const Sidebar = () => {
   const pathname = usePathname();
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
+  const isBoardPage = pathname === "/boards";
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(isDesktop);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  const { data: userInfo, isPending } = useGetUserInfoQuery();
 
-  const isLoggedIn = !!userInfo && !isLoading;
+  const isLoggedIn = !!userInfo && !isPending;
   const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const Sidebar = () => {
         animate={{
           width: isSidebarOpen ? 270 : 73,
         }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.15, ease: "easeInOut" }}
         className={
           "fixed left-0 top-0 z-20 flex h-screen flex-col justify-between border-r border-gray-300 bg-white"
         }
@@ -106,7 +107,7 @@ const Sidebar = () => {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          transition={{ duration: 0.25, ease: "easeOut" }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
                           className="overflow-hidden"
                         >
                           <Button
@@ -125,6 +126,7 @@ const Sidebar = () => {
                   isSidebarOpen={isSidebarOpen}
                   title="자유게시판"
                   href={"/boards"}
+                  isSelected={isBoardPage ? true : false}
                 />
               </div>
             </div>
