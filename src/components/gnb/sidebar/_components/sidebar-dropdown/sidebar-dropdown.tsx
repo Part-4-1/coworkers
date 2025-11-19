@@ -33,7 +33,7 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
-  const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  const { data: userInfo } = useGetUserInfoQuery();
 
   const selectedMembership = userInfo?.memberships?.find(
     (membership) => String(membership.group.id) === currentTeamId

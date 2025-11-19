@@ -130,7 +130,7 @@ const Sidebar = () => {
             </div>
           )}
         </div>
-        <div className={isSidebarOpen ? "px-4" : "px-5"}>
+        <div className={isSidebarOpen ? "px-4" : "px-4"}>
           <SidebarFooter isSidebarOpen={isSidebarOpen} />
         </div>
       </motion.aside>
