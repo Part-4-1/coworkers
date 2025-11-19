@@ -54,7 +54,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                     title={data.group.name}
                     iconName="chess"
                     isSelected={String(data.group.id) === currentTeamId}
-                    href={`/${userInfo.teamId}/groups/${data.group.id}`}
+                    href={`/${data.group.id}`}
                     className="h-[44px]"
                     fontStyle="h-[17px]"
                   />
