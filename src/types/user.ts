@@ -3,6 +3,8 @@
  * @description 유저 관련 타입 모음
  */
 
+import { TasksDone } from "./task";
+
 export type Role = "ADMIN" | "MEMBER";
 
 export interface Membership {
@@ -39,4 +41,8 @@ interface Group {
   createdAt: string;
   updatedAt: string;
   teamId: string;
+}
+
+export interface History {
+  tasksDone: TasksDone[];
 }

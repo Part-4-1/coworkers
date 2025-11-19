@@ -1,5 +1,5 @@
 import { FREQUENCIES } from "@/constants/frequencies";
-import { Task } from "@/types/task";
+import { Task, TasksDone } from "@/types/task";
 
 const VALID_CODES = ["ONCE", "DAILY", "WEEKLY", "MONTHLY"] as const;
 type FrequencyCodes = (typeof VALID_CODES)[number];
@@ -35,4 +35,26 @@ export const countDoneTask = (tasks: Task[]) => {
   let count = 0;
   tasks.forEach((value) => value.doneAt && count++);
   return count;
+};
+
+/**
+ * @author hwitae
+ * @description 완료된 할 일 리스트에서 해당 할 일 리스트 ID와 선택된 날짜의 할 일 리스트를 반환합니다.
+ * @param list 완료된 할 일 리스트
+ * @param taskListId 할 일 리스트 ID
+ * @param selectedDate 선택된 날짜
+ * @returns 할 일 리스트
+ */
+export const getDoneTaskList = (
+  list: TasksDone[] | undefined,
+  taskListId: number,
+  selectedDate: Date | null
+) => {
+  const doneTaskList = list?.filter((task) => {
+    return (
+      task.id === taskListId &&
+      task.doneAt.split("T")[0] === selectedDate?.toLocaleDateString("sv-SE")
+    );
+  });
+  return doneTaskList;
 };

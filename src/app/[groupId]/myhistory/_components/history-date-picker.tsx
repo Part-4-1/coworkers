@@ -1,11 +1,16 @@
 import { Button, Icon } from "@/components";
 import { toKoreanDateString, toKoreanYearMonth } from "@/utils/date-util";
+import { Dispatch, SetStateAction } from "react";
 
 interface HistoryDatePickerProps {
   selectedDate: Date | null;
+  setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
 
-const HistoryDatePicker = ({ selectedDate }: HistoryDatePickerProps) => {
+const HistoryDatePicker = ({
+  selectedDate,
+  setSelectedDate,
+}: HistoryDatePickerProps) => {
   return (
     <div className="flex-center">
       <div className="mr-auto h-6 w-6"></div>

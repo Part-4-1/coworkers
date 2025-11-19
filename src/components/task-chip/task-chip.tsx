@@ -5,6 +5,7 @@ interface TaskChipProps {
   radioName: string;
   taskName: string;
   count: number;
+  className?: string;
 }
 
 const COUNT_COLOR = "#5189FA";
@@ -16,6 +17,7 @@ const COUNT_COLOR = "#5189FA";
  * @param radioName - 라디오 버튼의 name 값 (이름이 같아야 같은 그룹으로 묶이게 됩니다)
  * @param taskName - 할 일 목록 이름
  * @param count - 할 일 개수
+ * @param className - 추가적인 스타일 클래스
  * @returns <TaskChip />
  * @example
  * <TaskChip
@@ -31,9 +33,15 @@ const COUNT_COLOR = "#5189FA";
  *    count={5}
  * />
  */
-const TaskChip = ({ radioName, id, taskName, count }: TaskChipProps) => {
+const TaskChip = ({
+  radioName,
+  id,
+  taskName,
+  count,
+  className,
+}: TaskChipProps) => {
   return (
-    <div>
+    <div className={className}>
       <input
         type="radio"
         id={id}
@@ -49,7 +57,8 @@ const TaskChip = ({ radioName, id, taskName, count }: TaskChipProps) => {
           "pc:h-[54px] pc:w-full pc:justify-between pc:rounded-xl pc:px-4 pc:py-0",
           "cursor-pointer border-gray-300 bg-white hover:bg-gray-50",
           "peer-checked:border-blue-200 peer-checked:bg-blue-200 peer-checked:text-white",
-          `[--count-color:${COUNT_COLOR}] peer-checked:[--count-color:text-white]`
+          `[--count-color:${COUNT_COLOR}] peer-checked:[--count-color:text-white]`,
+          className
         )}
       >
         <span className="text-sm tablet:text-lg">{taskName}</span>
