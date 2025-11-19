@@ -105,7 +105,7 @@ const SidebarDropdown = ({
                 title={data.group.name}
                 iconName="chess"
                 isSelected={String(data.group.id) === currentTeamId}
-                href={`/${userInfo.teamId}/groups/${data.group.id}`}
+                href={`/${data.group.id}`}
               />
             ))}
           </motion.div>
