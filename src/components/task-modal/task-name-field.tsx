@@ -9,7 +9,7 @@ interface TaskNameFieldProps {
 
 const TaskNameField = ({ register, errors }: TaskNameFieldProps) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-full flex-col gap-2 tablet:w-[336px]">
       <label htmlFor="taskTitle" className="text-lg font-medium text-blue-700">
         할 일 제목
       </label>

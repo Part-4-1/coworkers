@@ -32,7 +32,6 @@ import {
   PASSWORD_REGEX,
 } from "@/constants/regex";
 
-import List from "@/components/list/list";
 import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 import useToast from "@/hooks/use-toast";
@@ -40,7 +39,7 @@ import { mockComments } from "@/mocks/comment-data";
 import { mockGroupData } from "@/mocks/group-data";
 // import { mockListData } from "@/mocks/list-data";
 import { mockUserData } from "@/mocks/user-data";
-import { MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 type LoginFormData = {
@@ -232,12 +231,10 @@ const Page = () => {
           tasksTodo={20}
           tasksDone={5}
           members={mockGroupData[0].members}
-          onMemberListClick={() => {}}
         />
         <TeamBannerMember
           groupName={mockGroupData[0].name}
           members={mockGroupData[0].members}
-          onMemberListClick={() => {}}
         />
       </div>
       <div className="flex w-full flex-col gap-2 px-[150px] flex-center">
@@ -303,7 +300,7 @@ const Page = () => {
           isDone={"2025-11-07T00:00:00Z"}
         />
       </div>
-      <div className="w-[500px]">
+      {/* <div className="w-[500px]">
         <TaskCard taskTitle="법인 설립" total={5} completed={4} />
         <TaskCard
           taskTitle="법인 설립"
@@ -320,7 +317,7 @@ const Page = () => {
             },
           ]}
         />
-      </div>
+      </div> */}
       <div className="w-[340px]">
         <PostCard
           image="https://randomuser.me/api/portraits/men/12.jpg"

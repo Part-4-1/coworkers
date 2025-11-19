@@ -1,11 +1,21 @@
-import { Member } from "@/types/members";
-import TeamMember from "./team-member/team-member";
+"use client";
 
+import usePrompt from "@/hooks/use-prompt";
+import { Member } from "@/types/members";
+import InviteMemberModal from "./team-member/invite-member-modal";
+import TeamMember from "./team-member/team-member";
 interface TeamMembersSectionProps {
   members: Member[];
 }
 
 const TeamMembersSection = ({ members }: TeamMembersSectionProps) => {
+  const { Modal, openPrompt, closePrompt } = usePrompt(true);
+
+  const handleCopyLink = () => {
+    console.log("링크 복사");
+    closePrompt();
+  };
+
   return (
     <div className="flex flex-col gap-[24px]">
       <div className="flex items-center justify-between">
@@ -13,7 +23,10 @@ const TeamMembersSection = ({ members }: TeamMembersSectionProps) => {
           <span className="text-lg font-medium text-blue-700">멤버</span>
           <span className="text-lg text-gray-800">({members.length}명)</span>
         </div>
-        <div className="cursor-pointer text-md text-blue-200">
+        <div
+          className="cursor-pointer text-md text-blue-200"
+          onClick={openPrompt}
+        >
           + 새로운 멤버 초대하기
         </div>
       </div>
@@ -22,6 +35,9 @@ const TeamMembersSection = ({ members }: TeamMembersSectionProps) => {
           <TeamMember key={member.userId} member={member} />
         ))}
       </div>
+      <Modal>
+        <InviteMemberModal onClick={handleCopyLink} />
+      </Modal>
     </div>
   );
 };
