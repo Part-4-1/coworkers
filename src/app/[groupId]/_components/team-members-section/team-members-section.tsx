@@ -1,6 +1,6 @@
 "use client";
 
-import { InviteMemberModal } from "@/components";
+import { InviteMemberModalUI } from "@/components";
 import usePrompt from "@/hooks/use-prompt";
 import { Member } from "@/types/members";
 import TeamMember from "./team-member/team-member";
@@ -36,7 +36,7 @@ const TeamMembersSection = ({ members }: TeamMembersSectionProps) => {
         ))}
       </div>
       <Modal>
-        <InviteMemberModal onClick={handleCopyLink} />
+        <InviteMemberModalUI onClick={handleCopyLink} />
       </Modal>
     </div>
   );

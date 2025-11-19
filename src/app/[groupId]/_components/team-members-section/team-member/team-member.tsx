@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon, MemberProfileModal, Profile } from "@/components/index";
+import { Icon, MemberProfileModalUI, Profile } from "@/components/index";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
 import useToast from "@/hooks/use-toast";
@@ -51,7 +51,7 @@ const TeamMember = ({ member }: TeamMemberProps) => {
         />
       </div>
       <Modal>
-        <MemberProfileModal onClick={handleCopyEmail} member={member} />
+        <MemberProfileModalUI onClick={handleCopyEmail} member={member} />
       </Modal>
     </div>
   );
