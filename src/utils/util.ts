@@ -1,4 +1,5 @@
 import { FREQUENCIES } from "@/constants/frequencies";
+import { Task } from "@/types/task";
 
 const VALID_CODES = ["ONCE", "DAILY", "WEEKLY", "MONTHLY"] as const;
 type FrequencyCodes = (typeof VALID_CODES)[number];
@@ -28,4 +29,10 @@ export const isFrequencyCode = (
 export const changeFrequencyCode = (frequencyCode: string) => {
   if (isFrequencyCode(frequencyCode)) return FREQUENCIES[frequencyCode];
   return FREQUENCIES["ONCE"];
+};
+
+export const countDoneTask = (tasks: Task[]) => {
+  let count = 0;
+  tasks.forEach((value) => value.doneAt && count++);
+  return count;
 };

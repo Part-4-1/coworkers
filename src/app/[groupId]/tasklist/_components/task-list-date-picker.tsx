@@ -1,4 +1,4 @@
-import { Button, Calendar, Icon } from "@/components";
+import { Button, Calendar, Icon, TaskModal } from "@/components";
 import {
   ChangeEvent,
   Dispatch,
@@ -13,21 +13,31 @@ import {
   getWeek,
 } from "@/utils/date-util";
 import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-list";
+import { useSearchParams } from "next/navigation";
+import useGetTaskList from "@/hooks/api/task/use-get-task-list";
+import usePrompt from "@/hooks/use-prompt";
 
 interface TaskListDatePickerProps {
-  name: string;
-  selectedDate: Date | null;
+  groupId: number;
+  taskListId: number;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
 
 const TaskListDatePicker = ({
-  name,
+  groupId,
+  taskListId,
   setSelectedDate,
 }: TaskListDatePickerProps) => {
   const [currentSunday, setCurrentSunday] = useState<Date | null>(null);
   const [week, setWeek] = useState<number[] | null>(null);
   const [day, setDay] = useState<string>("");
   const [showCalendar, setShowCalendar] = useState(false);
+  const listId = useSearchParams().get("list");
+  const { data: taskListData, isPending } = useGetTaskList(
+    groupId,
+    Number(listId)
+  );
+  const { Modal, openPrompt, closePrompt } = usePrompt();
 
   const initDate = (date: Date) => {
     const sunday = getCurrentSunday(date);
@@ -67,14 +77,9 @@ const TaskListDatePicker = ({
   return (
     <div className="flex w-full flex-col gap-6 tablet:gap-8">
       <div className="relative flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
-            {name}
-          </span>
-          <Button className="h-5 w-5 rounded-full py-0">
-            <Icon icon="plus" className="h-3 w-3" />
-          </Button>
-        </div>
+        <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
+          {taskListData?.name}
+        </span>
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
             {currentSunday
@@ -111,11 +116,25 @@ const TaskListDatePicker = ({
           </div>
         )}
       </div>
+      <Button
+        className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full"
+        onClick={openPrompt}
+      >
+        <Icon icon="plus" className="h-6 w-6" />
+      </Button>
       <DatePickerList
         dateList={week}
         checkedDay={day}
         handleChangeDay={handleChangeDay}
       />
+      <Modal>
+        <TaskModal
+          groupId={groupId}
+          taskListId={taskListId}
+          className="px-2 pt-8"
+          onSuccess={closePrompt}
+        />
+      </Modal>
     </div>
   );
 };
