@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import HistoryDatePicker from "./_components/history-date-picker";
 import HistoryTaskChipList from "./_components/history-task-chip-list";
 import { Task } from "@/types/task";
-import useGetUserHistory from "@/hooks/api/user/use-get-user-history";
 import { getDoneTaskList } from "@/utils/util";
 import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 
@@ -18,23 +17,20 @@ const Page = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [taskListId, setTaskListId] = useState<number>(0);
   const [doneTaskList, setDoneTaskList] = useState<Task[] | null>(null);
-  const [{ data: groupData }, { data: userHistory }] = useGetUserHistory(
-    selectedDate?.toLocaleDateString("sv-SE") || "",
+  const { data: groupData, isPending: groupPending } = useGetGroupInfo(groupId);
+  const { data: taskList, isPending: taskListPending } = useGetTaskList(
     groupId,
     taskListId
   );
-  const { data: taskList } = useGetTaskList(groupId, taskListId);
 
   useEffect(() => {
     setSelectedDate(new Date());
   }, []);
 
   useEffect(() => {
-    console.log(taskList);
-
     const doneList = getDoneTaskList(taskList, taskListId, selectedDate);
-    // setDoneTaskList(doneList);
-    console.log(doneList);
+    setDoneTaskList(doneList);
+    console.log(doneTaskList);
   }, [taskListId, selectedDate]);
 
   return (
@@ -52,8 +48,13 @@ const Page = () => {
             setSelectedDate={setSelectedDate}
           />
           <HistoryTaskChipList
-            groupData={groupData}
-            setTaskListId={setTaskListId}
+            {...{
+              groupData,
+              selectedDate,
+              groupId,
+              taskListId,
+              setTaskListId,
+            }}
           />
         </div>
       </div>

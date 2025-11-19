@@ -1,10 +1,11 @@
+import { TaskList } from "@/types/taskList";
 import instance from "@/utils/axios";
 
 const getTaskItems = async (
   groupId: number,
   taskListId: number,
   date: string
-) => {
+): Promise<TaskList> => {
   try {
     const response = await instance.get(
       `/groups/${groupId}/task-lists/${taskListId}/tasks?date=${date}`

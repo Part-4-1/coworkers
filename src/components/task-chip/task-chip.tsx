@@ -4,7 +4,6 @@ interface TaskChipProps {
   id: string;
   radioName: string;
   taskName: string;
-  count: number;
   className?: string;
 }
 
@@ -33,13 +32,7 @@ const COUNT_COLOR = "#5189FA";
  *    count={5}
  * />
  */
-const TaskChip = ({
-  radioName,
-  id,
-  taskName,
-  count,
-  className,
-}: TaskChipProps) => {
+const TaskChip = ({ radioName, id, taskName, className }: TaskChipProps) => {
   return (
     <div className={className}>
       <input
@@ -62,9 +55,6 @@ const TaskChip = ({
         )}
       >
         <span className="text-sm tablet:text-lg">{taskName}</span>
-        <span className="text-md font-bold text-[--count-color] tablet:text-lg">
-          {count}
-        </span>
       </label>
     </div>
   );

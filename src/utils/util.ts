@@ -51,7 +51,7 @@ export const getDoneTaskList = (
   taskListId: number,
   selectedDate: Date | null
 ) => {
-  if (!list?.tasks) return null;
+  if (!list?.tasks) return [];
 
   const doneTaskList = list?.tasks.filter((task) => {
     return (
