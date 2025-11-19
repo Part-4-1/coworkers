@@ -3,7 +3,9 @@ import { ProfileEdit, TextInput, Button } from "@/components/index";
 const AddTeamContents = () => {
   return (
     <div className="flex flex-col items-start gap-8 px-[21px] pb-[74.5px] pt-[52.5px] tablet:gap-10 tablet:px-[45px] tablet:pb-[64px] tablet:pt-[61px]">
-      <h2 className="text-2xl font-bold text-blue-700">팀 생성하기</h2>
+      <h2 className="text-xl font-bold text-blue-700 tablet:text-2xl">
+        팀 생성하기
+      </h2>
       <div className="w-full gap-6 flex-col-center">
         <ProfileEdit />
         <div className="flex w-full flex-col items-start gap-3">
