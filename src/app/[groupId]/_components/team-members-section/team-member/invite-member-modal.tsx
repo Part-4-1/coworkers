@@ -10,7 +10,7 @@ const InviteMemberModal = ({ onClick }: InviteMemberModalProps) => {
     <div
       className={cn(
         "flex w-full flex-col px-[31.5px] pt-2 flex-center",
-        "tablet:w-[384px] tablet:pr-[60px]"
+        "tablet:w-[384px]"
       )}
     >
       <div className="mb-[8px] text-lg font-medium text-blue-700">
