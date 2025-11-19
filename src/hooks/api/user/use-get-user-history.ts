@@ -2,7 +2,11 @@ import { useQueries, useQuery } from "@tanstack/react-query";
 import getUserHistory from "@/api/user/get-user-history";
 import getGroupInfo from "@/api/group/get-group-info";
 
-const useGetUserHistory = (date: string, groupId: number) => {
+const useGetUserHistory = (
+  date: string,
+  groupId: number,
+  taskListId: number
+) => {
   // return useQuery({
   //   queryKey: ["history", date],
   //   queryFn: () => getUserHistory(),
@@ -17,7 +21,7 @@ const useGetUserHistory = (date: string, groupId: number) => {
         enabled: !!groupId,
       },
       {
-        queryKey: ["history", date],
+        queryKey: ["history", taskListId, date],
         queryFn: () => getUserHistory(),
         staleTime: 1000 * 60 * 5,
       },

@@ -1,5 +1,6 @@
 import { FREQUENCIES } from "@/constants/frequencies";
 import { Task, TasksDone } from "@/types/task";
+import { TaskList } from "@/types/taskList";
 
 const VALID_CODES = ["ONCE", "DAILY", "WEEKLY", "MONTHLY"] as const;
 type FrequencyCodes = (typeof VALID_CODES)[number];
@@ -46,14 +47,16 @@ export const countDoneTask = (tasks: Task[]) => {
  * @returns 할 일 리스트
  */
 export const getDoneTaskList = (
-  list: TasksDone[] | undefined,
+  list: TaskList | undefined,
   taskListId: number,
   selectedDate: Date | null
 ) => {
-  const doneTaskList = list?.filter((task) => {
+  if (!list?.tasks) return null;
+
+  const doneTaskList = list?.tasks.filter((task) => {
     return (
-      task.id === taskListId &&
-      task.doneAt.split("T")[0] === selectedDate?.toLocaleDateString("sv-SE")
+      list.id === taskListId &&
+      task.doneAt?.split("T")[0] === selectedDate?.toLocaleDateString("sv-SE")
     );
   });
   return doneTaskList;

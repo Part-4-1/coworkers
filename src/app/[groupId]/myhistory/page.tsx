@@ -6,9 +6,10 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import HistoryDatePicker from "./_components/history-date-picker";
 import HistoryTaskChipList from "./_components/history-task-chip-list";
-import { TasksDone } from "@/types/task";
+import { Task } from "@/types/task";
 import useGetUserHistory from "@/hooks/api/user/use-get-user-history";
 import { getDoneTaskList } from "@/utils/util";
+import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 
 const Page = () => {
   const param = useParams();
@@ -16,17 +17,25 @@ const Page = () => {
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [taskListId, setTaskListId] = useState<number>(0);
-  const [doneTaskList, setDoneTaskList] = useState<TasksDone[]>([]);
+  const [doneTaskList, setDoneTaskList] = useState<Task[] | null>(null);
   const [{ data: groupData }, { data: userHistory }] = useGetUserHistory(
     selectedDate?.toLocaleDateString("sv-SE") || "",
-    groupId
+    groupId,
+    taskListId
   );
+  const { data: taskList } = useGetTaskList(groupId, taskListId);
 
   useEffect(() => {
     setSelectedDate(new Date());
   }, []);
 
-  useEffect(() => {}, [taskListId, selectedDate]);
+  useEffect(() => {
+    console.log(taskList);
+
+    const doneList = getDoneTaskList(taskList, taskListId, selectedDate);
+    // setDoneTaskList(doneList);
+    console.log(doneList);
+  }, [taskListId, selectedDate]);
 
   return (
     <div className="flex w-full max-w-[1120px] flex-col gap-4 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
