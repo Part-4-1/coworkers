@@ -6,6 +6,7 @@ import { PostCard, Icon, Button } from "@/components/index";
 import { Article } from "@/types/article";
 import { useState } from "react";
 import BoardsArticleWrapper from "../../boards-article-wrapper";
+import { article } from "framer-motion/client";
 
 const PAGE_COUNT = 5;
 const PER_PAGE_COUNT = 6;
@@ -26,6 +27,14 @@ const BoardAllPost = ({
   const [startPage, setStartPage] = useState(1);
   const totalPage = Math.ceil(totalCount / PER_PAGE_COUNT);
   const lastPage = Math.min(startPage + PAGE_COUNT - 1, totalPage);
+
+  if (articles.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20">
+        <p className="text-lg text-gray-400">등록된 게시글이 없습니다</p>
+      </div>
+    );
+  }
 
   const handlePageClick = (page: number) => {
     const newStartPage = Math.max(

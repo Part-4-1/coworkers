@@ -7,11 +7,20 @@ const useDeleteArticleComment = () => {
   const toast = useToast();
 
   return useMutation({
-    mutationFn: (commentId: number) => deleteArticlesComment(commentId),
-    onSuccess: () => {
+    mutationFn: ({
+      commentId,
+      articleId,
+    }: {
+      commentId: number;
+      articleId: number;
+    }) => deleteArticlesComment(commentId),
+    onSuccess: (_, variables) => {
       toast.success("댓글이 삭제되었습니다 !");
       queryClient.invalidateQueries({
-        queryKey: ["articleDetail"],
+        queryKey: ["articleDetail", variables.articleId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["articleComments", variables.articleId],
       });
     },
     onError: () => {
