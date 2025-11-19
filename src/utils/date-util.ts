@@ -90,3 +90,16 @@ export const getWeek = (sunday: Date): number[] => {
   });
   return week;
 };
+
+/**
+ * @author hwitae
+ * @description Date 객체를 받아 yyyy년 mm월 형식으로 표출합니다
+ * @param Date
+ */
+export const toKoreanYearMonth = (date: Date | null) => {
+  if (!date) return false;
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  return `${year}년 ${month}월`;
+};
