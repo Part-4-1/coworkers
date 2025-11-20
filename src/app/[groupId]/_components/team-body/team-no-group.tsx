@@ -1,6 +1,7 @@
 import { Button } from "@/components/index";
 import cn from "@/utils/clsx";
 import Image from "next/image";
+import Link from "next/link";
 
 const TeamNoGroup = () => {
   return (
@@ -27,10 +28,14 @@ const TeamNoGroup = () => {
         <p>팀을 생성하거나 팀에 참여해보세요.</p>
       </div>
       <div className={cn("mt-[47px] flex flex-col gap-[8px] tablet:mt-[80px]")}>
-        <Button className="h-[48px] w-[186px]">팀 생성하기</Button>
-        <Button variant="outlined" className="h-[48px] w-[186px]">
-          팀 참여하기
-        </Button>
+        <Link href="/addteam">
+          <Button className="h-[48px] w-[186px]">팀 생성하기</Button>
+        </Link>
+        <Link href="/taketeam">
+          <Button variant="outlined" className="h-[48px] w-[186px]">
+            팀 참여하기
+          </Button>
+        </Link>
       </div>
     </main>
   );
