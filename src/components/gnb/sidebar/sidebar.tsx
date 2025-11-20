@@ -11,6 +11,7 @@ import useMediaQuery from "@/hooks/use-media-query";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { el } from "react-day-picker/locale";
 
 /**
  * @author leohan
@@ -29,6 +30,7 @@ const Sidebar = () => {
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
   const isBoardPage = pathname === "/boards";
+  const isLandingPage = pathname === "/";
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(isDesktop);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -39,8 +41,12 @@ const Sidebar = () => {
   const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
 
   useEffect(() => {
-    setIsSidebarOpen(isDesktop);
-  }, [isDesktop]);
+    if (isLandingPage) {
+      setIsSidebarOpen(false);
+    } else {
+      setIsSidebarOpen(isDesktop);
+    }
+  }, [isDesktop, pathname]);
 
   useEffect(() => {
     const isLockScroll = isTablet && isSidebarOpen;
