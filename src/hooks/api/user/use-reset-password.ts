@@ -15,7 +15,7 @@ export const useResetPassword = () => {
       router.push("/signin");
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
       ToastError("비밀번호 재설정을 실패했습니다.");
     },
   });

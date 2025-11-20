@@ -12,12 +12,13 @@ import { is } from "react-day-picker/locale";
 
 interface CommentProps {
   comment: Comment;
+  articleId?: number;
 }
 
-const Reply = ({ comment }: CommentProps) => {
+const Reply = ({ comment, articleId }: CommentProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
   const { isEditing, editedContent, setEditedContent, ...handlers } =
-    useCommentHandlers(comment);
+    useCommentHandlers(comment, articleId);
 
   const isWriter = userInfo?.id === comment.writer.id;
 

@@ -16,4 +16,15 @@ export const getCookie = (cookieName: string) => {
 export const deleteCookie = (cookieName: string) => {
   const secureFlag = process.env.NODE_ENV === "production" ? "secure" : "";
   document.cookie = `${cookieName}=; path=/; max-age=0; ${secureFlag}`;
+  document.cookie = `${cookieName}=; max-age=0; ${secureFlag}`;
+};
+
+export const setCookie = (name: string, value: string) => {
+  const secureFlag = process.env.NODE_ENV === "production" ? "secure" : "";
+  let cookieString = `${name}=${value}; path=/`;
+
+  if (process.env.NODE_ENV === "production") {
+    cookieString += `; ${secureFlag}`;
+  }
+  document.cookie = cookieString;
 };

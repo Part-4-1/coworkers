@@ -19,8 +19,9 @@ const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
+  const accessToken = getCookie("accessToken");
   const { Modal, openPrompt, closePrompt } = usePrompt();
-
+  const { mutate, isPending } = useSigninQuery();
   const {
     register,
     formState: { errors, isValid },
@@ -29,10 +30,6 @@ const Page = () => {
     mode: "all",
     defaultValues: { email: "", password: "" },
   });
-
-  const accessToken = getCookie("accessToken");
-
-  const { mutate, isPending } = useSigninQuery();
 
   const onSubmit = (formData: SignInRequest) => {
     mutate({
