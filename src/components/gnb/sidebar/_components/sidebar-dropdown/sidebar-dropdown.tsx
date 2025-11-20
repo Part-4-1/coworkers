@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Icon } from "@/components/index";
 import SidebarMenu from "../sidebar-menu/sidebar-menu";
 import { motion, AnimatePresence } from "framer-motion";
-import { mockUser } from "@/mocks/sidebar-data";
 import cn from "@/utils/clsx";
 import { tooltipStyles } from "@/constants/styles";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 /**
  * @author leohan
@@ -33,7 +33,9 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
-  const selectedMembership = mockUser[0]?.memberships?.find(
+  const { data: userInfo } = useGetUserInfoQuery();
+
+  const selectedMembership = userInfo?.memberships?.find(
     (membership) => String(membership.group.id) === currentTeamId
   );
   const selectedTeamName = selectedMembership
@@ -65,7 +67,7 @@ const SidebarDropdown = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
               >
                 {selectedTeamName}
               </motion.span>
@@ -96,14 +98,14 @@ const SidebarDropdown = ({
               setIsOpen(false);
             }}
           >
-            {mockUser[0]?.memberships?.map((data) => (
+            {userInfo?.memberships?.map((data) => (
               <SidebarMenu
                 key={data.groupId}
                 isSidebarOpen={isSidebarOpen}
                 title={data.group.name}
                 iconName="chess"
                 isSelected={String(data.group.id) === currentTeamId}
-                href={`/${mockUser[0].teamId}/groups/${data.group.id}`}
+                href={`/${data.group.id}`}
               />
             ))}
           </motion.div>
