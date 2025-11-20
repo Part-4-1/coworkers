@@ -6,7 +6,7 @@ import cn from "@/utils/clsx";
 import { useState } from "react";
 
 interface EditTeamProps {
-  groupId: string;
+  groupId: number;
 }
 
 const EditTeam = ({ groupId }: EditTeamProps) => {
@@ -41,7 +41,7 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
         </h2>
         <div className="mb-[40px] w-full">
           <TextInput
-            id={groupId}
+            id={String(groupId)}
             className="border-gray-300 text-md text-blue-700 tablet:text-lg"
             defaultValue={currentGroup.name}
             spellCheck={false}

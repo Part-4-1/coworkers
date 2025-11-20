@@ -33,7 +33,7 @@ interface TeamBannerAdminProps {
   members: Member[];
   showProfileListOnPc?: boolean;
   className?: string;
-  groupId?: string;
+  groupId?: number;
 }
 
 const TeamBannerAdmin = ({

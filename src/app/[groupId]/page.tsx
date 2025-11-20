@@ -2,7 +2,7 @@ import TeamPageClient from "./_components/team-page-client";
 
 interface TeamPageProps {
   params: Promise<{
-    groupId: string;
+    groupId: number;
   }>;
 }
 
