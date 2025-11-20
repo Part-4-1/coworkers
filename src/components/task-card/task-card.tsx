@@ -1,21 +1,19 @@
 "use client";
 
-import cn from "@/utils/clsx";
-import { BadgeProps } from "../badge/badge";
-import Icon from "../icon/Icon";
-import Badge from "../badge/badge";
-import Button from "../button/button";
-import Dropdown from "../dropdown-components/dropdown";
-import Checkbox from "../checkbox/checkbox";
-import { MouseEventHandler } from "react";
-import { CheckboxProps } from "../checkbox/checkbox";
-import { usePathname, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import usePrompt from "@/hooks/use-prompt";
 import ChangeTaskListModalUI from "@/components/modal-ui/change-task-list-modal-ui";
-import DeleteModalUI from "../modal-ui/delete-modal-ui";
 import useDeleteTaskList from "@/hooks/api/task/use-delete-task-list";
 import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
+import usePrompt from "@/hooks/use-prompt";
+import cn from "@/utils/clsx";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import { MouseEventHandler } from "react";
+import Badge, { BadgeProps } from "../badge/badge";
+import Button from "../button/button";
+import Checkbox, { CheckboxProps } from "../checkbox/checkbox";
+import Dropdown from "../dropdown-components/dropdown";
+import Icon from "../icon/Icon";
+import DeleteModalUI from "../modal-ui/delete-modal-ui";
 
 interface TaskCardProps extends BadgeProps {
   groupId: number;
@@ -116,6 +114,7 @@ const TaskCard = ({
               <br />할 일을 정말 삭제하시겠어요?
             </>
           }
+          description="삭제 후에는 되돌릴 수 없습니다."
           handleClick={handleDelete}
           handleClose={closeDeleteModal}
         />

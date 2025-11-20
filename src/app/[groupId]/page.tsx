@@ -1,9 +1,9 @@
 import TeamPageClient from "./_components/team-page-client";
 
 interface TeamPageProps {
-  params: {
+  params: Promise<{
     groupId: number;
-  };
+  }>;
 }
 
 const TeamPage = async ({ params }: TeamPageProps) => {

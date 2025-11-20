@@ -168,6 +168,7 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
               <br />할 일 목록을 정말 삭제하시겠어요?
             </>
           }
+          description="삭제 후에는 되돌릴 수 없습니다."
           handleClick={handleDeleteTaskList}
           handleClose={closeDeleteModal}
         />

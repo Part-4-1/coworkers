@@ -2,7 +2,7 @@
 
 import Dropdown from "@/components/dropdown-components/dropdown";
 import Icon from "@/components/icon/Icon";
-import DeleteTeamModalUI from "@/components/modal-ui/delete-team-modal-ui";
+import DeleteModalUI from "@/components/modal-ui/delete-modal-ui";
 import useDeleteGroup from "@/hooks/api/group/use-delete-group";
 import useGetUserGroups from "@/hooks/api/user/use-get-user-groups";
 import useMediaQuery from "@/hooks/use-media-query";
@@ -144,9 +144,17 @@ const TeamBannerAdmin = ({
         </div>
       </div>
       <Modal>
-        <DeleteTeamModalUI
-          onConfirm={handleConfirmDelete}
-          onClose={closePrompt}
+        <DeleteModalUI
+          handleClick={handleConfirmDelete}
+          handleClose={closePrompt}
+          contents={
+            <>
+              '{groupName}'
+              <br />
+              팀을 정말 삭제하시겠어요?
+            </>
+          }
+          description="삭제 후에는 되돌릴 수 없습니다."
         />
       </Modal>
     </div>

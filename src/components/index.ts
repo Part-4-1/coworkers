@@ -16,7 +16,6 @@ export { default as InputReply } from "./input-reply/input-reply";
 export { default as AddTaskListModalUI } from "./modal-ui/add-task-list-modal-ui";
 export { default as ChangeTaskListModalUI } from "./modal-ui/change-task-list-modal-ui";
 export { default as DeleteModalUI } from "./modal-ui/delete-modal-ui";
-export { default as deleteTeamModal } from "./modal-ui/delete-team-modal-ui";
 export { default as InviteMemberModalUI } from "./modal-ui/invite-member-modal-ui";
 export { default as MemberProfileModalUI } from "./modal-ui/member-profile-modal-ui";
 export { default as PostCard } from "./post-card/post-card";
