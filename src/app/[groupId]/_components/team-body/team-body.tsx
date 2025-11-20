@@ -1,12 +1,17 @@
 "use client";
 
-import { AddTaskListModalUI, ChangeTaskListModalUI } from "@/components";
+import {
+  AddTaskListModalUI,
+  ChangeTaskListModalUI,
+  DeleteModalUI,
+} from "@/components";
+import useDeleteTaskList from "@/hooks/api/task/use-delete-task-list";
 import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
 import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import TaskListSection from "./task-lists-section";
+import TaskListsSection from "./task-lists-section";
 
 interface Task {
   id: number;
@@ -29,22 +34,39 @@ interface TeamBodyProps {
 
 const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
   const router = useRouter();
+
   const sortedTaskLists = [...taskLists].sort(
     (a, b) => a.displayIndex - b.displayIndex
   );
 
-  const { Modal, openPrompt, closePrompt } = usePrompt(true);
-
   const { mutate: postTaskList } = usePostTaskList(groupId);
   const { mutate: patchTaskList } = usePatchTaskList(groupId);
+  const { mutate: deleteTaskList } = useDeleteTaskList(groupId);
 
-  const [modalType, setModalType] = useState<"add" | "edit" | null>(null);
   const [selectedTaskList, setSelectedTaskList] = useState<TaskList | null>(
     null
   );
 
+  const {
+    Modal: AddModal,
+    openPrompt: openAddModal,
+    closePrompt: closeAddModal,
+  } = usePrompt(true);
+
+  const {
+    Modal: ChangeModal,
+    openPrompt: openChangeModal,
+    closePrompt: closeChangeModal,
+  } = usePrompt(true);
+
+  const {
+    Modal: DeleteModal,
+    openPrompt: openDeleteModal,
+    closePrompt: closeDeleteModal,
+  } = usePrompt();
+
   const handleAddTaskList = (name: string) => {
-    closePrompt();
+    closeAddModal();
     postTaskList(
       { groupId, name },
       {
@@ -53,10 +75,12 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
     );
   };
 
-  const handleChangeTaskList = (taskListId: number, newName: string) => {
-    closePrompt();
+  const handlePatchTaskList = (newName: string) => {
+    if (!selectedTaskList) return;
+
+    closeChangeModal();
     patchTaskList(
-      { groupId, taskListId, name: newName },
+      { groupId, taskListId: selectedTaskList.id, name: newName },
       {
         onSuccess: () => refetchGroup(),
       }
@@ -68,14 +92,32 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
   };
 
   const handleOpenEditModal = (taskList: TaskList) => {
-    setModalType("edit");
     setSelectedTaskList(taskList);
-    openPrompt();
+    openChangeModal();
+  };
+
+  const handleOpenDeleteModal = (taskList: TaskList) => {
+    setSelectedTaskList(taskList);
+    openDeleteModal();
+  };
+
+  const handleDeleteTaskList = () => {
+    if (!selectedTaskList) return;
+
+    deleteTaskList(
+      { groupId, taskListId: selectedTaskList.id },
+      {
+        onSuccess: () => {
+          refetchGroup();
+          closeDeleteModal();
+        },
+      }
+    );
   };
 
   return (
     <div className="px-[16px] tablet:px-[0px] pc:px-[0px]">
-      <div className="mb-[28px] mt-[32px] border-[1px] border-gray-300"></div>
+      <div className="mb-[28px] mt-[32px] border-[1px] border-gray-300" />
 
       <div className="flex flex-col gap-[16px]">
         <header className="flex items-center justify-between">
@@ -87,37 +129,49 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
               ({sortedTaskLists.length}개)
             </span>
           </div>
+
           <div
             className="cursor-pointer text-md text-blue-200"
             onClick={() => {
-              setModalType("add");
-              setSelectedTaskList(null);
-              openPrompt();
+              openAddModal();
             }}
           >
             + 새로운 목록 추가하기
           </div>
         </header>
-        <TaskListSection
+
+        <TaskListsSection
           taskLists={sortedTaskLists}
           onClickTask={handleClickTask}
           onClickEdit={handleOpenEditModal}
+          onClickDelete={handleOpenDeleteModal}
         />
       </div>
 
-      <Modal>
-        {modalType === "add" && (
-          <AddTaskListModalUI handleClick={handleAddTaskList} />
-        )}
-        {modalType === "edit" && selectedTaskList && (
+      <AddModal>
+        <AddTaskListModalUI handleClick={handleAddTaskList} />
+      </AddModal>
+
+      <ChangeModal>
+        {selectedTaskList && (
           <ChangeTaskListModalUI
             taskTitle={selectedTaskList.name}
-            handleClick={(newName) =>
-              handleChangeTaskList(selectedTaskList.id, newName)
-            }
+            handleClick={handlePatchTaskList}
           />
         )}
-      </Modal>
+      </ChangeModal>
+      <DeleteModal>
+        <DeleteModalUI
+          contents={
+            <>
+              '{selectedTaskList?.name}'
+              <br />할 일 목록을 정말 삭제하시겠어요?
+            </>
+          }
+          handleClick={handleDeleteTaskList}
+          handleClose={closeDeleteModal}
+        />
+      </DeleteModal>
     </div>
   );
 };

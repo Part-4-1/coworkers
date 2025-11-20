@@ -14,17 +14,19 @@ interface TaskList {
   tasks: Task[];
 }
 
-interface TaskListSectionProps {
+interface TaskListsSectionProps {
   taskLists: TaskList[];
   onClickTask: (taskListId: number) => void;
   onClickEdit: (taskList: TaskList) => void;
+  onClickDelete: (taskList: TaskList) => void;
 }
 
-const TaskListSection = ({
+const TaskListsSection = ({
   taskLists,
   onClickTask,
   onClickEdit,
-}: TaskListSectionProps) => {
+  onClickDelete,
+}: TaskListsSectionProps) => {
   const isEmpty = taskLists.length === 0;
 
   if (isEmpty) {
@@ -75,7 +77,7 @@ const TaskListSection = ({
                     label: "수정하기",
                     onClick: () => onClickEdit(taskList),
                   },
-                  { label: "삭제하기" },
+                  { label: "삭제하기", onClick: () => onClickDelete(taskList) },
                 ]}
               />
             </div>
@@ -86,4 +88,4 @@ const TaskListSection = ({
   );
 };
 
-export default TaskListSection;
+export default TaskListsSection;
