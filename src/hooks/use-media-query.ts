@@ -9,16 +9,16 @@ import { useState, useEffect } from "react";
  */
 
 const useMediaQuery = (size: string) => {
-  const [isMatch, setIsMatch] = useState(false);
+  const [isMatch, setIsMatch] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia(size).matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mediaQueryList = window.matchMedia(size);
-
-    const handleInitialMatch = () => {
-      setIsMatch(mediaQueryList.matches);
-    };
-    handleInitialMatch();
 
     const handleChange = (event: MediaQueryListEvent) => {
       setIsMatch(event.matches);
