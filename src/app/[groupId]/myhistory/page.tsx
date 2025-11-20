@@ -32,10 +32,14 @@ const Page = () => {
         onMemberListClick={() => {}}
         className="py-3 tablet:mt-[69px] tablet:py-4"
       />
-      <div className="mx-4 flex min-h-screen flex-col rounded-[20px] bg-white px-5 pb-[52px] pt-[33px] tablet:mx-0">
+      <div className="mx-4 flex min-h-screen flex-col rounded-[20px] bg-white px-5 pb-[52px] pt-[33px] tablet:mx-0 tablet:px-[30px] pc:px-[37px]">
         <div className="flex flex-col gap-[27px]">
           <p className="text-2lg font-bold">마이 히스토리</p>
-          <HistoryList monthlyTaskList={monthlyTaskList} />
+          {!userHistoryPending ? (
+            <HistoryList monthlyTaskList={monthlyTaskList} />
+          ) : (
+            <p>로딩 중</p>
+          )}
         </div>
       </div>
     </div>
