@@ -18,12 +18,11 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
   const { data: groupInfo, refetch } = useGetGroupInfo(Number(groupId));
   console.log("groupInfo", groupInfo);
   console.log("userInfo", userInfo);
-  const isNoGroup = false; // TODO: 그룹 없을 때 조건 넣기
 
   if (!groupInfo) return null;
   const tasksTodo = getTasksTodo(groupInfo.taskLists);
   const tasksDone = getTasksDone(groupInfo.taskLists);
-  const isAdmin = isUserAdmin(userInfo!, Number(groupId));
+  const isAdmin = isUserAdmin(userInfo, Number(groupId));
   console.log(isAdmin);
   return (
     <div>

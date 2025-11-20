@@ -1,10 +1,12 @@
 import { User } from "@/types/user";
 
-export const isUserAdmin = (userInfo: User, groupId: number) => {
-  const isAdmin = userInfo.memberships?.find(
-    (membership) =>
-      membership.groupId === groupId && membership.role === "ADMIN"
-  );
+export const isUserAdmin = (userInfo?: User, groupId?: number) => {
+  if (!userInfo || !groupId) return false;
 
-  return isAdmin;
+  return (
+    userInfo.memberships?.some(
+      (membership) =>
+        membership.groupId === groupId && membership.role === "ADMIN"
+    ) ?? false
+  );
 };

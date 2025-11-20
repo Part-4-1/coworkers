@@ -1,10 +1,19 @@
 "use client";
 
-import { AddTaskListModalUI, Badge, Button, Icon } from "@/components";
+import {
+  AddTaskListModalUI,
+  Badge,
+  Button,
+  ChangeTaskListModalUI,
+  Dropdown,
+  Icon,
+} from "@/components";
 import { TASK_LIST_COLORS } from "@/constants/task-list-color";
+import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
 import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface Task {
   id: number;
@@ -32,12 +41,27 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
   );
   const isTaskListsEmpty = taskLists.length === 0;
   const { Modal, openPrompt, closePrompt } = usePrompt(true);
-  const { mutate: createTaskList } = usePostTaskList(groupId);
+  const { mutate: postTaskList } = usePostTaskList(groupId);
+  const { mutate: patchTaskList } = usePatchTaskList(groupId);
+  const [modalType, setModalType] = useState<"add" | "edit" | null>(null);
+  const [selectedTaskList, setSelectedTaskList] = useState<TaskList | null>(
+    null
+  );
 
   const handleAddTaskList = (name: string) => {
     closePrompt();
-    createTaskList(
+    postTaskList(
       { groupId, name },
+      {
+        onSuccess: () => refetchGroup(),
+      }
+    );
+  };
+
+  const handleChangeTaskList = (taskListId: number, newName: string) => {
+    closePrompt();
+    patchTaskList(
+      { groupId, taskListId, name: newName },
       {
         onSuccess: () => refetchGroup(),
       }
@@ -59,7 +83,11 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
           </div>
           <div
             className="cursor-pointer text-md text-blue-200"
-            onClick={openPrompt}
+            onClick={() => {
+              setModalType("add");
+              setSelectedTaskList(null);
+              openPrompt();
+            }}
           >
             + 새로운 목록 추가하기
           </div>
@@ -77,34 +105,51 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
                 const doneTasks = taskList.tasks.filter((t) => t.doneAt).length;
 
                 return (
-                  <Button
-                    onClick={() =>
-                      router.push(`/${groupId}/tasklist?list=${taskList.id}`)
-                    }
-                    variant="none"
+                  <div
                     key={taskList.id}
-                    className="flex h-[40px] w-full items-center justify-between overflow-hidden rounded-[12px] bg-white text-start"
+                    className="flex h-[40px] w-full items-stretch rounded-[12px] bg-white"
                   >
-                    <div className="flex min-w-0 flex-1 gap-[12px] flex-center">
-                      <div
-                        className={` ${color} -ml-[12px] h-[40px] w-[24px]`}
-                      ></div>
-                      <div className="min-w-0 flex-1 truncate text-md font-medium text-blue-700">
-                        {taskList.name}
-                      </div>
-                    </div>
-                    <div className="flex gap-[4px] flex-center">
-                      <div>
-                        <Badge total={totalTasks} completed={doneTasks} />
-                      </div>
-                      <div>
-                        <Icon
-                          icon="kebab"
-                          className="h-[20px] w-[20px] cursor-pointer text-gray-400"
+                    <div className="flex h-full min-w-0 flex-1 overflow-hidden rounded-l-[12px]">
+                      <Button
+                        variant="none"
+                        className="flex h-full w-full items-center gap-[12px] text-start"
+                        onClick={() =>
+                          router.push(
+                            `/${groupId}/tasklist?list=${taskList.id}`
+                          )
+                        }
+                      >
+                        <div
+                          className={`${color} -ml-[12px] h-[40px] w-[24px] shrink-0`}
                         />
-                      </div>
+                        <div className="min-w-0 flex-1 truncate text-md font-medium text-blue-700">
+                          {taskList.name}
+                        </div>
+                      </Button>
                     </div>
-                  </Button>
+                    <div className="flex items-center gap-[4px] pr-[12px]">
+                      <Badge total={totalTasks} completed={doneTasks} />
+                      <Dropdown
+                        trigger={
+                          <Icon
+                            icon="kebab"
+                            className="h-[20px] w-[20px] cursor-pointer text-gray-400"
+                          />
+                        }
+                        items={[
+                          {
+                            label: "수정하기",
+                            onClick: () => {
+                              setModalType("edit");
+                              setSelectedTaskList(taskList);
+                              openPrompt();
+                            },
+                          },
+                          { label: "삭제하기" },
+                        ]}
+                      />
+                    </div>
+                  </div>
                 );
               })
             )}
@@ -114,6 +159,20 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
 
       <Modal>
         <AddTaskListModalUI handleClick={handleAddTaskList} />
+      </Modal>
+      <Modal>
+        {modalType === "add" && (
+          <AddTaskListModalUI handleClick={handleAddTaskList} />
+        )}
+
+        {modalType === "edit" && selectedTaskList && (
+          <ChangeTaskListModalUI
+            taskTitle={selectedTaskList.name}
+            handleClick={(newName) =>
+              handleChangeTaskList(selectedTaskList.id, newName)
+            }
+          />
+        )}
       </Modal>
     </div>
   );
