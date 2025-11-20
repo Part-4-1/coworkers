@@ -36,11 +36,10 @@ const Page = () => {
         className="py-3 tablet:mt-[69px] tablet:py-4"
       />
       <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
-        {!isPending && groupData ? (
-          <TaskListContainer groupId={groupId} taskList={groupData.taskLists} />
-        ) : (
-          "아직 할 일이 없습니다!"
-        )}
+        <TaskListContainer
+          groupId={groupId}
+          taskList={groupData?.taskLists || []}
+        />
         <div
           className={cn(
             "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[57px] pt-[38px]",
