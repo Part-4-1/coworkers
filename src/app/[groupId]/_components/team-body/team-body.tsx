@@ -2,6 +2,7 @@
 
 import { AddTaskListModalUI, Badge, Icon } from "@/components";
 import { TASK_LIST_COLORS } from "@/constants/task-list-color";
+import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
 
 interface Task {
@@ -19,18 +20,26 @@ interface TaskList {
 
 interface TeamBodyProps {
   taskLists: TaskList[];
+  groupId: number;
+  refetchGroup: () => void;
 }
 
-const TeamBody = ({ taskLists }: TeamBodyProps) => {
+const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
   const sortedTaskLists = [...taskLists].sort(
     (a, b) => a.displayIndex - b.displayIndex
   );
-  const isTaskListsEmpty = taskLists.length === 0 || taskLists === null;
+  const isTaskListsEmpty = taskLists.length === 0;
   const { Modal, openPrompt, closePrompt } = usePrompt(true);
+  const { mutate: createTaskList } = usePostTaskList(groupId);
 
   const handleAddTaskList = (name: string) => {
     closePrompt();
-    //TODO: API 호출 및 로직 추가
+    createTaskList(
+      { groupId, name },
+      {
+        onSuccess: () => refetchGroup(),
+      }
+    );
   };
 
   return (
@@ -72,7 +81,7 @@ const TeamBody = ({ taskLists }: TeamBodyProps) => {
                   >
                     <div className="flex min-w-0 flex-1 gap-[12px] flex-center">
                       <div
-                        className={` ${color} rounded-[12px]] -ml-[12px] h-[40px] w-[24px]`}
+                        className={` ${color} -ml-[12px] h-[40px] w-[24px] rounded-[12px]`}
                       ></div>
                       <div className="min-w-0 flex-1 truncate text-md font-medium text-blue-700">
                         {taskList.name}

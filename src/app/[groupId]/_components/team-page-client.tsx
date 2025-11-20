@@ -10,12 +10,12 @@ import TeamBody from "./team-body/team-body";
 import TeamMembersSection from "./team-members-section/team-members-section";
 
 interface TeamPageClientProps {
-  groupId: string;
+  groupId: number;
 }
 
 const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
-  const { data: groupInfo } = useGetGroupInfo(Number(groupId));
+  const { data: groupInfo, refetch } = useGetGroupInfo(Number(groupId));
   console.log("groupInfo", groupInfo);
   console.log("userInfo", userInfo);
   const isNoGroup = false; // TODO: 그룹 없을 때 조건 넣기
@@ -53,7 +53,11 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
           </section>
 
           <section className="pc:mx-auto pc:w-full pc:max-w-[1120px]">
-            <TeamBody taskLists={groupInfo.taskLists} />
+            <TeamBody
+              taskLists={groupInfo.taskLists}
+              groupId={groupId}
+              refetchGroup={refetch}
+            />
           </section>
 
           <section className="mb-[290px] mt-[48px] px-[16px] tablet:mb-[230px] tablet:px-[0px] pc:mx-auto pc:mb-[67px] pc:w-full pc:max-w-[1120px]">
