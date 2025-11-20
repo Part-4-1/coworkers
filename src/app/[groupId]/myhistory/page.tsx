@@ -4,34 +4,25 @@ import { TeamBannerMember } from "@/components";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import HistoryDatePicker from "./_components/history-date-picker";
-import HistoryTaskChipList from "./_components/history-task-chip-list";
-import { Task } from "@/types/task";
-import { getDoneTaskList } from "@/utils/util";
-import useGetTaskList from "@/hooks/api/task/use-get-task-list";
+import useGetUserHistory from "@/hooks/api/user/use-get-user-history";
+import { getMonthlyTaskList } from "@/utils/util";
+import { MonthlyTaskList } from "@/types/task";
+import TaskListItem from "../tasklist/_components/task-list-item";
 
 const Page = () => {
   const param = useParams();
   const groupId = Number(param.groupId);
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [taskListId, setTaskListId] = useState<number>(0);
-  const [doneTaskList, setDoneTaskList] = useState<Task[] | null>(null);
+  const [monthlyTaskList, setMonthlyTaskList] = useState<MonthlyTaskList[]>([]);
   const { data: groupData, isPending: groupPending } = useGetGroupInfo(groupId);
-  const { data: taskList, isPending: taskListPending } = useGetTaskList(
-    groupId,
-    taskListId
-  );
+  const { data: userHistory, isPending: userHistoryPending } =
+    useGetUserHistory(groupId);
 
   useEffect(() => {
-    setSelectedDate(new Date());
-  }, []);
-
-  useEffect(() => {
-    const doneList = getDoneTaskList(taskList, taskListId, selectedDate);
-    setDoneTaskList(doneList);
-    console.log(doneTaskList);
-  }, [taskListId, selectedDate]);
+    if (!userHistoryPending) {
+      setMonthlyTaskList(getMonthlyTaskList(userHistory?.tasksDone));
+    }
+  }, [userHistoryPending]);
 
   return (
     <div className="flex w-full max-w-[1120px] flex-col gap-4 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
@@ -43,19 +34,17 @@ const Page = () => {
       />
       <div className="mx-4 flex min-h-screen flex-col rounded-[20px] bg-white px-5 pb-[52px] pt-[33px]">
         <div className="flex flex-col gap-[27px]">
-          <HistoryDatePicker
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-          <HistoryTaskChipList
-            {...{
-              groupData,
-              selectedDate,
-              groupId,
-              taskListId,
-              setTaskListId,
-            }}
-          />
+          <p className="text-2lg font-bold">마이 히스토리</p>
+          <ul className="flex flex-col gap-3 overflow-auto">
+            {monthlyTaskList.map((taskList) => {
+              return (
+                <li key={taskList.tasks.id}>
+                  <p className="text-2lg font-bold">{taskList.date}</p>
+                  <TaskListItem taskItems={taskList.tasks} />
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </div>

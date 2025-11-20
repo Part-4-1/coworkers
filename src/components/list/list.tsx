@@ -9,7 +9,7 @@ interface ListProps {
   date: string;
   name: string;
   doneAt: string | null;
-  commentCount: number;
+  commentCount?: number;
   frequency: string;
   className?: string;
   onClickCheckbox: MouseEventHandler<HTMLInputElement>;

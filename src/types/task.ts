@@ -43,3 +43,8 @@ export interface TasksDone {
   writerId: number;
   displayIndex: number;
 }
+
+export interface MonthlyTaskList {
+  date: string;
+  tasks: TasksDone[];
+}

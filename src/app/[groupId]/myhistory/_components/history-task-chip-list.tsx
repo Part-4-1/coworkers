@@ -1,7 +1,6 @@
 import TaskChip from "@/components/task-chip/task-chip";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
 import { Group } from "@/types/group";
-import { getDoneTaskList } from "@/utils/util";
 import { Dispatch, SetStateAction } from "react";
 
 interface HistoryTaskChipListProps {
@@ -19,12 +18,6 @@ const HistoryTaskChipList = ({
   taskListId,
   setTaskListId,
 }: HistoryTaskChipListProps) => {
-  const { data: taskItems, isPending } = useGetTaskItems(
-    groupId,
-    taskListId,
-    selectedDate?.toString() || ""
-  );
-
   return (
     <ul className="flex items-center gap-1 overflow-x-auto">
       {groupData?.taskLists.map((taskList, idx) => {

@@ -1,6 +1,5 @@
 import { FREQUENCIES } from "@/constants/frequencies";
-import { Task, TasksDone } from "@/types/task";
-import { TaskList } from "@/types/taskList";
+import { MonthlyTaskList, Task, TasksDone } from "@/types/task";
 
 const VALID_CODES = ["ONCE", "DAILY", "WEEKLY", "MONTHLY"] as const;
 type FrequencyCodes = (typeof VALID_CODES)[number];
@@ -38,26 +37,26 @@ export const countDoneTask = (tasks: Task[]) => {
   return count;
 };
 
-/**
- * @author hwitae
- * @description 완료된 할 일 리스트에서 해당 할 일 리스트 ID와 선택된 날짜의 할 일 리스트를 반환합니다.
- * @param list 완료된 할 일 리스트
- * @param taskListId 할 일 리스트 ID
- * @param selectedDate 선택된 날짜
- * @returns 할 일 리스트
- */
-export const getDoneTaskList = (
-  list: TaskList | undefined,
-  taskListId: number,
-  selectedDate: Date | null
-) => {
-  if (!list?.tasks) return [];
+export const getMonthlyTaskList = (
+  tasks: TasksDone[] | undefined
+): MonthlyTaskList[] => {
+  if (!tasks) return [];
+  let prevDoneDate = "";
 
-  const doneTaskList = list?.tasks.filter((task) => {
-    return (
-      list.id === taskListId &&
-      task.doneAt?.split("T")[0] === selectedDate?.toLocaleDateString("sv-SE")
-    );
+  const monthlyTaskList = tasks.map((task, idx) => {
+    let doneDate = task.doneAt.slice(0, 10);
+
+    if (prevDoneDate !== doneDate) {
+      prevDoneDate = doneDate;
+
+      return {
+        date: doneDate,
+        tasks: tasks.filter((task) => task.doneAt.slice(0, 10) === doneDate),
+      };
+    }
   });
-  return doneTaskList;
+
+  return monthlyTaskList.filter(
+    (item): item is MonthlyTaskList => item !== undefined
+  );
 };

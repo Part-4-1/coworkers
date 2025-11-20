@@ -89,7 +89,7 @@ function TaskDetailSection() {
 // ===== Main App Component =====
 export default function App() {
   return (
-    <main className="min-h-screen bg-white text-gray-900">
+    <main className="min-h-screen bg-white text-gray-900 pc:ml-[-270px]">
       {/* 
                SECTION 1: HERO - 메인 소개 및 전체 이미지 (랜딩 페이지)
              */}

@@ -1,5 +1,5 @@
 import { Button, Calendar, Icon } from "@/components";
-import { toKoreanDateString } from "@/utils/date-util";
+import { toKoreanDateString, toKoreanYearMonth } from "@/utils/date-util";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface HistoryDatePickerProps {
