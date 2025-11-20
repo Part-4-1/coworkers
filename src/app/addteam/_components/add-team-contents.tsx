@@ -1,10 +1,14 @@
 "use client";
 
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { ProfileEdit, TextInput, Button } from "@/components/index";
+import { ProfileEdit, TextInput, Button, Icon } from "@/components/index";
 import usePostGroup from "@/hooks/api/group/use-post-group";
+import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 
 const AddTeamContents = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
@@ -16,9 +20,37 @@ const AddTeamContents = () => {
 
   const { mutate: createGroup, isPending } = usePostGroup();
 
+  const {
+    previews,
+    handleFile,
+    removeImage,
+    isLoading: isImageUploading,
+  } = useImageUpload({
+    maxCount: 1,
+  });
+
+  const handleImageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFile(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    if (previews[0]) {
+      removeImage(previews[0].id);
+    }
+  };
+
   const onSubmit = (data: { name: string }) => {
     createGroup({
       name: data.name,
+      image: previews[0]?.url,
     });
   };
 
@@ -32,7 +64,25 @@ const AddTeamContents = () => {
         className="flex w-full flex-col gap-8"
       >
         <div className="w-full gap-6 flex-col-center">
-          <ProfileEdit />
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <div className="group relative">
+            <ProfileEdit image={previews[0]?.url} onClick={handleImageClick} />
+            {previews[0] && (
+              <Button
+                variant="none"
+                onClick={handleRemoveImage}
+                className="absolute -right-2 -top-2 rounded-full border border-gray-400 bg-white p-1 opacity-0 transition-opacity hover:bg-gray-300 group-hover:opacity-100"
+              >
+                <Icon icon="x" className="h-4 w-4 text-gray-600" />
+              </Button>
+            )}
+          </div>
           <div className="flex w-full flex-col items-start gap-3">
             <p className="text-xs font-medium text-blue-700 tablet:text-lg">
               팀 이름
@@ -63,9 +113,13 @@ const AddTeamContents = () => {
             type="submit"
             variant="solid"
             className="text-lg font-medium"
-            disabled={!isValid || isPending}
+            disabled={!isValid || isPending || isImageUploading}
           >
-            {isPending ? "생성 중..." : "생성하기"}
+            {isPending
+              ? "생성 중..."
+              : isImageUploading
+                ? "이미지 업로드 중..."
+                : "생성하기"}
           </Button>
           <p className="text-xs text-gray-800 tablet:text-lg">
             팀 이름은 회사명이나 모임 이름 등으로 설정하면 좋아요.
