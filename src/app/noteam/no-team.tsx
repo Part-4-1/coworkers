@@ -3,7 +3,7 @@ import cn from "@/utils/clsx";
 import Image from "next/image";
 import Link from "next/link";
 
-const TeamNoGroup = () => {
+const NoTeam = () => {
   return (
     <main
       className={cn("flex h-screen w-full min-w-[200px] flex-col flex-center")}
@@ -41,4 +41,4 @@ const TeamNoGroup = () => {
   );
 };
 
-export default TeamNoGroup;
+export default NoTeam;
