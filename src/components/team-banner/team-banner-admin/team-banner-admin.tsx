@@ -27,7 +27,7 @@ import TeamBannerAdminHeader from "./team-banner-admin-header";
  */
 
 interface TeamBannerAdminProps {
-  groupName: string;
+  groupName?: string;
   tasksTodo: number;
   tasksDone: number;
   members: Member[];

@@ -12,7 +12,9 @@ const TeamNoGroup = () => {
           src={"/team-page-no-group.png"}
           alt="그룹없음"
           fill
+          sizes="h-[120px] w-[183px] tablet:h-[211px] tablet:w-[323px] pc:h-[264px] pc:w-[404px]"
           className="object-contain"
+          priority={true}
         />
       </div>
       <div

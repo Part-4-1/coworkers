@@ -1,13 +1,11 @@
-// src/app/[groupId]/_components/team-page-client.tsx
 "use client";
 
 import { TeamBannerAdmin, TeamBannerMember } from "@/components/index";
+import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
-import { mockGroupData } from "@/mocks/group-data";
 import { mockGroupTasksData } from "@/mocks/group-tasks";
 import cn from "@/utils/clsx";
 import TeamBody from "./team-body/team-body";
-import TeamNoGroup from "./team-body/team-no-group";
 import TeamMembersSection from "./team-members-section/team-members-section";
 
 interface TeamPageClientProps {
@@ -16,8 +14,9 @@ interface TeamPageClientProps {
 
 const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
-  console.log("userInfo:", userInfo);
-  const currentGroup = mockGroupData[0]; // TODO: 실제 API 연동 시 교체
+  const { data: groupInfo } = useGetGroupInfo(Number(groupId));
+  console.log("groupInfo", groupInfo);
+
   const isAdmin = true; // TODO: 실제 권한 로직으로 교체
   const isNoGroup = false; // TODO: 그룹 없을 때 조건 넣기
   const currentTasksGroup = mockGroupTasksData[0];
@@ -37,11 +36,10 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
     0
   );
 
+  if (!groupInfo) return null;
   return (
     <div>
-      {isNoGroup ? (
-        <TeamNoGroup />
-      ) : (
+      {
         <main
           className={cn(
             "flex flex-col",
@@ -52,16 +50,16 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
           <section className="pc:flex pc:justify-center">
             {isAdmin ? (
               <TeamBannerAdmin
-                groupName={currentGroup.name}
+                groupName={groupInfo.name}
                 tasksTodo={tasksTodo}
                 tasksDone={tasksDone}
-                members={currentGroup.members}
+                members={groupInfo.members}
                 groupId={groupId}
               />
             ) : (
               <TeamBannerMember
-                groupName={currentGroup.name}
-                members={currentGroup.members}
+                groupName={groupInfo.name}
+                members={groupInfo.members}
               />
             )}
           </section>
@@ -71,10 +69,10 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
           </section>
 
           <section className="mb-[290px] mt-[48px] px-[16px] tablet:mb-[230px] tablet:px-[0px] pc:mx-auto pc:mb-[67px] pc:w-full pc:max-w-[1120px]">
-            <TeamMembersSection members={currentGroup.members} />
+            <TeamMembersSection members={groupInfo.members} />
           </section>
         </main>
-      )}
+      }
     </div>
   );
 };
