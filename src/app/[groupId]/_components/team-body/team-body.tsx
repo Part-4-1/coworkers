@@ -1,9 +1,10 @@
 "use client";
 
-import { AddTaskListModalUI, Badge, Icon } from "@/components";
+import { AddTaskListModalUI, Badge, Button, Icon } from "@/components";
 import { TASK_LIST_COLORS } from "@/constants/task-list-color";
 import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
+import { useRouter } from "next/navigation";
 
 interface Task {
   id: number;
@@ -25,6 +26,7 @@ interface TeamBodyProps {
 }
 
 const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
+  const router = useRouter();
   const sortedTaskLists = [...taskLists].sort(
     (a, b) => a.displayIndex - b.displayIndex
   );
@@ -75,9 +77,13 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
                 const doneTasks = taskList.tasks.filter((t) => t.doneAt).length;
 
                 return (
-                  <div
+                  <Button
+                    onClick={() =>
+                      router.push(`/${groupId}/tasklist?list=${taskList.id}`)
+                    }
+                    variant="none"
                     key={taskList.id}
-                    className="flex h-[40px] w-full items-center justify-between overflow-hidden rounded-[12px] bg-white"
+                    className="flex h-[40px] w-full items-center justify-between overflow-hidden rounded-[12px] bg-white text-start"
                   >
                     <div className="flex min-w-0 flex-1 gap-[12px] flex-center">
                       <div
@@ -98,7 +104,7 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
                         />
                       </div>
                     </div>
-                  </div>
+                  </Button>
                 );
               })
             )}
