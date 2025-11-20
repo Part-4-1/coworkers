@@ -5,9 +5,11 @@ import { useForm } from "react-hook-form";
 import { ProfileEdit, TextInput, Button, Icon } from "@/components/index";
 import usePostGroup from "@/hooks/api/group/use-post-group";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 const AddTeamContents = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { data: userInfo } = useGetUserInfoQuery();
 
   const {
     register,
@@ -100,6 +102,12 @@ const AddTeamContents = () => {
                 maxLength: {
                   value: 30,
                   message: "팀 이름은 최대 30자까지 가능합니다.",
+                },
+                validate: (value) => {
+                  const isDuplicate = userInfo?.memberships?.some(
+                    (membership) => membership.group?.name === value
+                  );
+                  return isDuplicate ? "이미 존재하는 이름입니다." : true;
                 },
               })}
             />
