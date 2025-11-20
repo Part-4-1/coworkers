@@ -81,7 +81,7 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
                   >
                     <div className="flex min-w-0 flex-1 gap-[12px] flex-center">
                       <div
-                        className={` ${color} -ml-[12px] h-[40px] w-[24px] rounded-[12px]`}
+                        className={` ${color} -ml-[12px] h-[40px] w-[24px]`}
                       ></div>
                       <div className="min-w-0 flex-1 truncate text-md font-medium text-blue-700">
                         {taskList.name}
@@ -105,6 +105,7 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
           </div>
         }
       </div>
+
       <Modal>
         <AddTaskListModalUI handleClick={handleAddTaskList} />
       </Modal>

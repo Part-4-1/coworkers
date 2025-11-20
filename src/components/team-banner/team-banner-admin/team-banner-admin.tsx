@@ -3,6 +3,8 @@
 import Dropdown from "@/components/dropdown-components/dropdown";
 import Icon from "@/components/icon/Icon";
 import DeleteTeamModalUI from "@/components/modal-ui/delete-team-modal-ui";
+import useDeleteGroup from "@/hooks/api/group/use-delete-group";
+import useGetUserGroups from "@/hooks/api/user/use-get-user-groups";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
 import { Member } from "@/types/members";
@@ -33,7 +35,7 @@ interface TeamBannerAdminProps {
   members: Member[];
   showProfileListOnPc?: boolean;
   className?: string;
-  groupId?: number;
+  groupId: number;
 }
 
 const TeamBannerAdmin = ({
@@ -48,6 +50,8 @@ const TeamBannerAdmin = ({
   const isPc = useMediaQuery("(min-width: 1280px)");
   const router = useRouter();
   const { Modal, openPrompt, closePrompt } = usePrompt(false);
+  const { mutate: deleteGroup } = useDeleteGroup(groupId);
+  const { data: groupData, refetch: refetchUserGroups } = useGetUserGroups();
 
   const handleEditDropdown = () => {
     router.push(`/${groupId}/editteam`);
@@ -55,10 +59,21 @@ const TeamBannerAdmin = ({
 
   const handleDeleteDropdown = () => {
     openPrompt();
+    console.log(groupData);
   };
 
   const handleConfirmDelete = () => {
-    //TODO: API 호출 및 로직 추가
+    deleteGroup(groupId, {
+      onSuccess: async () => {
+        closePrompt();
+        const { data: newGroups } = await refetchUserGroups();
+        if (newGroups.length === 0) {
+          router.push("/noteam");
+          return;
+        }
+        router.push(`/${newGroups[0].id}`);
+      },
+    });
   };
 
   return (
