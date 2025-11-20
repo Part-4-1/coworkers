@@ -16,3 +16,11 @@ export interface Group {
   members: Member[];
   taskLists: TaskList[];
 }
+
+export interface CreateGroupResponse {
+  id: number;
+  name: string;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
+}
