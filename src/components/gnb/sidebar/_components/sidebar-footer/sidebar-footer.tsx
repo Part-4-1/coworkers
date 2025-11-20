@@ -61,16 +61,18 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
       href="/signin"
       className="mb-6 flex gap-3 border-t border-gray-300 pt-5"
     >
-      <div
-        className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
-      >
-        <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
-      </div>
       {isSidebarOpen && (
-        <span className="flex flex-col justify-center gap-[2px] whitespace-nowrap">
-          로그인
-        </span>
+        <div
+          className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
+        >
+          <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
+        </div>
       )}
+      <span
+        className={`flex flex-col justify-center whitespace-nowrap hover:text-gray-600 ${isSidebarOpen && "gap-[2px]"}`}
+      >
+        로그인
+      </span>
     </Link>
   );
 };

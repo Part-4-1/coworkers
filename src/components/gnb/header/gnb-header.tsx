@@ -22,9 +22,9 @@ const GnbHeader = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: userInfo, isLoading } = useGetUserInfoQuery();
+  const { data: userInfo, isPending } = useGetUserInfoQuery();
   const { handleLogout } = useLogout();
-  const isLoggedIn = !!userInfo && !isLoading;
+  const isLoggedIn = !!userInfo && !isPending;
 
   return (
     <div className="w-full border-b border-gray-300 bg-white">
@@ -76,7 +76,7 @@ const GnbHeader = () => {
           </AnimatePresence>
         </div>
       ) : (
-        <div className="p-4">
+        <div className="flex justify-between p-4">
           <Link href={"/"}>
             <Image
               src={"/ic-coworkers-logo.svg"}
@@ -88,6 +88,12 @@ const GnbHeader = () => {
             <h1 className="inline-block text-[12.5px] font-bold text-blue-200">
               COWORKERS
             </h1>
+          </Link>
+          <Link
+            href={"/signin"}
+            className="flex items-center text-md hover:text-gray-600"
+          >
+            로그인
           </Link>
         </div>
       )}
