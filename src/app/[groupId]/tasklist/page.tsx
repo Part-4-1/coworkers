@@ -52,7 +52,11 @@ const Page = () => {
             taskListId={taskListId}
             setSelectedDate={setSelectedDate}
           />
-          <TaskListItem taskListId={taskListId} taskItems={taskItems} />
+          <TaskListItem
+            groupId={groupId}
+            taskListId={taskListId}
+            taskItems={taskItems}
+          />
         </div>
       </div>
     </div>

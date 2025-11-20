@@ -1,4 +1,5 @@
 import patchTaskDetail, { PatchData } from "@/api/task/patch-task-detail";
+import useToast from "@/hooks/use-toast";
 import { TaskDetailData } from "@/types/task-detail";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -11,6 +12,7 @@ export interface PatchTaskDetailData {
 
 const usePatchTaskDetail = () => {
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   return useMutation({
     mutationFn: patchTaskDetail,
@@ -20,12 +22,25 @@ const usePatchTaskDetail = () => {
       ]) as TaskDetailData;
       return prevData;
     },
-    onSuccess: (data, _, prevData) => {
-      data?.data.doneAt !== prevData.doneAt &&
-        queryClient.invalidateQueries({ queryKey: ["taskDetail"] });
+    onSettled: (data, err, variables, prevData) => {
+      queryClient.setQueryData(["taskDetail"], {
+        ...prevData,
+        doneAt: prevData?.doneAt ? null : new Date().toISOString(),
+      });
     },
-    onError: (error) => {
-      console.error(error);
+    onSuccess: (data, variables, prevData) => {
+      data.doneAt !== prevData?.doneAt &&
+        queryClient.invalidateQueries({
+          queryKey: [
+            "taskItems",
+            variables.groupId,
+            variables.taskListId,
+            prevData.date,
+          ],
+        });
+    },
+    onError: () => {
+      toast.error("완료하지 못했습니다.");
     },
   });
 };

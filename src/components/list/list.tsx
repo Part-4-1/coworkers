@@ -1,16 +1,20 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEvent, MouseEventHandler } from "react";
 import { Button, Checkbox, Dropdown, Icon } from "@/components/index";
 import cn from "@/utils/clsx";
 import { toKoreanDateString } from "@/utils/date-util";
 import { changeFrequencyCode } from "@/utils/util";
+import usePatchTaskDone from "@/hooks/api/task/use-patch-task-done";
 
 interface ListProps {
   id: number;
   date: string;
   name: string;
   doneAt: string | null;
+  description: string | null;
   commentCount?: number;
   frequency: string;
+  groupId: number;
+  taskListId: number;
   className?: string;
   onClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
@@ -20,28 +24,47 @@ const List = ({
   date,
   name,
   doneAt,
+  description,
   commentCount,
   frequency,
+  groupId,
+  taskListId,
   className,
   onClickCheckbox,
 }: ListProps) => {
   const repeatPeriod = changeFrequencyCode(frequency);
+  const { mutate: patchTaskDone } = usePatchTaskDone(
+    groupId,
+    taskListId,
+    new Date(date).toLocaleDateString("sv-SE")
+  );
+
+  const handleClickCheckbox = (e: MouseEvent<HTMLInputElement>) => {
+    const newDescription = description ?? "";
+    patchTaskDone({
+      groupId,
+      taskListId,
+      taskId: id,
+      data: { name, description: newDescription, done: doneAt ? false : true },
+    });
+  };
 
   return (
     <div
       className={cn(
-        "mx-auto flex w-full flex-col gap-[10px] rounded-lg border border-gray-300 bg-white px-[14px] py-3 hover:bg-gray-100",
+        "mx-auto flex w-full flex-col gap-[10px] rounded-lg border border-gray-300 bg-white px-[14px] py-3",
+        "pointer-events-none relative inset-0 z-10",
         className,
         doneAt && "bg-gray-50"
       )}
     >
       <div className="flex justify-between">
-        <div className="gap-3 flex-center">
+        <div className="pointer-events-auto gap-3 flex-center">
           <Checkbox
             id={id}
             isDone={doneAt}
             taskName={name}
-            onClickCheckbox={onClickCheckbox}
+            onClickCheckbox={handleClickCheckbox}
           />
           {!!commentCount && (
             <Button
