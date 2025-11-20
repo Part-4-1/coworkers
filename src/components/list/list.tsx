@@ -31,7 +31,8 @@ const List = ({
     <div
       className={cn(
         "mx-auto flex w-full flex-col gap-[10px] rounded-lg border border-gray-300 bg-white px-[14px] py-3 hover:bg-gray-100",
-        className
+        className,
+        doneAt && "bg-gray-50"
       )}
     >
       <div className="flex justify-between">
