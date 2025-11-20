@@ -3,8 +3,9 @@
 import { TeamBannerAdmin, TeamBannerMember } from "@/components/index";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
-import { mockGroupTasksData } from "@/mocks/group-tasks";
 import cn from "@/utils/clsx";
+import { getTasksDone, getTasksTodo } from "@/utils/getTasksCounts";
+import { isUserAdmin } from "@/utils/isUserAdmin";
 import TeamBody from "./team-body/team-body";
 import TeamMembersSection from "./team-members-section/team-members-section";
 
@@ -16,27 +17,14 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
   const { data: groupInfo } = useGetGroupInfo(Number(groupId));
   console.log("groupInfo", groupInfo);
-
-  const isAdmin = true; // TODO: 실제 권한 로직으로 교체
+  console.log("userInfo", userInfo);
   const isNoGroup = false; // TODO: 그룹 없을 때 조건 넣기
-  const currentTasksGroup = mockGroupTasksData[0];
-
-  const tasksTodo = currentTasksGroup.taskLists.reduce(
-    (sum: number, list: any) => sum + list.tasks.length,
-    0
-  );
-
-  const tasksDone = currentTasksGroup.taskLists.reduce(
-    (sum: number, list: any) => {
-      const doneCount = list.tasks.filter(
-        (task: any) => task.doneAt !== null
-      ).length;
-      return sum + doneCount;
-    },
-    0
-  );
 
   if (!groupInfo) return null;
+  const tasksTodo = getTasksTodo(groupInfo.taskLists);
+  const tasksDone = getTasksDone(groupInfo.taskLists);
+  const isAdmin = isUserAdmin(userInfo!, Number(groupId));
+  console.log(isAdmin);
   return (
     <div>
       {
@@ -65,7 +53,7 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
           </section>
 
           <section className="pc:mx-auto pc:w-full pc:max-w-[1120px]">
-            <TeamBody taskLists={currentTasksGroup.taskLists} />
+            <TeamBody taskLists={groupInfo.taskLists} />
           </section>
 
           <section className="mb-[290px] mt-[48px] px-[16px] tablet:mb-[230px] tablet:px-[0px] pc:mx-auto pc:mb-[67px] pc:w-full pc:max-w-[1120px]">
