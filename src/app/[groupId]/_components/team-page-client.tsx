@@ -15,15 +15,13 @@ interface TeamPageClientProps {
 
 const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
-  const { data: groupInfo, refetch } = useGetGroupInfo(Number(groupId));
-  console.log("groupInfo", groupInfo);
-  console.log("userInfo", userInfo);
+  const { data: groupInfo, refetch } = useGetGroupInfo(groupId);
 
   if (!groupInfo) return null;
   const tasksTodo = getTasksTodo(groupInfo.taskLists);
   const tasksDone = getTasksDone(groupInfo.taskLists);
-  const isAdmin = isUserAdmin(userInfo, Number(groupId));
-  console.log(isAdmin);
+  const isAdmin = isUserAdmin(userInfo, groupId);
+
   return (
     <div>
       {

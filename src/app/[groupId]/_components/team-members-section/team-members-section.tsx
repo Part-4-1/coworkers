@@ -16,7 +16,6 @@ const TeamMembersSection = ({ members, groupId }: TeamMembersSectionProps) => {
   const { data: invitationToken } = useGetInvitationToken(groupId);
 
   const handleCopyLink = () => {
-    console.log("링크 복사");
     closePrompt();
   };
 

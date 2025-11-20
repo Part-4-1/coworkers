@@ -59,7 +59,6 @@ const TeamBannerAdmin = ({
 
   const handleDeleteDropdown = () => {
     openPrompt();
-    console.log(groupData);
   };
 
   const handleConfirmDelete = () => {

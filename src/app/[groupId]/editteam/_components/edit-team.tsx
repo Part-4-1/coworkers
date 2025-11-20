@@ -13,9 +13,7 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
   const currentGroup = mockGroupData[0];
   const [groupName, setGroupName] = useState(currentGroup.name);
 
-  const onSubmit = () => {
-    console.log("API 호출", { groupId, groupName });
-  };
+  const onSubmit = () => {};
 
   return (
     <main className="h-screen w-full flex-center">
