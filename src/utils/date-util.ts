@@ -93,13 +93,16 @@ export const getWeek = (sunday: Date): number[] => {
 
 /**
  * @author hwitae
- * @description Date 객체를 받아 yyyy년 mm월 형식으로 표출합니다
+ * @description Date 객체를 받아 yyyy년 mm월 dd일 (요일) 형식으로 표출합니다
  * @param Date
  */
-export const toKoreanYearMonth = (date: Date | null) => {
-  if (!date) return false;
+export const formatDateWithDay = (dateString: string) => {
+  if (!dateString) return "";
 
+  const date = new Date(dateString);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
-  return `${year}년 ${month}월`;
+  const day = date.getDate();
+  const dayOfWeek = date.toLocaleString("ko-KR", { weekday: "short" });
+  return `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
 };

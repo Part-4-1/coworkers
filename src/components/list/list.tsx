@@ -12,7 +12,7 @@ interface ListProps {
   commentCount?: number;
   frequency: string;
   className?: string;
-  onClickCheckbox: MouseEventHandler<HTMLInputElement>;
+  onClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
 
 const List = ({

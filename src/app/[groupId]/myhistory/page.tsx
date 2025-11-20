@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import useGetUserHistory from "@/hooks/api/user/use-get-user-history";
 import { getMonthlyTaskList } from "@/utils/util";
 import { MonthlyTaskList } from "@/types/task";
-import TaskListItem from "../tasklist/_components/task-list-item";
+import HistoryList from "./_components/history-list";
 
 const Page = () => {
   const param = useParams();
@@ -35,16 +35,7 @@ const Page = () => {
       <div className="mx-4 flex min-h-screen flex-col rounded-[20px] bg-white px-5 pb-[52px] pt-[33px]">
         <div className="flex flex-col gap-[27px]">
           <p className="text-2lg font-bold">마이 히스토리</p>
-          <ul className="flex flex-col gap-3 overflow-auto">
-            {monthlyTaskList.map((taskList) => {
-              return (
-                <li key={taskList.tasks.id}>
-                  <p className="text-2lg font-bold">{taskList.date}</p>
-                  <TaskListItem taskItems={taskList.tasks} />
-                </li>
-              );
-            })}
-          </ul>
+          <HistoryList monthlyTaskList={monthlyTaskList} />
         </div>
       </div>
     </div>

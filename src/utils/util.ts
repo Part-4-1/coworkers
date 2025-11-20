@@ -41,16 +41,17 @@ export const getMonthlyTaskList = (
   tasks: TasksDone[] | undefined
 ): MonthlyTaskList[] => {
   if (!tasks) return [];
+
   let prevDoneDate = "";
 
-  const monthlyTaskList = tasks.map((task, idx) => {
+  const monthlyTaskList = tasks.map((task) => {
     let doneDate = task.doneAt.slice(0, 10);
 
     if (prevDoneDate !== doneDate) {
       prevDoneDate = doneDate;
 
       return {
-        date: doneDate,
+        date: task.doneAt,
         tasks: tasks.filter((task) => task.doneAt.slice(0, 10) === doneDate),
       };
     }
