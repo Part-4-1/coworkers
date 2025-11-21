@@ -9,14 +9,17 @@ import cn from "@/utils/clsx";
  * @param id - input 요소의 id
  * @param errorMessage - 에러 메시지
  * @param containerClassName - 컨테이너의 className
- * @param suffix - 입력 오른쪽에 표시할 버튼/아이콘 등 추가 요소
+ * @param rightIcon - 입력 오른쪽에 표시할 버튼/아이콘 등 추가 요소
+ * @param leftIcon - 입력 왼쪽에 표시할 버튼/아이콘 등 추가 요소
  */
 interface TextInputProps extends ComponentPropsWithRef<"input"> {
   id: string;
   errorMessage?: string;
   containerClassName?: string;
-  suffix?: ReactNode;
-  suffixClassName?: string;
+  rightIcon?: ReactNode;
+  rightIconClassName?: string;
+  leftIcon?: ReactNode;
+  leftIconClassName?: string;
 }
 
 const TextInput = ({
@@ -25,8 +28,10 @@ const TextInput = ({
   containerClassName,
   errorMessage,
   readOnly,
-  suffix,
-  suffixClassName,
+  rightIcon,
+  rightIconClassName,
+  leftIcon,
+  leftIconClassName,
   ref,
   ...rest
 }: TextInputProps) => {
@@ -36,7 +41,7 @@ const TextInput = ({
   return (
     <div
       className={cn(
-        "flex w-full max-w-[300px] flex-col gap-2",
+        "flex w-full flex-col gap-2",
         "tablet:max-w-[460px]",
         "pc:max-w-[460px]",
         containerClassName
@@ -57,6 +62,7 @@ const TextInput = ({
               : "border-blue-400 placeholder-shown:border-gray-300",
             readOnly &&
               "pointer-events-none select-none read-only:border-gray-300 read-only:bg-gray-50 read-only:text-gray-700",
+            leftIcon && "pl-[48px]",
             className
           )}
           aria-invalid={showError}
@@ -64,14 +70,25 @@ const TextInput = ({
           {...rest}
         />
 
-        {suffix && (
+        {rightIcon && (
           <div
             className={cn(
               "absolute inset-y-0 right-2 flex items-center",
-              suffixClassName
+              rightIconClassName
             )}
           >
-            {suffix}
+            {rightIcon}
+          </div>
+        )}
+
+        {leftIcon && (
+          <div
+            className={cn(
+              "absolute inset-y-0 left-4 flex items-center",
+              leftIconClassName
+            )}
+          >
+            {leftIcon}
           </div>
         )}
       </div>
@@ -84,7 +101,5 @@ const TextInput = ({
     </div>
   );
 };
-
-TextInput.displayName = "TextInput";
 
 export default TextInput;

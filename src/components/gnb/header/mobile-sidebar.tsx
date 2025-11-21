@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import Button from "@/components/button/button";
-import Icon from "@/components/icon/Icon";
-import { mockUser } from "@/mocks/sidebar-data";
+import { Button, Icon } from "@/components/index";
 import SidebarMenu from "../sidebar/_components/sidebar-menu/sidebar-menu";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 interface MobileSidebarProps {
   onClose: () => void;
@@ -17,7 +16,8 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
   const pathname = usePathname();
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
-
+  const isBoardPage = pathname === "/boards";
+  const { data: userInfo } = useGetUserInfoQuery();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -48,14 +48,17 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
               </Button>
             </div>
             <div className="flex flex-col gap-3">
-              <div className="flex flex-col gap-2 border-b border-gray-300 pb-6">
-                {mockUser[0]?.memberships?.map((data) => (
+              <div
+                className="flex flex-col gap-2 border-b border-gray-300 pb-6"
+                onClick={onClose}
+              >
+                {userInfo?.memberships?.map((data) => (
                   <SidebarMenu
                     key={data.groupId}
                     title={data.group.name}
                     iconName="chess"
                     isSelected={String(data.group.id) === currentTeamId}
-                    href={`/${mockUser[0].teamId}/groups/${data.group.id}`}
+                    href={`/${data.group.id}`}
                     className="h-[44px]"
                     fontStyle="h-[17px]"
                   />
@@ -67,13 +70,16 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                   + 팀 추가하기
                 </Button>
               </div>
-              <SidebarMenu
-                iconName="board"
-                title="자유게시판"
-                href={"/article"}
-                className="h-[44px]"
-                fontStyle="h-[17px]"
-              />
+              <div onClick={onClose}>
+                <SidebarMenu
+                  iconName="board"
+                  title="자유게시판"
+                  href={"/boards"}
+                  className="h-[44px]"
+                  fontStyle="h-[17px]"
+                  isSelected={isBoardPage ? true : false}
+                />
+              </div>
             </div>
           </motion.div>
         </>,

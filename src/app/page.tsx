@@ -1,27 +1,21 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
-import PokemonInfo from "./example/pokemon-info";
+"use client";
 
-export default async function Home() {
-  const queryClient = new QueryClient();
+import KanbanBoardSection from "@/components/landing/kanban-board";
+import CalendarSection from "@/components/landing/calendar";
+import TaskDetailSection from "@/components/landing/task-detail";
+import HeroSection from "@/components/landing/hero";
+import CtaSection from "@/components/landing/cta";
+import Footer from "@/components/landing/footer";
 
-  await queryClient.prefetchQuery({
-    queryKey: ["pokemon"],
-    queryFn: async () => {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon/25");
-      return response.json();
-    },
-  });
-
+export default function HomePage() {
   return (
-    <div>
-      Home
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <PokemonInfo />
-      </HydrationBoundary>
+    <div className="min-h-screen bg-white pc:ml-[-198px]">
+      <HeroSection />
+      <KanbanBoardSection />
+      <CalendarSection />
+      <TaskDetailSection />
+      <CtaSection />
+      <Footer />
     </div>
   );
 }

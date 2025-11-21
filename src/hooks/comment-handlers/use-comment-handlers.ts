@@ -2,25 +2,28 @@
 
 import { useState } from "react";
 import { Comment } from "@/types/index";
+import useDeleteArticleComment from "@/hooks/api/articles/use-delete-article-comment";
+import usePatchArticleComment from "@/hooks/api/articles/use-patch-article-comment";
 
-export const useCommentHandlers = (comment: Comment) => {
+export const useCommentHandlers = (comment: Comment, articleId?: number) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
 
-  {
-    /* TODO(준열) : 향후, api 호출, api 훅 작성하여 연결 예정*/
-  }
+  const { mutate: deleteComment } = useDeleteArticleComment();
+  const { mutate: patchComment } = usePatchArticleComment();
+
   const handleEdit = () => {
     setIsEditing(true);
   };
 
   const handleSave = () => {
-    console.log("저장될 내용:", editedContent);
+    patchComment({ commentId: comment.id, content: editedContent });
     setIsEditing(false);
   };
 
   const handleDelete = () => {
-    console.log("삭제될 댓글 ID:", comment.id);
+    if (!articleId) return;
+    deleteComment({ commentId: comment.id, articleId });
   };
 
   const handleCancel = () => {

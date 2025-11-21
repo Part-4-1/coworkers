@@ -1,10 +1,10 @@
 "use client";
 
-import Button from "../button/button";
-import Icon from "../icon/Icon";
 import useClickOutside from "@/hooks/click-outside/use-click-outside";
 import cn from "@/utils/clsx";
 import { cloneElement, useRef, useState } from "react";
+import Button from "../button/button";
+import Icon from "../icon/Icon";
 /**
  * @author jinhyuk
  * @description Dropdown 컴포넌트는 props로 받는 trigger를 클릭하면 드롭다운
@@ -20,6 +20,7 @@ import { cloneElement, useRef, useState } from "react";
  * @param isDirectionDown - 메뉴가 나타나는 방향을 설정 (기본값: true)
  * @param className - Dropdown 전체 컨테이너에 추가할 클래스
  * @param defaultTriggerClassName - 기본 트리거(Button)에 커스텀 스타일을 적용하기 위한 클래스
+ * @param itemClassName - 드롭다운 요소들에 스타일을 적용하기 위한 클래스
  */
 
 interface DropdownProps {
@@ -31,6 +32,7 @@ interface DropdownProps {
   isDirectionDown?: boolean;
   className?: string;
   defaultTriggerClassName?: string;
+  itemClassName?: string;
 }
 
 interface DropdownItem {
@@ -48,9 +50,10 @@ const Dropdown = ({
   isDirectionDown = true,
   className,
   defaultTriggerClassName,
+  itemClassName,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const initialLabel = items[0].label;
+  const initialLabel = items[0]?.label;
   const [selectedLabel, setSelectedLabel] = useState<string>(initialLabel);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -89,7 +92,7 @@ const Dropdown = ({
       : "rotate-180";
 
   const selectedItem = items[selectedIndex];
-  const triggerAddon = selectedItem.addon
+  const triggerAddon = selectedItem?.addon
     ? isOpen
       ? cloneElement(selectedItem.addon, {
           className: cn(selectedItem.addon.props.className, "bg-gray-300"),
@@ -99,6 +102,7 @@ const Dropdown = ({
 
   const DefaultTrigger = (
     <Button
+      type="button"
       variant="outlined-secondary"
       className={cn(
         "h-[40px] w-[120px] border border-gray-300",
@@ -109,8 +113,8 @@ const Dropdown = ({
         defaultTriggerClassName
       )}
     >
-      <div className="flex items-center gap-[8px]">
-        {selectedLabel}
+      <div className="flex min-w-0 flex-1 items-center gap-[8px]">
+        <span className="truncate">{selectedLabel}</span>
         {triggerAddon}
       </div>
       <Icon
@@ -128,7 +132,7 @@ const Dropdown = ({
       {isOpen && (
         <div
           className={cn(
-            "absolute z-50 rounded-[12px] border border-gray-300 bg-white text-blue-700 shadow-sm",
+            "shadow-sm absolute z-50 rounded-[12px] border border-gray-300 bg-white text-blue-700",
             isDirectionDown ? "top-full mt-2" : "bottom-full mb-2",
             menuAlignClass,
             isWidthFull ? "w-full" : "w-max"
@@ -142,10 +146,11 @@ const Dropdown = ({
                 className={cn(
                   "flex w-auto cursor-pointer items-center px-[18px] py-[12px] pc:px-[20px] pc:py-[14px]",
                   "text-sm transition-colors first:rounded-t-[12px] last:rounded-b-[12px] hover:bg-gray-300",
-                  textAlignClass
+                  textAlignClass,
+                  itemClassName
                 )}
               >
-                {label}
+                <span className="truncate">{label}</span>
               </li>
             ))}
           </ul>

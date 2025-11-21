@@ -8,14 +8,23 @@ import cn from "@/utils/clsx";
 
 interface ImageUploadProps {
   maxCount?: number;
+  onImagesChange?: (images: string[]) => void;
+  initialImages?: string[];
 }
 
-const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
+const ImageUpload = ({
+  maxCount = 5,
+  onImagesChange,
+  initialImages,
+}: ImageUploadProps) => {
   const [isDragActive, setIsDragActive] = useState(false);
   const { previews, error, isLoading, handleFile, removeImage } =
     useImageUpload({
       maxCount,
+      onImagesChange,
+      initialImages,
     });
+  const checkingSlots = maxCount - previews.length;
 
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -29,12 +38,12 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
     setIsDragActive(false);
 
     const files = Array.from(e.dataTransfer.files);
-    files.forEach(handleFile);
+    files.slice(0, checkingSlots).forEach(handleFile);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.currentTarget.files || []);
-    files.forEach(handleFile);
+    files.slice(0, checkingSlots).forEach(handleFile);
   };
 
   const isFull = previews.length >= maxCount;
@@ -49,7 +58,7 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
             onDragOver={handleDrag}
             onDrop={handleDrop}
             className={cn(
-              "h-[120px] w-[120px] flex-shrink-0 cursor-pointer rounded-lg border-2 border-dashed p-[10px] transition-colors flex-center",
+              "h-[80px] w-[80px] flex-shrink-0 cursor-pointer rounded-lg border-2 border-dashed p-[10px] transition-colors flex-center tablet:h-[120px] tablet:w-[120px]",
               isDragActive
                 ? "border-blue-400 bg-blue-50"
                 : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"
@@ -64,7 +73,7 @@ const ImageUpload = ({ maxCount = 5 }: ImageUploadProps) => {
                 className="hidden"
                 multiple
               />
-              <Icon icon="imgUpload" className="h-6 w-6" />
+              <Icon icon="imgUpload" className="h-6 w-6 text-gray-700" />
               <p className="text-lg text-gray-800">
                 {previews.length}/{maxCount}
               </p>

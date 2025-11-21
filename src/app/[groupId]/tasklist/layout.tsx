@@ -9,7 +9,9 @@ const Layout = ({
 }) => {
   return (
     <div className="flex">
-      {children}
+      <div className="flex min-h-screen w-full justify-center overflow-auto">
+        {children}
+      </div>
       {task}
     </div>
   );

@@ -11,6 +11,7 @@ import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import { useRouter } from "next/navigation";
+import { useLogout } from "@/hooks/api/user/use-logout";
 /**
  * @author leohan
  * @description 모바일/태블릿 환경(375px 이하)에서 사용되는 상단 네비게이션 바(GNB) 컴포넌트입니다.
@@ -21,12 +22,12 @@ const GnbHeader = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: userInfo, isLoading } = useGetUserInfoQuery();
-  //const isLoggedIn = !!userInfo && !isLoading;
-  const isLoggedIn = true;
+  const { data: userInfo, isPending } = useGetUserInfoQuery();
+  const { handleLogout } = useLogout();
+  const isLoggedIn = !!userInfo && !isPending;
 
   return (
-    <div className="w-full border-b border-gray-300">
+    <div className="w-full border-b border-gray-300 bg-white">
       {isLoggedIn ? (
         <div className="flex justify-between pl-4 pr-[14px]">
           <div className="flex items-center gap-3 py-[14px]">
@@ -58,10 +59,7 @@ const GnbHeader = () => {
                 { label: "팀 참여", onClick: () => router.push("/team/") },
                 {
                   label: "로그아웃",
-                  onClick: () => {
-                    console.log("로그아웃 로직실행");
-                    router.push("/");
-                  },
+                  onClick: handleLogout,
                 },
               ]}
               isWidthFull={false}
@@ -78,7 +76,7 @@ const GnbHeader = () => {
           </AnimatePresence>
         </div>
       ) : (
-        <div className="p-4">
+        <div className="flex justify-between p-4">
           <Link href={"/"}>
             <Image
               src={"/ic-coworkers-logo.svg"}
@@ -90,6 +88,12 @@ const GnbHeader = () => {
             <h1 className="inline-block text-[12.5px] font-bold text-blue-200">
               COWORKERS
             </h1>
+          </Link>
+          <Link
+            href={"/signin"}
+            className="flex items-center text-md hover:text-gray-600"
+          >
+            로그인
           </Link>
         </div>
       )}

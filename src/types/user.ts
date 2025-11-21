@@ -1,9 +1,9 @@
-import type { Group } from "./group";
-
 /**
  * @author leohan
  * @description 유저 관련 타입 모음
  */
+
+import { TasksDone } from "./task";
 
 export type Role = "ADMIN" | "MEMBER";
 
@@ -32,4 +32,17 @@ export interface Writer {
   image: string | null;
   nickname: string;
   id: number;
+}
+
+interface Group {
+  id: number;
+  name: string;
+  image: string | null;
+  createdAt: string;
+  updatedAt: string;
+  teamId: string;
+}
+
+export interface History {
+  tasksDone: TasksDone[];
 }

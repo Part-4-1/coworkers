@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 /**
  * @author leohan
@@ -11,22 +13,21 @@ const useMediaQuery = (size: string) => {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     const mediaQueryList = window.matchMedia(size);
 
-    const handleInitialMatch = () => {
-      setIsMatch(mediaQueryList.matches);
-    };
-    handleInitialMatch();
-
-    const handleChange = (event: MediaQueryListEvent) => {
+    const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
       setIsMatch(event.matches);
     };
-    mediaQueryList.addEventListener("change", handleChange);
 
+    handleChange(mediaQueryList);
+
+    mediaQueryList.addEventListener("change", handleChange);
     return () => {
       mediaQueryList.removeEventListener("change", handleChange);
     };
   }, [size]);
+
   return isMatch;
 };
 

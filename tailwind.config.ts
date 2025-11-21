@@ -23,7 +23,9 @@ const config: Config = {
           800: "#64748B",
         },
         blue: {
+          50: "#C9DAFD",
           100: "#74A1FB",
+          150: "#3B82F6",
           200: "#5189FA",
           300: "#416EC8",
           400: "#3B63B5",
@@ -74,6 +76,9 @@ const config: Config = {
       "2xl": ["24px", "28px"],
       "3xl": ["32px", "38px"],
       "4xl": ["40px", "48px"],
+    },
+    boxShadow: {
+      xl: "0px 15px 50px -12px rgba(0, 0, 0, 0.05)",
     },
   },
   plugins: [flexCenter, flexColCenter],

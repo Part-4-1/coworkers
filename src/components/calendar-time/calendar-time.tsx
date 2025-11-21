@@ -64,14 +64,13 @@ const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
 
   const handleAmPmClick = (nextIsAm: boolean) => {
     setIsAm(nextIsAm);
-    const formattedTime = formatTo24Hour(nextIsAm, selectedTime);
-    onSelect?.(formattedTime);
   };
 
   return (
     <div className="flex h-[176px] min-w-[288px] gap-[14px] rounded-[12px] border-[1px] border-blue-300 p-[12px]">
       <div>
         <Button
+          type="button"
           onClick={() => handleAmPmClick(true)}
           variant="outlined-secondary"
           className={cn(
@@ -82,6 +81,7 @@ const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
           오전
         </Button>
         <Button
+          type="button"
           onClick={() => handleAmPmClick(false)}
           variant="outlined-secondary"
           className={cn(

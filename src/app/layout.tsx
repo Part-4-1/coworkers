@@ -16,11 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={pretendard.className}>
-      <body>
+      <body className="bg-gray-50">
         <QueryProviders>
           <ToastProvider>
             <GnbWrapper />
-            {children}
+            <main className="ml-0 tablet:ml-[72px] pc:ml-[270px]">
+              {children}
+            </main>
           </ToastProvider>
         </QueryProviders>
       </body>

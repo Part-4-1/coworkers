@@ -7,14 +7,20 @@ import TextareaAutosize from "react-textarea-autosize";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 import { toDotDateString } from "@/utils/date-util";
 import { useCommentHandlers } from "@/hooks/comment-handlers/use-comment-handlers";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { is } from "react-day-picker/locale";
 
 interface CommentProps {
   comment: Comment;
+  articleId?: number;
 }
 
-const Reply = ({ comment }: CommentProps) => {
+const Reply = ({ comment, articleId }: CommentProps) => {
+  const { data: userInfo } = useGetUserInfoQuery();
   const { isEditing, editedContent, setEditedContent, ...handlers } =
-    useCommentHandlers(comment);
+    useCommentHandlers(comment, articleId);
+
+  const isWriter = userInfo?.id === comment.writer.id;
 
   const hasImage = comment.writer.image?.trim();
   const isSaveDisabled = !editedContent.trim();
@@ -35,7 +41,7 @@ const Reply = ({ comment }: CommentProps) => {
     >
       {hasImage ? (
         <img
-          src={comment.writer.image}
+          src={comment.writer.image ?? ""}
           alt={`${comment.writer.nickname}의 프로필`}
           className={cn(profileStyle, "object-cover")}
         />
@@ -50,7 +56,7 @@ const Reply = ({ comment }: CommentProps) => {
           </strong>
 
           <div className="relative ml-auto h-6 w-6 flex-shrink-0">
-            {!isEditing && (
+            {!isEditing && isWriter && (
               <Dropdown
                 trigger={
                   <Button variant="none" className="p-0" aria-label="메뉴">
