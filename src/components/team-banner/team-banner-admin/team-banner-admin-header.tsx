@@ -5,7 +5,7 @@ import cn from "@/utils/clsx";
 import { MouseEventHandler } from "react";
 
 interface TeamBannerAdminHeaderProps {
-  groupName: string;
+  groupName?: string;
   members: Member[];
   onMemberListClick?: MouseEventHandler;
   showProfileListonPc?: boolean;

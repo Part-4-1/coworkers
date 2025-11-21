@@ -62,7 +62,7 @@ const Profile = ({
           alt="프로필"
           width={profileImageSize}
           height={profileImageSize}
-          className={cn("object-cover", profileRadius, profileSize)}
+          className={cn("object-cover", profileRadius)}
         />
       ) : (
         <Icon

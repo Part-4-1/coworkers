@@ -1,18 +1,21 @@
 "use client";
 
+import { InviteMemberModalUI } from "@/components";
+import useGetInvitationToken from "@/hooks/api/group/use-get-invitation-token";
 import usePrompt from "@/hooks/use-prompt";
 import { Member } from "@/types/members";
-import InviteMemberModal from "./team-member/invite-member-modal";
-import TeamMember from "./team-member/team-member";
+import TeamMember from "./_components/team-member";
+
 interface TeamMembersSectionProps {
   members: Member[];
+  groupId: number;
 }
 
-const TeamMembersSection = ({ members }: TeamMembersSectionProps) => {
+const TeamMembersSection = ({ members, groupId }: TeamMembersSectionProps) => {
   const { Modal, openPrompt, closePrompt } = usePrompt(true);
+  const { data: invitationToken } = useGetInvitationToken(groupId);
 
   const handleCopyLink = () => {
-    console.log("링크 복사");
     closePrompt();
   };
 
@@ -36,7 +39,7 @@ const TeamMembersSection = ({ members }: TeamMembersSectionProps) => {
         ))}
       </div>
       <Modal>
-        <InviteMemberModal onClick={handleCopyLink} />
+        <InviteMemberModalUI onClick={handleCopyLink} />
       </Modal>
     </div>
   );

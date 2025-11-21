@@ -1,6 +1,4 @@
 import TeamThumbnail from "@/assets/images/ic-thumbnail-team.svg";
-import Dropdown from "@/components/dropdown-components/dropdown";
-import Icon from "@/components/icon/Icon";
 import ProfileList from "@/components/profile-list/profile-list";
 import useMediaQuery from "@/hooks/use-media-query";
 import { Member } from "@/types/members";
@@ -72,15 +70,6 @@ const TeamBannerMember = ({
             />
           )}
         </div>
-      </section>
-
-      <section className="relative z-10 flex gap-[19px] flex-center">
-        <Dropdown
-          trigger={<Icon icon="setting" className="h-[24px] w-[24px]" />}
-          items={[{ label: "수정하기" }, { label: "삭제하기" }]}
-          //TODO: 클릭시 로직 추가
-          menuAlign="start"
-        />
       </section>
     </div>
   );
