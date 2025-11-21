@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 
 const CtaSection = () => {
   return (
-    <section className="bg-white">
+    <section className="mx-auto bg-white">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true, amount: 0.9 }}
-        className="flex max-w-[1608px] flex-col gap-7 px-6 py-20 text-center flex-center"
+        className="flex flex-col gap-7 px-6 py-20 text-center flex-center"
       >
         <div>
           <h2 className="text-2lg font-bold text-blue-200 tablet:text-2xl">
