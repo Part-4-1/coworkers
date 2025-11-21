@@ -11,10 +11,13 @@ import Chess from "@/assets/icons/ic-chess.svg";
 import Comment from "@/assets/icons/ic-comment.svg";
 import DownArrow from "@/assets/icons/ic-down-arrow.svg";
 import FolderFill from "@/assets/icons/ic-folder-fill.svg";
+import Facebook from "@/assets/icons/ic-facebook.svg";
+import Github from "@/assets/icons/ic-github.svg";
 import Menu from "@/assets/icons/ic-gnb-menu.svg";
 import HeartActive from "@/assets/icons/ic-heart-active.svg";
 import HeartDefault from "@/assets/icons/ic-heart-default.svg";
 import ImgUpload from "@/assets/icons/ic-img-upload.svg";
+import Instagram from "@/assets/icons/ic-instagram.svg";
 import Invisible from "@/assets/icons/ic-invisible.svg";
 import Kakao from "@/assets/icons/ic-kakaotalk.svg";
 import Kebab from "@/assets/icons/ic-kebab.svg";
@@ -54,10 +57,13 @@ const ICONS_MAP = {
   comment: Comment,
   downArrow: DownArrow,
   folderFill: FolderFill,
+  facebook: Facebook,
+  github: Github,
   menu: Menu,
   heartActive: HeartActive,
   heartDefault: HeartDefault,
   imgUpload: ImgUpload,
+  instagram: Instagram,
   invisible: Invisible,
   kakao: Kakao,
   kebab: Kebab,
