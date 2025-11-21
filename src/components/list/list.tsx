@@ -1,9 +1,17 @@
 import React, { MouseEvent, MouseEventHandler } from "react";
-import { Button, Checkbox, Dropdown, Icon } from "@/components/index";
+import {
+  Button,
+  Checkbox,
+  DeleteModalUI,
+  Dropdown,
+  Icon,
+} from "@/components/index";
 import cn from "@/utils/clsx";
 import { toKoreanDateString } from "@/utils/date-util";
 import { changeFrequencyCode } from "@/utils/util";
 import usePatchTaskDone from "@/hooks/api/task/use-patch-task-done";
+import usePrompt from "@/hooks/use-prompt";
+import useDeleteTask from "@/hooks/api/task/use-delete-task";
 
 interface ListProps {
   id: number;
@@ -38,6 +46,10 @@ const List = ({
     taskListId,
     new Date(date).toLocaleDateString("sv-SE")
   );
+  const { mutate: deleteTask } = useDeleteTask(
+    new Date(date).toLocaleDateString("sv-SE")
+  );
+  const { Modal: DeleteModal, openPrompt, closePrompt } = usePrompt();
 
   const handleClickCheckbox = (e: MouseEvent<HTMLInputElement>) => {
     const newDescription = description ?? "";
@@ -47,6 +59,11 @@ const List = ({
       taskId: id,
       data: { name, description: newDescription, done: doneAt ? false : true },
     });
+  };
+
+  const handleClickDelete = () => {
+    closePrompt();
+    deleteTask({ groupId, taskListId, taskId: id });
   };
 
   return (
@@ -77,18 +94,13 @@ const List = ({
             </Button>
           )}
         </div>
-        <Dropdown
-          trigger={
-            <Button variant="none">
-              <Icon icon="kebab" className="h-4 w-4" />
-            </Button>
-          }
-          items={[
-            { label: "수정하기", onClick: () => {} },
-            { label: "삭제하기", onClick: () => {} },
-          ]}
+        <Button
+          variant="none"
           className="pointer-events-auto"
-        />
+          onClick={openPrompt}
+        >
+          <Icon icon="x" className="h-4 w-4 text-gray-800" />
+        </Button>
       </div>
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-[6px]">
@@ -108,6 +120,18 @@ const List = ({
           </div>
         </>
       </div>
+      <DeleteModal>
+        <DeleteModalUI
+          contents={
+            <>
+              '{name}'<br />할 일을 정말 삭제하시겠어요?
+            </>
+          }
+          description="삭제 후에는 되돌릴 수 없습니다."
+          handleClose={closePrompt}
+          handleClick={handleClickDelete}
+        />
+      </DeleteModal>
     </div>
   );
 };

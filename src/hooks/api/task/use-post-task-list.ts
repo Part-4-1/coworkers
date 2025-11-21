@@ -7,8 +7,6 @@ const usePostTaskList = () => {
   return useMutation({
     mutationFn: postTaskList,
     onSuccess: (_, variables) => {
-      console.log(variables);
-
       queryClient.invalidateQueries({ queryKey: ["group", variables.groupId] });
     },
     onError: (error) => console.error(error),

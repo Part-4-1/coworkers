@@ -39,7 +39,7 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
     (a, b) => a.displayIndex - b.displayIndex
   );
 
-  const { mutate: postTaskList } = usePostTaskList(groupId);
+  const { mutate: postTaskList } = usePostTaskList();
   const { mutate: patchTaskList } = usePatchTaskList(groupId);
   const { mutate: deleteTaskList } = useDeleteTaskList(groupId);
 
