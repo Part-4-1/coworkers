@@ -37,6 +37,12 @@ export const countDoneTask = (tasks: Task[]) => {
   return count;
 };
 
+/**
+ * @author hwitae
+ * @description 할 일 목록을 월별로 분리합니다.
+ * @param tasks 할 일 목록
+ * @returns MonthlyTaskList[]
+ */
 export const getMonthlyTaskList = (
   tasks: TasksDone[] | undefined
 ): MonthlyTaskList[] => {

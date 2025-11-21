@@ -14,15 +14,54 @@ const usePatchTaskDetail = () => {
 
   return useMutation({
     mutationFn: patchTaskDetail,
-    onMutate: async () => {
+    onMutate: async (variables) => {
       const prevData = queryClient.getQueryData([
         "taskDetail",
+        variables.groupId,
+        variables.taskListId,
+        variables.taskId,
       ]) as TaskDetailData;
+
       return prevData;
     },
-    onSuccess: (data, _, prevData) => {
-      data?.data.doneAt !== prevData.doneAt &&
-        queryClient.invalidateQueries({ queryKey: ["taskDetail"] });
+    onSettled: (data, err, variables, prevData) => {
+      queryClient.setQueryData(
+        [
+          "taskDetail",
+          variables.groupId,
+          variables.taskListId,
+          variables.taskId,
+        ],
+        {
+          ...prevData,
+          doneAt: variables.data.done ? new Date().toISOString() : null,
+        }
+      );
+    },
+    onSuccess: (data, variables, prevData) => {
+      if (data.doneAt !== prevData?.doneAt) {
+        queryClient.invalidateQueries({
+          queryKey: ["group", variables.groupId],
+        });
+      }
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          "taskItems",
+          variables.groupId,
+          variables.taskListId,
+          new Date(data.date).toLocaleDateString("sv-SE"),
+        ],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          "taskDetail",
+          variables.groupId,
+          variables.taskListId,
+          variables.taskId,
+        ],
+      });
     },
     onError: (error) => {
       console.error(error);

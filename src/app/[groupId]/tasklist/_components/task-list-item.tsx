@@ -2,29 +2,29 @@ import List from "@/components/list/list";
 import { Task, TasksDone } from "@/types/task";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MouseEvent } from "react";
 
 const TaskListItem = ({
-  taskListId,
+  groupId,
+  taskListId = 0,
   taskItems,
 }: {
+  groupId: number;
   taskListId?: number;
   taskItems: Task[] | TasksDone[] | undefined;
 }) => {
   const pathname = usePathname();
-  const handleClickCheckbox = (e: MouseEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget.id);
-  };
 
   return (
     <ul className="flex flex-col gap-3 overflow-auto">
       {taskItems &&
         taskItems.map((task) => {
           return (
-            <li key={task.id}>
-              <Link href={`${pathname}?list=${taskListId}&task=${task.id}`}>
-                <List {...task} onClickCheckbox={handleClickCheckbox} />
-              </Link>
+            <li key={task.id} className="relative">
+              <Link
+                href={`${pathname}?list=${taskListId}&task=${task.id}`}
+                className="absolute inset-0 z-0 hover:bg-gray-100"
+              />
+              <List {...{ ...task, groupId, taskListId }} />
             </li>
           );
         })}
