@@ -100,6 +100,7 @@ const TeamBannerAdmin = ({
               },
               { label: "삭제하기", onClick: handleDeleteDropdown },
             ]}
+            menuAlign="start"
           />
         </div>
       )}
