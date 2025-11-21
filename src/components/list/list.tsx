@@ -42,8 +42,6 @@ const List = ({
 }: ListProps) => {
   const repeatPeriod = changeFrequencyCode(frequency);
   const { mutate: patchTaskDone } = usePatchTaskDone(
-    groupId,
-    taskListId,
     new Date(date).toLocaleDateString("sv-SE")
   );
   const { mutate: deleteTask } = useDeleteTask(

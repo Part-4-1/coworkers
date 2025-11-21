@@ -78,8 +78,8 @@ const Page = () => {
                   <TaskDetailContents
                     {...taskDetailData}
                     createdAt={taskDetailData.recurring.createdAt}
-                    groupId={3290}
-                    taskListId={4711}
+                    groupId={groupId}
+                    taskListId={taskListId}
                     taskId={taskId}
                   />
                 ) : (
