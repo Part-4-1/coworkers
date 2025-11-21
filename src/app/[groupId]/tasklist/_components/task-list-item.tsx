@@ -1,22 +1,20 @@
 import List from "@/components/list/list";
-import { Task } from "@/types/task";
+import { Task, TasksDone } from "@/types/task";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MouseEvent, useEffect } from "react";
+import { MouseEvent } from "react";
 
 const TaskListItem = ({
   taskListId,
   taskItems,
 }: {
-  taskListId: number;
-  taskItems: Task[];
+  taskListId?: number;
+  taskItems: Task[] | TasksDone[] | undefined;
 }) => {
   const pathname = usePathname();
   const handleClickCheckbox = (e: MouseEvent<HTMLInputElement>) => {
     console.log(e.currentTarget.id);
   };
-
-  useEffect(() => {}, []);
 
   return (
     <ul className="flex flex-col gap-3 overflow-auto">

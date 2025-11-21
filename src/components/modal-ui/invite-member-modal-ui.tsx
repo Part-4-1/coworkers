@@ -1,16 +1,16 @@
 import { Button } from "@/components";
 import cn from "@/utils/clsx";
 
-interface InviteMemberModalProps {
+interface InviteMemberModalUIProps {
   onClick?: () => void;
 }
 
-const InviteMemberModal = ({ onClick }: InviteMemberModalProps) => {
+const InviteMemberModalUI = ({ onClick }: InviteMemberModalUIProps) => {
   return (
     <div
       className={cn(
         "flex w-full flex-col px-[31.5px] pt-2 flex-center",
-        "tablet:w-[384px] tablet:pr-[60px]"
+        "tablet:w-[384px]"
       )}
     >
       <div className="mb-[8px] text-lg font-medium text-blue-700">
@@ -26,4 +26,4 @@ const InviteMemberModal = ({ onClick }: InviteMemberModalProps) => {
   );
 };
 
-export default InviteMemberModal;
+export default InviteMemberModalUI;
