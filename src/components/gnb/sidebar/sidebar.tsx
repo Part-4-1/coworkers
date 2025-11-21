@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import { el } from "react-day-picker/locale";
+import Link from "next/link";
 
 /**
  * @author leohan
@@ -116,12 +117,14 @@ const Sidebar = () => {
                           transition={{ duration: 0.15, ease: "easeOut" }}
                           className="overflow-hidden"
                         >
-                          <Button
-                            variant="outlined"
-                            className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
-                          >
-                            + 팀 추가하기
-                          </Button>
+                          <Link href="/addteam">
+                            <Button
+                              variant="outlined"
+                              className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
+                            >
+                              + 팀 추가하기
+                            </Button>
+                          </Link>
                         </motion.div>
                       )}
                     </AnimatePresence>
