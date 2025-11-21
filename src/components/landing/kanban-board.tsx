@@ -1,5 +1,4 @@
 import { Icon } from "@/components";
-import ImgKanbanBoard from "../../../public/images/landing-main2.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -36,9 +35,11 @@ export default function KanbanBoardSection() {
           viewport={{ once: true }}
         >
           <Image
-            src={ImgKanbanBoard}
+            src="/images/landing-main2.png"
             alt="칸반보드 업무 목록 상세 화면"
             className="mx-auto h-auto w-full max-w-[1024px] rounded-xl border border-gray-100 drop-shadow-2xl"
+            width={1024}
+            height={600}
           />
         </motion.div>
       </div>

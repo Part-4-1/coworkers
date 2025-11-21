@@ -1,5 +1,4 @@
 import { Icon } from "@/components";
-import ImgTaskDetail from "../../../public/images/landing-main4.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -15,9 +14,11 @@ export default function TaskDetailSection() {
           className="order-2 self-end md:order-2"
         >
           <Image
-            src={ImgTaskDetail}
+            src="/images/landing-main4.png"
             alt="상세 업무 모달 및 댓글 기능"
             className="h-auto w-full max-w-[940px] rounded-xl border border-gray-100 drop-shadow-2xl"
+            width={849}
+            height={705}
           />
         </motion.div>
         <motion.div

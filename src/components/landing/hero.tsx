@@ -1,7 +1,5 @@
 import { Icon } from "@/components";
 import Link from "next/link";
-import imgHero from "../../../public/images/landing-main1.png";
-import imgHero2 from "../../../public/images/landing-main1-2.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -40,12 +38,15 @@ export default function HeroSection() {
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="justify-self-end"
+          className="w-full justify-self-end"
         >
           <Image
-            src={imgHero}
-            className="hidden pc:block"
+            src="/images/landing-main1.png"
+            width={1280}
+            height={1080}
+            className="hidden h-auto w-full pc:block"
             alt="대시보드 미리보기 이미지"
+            priority
           />
         </motion.div>
         <motion.div
@@ -55,9 +56,12 @@ export default function HeroSection() {
           className="grid"
         >
           <Image
-            src={imgHero2}
-            className="col-start-1 row-start-1 pc:hidden"
+            src="/images/landing-main1-2.png"
+            width={1282}
+            height={959}
+            className="col-start-1 row-start-1 h-auto w-full pc:hidden"
             alt="대시보드 미리보기 이미지"
+            priority
           />
           <div className="z-10 col-start-1 row-start-1 self-end justify-self-end px-10 py-[3vw] pc:hidden">
             <Link

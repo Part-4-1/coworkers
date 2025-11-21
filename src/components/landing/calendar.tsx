@@ -1,5 +1,4 @@
 import { Icon } from "@/components/index";
-import ImgCalendar from "../../../public/images/landing-main3-3.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -20,9 +19,11 @@ export default function CalendarSection() {
               srcSet="/images/landing-main3.png"
             />
             <Image
-              src={ImgCalendar}
+              src="/images/landing-main3-3.png"
               alt="주간 업무 달력 보기 화면"
               className="h-auto w-full max-w-none"
+              width={1254}
+              height={864}
             />
           </picture>
         </motion.div>
