@@ -4,12 +4,14 @@ import Icon from "../icon/Icon";
 
 interface DeleteModalUIProps {
   contents: ReactNode;
+  description: string;
   handleClick: () => void;
   handleClose: () => void;
 }
 
 const DeleteModalUI = ({
   contents,
+  description,
   handleClick,
   handleClose,
 }: DeleteModalUIProps) => {
@@ -21,9 +23,7 @@ const DeleteModalUI = ({
           <p className="text-center text-lg font-medium text-blue-700">
             {contents}
           </p>
-          <p className="text-md font-medium text-blue-600">
-            삭제 후에는 되돌릴 수 없습니다.
-          </p>
+          <p className="text-md font-medium text-blue-600">{description}</p>
         </div>
       </div>
       <div className="flex w-full gap-2">
