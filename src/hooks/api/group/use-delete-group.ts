@@ -6,10 +6,6 @@ const useDeleteGroup = (groupId: number) => {
 
   return useMutation({
     mutationFn: deleteGroup,
-    onSuccess: () =>
-      queryClient.invalidateQueries({
-        queryKey: ["group", groupId],
-      }),
   });
 };
 

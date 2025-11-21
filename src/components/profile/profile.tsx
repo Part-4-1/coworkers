@@ -54,21 +54,23 @@ const Profile = ({
   return (
     <div
       onClick={onClick}
-      className={cn(className, onClick && "cursor-pointer")}
+      className={cn(
+        "relative",
+        profileSize,
+        onClick && "cursor-pointer",
+        className
+      )}
     >
       {image ? (
         <Image
           src={image}
           alt="프로필"
-          width={profileImageSize}
-          height={profileImageSize}
+          fill
+          sizes={`${profileImageSize}px`}
           className={cn("object-cover", profileRadius)}
         />
       ) : (
-        <Icon
-          icon="user"
-          className={cn("bg-gray-300", profileRadius, profileSize)}
-        ></Icon>
+        <Icon icon="user" className={cn("bg-gray-300", profileRadius)}></Icon>
       )}
     </div>
   );

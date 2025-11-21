@@ -4,7 +4,7 @@ import Dropdown from "@/components/dropdown-components/dropdown";
 import Icon from "@/components/icon/Icon";
 import DeleteModalUI from "@/components/modal-ui/delete-modal-ui";
 import useDeleteGroup from "@/hooks/api/group/use-delete-group";
-import useGetUserGroups from "@/hooks/api/user/use-get-user-groups";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
 import { Member } from "@/types/members";
@@ -51,7 +51,7 @@ const TeamBannerAdmin = ({
   const router = useRouter();
   const { Modal, openPrompt, closePrompt } = usePrompt(false);
   const { mutate: deleteGroup } = useDeleteGroup(groupId);
-  const { data: groupData, refetch: refetchUserGroups } = useGetUserGroups();
+  const { refetch: refetchUserInfo } = useGetUserInfoQuery();
 
   const handleEditDropdown = () => {
     router.push(`/${groupId}/editteam`);
@@ -64,13 +64,16 @@ const TeamBannerAdmin = ({
   const handleConfirmDelete = () => {
     deleteGroup(groupId, {
       onSuccess: async () => {
-        closePrompt();
-        const { data: newGroups } = await refetchUserGroups();
+        const { data: newUserInfo } = await refetchUserInfo();
+        const newGroups = newUserInfo?.memberships ?? [];
         if (newGroups.length === 0) {
-          router.push("/noteam");
+          await router.push("/noteam");
+          closePrompt();
           return;
         }
-        router.push(`/${newGroups[0].id}`);
+
+        await router.push(`/${newGroups[0].groupId}`);
+        closePrompt();
       },
     });
   };
