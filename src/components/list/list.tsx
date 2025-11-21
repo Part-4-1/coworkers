@@ -13,8 +13,8 @@ interface ListProps {
   description: string | null;
   commentCount?: number;
   frequency: string;
-  groupId: number;
-  taskListId: number;
+  groupId?: number;
+  taskListId?: number;
   className?: string;
   onClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
@@ -27,8 +27,8 @@ const List = ({
   description,
   commentCount,
   frequency,
-  groupId,
-  taskListId,
+  groupId = 0,
+  taskListId = 0,
   className,
   onClickCheckbox,
 }: ListProps) => {
