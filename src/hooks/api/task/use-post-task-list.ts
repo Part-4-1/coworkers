@@ -1,13 +1,15 @@
 import postTaskList from "@/api/task/post-task-list";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const usePostTaskList = (groupId: number) => {
+const usePostTaskList = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: postTaskList,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["group", groupId] });
+    onSuccess: (_, variables) => {
+      console.log(variables);
+
+      queryClient.invalidateQueries({ queryKey: ["group", variables.groupId] });
     },
     onError: (error) => console.error(error),
   });

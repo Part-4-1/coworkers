@@ -19,7 +19,7 @@ interface TodoContainerProps {
 }
 
 const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
-  const { mutate: createTaskList, isPending } = usePostTaskList(groupId);
+  const { mutate: createTaskList, isPending } = usePostTaskList();
   const { Modal: AddTaskListModal, openPrompt, closePrompt } = usePrompt(true);
   const router = useRouter();
   const handleClick = (name: string) => {

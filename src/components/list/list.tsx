@@ -87,6 +87,7 @@ const List = ({
             { label: "수정하기", onClick: () => {} },
             { label: "삭제하기", onClick: () => {} },
           ]}
+          className="pointer-events-auto"
         />
       </div>
       <div className="flex items-center gap-2">

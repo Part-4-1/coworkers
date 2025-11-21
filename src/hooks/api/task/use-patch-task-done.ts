@@ -37,14 +37,14 @@ const usePatchTaskDone = (
       );
     },
     onSuccess: (_, variables) => {
-      console.log(_);
-      console.log(variables);
-
       queryClient.invalidateQueries({
         queryKey: ["taskItems", groupId, taskListId, date],
       });
       queryClient.invalidateQueries({
         queryKey: ["taskDetail", groupId, taskListId, variables.taskId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["group", groupId],
       });
     },
     onError: (error) => {
