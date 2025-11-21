@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetUserGroups = () => {
   return useQuery({
-    queryKey: ["taskDetail"],
+    queryKey: ["userGroups"],
     queryFn: () => getUserGroups(),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
