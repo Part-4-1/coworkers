@@ -28,3 +28,23 @@ export interface Task {
   displayIndex: number | null;
   deletedAt: string | null;
 }
+
+export interface TasksDone {
+  id: number;
+  name: string;
+  doneAt: string;
+  updatedAt: string;
+  recurringId: number;
+  date: string;
+  description: string;
+  frequency: string;
+  deletedAt: string | null;
+  userId: number;
+  writerId: number;
+  displayIndex: number;
+}
+
+export interface MonthlyTaskList {
+  date: string;
+  tasks: TasksDone[];
+}
