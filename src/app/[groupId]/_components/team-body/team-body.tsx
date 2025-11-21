@@ -1,9 +1,18 @@
 "use client";
 
-import { Badge, Icon } from "@/components";
-import { TASK_LIST_COLORS } from "@/constants/task-list-color";
+import {
+  AddTaskListModalUI,
+  ChangeTaskListModalUI,
+  DeleteModalUI,
+} from "@/components";
+import useDeleteTaskList from "@/hooks/api/task/use-delete-task-list";
+import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
+import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
-import AddTaskListModal from "./add-task-list-modal";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import TaskListsSection from "./task-lists-section";
+
 interface Task {
   id: number;
   name: string;
@@ -19,23 +28,97 @@ interface TaskList {
 
 interface TeamBodyProps {
   taskLists: TaskList[];
+  groupId: number;
+  refetchGroup: () => void;
 }
 
-const TeamBody = ({ taskLists }: TeamBodyProps) => {
+const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
+  const router = useRouter();
+
   const sortedTaskLists = [...taskLists].sort(
     (a, b) => a.displayIndex - b.displayIndex
   );
-  const isTaskListsEmpty = taskLists.length === 0 || taskLists === null;
-  const { Modal, openPrompt, closePrompt } = usePrompt(true);
+
+  const { mutate: postTaskList } = usePostTaskList(groupId);
+  const { mutate: patchTaskList } = usePatchTaskList(groupId);
+  const { mutate: deleteTaskList } = useDeleteTaskList(groupId);
+
+  const [selectedTaskList, setSelectedTaskList] = useState<TaskList | null>(
+    null
+  );
+
+  const {
+    Modal: AddModal,
+    openPrompt: openAddModal,
+    closePrompt: closeAddModal,
+  } = usePrompt(true);
+
+  const {
+    Modal: ChangeModal,
+    openPrompt: openChangeModal,
+    closePrompt: closeChangeModal,
+  } = usePrompt(true);
+
+  const {
+    Modal: DeleteModal,
+    openPrompt: openDeleteModal,
+    closePrompt: closeDeleteModal,
+  } = usePrompt();
 
   const handleAddTaskList = (name: string) => {
-    closePrompt();
-    //TODO: API 호출 및 로직 추가
+    closeAddModal();
+    postTaskList(
+      { groupId, name },
+      {
+        onSuccess: () => refetchGroup(),
+      }
+    );
+  };
+
+  const handlePatchTaskList = (newName: string) => {
+    if (!selectedTaskList) return;
+
+    closeChangeModal();
+    patchTaskList(
+      { groupId, taskListId: selectedTaskList.id, name: newName },
+      {
+        onSuccess: () => refetchGroup(),
+      }
+    );
+  };
+
+  const handleClickTask = (taskListId: number) => {
+    router.push(`/${groupId}/tasklist?list=${taskListId}`);
+  };
+
+  const handleOpenEditModal = (taskList: TaskList) => {
+    setSelectedTaskList(taskList);
+    openChangeModal();
+  };
+
+  const handleOpenDeleteModal = (taskList: TaskList) => {
+    setSelectedTaskList(taskList);
+    openDeleteModal();
+  };
+
+  const handleDeleteTaskList = () => {
+    if (!selectedTaskList) return;
+
+    deleteTaskList(
+      { groupId, taskListId: selectedTaskList.id },
+      {
+        onSuccess: () => {
+          refetchGroup();
+          closeDeleteModal();
+        },
+      }
+    );
   };
 
   return (
     <div className="px-[16px] tablet:px-[0px] pc:px-[0px]">
-      <div className="mb-[28px] mt-[32px] border-[1px] border-gray-300"></div>
+      <div className="mb-[28px] mt-[32px] border-[1px] border-gray-300" />
+
       <div className="flex flex-col gap-[16px]">
         <header className="flex items-center justify-between">
           <div>
@@ -46,59 +129,50 @@ const TeamBody = ({ taskLists }: TeamBodyProps) => {
               ({sortedTaskLists.length}개)
             </span>
           </div>
+
           <div
             className="cursor-pointer text-md text-blue-200"
-            onClick={openPrompt}
+            onClick={() => {
+              openAddModal();
+            }}
           >
             + 새로운 목록 추가하기
           </div>
         </header>
-        {
-          <div className="flex flex-col gap-[16px]">
-            {isTaskListsEmpty ? (
-              <div className="flex h-[100px] text-md text-gray-800 flex-center">
-                아직 할 일 목록이 없습니다.
-              </div>
-            ) : (
-              sortedTaskLists.map((taskList, index) => {
-                const color = TASK_LIST_COLORS[index % TASK_LIST_COLORS.length];
-                const totalTasks = taskList.tasks.length;
-                const doneTasks = taskList.tasks.filter((t) => t.doneAt).length;
 
-                return (
-                  <div
-                    key={taskList.id}
-                    className="flex h-[40px] w-full items-center justify-between overflow-hidden rounded-[12px] bg-white"
-                  >
-                    <div className="flex min-w-0 flex-1 gap-[12px] flex-center">
-                      <div
-                        className={` ${color} rounded-[12px]] -ml-[12px] h-[40px] w-[24px]`}
-                      ></div>
-                      <div className="min-w-0 flex-1 truncate text-md font-medium text-blue-700">
-                        {taskList.name}
-                      </div>
-                    </div>
-                    <div className="flex gap-[4px] flex-center">
-                      <div>
-                        <Badge total={totalTasks} completed={doneTasks} />
-                      </div>
-                      <div>
-                        <Icon
-                          icon="kebab"
-                          className="h-[20px] w-[20px] cursor-pointer text-gray-400"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
-        }
+        <TaskListsSection
+          taskLists={sortedTaskLists}
+          onClickTask={handleClickTask}
+          onClickEdit={handleOpenEditModal}
+          onClickDelete={handleOpenDeleteModal}
+        />
       </div>
-      <Modal>
-        <AddTaskListModal handleClick={handleAddTaskList} />
-      </Modal>
+
+      <AddModal>
+        <AddTaskListModalUI handleClick={handleAddTaskList} />
+      </AddModal>
+
+      <ChangeModal>
+        {selectedTaskList && (
+          <ChangeTaskListModalUI
+            taskTitle={selectedTaskList.name}
+            handleClick={handlePatchTaskList}
+          />
+        )}
+      </ChangeModal>
+      <DeleteModal>
+        <DeleteModalUI
+          contents={
+            <>
+              '{selectedTaskList?.name}'
+              <br />할 일 목록을 정말 삭제하시겠어요?
+            </>
+          }
+          description="삭제 후에는 되돌릴 수 없습니다."
+          handleClick={handleDeleteTaskList}
+          handleClose={closeDeleteModal}
+        />
+      </DeleteModal>
     </div>
   );
 };

@@ -2,17 +2,20 @@ import { Button, Profile } from "@/components";
 import { Member } from "@/types/members";
 import cn from "@/utils/clsx";
 
-interface MemberProfileModalProps {
+interface MemberProfileModalUIProps {
   onClick?: () => void;
   member: Member;
 }
 
-const MemberProfileModal = ({ onClick, member }: MemberProfileModalProps) => {
+const MemberProfileModalUI = ({
+  onClick,
+  member,
+}: MemberProfileModalUIProps) => {
   return (
     <div
       className={cn(
         "flex w-full flex-col px-[31.5px] pt-2 flex-center",
-        "tablet:w-[384px] tablet:pr-[60px]"
+        "tablet:w-[384px]"
       )}
     >
       <div className="mb-[24px]">
@@ -31,4 +34,4 @@ const MemberProfileModal = ({ onClick, member }: MemberProfileModalProps) => {
   );
 };
 
-export default MemberProfileModal;
+export default MemberProfileModalUI;

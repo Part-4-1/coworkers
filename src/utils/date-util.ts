@@ -90,3 +90,19 @@ export const getWeek = (sunday: Date): number[] => {
   });
   return week;
 };
+
+/**
+ * @author hwitae
+ * @description Date 객체를 받아 yyyy년 mm월 dd일 (요일) 형식으로 표출합니다
+ * @param Date
+ */
+export const formatDateWithDay = (dateString: string) => {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const dayOfWeek = date.toLocaleString("ko-KR", { weekday: "short" });
+  return `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
+};
