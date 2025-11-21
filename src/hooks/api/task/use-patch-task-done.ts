@@ -1,5 +1,4 @@
 import patchTaskDetail from "@/api/task/patch-task-detail";
-import useToast from "@/hooks/use-toast";
 import { TaskDetailData } from "@/types/task-detail";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -9,11 +8,10 @@ const usePatchTaskDone = (
   date: string
 ) => {
   const queryClient = useQueryClient();
-  const toast = useToast();
 
   return useMutation({
     mutationFn: patchTaskDetail,
-    onMutate: async () => {
+    onMutate: () => {
       const prevData = queryClient.getQueryData([
         "taskItems",
         groupId,
@@ -38,13 +36,19 @@ const usePatchTaskDone = (
         prevTaskItems
       );
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
+      console.log(_);
+      console.log(variables);
+
       queryClient.invalidateQueries({
         queryKey: ["taskItems", groupId, taskListId, date],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["taskDetail", groupId, taskListId, variables.taskId],
+      });
     },
-    onError: () => {
-      toast.error("완료하지 못했습니다.");
+    onError: (error) => {
+      console.error("완료하지 못했습니다.", error);
     },
   });
 };

@@ -5,16 +5,18 @@ import TaskDetailContents from "./_components/task-detail-contents";
 import { InputReply } from "@/components";
 import TaskDetailWrapper from "./_components/task-detail-wrapper";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import useGetTaskDetail from "@/hooks/api/task/use-get-task-detail";
 import { AnimatePresence } from "framer-motion";
 import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 
 const Page = () => {
   const router = useRouter();
-  const param = useSearchParams().get("task");
-  const taskId = Number(param);
-  const [taskIdKey, setTaskIdKey] = useState(param);
+  const param = useParams();
+  const taskId = Number(useSearchParams().get("task"));
+  const taskListId = Number(useSearchParams().get("list"));
+  const groupId = Number(param.groupId);
+  const [taskIdKey, setTaskIdKey] = useState<number | null>(taskId);
 
   const handleClick = () => {
     setTaskIdKey(null);
@@ -25,9 +27,8 @@ const Page = () => {
   };
 
   const { data: taskDetailData, isPending } = useGetTaskDetail(
-    // TODO: groupId, taskListId 동적으로 받아올 수 있도록 수정
-    3290,
-    4711,
+    groupId,
+    taskListId,
     taskId
   );
 

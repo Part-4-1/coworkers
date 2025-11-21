@@ -1,5 +1,4 @@
 import patchTaskDetail, { PatchData } from "@/api/task/patch-task-detail";
-import useToast from "@/hooks/use-toast";
 import { TaskDetailData } from "@/types/task-detail";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -12,7 +11,6 @@ export interface PatchTaskDetailData {
 
 const usePatchTaskDetail = () => {
   const queryClient = useQueryClient();
-  const toast = useToast();
 
   return useMutation({
     mutationFn: patchTaskDetail,
@@ -35,12 +33,12 @@ const usePatchTaskDetail = () => {
             "taskItems",
             variables.groupId,
             variables.taskListId,
-            prevData.date,
+            data.date,
           ],
         });
     },
-    onError: () => {
-      toast.error("완료하지 못했습니다.");
+    onError: (error) => {
+      console.error(error);
     },
   });
 };
