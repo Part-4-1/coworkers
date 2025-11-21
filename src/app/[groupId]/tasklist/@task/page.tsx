@@ -67,8 +67,8 @@ const Page = () => {
           exit="exit"
           className={cn(
             "relative left-0 flex w-full min-w-[375px] flex-col overflow-y-auto bg-white px-7 py-3",
-            "tablet:max-w-[520px] tablet:gap-4 tablet:pt-10",
-            "pc:max-w-[780px] pc:gap-5"
+            "tablet:fixed tablet:left-auto tablet:right-0 tablet:top-0 tablet:z-50 tablet:h-screen tablet:max-w-[520px] tablet:gap-4 tablet:pt-10",
+            "pc:relative pc:left-0 pc:right-auto pc:top-auto pc:z-auto pc:h-auto pc:max-w-[780px] pc:gap-5"
           )}
         >
           <TaskDetailWrapper onClose={handleClose}>
