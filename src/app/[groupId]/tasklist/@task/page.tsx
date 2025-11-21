@@ -9,6 +9,7 @@ import useGetTaskDetail from "@/hooks/api/task/use-get-task-detail";
 import { AnimatePresence } from "framer-motion";
 import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 import { motion } from "framer-motion";
+import cn from "@/utils/clsx";
 
 const pageVariants = {
   initial: {
@@ -64,7 +65,11 @@ const Page = () => {
           initial="initial"
           animate="visible"
           exit="exit"
-          className="relative left-0 flex w-full min-w-[375px] flex-col overflow-y-auto bg-white px-7 py-3 tablet:max-w-[520px] tablet:gap-4 tablet:pt-10 pc:max-w-[780px] pc:gap-5"
+          className={cn(
+            "relative left-0 flex w-full min-w-[375px] flex-col overflow-y-auto bg-white px-7 py-3",
+            "tablet:max-w-[520px] tablet:gap-4 tablet:pt-10",
+            "pc:max-w-[780px] pc:gap-5"
+          )}
         >
           <TaskDetailWrapper onClose={handleClose}>
             <div className="flex flex-col gap-5">
