@@ -2,7 +2,7 @@ import EditTeam from "./_components/edit-team";
 
 interface EditTeamPageProps {
   params: Promise<{
-    groupId: string;
+    groupId: number;
   }>;
 }
 

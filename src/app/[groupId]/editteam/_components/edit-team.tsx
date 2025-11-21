@@ -6,16 +6,14 @@ import cn from "@/utils/clsx";
 import { useState } from "react";
 
 interface EditTeamProps {
-  groupId: string;
+  groupId: number;
 }
 
 const EditTeam = ({ groupId }: EditTeamProps) => {
   const currentGroup = mockGroupData[0];
   const [groupName, setGroupName] = useState(currentGroup.name);
 
-  const onSubmit = () => {
-    console.log("API 호출", { groupId, groupName });
-  };
+  const onSubmit = () => {};
 
   return (
     <main className="h-screen w-full flex-center">
@@ -41,7 +39,7 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
         </h2>
         <div className="mb-[40px] w-full">
           <TextInput
-            id={groupId}
+            id={String(groupId)}
             className="border-gray-300 text-md text-blue-700 tablet:text-lg"
             defaultValue={currentGroup.name}
             spellCheck={false}
@@ -50,7 +48,9 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
           />
         </div>
         <div className="mb-[20px] w-full tablet:mb-[24px]">
-          <Button onClick={onSubmit}>수정하기</Button>
+          <Button onClick={onSubmit} disabled={groupName.length < 1}>
+            수정하기
+          </Button>
         </div>
         <div className="text-center text-xs text-gray-800 tablet:text-lg">
           팀 이름은 회사명이나 모임 이름 등으로 설정하면 좋아요.
