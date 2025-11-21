@@ -4,62 +4,106 @@ import TaskDetailComment from "./_components/task-detail-comment";
 import TaskDetailContents from "./_components/task-detail-contents";
 import { InputReply } from "@/components";
 import TaskDetailWrapper from "./_components/task-detail-wrapper";
-import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import useGetTaskDetail from "@/hooks/api/task/use-get-task-detail";
 import { AnimatePresence } from "framer-motion";
 import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
+import { motion } from "framer-motion";
+import cn from "@/utils/clsx";
+
+const pageVariants = {
+  initial: {
+    x: "100%",
+    opacity: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "tween",
+      ease: "easeOut",
+      duration: 0.2,
+    } as const,
+  },
+  exit: {
+    x: "100%",
+    opacity: 0,
+    transition: {
+      type: "tween",
+      ease: "easeIn",
+      duration: 0.2,
+    } as const,
+  },
+};
 
 const Page = () => {
   const router = useRouter();
-  const param = useSearchParams().get("task");
-  const taskId = Number(param);
-  const [taskIdKey, setTaskIdKey] = useState(param);
-
-  const handleClick = () => {
-    setTaskIdKey(null);
-  };
+  const param = useParams();
+  const searchParam = useSearchParams();
+  const taskId = Number(searchParam.get("task"));
+  const taskListId = Number(searchParam.get("list"));
+  const groupId = Number(param.groupId);
 
   const handleClose = () => {
     router.back();
   };
 
   const { data: taskDetailData, isPending } = useGetTaskDetail(
-    // TODO: groupId, taskListId 동적으로 받아올 수 있도록 수정
-    3290,
-    4711,
+    groupId,
+    taskListId,
     taskId
   );
 
   const { mutate: postTaskDetailComment } = useCreateComment(taskId);
 
   return (
-    <AnimatePresence mode="wait" onExitComplete={handleClose}>
-      {!isPending && taskIdKey && (
-        <TaskDetailWrapper key={taskIdKey} onClose={handleClick}>
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
-              <TaskDetailContents
-                {...taskDetailData}
-                createdAt={taskDetailData.recurring.createdAt}
-                groupId={3290}
-                taskListId={4711}
-                taskId={taskId}
-              />
-              <div className="flex flex-col gap-4">
-                <p className="text-lg font-bold tablet:text-2lg">
-                  댓글{" "}
-                  <span className="text-blue-200">
-                    {taskDetailData.commentCount}
-                  </span>
-                </p>
-                <InputReply onSubmit={postTaskDetailComment} />
+    <AnimatePresence mode="wait">
+      {taskId ? (
+        <motion.aside
+          key={taskId}
+          variants={pageVariants}
+          initial="initial"
+          animate="visible"
+          exit="exit"
+          className={cn(
+            "relative left-0 flex w-full min-w-[375px] flex-col overflow-y-auto bg-white px-7 py-3",
+            "tablet:fixed tablet:left-auto tablet:right-0 tablet:top-0 tablet:z-50 tablet:h-screen tablet:max-w-[520px] tablet:gap-4 tablet:pt-10",
+            "pc:relative pc:left-0 pc:right-auto pc:top-auto pc:z-auto pc:h-auto pc:max-w-[780px] pc:gap-5"
+          )}
+        >
+          <TaskDetailWrapper onClose={handleClose}>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
+                {!isPending ? (
+                  <TaskDetailContents
+                    {...taskDetailData}
+                    createdAt={taskDetailData.recurring.createdAt}
+                    groupId={groupId}
+                    taskListId={taskListId}
+                    taskId={taskId}
+                  />
+                ) : (
+                  ""
+                )}
+                <div className="flex flex-col gap-4">
+                  <p className="text-lg font-bold tablet:text-2lg">
+                    댓글{" "}
+                    {!isPending ? (
+                      <span className="text-blue-200">
+                        {taskDetailData.commentCount}
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                  </p>
+                  <InputReply onSubmit={postTaskDetailComment} />
+                </div>
               </div>
+              <TaskDetailComment taskId={taskId} />
             </div>
-            <TaskDetailComment taskId={taskId} />
-          </div>
-        </TaskDetailWrapper>
-      )}
+          </TaskDetailWrapper>
+        </motion.aside>
+      ) : null}
     </AnimatePresence>
   );
 };

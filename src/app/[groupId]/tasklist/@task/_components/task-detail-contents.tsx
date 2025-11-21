@@ -59,7 +59,7 @@ const TaskDetailContents = ({
     },
   ];
 
-  const { isError, mutate } = usePatchTaskDetail();
+  const { mutate } = usePatchTaskDetail();
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     newDescription.current = e.target.value;
@@ -77,8 +77,8 @@ const TaskDetailContents = ({
       taskListId,
       taskId,
       data: {
-        name: newName.current,
-        description: newDescription.current,
+        name: name,
+        description: description,
         done: !doneAt,
       },
     });

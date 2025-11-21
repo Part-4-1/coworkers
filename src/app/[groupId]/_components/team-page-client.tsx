@@ -15,7 +15,7 @@ interface TeamPageClientProps {
 
 const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
-  const { data: groupInfo, refetch } = useGetGroupInfo(groupId);
+  const { data: groupInfo } = useGetGroupInfo(groupId);
 
   if (!groupInfo) return null;
   const tasksTodo = getTasksTodo(groupInfo.taskLists);
@@ -50,11 +50,7 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
           </section>
 
           <section className="pc:mx-auto pc:w-full pc:max-w-[1120px]">
-            <TeamBody
-              taskLists={groupInfo.taskLists}
-              groupId={groupId}
-              refetchGroup={refetch}
-            />
+            <TeamBody taskLists={groupInfo.taskLists} groupId={groupId} />
           </section>
 
           <section className="mb-[290px] mt-[48px] px-[16px] tablet:mb-[230px] tablet:px-[0px] pc:mx-auto pc:mb-[67px] pc:w-full pc:max-w-[1120px]">

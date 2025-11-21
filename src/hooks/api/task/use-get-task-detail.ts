@@ -7,7 +7,7 @@ const useGetTaskDetail = (
   taskId: number
 ) => {
   return useQuery({
-    queryKey: ["taskDetail"],
+    queryKey: ["taskDetail", groupId, taskListId, taskId],
     queryFn: () => getTaskDetail(groupId, taskListId, taskId),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,

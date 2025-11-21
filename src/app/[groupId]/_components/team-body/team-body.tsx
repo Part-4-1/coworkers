@@ -29,17 +29,16 @@ interface TaskList {
 interface TeamBodyProps {
   taskLists: TaskList[];
   groupId: number;
-  refetchGroup: () => void;
 }
 
-const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
+const TeamBody = ({ taskLists, groupId }: TeamBodyProps) => {
   const router = useRouter();
 
   const sortedTaskLists = [...taskLists].sort(
     (a, b) => a.displayIndex - b.displayIndex
   );
 
-  const { mutate: postTaskList } = usePostTaskList(groupId);
+  const { mutate: postTaskList } = usePostTaskList();
   const { mutate: patchTaskList } = usePatchTaskList(groupId);
   const { mutate: deleteTaskList } = useDeleteTaskList(groupId);
 
@@ -67,12 +66,7 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
 
   const handleAddTaskList = (name: string) => {
     closeAddModal();
-    postTaskList(
-      { groupId, name },
-      {
-        onSuccess: () => refetchGroup(),
-      }
-    );
+    postTaskList({ groupId, name }, {});
   };
 
   const handlePatchTaskList = (newName: string) => {
@@ -81,9 +75,7 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
     closeChangeModal();
     patchTaskList(
       { groupId, taskListId: selectedTaskList.id, name: newName },
-      {
-        onSuccess: () => refetchGroup(),
-      }
+      {}
     );
   };
 
@@ -108,7 +100,6 @@ const TeamBody = ({ taskLists, groupId, refetchGroup }: TeamBodyProps) => {
       { groupId, taskListId: selectedTaskList.id },
       {
         onSuccess: () => {
-          refetchGroup();
           closeDeleteModal();
         },
       }

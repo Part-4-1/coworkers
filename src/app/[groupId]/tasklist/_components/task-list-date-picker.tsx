@@ -4,6 +4,7 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import {
@@ -16,6 +17,7 @@ import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-lis
 import { useSearchParams } from "next/navigation";
 import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 import usePrompt from "@/hooks/use-prompt";
+import useClickOutside from "@/hooks/click-outside/use-click-outside";
 
 interface TaskListDatePickerProps {
   groupId: number;
@@ -38,6 +40,9 @@ const TaskListDatePicker = ({
     Number(listId)
   );
   const { Modal, openPrompt, closePrompt } = usePrompt();
+  const calendarRef = useRef<HTMLDivElement | null>(null);
+
+  useClickOutside(calendarRef, () => setShowCalendar(false), showCalendar);
 
   const initDate = (date: Date) => {
     const sunday = getCurrentSunday(date);
@@ -111,7 +116,7 @@ const TaskListDatePicker = ({
           </Button>
         </div>
         {showCalendar && (
-          <div className="absolute right-px top-8 bg-white">
+          <div className="absolute right-px top-8 bg-white" ref={calendarRef}>
             <Calendar onDayClick={(value) => initDate(value)} />
           </div>
         )}
