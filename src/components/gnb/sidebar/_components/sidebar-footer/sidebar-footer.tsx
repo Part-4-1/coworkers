@@ -25,7 +25,10 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
         <Dropdown
           trigger={<Profile size={`${isSidebarOpen ? "lg" : "md"}`} />}
           items={[
-            { label: "마이 히스토리" },
+            {
+              label: "마이 히스토리",
+              onClick: () => router.push("/myhistory"),
+            },
             { label: "계정 설정" },
             { label: "팀 참여", onClick: () => router.replace("/taketeam") },
             {
