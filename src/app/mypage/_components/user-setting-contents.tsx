@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   TextInput,
   Button,
@@ -11,15 +11,13 @@ import {
 } from "@/components/index";
 import usePrompt from "@/hooks/use-prompt";
 import { useUnsavedChangesGuard } from "@/hooks/use-unsaved-changes-guard";
+import { useProfileImageManager } from "@/hooks/use-profile-image-manager";
 import useDeleteUser from "@/hooks/api/user/use-delete-user";
 import usePatchUserPassword from "@/hooks/api/user/use-patch-user-password";
 import usePatchUser from "@/hooks/api/user/use-patch-user";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
-import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 
 const UserSettingContents = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   const {
     Modal: DeleteModal,
     openPrompt: openDeleteModal,
@@ -37,36 +35,25 @@ const UserSettingContents = () => {
   const { data: userInfo } = useGetUserInfoQuery();
 
   const [nickname, setNickname] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [pendingFile, setPendingFile] = useState<File | null>(null);
 
   const {
-    handleFile,
-    removeImage,
-    previews,
-    isLoading: isImageUploading,
-  } = useImageUpload({
-    maxCount: 1,
-    onImagesChange: (images) => {
-      if (images[0]) {
-        setProfileImage(images[0]);
-      }
-    },
+    profileImage,
+    setProfileImage,
+    fileInputRef,
+    handleImageClick,
+    handleFileChange,
+    handleRemoveImage,
+    isUploading: isImageUploading,
+  } = useProfileImageManager({
+    initialImage: userInfo?.image || "",
   });
-
-  useEffect(() => {
-    if (pendingFile && previews.length === 0) {
-      handleFile(pendingFile);
-      setPendingFile(null);
-    }
-  }, [previews, pendingFile, handleFile]);
 
   useEffect(() => {
     if (userInfo) {
       setNickname(userInfo.nickname || "");
       setProfileImage(userInfo.image || "");
     }
-  }, [userInfo]);
+  }, [userInfo, setProfileImage]);
 
   const isDirty =
     (nickname !== (userInfo?.nickname || "") ||
@@ -95,33 +82,6 @@ const UserSettingContents = () => {
     isDirty,
     onSave: handleSaveChanges,
   });
-
-  const handleImageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (previews[0]) {
-        setPendingFile(file);
-        removeImage(previews[0].id);
-      } else {
-        handleFile(file);
-      }
-    }
-  };
-
-  const handleRemoveImage = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setProfileImage("");
-    setPendingFile(null);
-    if (previews[0]) {
-      removeImage(previews[0].id);
-    }
-  };
 
   return (
     <>

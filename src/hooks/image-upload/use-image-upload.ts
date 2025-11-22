@@ -86,7 +86,7 @@ export const useImageUpload = ({
   return {
     previews,
     error,
-    isLoading: uploadMutation.isPending,
+    isPending: uploadMutation.isPending,
     handleFile,
     removeImage,
   };
