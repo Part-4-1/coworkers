@@ -18,6 +18,9 @@ const TaskListItem = ({
     <ul className="flex flex-col gap-3 overflow-auto">
       {taskItems &&
         taskItems.map((task) => {
+          console.log(taskItems);
+          console.log(task);
+
           return (
             <li key={task.id} className="relative">
               <Link

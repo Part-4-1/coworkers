@@ -13,7 +13,7 @@ const Page = () => {
 
   const [monthlyTaskList, setMonthlyTaskList] = useState<MonthlyTaskList[]>([]);
   const { data: userHistory, isPending: userHistoryPending } =
-    useGetUserHistory(groupId);
+    useGetUserHistory();
 
   useEffect(() => {
     if (!userHistoryPending) {

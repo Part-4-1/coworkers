@@ -7,9 +7,11 @@ const HistoryList = ({
 }: {
   monthlyTaskList: MonthlyTaskList[];
 }) => {
+  console.log(monthlyTaskList);
+
   return (
     <ul>
-      {[...monthlyTaskList].reverse().map((taskList) => {
+      {monthlyTaskList.reverse().map((taskList) => {
         return (
           <li key={taskList.date} className="flex flex-col gap-3 pb-10">
             <div className="flex items-center gap-5">

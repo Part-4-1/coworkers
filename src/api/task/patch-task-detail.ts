@@ -15,6 +15,11 @@ const patchTaskDetail = async ({
   data,
 }: PatchTaskDetailData): Promise<TaskDetailData> => {
   try {
+    console.log(groupId);
+    console.log(taskListId);
+    console.log(taskId);
+    console.log(data);
+
     const response = await instance.patch(
       `/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
       data
