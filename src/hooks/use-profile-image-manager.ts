@@ -16,7 +16,7 @@ export const useProfileImageManager = ({
   const [profileImage, setProfileImage] = useState(initialImage);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
 
-  const { handleFile, removeImage, previews, isPending } = useImageUpload({
+  const { handleFile, removeImage, previews, isLoading } = useImageUpload({
     maxCount: 1,
     onImagesChange: (images) => {
       if (images[0]) {
@@ -74,6 +74,6 @@ export const useProfileImageManager = ({
     handleImageClick,
     handleFileChange,
     handleRemoveImage,
-    isUploading: isPending,
+    isUploading: isLoading,
   };
 };

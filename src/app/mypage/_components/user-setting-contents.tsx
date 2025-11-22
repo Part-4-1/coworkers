@@ -1,14 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  TextInput,
-  Button,
-  Icon,
-  ProfileEdit,
-  DeleteUserModalUI,
-  PatchPasswordModalUI,
-} from "@/components/index";
+import { DeleteUserModalUI, PatchPasswordModalUI } from "@/components/index";
+import UserProfileSection from "./user-profile-section";
+import UserAccountInfoSection from "./user-account-info-section";
+import UserSettingsActions from "./user-settings-actions";
 import usePrompt from "@/hooks/use-prompt";
 import { useUnsavedChangesGuard } from "@/hooks/use-unsaved-changes-guard";
 import { useProfileImageManager } from "@/hooks/use-profile-image-manager";
@@ -90,93 +86,25 @@ const UserSettingContents = () => {
           계정 설정
         </h2>
         <div className="w-full gap-6 flex-col-center">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="hidden"
+          <UserProfileSection
+            profileImage={profileImage}
+            nickname={nickname}
+            fileInputRef={fileInputRef}
+            handleImageClick={handleImageClick}
+            handleFileChange={handleFileChange}
+            handleRemoveImage={handleRemoveImage}
+            onNicknameChange={setNickname}
           />
-          <div className="group relative">
-            <ProfileEdit image={profileImage} onClick={handleImageClick} />
-            {profileImage && (
-              <Button
-                variant="none"
-                onClick={handleRemoveImage}
-                className="absolute -right-2 -top-2 rounded-full border border-gray-400 bg-white p-1 opacity-0 transition-opacity hover:bg-gray-300 group-hover:opacity-100"
-              >
-                <Icon icon="x" className="h-4 w-4 text-gray-600" />
-              </Button>
-            )}
-          </div>
-          <div className="flex w-full flex-col items-start gap-3">
-            <label
-              htmlFor="name"
-              className="text-md font-medium text-blue-700 tablet:text-lg"
-            >
-              이름
-            </label>
-            <TextInput
-              id="name"
-              type="name"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value.replace(/\s/g, ""))}
-            />
-          </div>
-          <div className="flex w-full flex-col items-start gap-3">
-            <label
-              htmlFor="email"
-              className="text-md font-medium text-blue-700 tablet:text-lg"
-            >
-              이메일
-            </label>
-            <TextInput
-              id="email"
-              type="email"
-              value={userInfo?.email || ""}
-              readOnly
-            />
-          </div>
-          <div className="flex w-full flex-col items-start gap-3">
-            <label
-              htmlFor="password"
-              className="text-md font-medium text-blue-700 tablet:text-lg"
-            >
-              비밀번호
-            </label>
-            <TextInput
-              id="password"
-              type="password"
-              value="********"
-              readOnly
-              rightIcon={
-                <Button size="sm" onClick={openPasswordModal}>
-                  변경하기
-                </Button>
-              }
-            />
-          </div>
-          <div className="mt-[41.5px] flex w-full items-center justify-between tablet:mt-[42.5px] pc:mt-[30.5px]">
-            <Button
-              variant="none"
-              className="w-fit rounded-[40px] text-md font-medium text-red-400 tablet:text-lg"
-              onClick={openDeleteModal}
-            >
-              <Icon icon="secession" className="h-6 w-6" />
-              회원 탈퇴하기
-            </Button>
-            <Button
-              variant="none"
-              className={`w-fit rounded-[40px] text-md font-medium tablet:text-lg ${
-                !isDirty || isImageUploading ? "text-gray-400" : "text-blue-200"
-              }`}
-              onClick={handleSaveChanges}
-              disabled={!isDirty || isImageUploading}
-            >
-              <Icon icon="checkInverse" className="h-6 w-6" />
-              {isImageUploading ? "이미지 업로드 중..." : "변경사항 저장하기"}
-            </Button>
-          </div>
+          <UserAccountInfoSection
+            email={userInfo?.email || ""}
+            onPasswordChangeClick={openPasswordModal}
+          />
+          <UserSettingsActions
+            isDirty={isDirty}
+            isImageUploading={isImageUploading}
+            onDeleteClick={openDeleteModal}
+            onSaveClick={handleSaveChanges}
+          />
         </div>
         <DeleteModal>
           <DeleteUserModalUI
