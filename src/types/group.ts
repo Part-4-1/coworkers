@@ -24,3 +24,12 @@ export interface CreateGroupResponse {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface PatchGroupResponse {
+  teamId: string;
+  createdAt: string;
+  updatedAt: string;
+  image: string;
+  name: string;
+  id: number;
+}
