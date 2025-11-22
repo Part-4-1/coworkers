@@ -163,7 +163,9 @@ const UserSettingContents = () => {
           </Button>
           <Button
             variant="none"
-            className="w-fit rounded-[40px] text-md font-medium text-blue-200 tablet:text-lg"
+            className={`w-fit rounded-[40px] text-md font-medium tablet:text-lg ${
+              !isDirty || isImageUploading ? "text-gray-400" : "text-blue-200"
+            }`}
             onClick={handleSaveChanges}
             disabled={!isDirty || isImageUploading}
           >
