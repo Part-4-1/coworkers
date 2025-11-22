@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SidebarHeader from "./_components/sidebar-header/sidebar-header";
 import SidebarDropdown from "./_components/sidebar-dropdown/sidebar-dropdown";
 import SidebarFooter from "./_components/sidebar-footer/sidebar-footer";
@@ -11,8 +11,8 @@ import useMediaQuery from "@/hooks/use-media-query";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
-import { el } from "react-day-picker/locale";
 import Link from "next/link";
+import cn from "@/utils/clsx";
 
 /**
  * @author leohan
@@ -41,6 +41,8 @@ const Sidebar = () => {
   const isLoggedIn = !!userInfo && !isPending;
   const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
 
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (isLandingPage) {
       setIsSidebarOpen(false);
@@ -67,6 +69,36 @@ const Sidebar = () => {
     };
   }, [isTablet, isSidebarOpen]);
 
+  useEffect(() => {
+    const sidebarElement = sidebarRef.current;
+
+    if (!isSidebarOpen && sidebarElement) {
+      sidebarElement.style.paddingRight = "";
+      return;
+    }
+    if (!sidebarElement) return;
+
+    const updatePadding = () => {
+      const scrollBarWidth =
+        sidebarElement.offsetWidth - sidebarElement.clientWidth;
+
+      const basePadding = 16;
+      const newPadding = Math.max(basePadding - scrollBarWidth, 0);
+
+      sidebarElement.style.paddingRight = `${newPadding}px`;
+    };
+
+    updatePadding();
+
+    const observer = new ResizeObserver(() => {
+      updatePadding();
+    });
+
+    observer.observe(sidebarElement);
+
+    return () => observer.disconnect();
+  }, [isSidebarOpen, isDropdownOpen]);
+
   const handleToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -89,55 +121,61 @@ const Sidebar = () => {
           "fixed left-0 top-0 z-20 flex h-screen flex-col justify-between border-r border-gray-300 bg-white"
         }
       >
-        <div>
+        <div className="flex min-h-0 flex-1 flex-col">
           <SidebarHeader
             isSidebarOpen={isSidebarOpen}
             setIsSidebarOpen={setIsSidebarOpen}
           />
           {isLoggedIn && (
-            <div className="flex flex-1 flex-col justify-between px-4">
-              <div className="flex flex-col gap-3">
-                {isTeamExist && (
-                  <div
-                    className={`flex flex-col gap-2 ${isSidebarOpen && "border-b border-gray-300 pb-6"}`}
-                  >
-                    <SidebarDropdown
-                      isSidebarOpen={isSidebarOpen}
-                      isOpen={isDropdownOpen}
-                      setIsOpen={setIsDropdownOpen}
-                      onToggle={handleToggle}
-                      currentTeamId={currentTeamId}
-                    />
-                    <AnimatePresence>
-                      {isSidebarOpen && (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.15, ease: "easeOut" }}
-                          className="overflow-hidden"
-                        >
-                          <Link href="/addteam">
-                            <Button
-                              variant="outlined"
-                              className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
-                            >
-                              + 팀 생성하기
-                            </Button>
-                          </Link>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                )}
-                <SidebarMenu
-                  iconName="board"
-                  isSidebarOpen={isSidebarOpen}
-                  title="자유게시판"
-                  href={"/boards"}
-                  isSelected={isBoardPage ? true : false}
-                />
-              </div>
+            <div
+              ref={sidebarRef}
+              className={cn(
+                "flex flex-1 flex-col gap-3 px-4",
+                isSidebarOpen
+                  ? "overflow-y-auto overflow-x-hidden"
+                  : "overflow-visible"
+              )}
+            >
+              {isTeamExist && (
+                <div
+                  className={`flex flex-col gap-2 ${isSidebarOpen && "border-b border-gray-300 pb-6"}`}
+                >
+                  <SidebarDropdown
+                    isSidebarOpen={isSidebarOpen}
+                    isOpen={isDropdownOpen}
+                    setIsOpen={setIsDropdownOpen}
+                    onToggle={handleToggle}
+                    currentTeamId={currentTeamId}
+                  />
+                  <AnimatePresence>
+                    {isSidebarOpen && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.15, ease: "easeOut" }}
+                        className="overflow-hidden"
+                      >
+                        <Link href="/addteam">
+                          <Button
+                            variant="outlined"
+                            className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
+                          >
+                            + 팀 생성하기
+                          </Button>
+                        </Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+              <SidebarMenu
+                iconName="board"
+                isSidebarOpen={isSidebarOpen}
+                title="자유게시판"
+                href={"/boards"}
+                isSelected={isBoardPage ? true : false}
+              />
             </div>
           )}
         </div>
