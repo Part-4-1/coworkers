@@ -1,8 +1,16 @@
 "use client";
 
-import { TextInput, Button, Icon, ProfileEdit } from "@/components/index";
+import {
+  TextInput,
+  Button,
+  Icon,
+  ProfileEdit,
+  DeleteUserModalUI,
+} from "@/components/index";
+import usePrompt from "@/hooks/use-prompt";
 
 const UserSettingContents = () => {
+  const { Modal: DeleteModal, openPrompt, closePrompt } = usePrompt();
   return (
     <div className="flex flex-col items-start gap-8 px-[21px] pb-[74.5px] pt-[52.5px] tablet:gap-10 tablet:px-[45px] tablet:pb-[64px] tablet:pt-[61px]">
       <h2 className="text-xl font-bold text-blue-700 tablet:text-2xl">
@@ -59,6 +67,7 @@ const UserSettingContents = () => {
           <Button
             variant="none"
             className="w-fit rounded-[40px] text-md font-medium text-red-400 tablet:text-lg"
+            onClick={openPrompt}
           >
             <Icon icon="secession" className="h-6 w-6" />
             회원 탈퇴하기
@@ -72,6 +81,20 @@ const UserSettingContents = () => {
           </Button>
         </div>
       </div>
+      <DeleteModal>
+        <DeleteUserModalUI
+          contents={<>회원탈퇴를 진행하시겠어요?</>}
+          description={
+            <>
+              그룹장으로 있는 그룹은 자동으로 삭제되고,
+              <br />
+              모든 그룹에서 나가집니다.
+            </>
+          }
+          handleClose={closePrompt}
+          handleClick={closePrompt}
+        />
+      </DeleteModal>
     </div>
   );
 };
