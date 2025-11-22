@@ -20,13 +20,13 @@ interface SidebarMenuProps {
 
 const menuStyles = {
   default:
-    "flex bg-white w-full cursor-pointer items-center gap-3 rounded-xl p-4 hover:bg-gray-100 text-lg relative group",
+    "flex bg-white w-full cursor-pointer items-center gap-3 rounded-xl p-4 hover:bg-gray-100 text-lg relative group ",
   selected: "bg-gray-200 text-blue-200 hover:bg-gray-200 cursor-default",
   sidebarOpen: "p-2",
 };
 
 const iconStyles = {
-  default: "text-gray-400 w-6 h-6",
+  default: "text-gray-400 w-6 h-6 flex-shrink-0",
   selected: "text-blue-200",
   SidebarOpen: "w-5 h-5",
 };
@@ -93,7 +93,7 @@ const SidebarMenu = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className={cn("whitespace-nowrap", fontStyle)}
+            className={cn("truncate", fontStyle)}
           >
             {title}
           </motion.span>
