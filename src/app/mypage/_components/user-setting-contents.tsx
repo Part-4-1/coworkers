@@ -15,7 +15,7 @@ const UserSettingContents = () => {
         <div className="flex w-full flex-col items-start gap-3">
           <label
             htmlFor="name"
-            className="text-xs font-medium text-blue-700 tablet:text-lg"
+            className="text-md font-medium text-blue-700 tablet:text-lg"
           >
             이름
           </label>
@@ -29,7 +29,7 @@ const UserSettingContents = () => {
         <div className="flex w-full flex-col items-start gap-3">
           <label
             htmlFor="email"
-            className="text-xs font-medium text-blue-700 tablet:text-lg"
+            className="text-md font-medium text-blue-700 tablet:text-lg"
           >
             이메일
           </label>
@@ -43,7 +43,7 @@ const UserSettingContents = () => {
         <div className="flex w-full flex-col items-start gap-3">
           <label
             htmlFor="password"
-            className="text-xs font-medium text-blue-700 tablet:text-lg"
+            className="text-md font-medium text-blue-700 tablet:text-lg"
           >
             비밀번호
           </label>
