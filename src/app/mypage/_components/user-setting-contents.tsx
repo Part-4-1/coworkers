@@ -50,9 +50,8 @@ const UserSettingContents = () => {
   }, [userInfo]);
 
   const isDirty =
-    (nickname !== (userInfo?.nickname || "") ||
-      profileImage !== (userInfo?.image || "")) &&
-    nickname.trim() !== "";
+    nickname !== (userInfo?.nickname || "") ||
+    profileImage !== (userInfo?.image || "");
 
   const handleSaveChanges = () => {
     if (!nickname.trim()) {
