@@ -29,7 +29,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
               label: "마이 히스토리",
               onClick: () => router.push("/myhistory"),
             },
-            { label: "계정 설정" },
+            { label: "계정 설정", onClick: () => router.replace("/mypage") },
             { label: "팀 참여", onClick: () => router.replace("/taketeam") },
             {
               label: "로그아웃",
