@@ -34,7 +34,6 @@ const UserSettingContents = () => {
 
   const {
     profileImage,
-    setProfileImage,
     fileInputRef,
     handleImageClick,
     handleFileChange,
@@ -47,9 +46,8 @@ const UserSettingContents = () => {
   useEffect(() => {
     if (userInfo) {
       setNickname(userInfo.nickname || "");
-      setProfileImage(userInfo.image || "");
     }
-  }, [userInfo, setProfileImage]);
+  }, [userInfo]);
 
   const isDirty =
     (nickname !== (userInfo?.nickname || "") ||
@@ -69,6 +67,10 @@ const UserSettingContents = () => {
 
     if (profileImage !== (userInfo?.image || "")) {
       updates.image = profileImage;
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return;
     }
 
     patchUser(updates);
