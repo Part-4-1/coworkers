@@ -39,14 +39,7 @@ const TextInput = ({
   const descriptionId = showError ? `${id}-error` : undefined;
 
   return (
-    <div
-      className={cn(
-        "flex w-full flex-col gap-2",
-        "tablet:max-w-[460px]",
-        "pc:max-w-[460px]",
-        containerClassName
-      )}
-    >
+    <div className={cn("flex w-full flex-col gap-2", containerClassName)}>
       <div className="relative">
         <input
           ref={ref}
