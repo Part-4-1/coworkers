@@ -19,6 +19,7 @@ export { default as DeleteModalUI } from "./modal-ui/delete-modal-ui";
 export { default as InviteMemberModalUI } from "./modal-ui/invite-member-modal-ui";
 export { default as MemberProfileModalUI } from "./modal-ui/member-profile-modal-ui";
 export { default as DeleteUserModalUI } from "./modal-ui/delete-user-modal-ui";
+export { default as PatchPasswordModalUI } from "./modal-ui/patch-password-modal-ui";
 export { default as PostCard } from "./post-card/post-card";
 export { default as ProfileEdit } from "./profile-edit/profile-edit";
 export { default as ProfileList } from "./profile-list/profile-list";

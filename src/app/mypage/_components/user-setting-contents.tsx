@@ -6,11 +6,22 @@ import {
   Icon,
   ProfileEdit,
   DeleteUserModalUI,
+  PatchPasswordModalUI,
 } from "@/components/index";
 import usePrompt from "@/hooks/use-prompt";
 
 const UserSettingContents = () => {
-  const { Modal: DeleteModal, openPrompt, closePrompt } = usePrompt();
+  const {
+    Modal: DeleteModal,
+    openPrompt: openDeleteModal,
+    closePrompt: closeDeleteModal,
+  } = usePrompt();
+  const {
+    Modal: PasswordModal,
+    openPrompt: openPasswordModal,
+    closePrompt: closePasswordModal,
+  } = usePrompt();
+
   return (
     <div className="flex flex-col items-start gap-8 px-[21px] pb-[74.5px] pt-[52.5px] tablet:gap-10 tablet:px-[45px] tablet:pb-[64px] tablet:pt-[61px]">
       <h2 className="text-xl font-bold text-blue-700 tablet:text-2xl">
@@ -60,14 +71,18 @@ const UserSettingContents = () => {
             type="password"
             value="********"
             readOnly
-            rightIcon={<Button size="sm">변경하기</Button>}
+            rightIcon={
+              <Button size="sm" onClick={openPasswordModal}>
+                변경하기
+              </Button>
+            }
           />
         </div>
         <div className="mt-[41.5px] flex w-full items-center justify-between tablet:mt-[42.5px] pc:mt-[30.5px]">
           <Button
             variant="none"
             className="w-fit rounded-[40px] text-md font-medium text-red-400 tablet:text-lg"
-            onClick={openPrompt}
+            onClick={openDeleteModal}
           >
             <Icon icon="secession" className="h-6 w-6" />
             회원 탈퇴하기
@@ -91,10 +106,18 @@ const UserSettingContents = () => {
               모든 그룹에서 나가집니다.
             </>
           }
-          handleClose={closePrompt}
-          handleClick={closePrompt}
+          handleClose={closeDeleteModal}
+          handleClick={closeDeleteModal}
         />
       </DeleteModal>
+      <PasswordModal>
+        <PatchPasswordModalUI
+          handleClose={closePasswordModal}
+          handleClick={() => {
+            closePasswordModal();
+          }}
+        />
+      </PasswordModal>
     </div>
   );
 };
