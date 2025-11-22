@@ -1,11 +1,5 @@
 import React, { MouseEvent, MouseEventHandler } from "react";
-import {
-  Button,
-  Checkbox,
-  DeleteModalUI,
-  Dropdown,
-  Icon,
-} from "@/components/index";
+import { Button, Checkbox, DeleteModalUI, Icon } from "@/components/index";
 import cn from "@/utils/clsx";
 import { toKoreanDateString } from "@/utils/date-util";
 import { changeFrequencyCode } from "@/utils/util";
@@ -24,7 +18,6 @@ interface ListProps {
   groupId?: number;
   taskListId?: number;
   className?: string;
-  onClickCheckbox?: MouseEventHandler<HTMLInputElement>;
 }
 
 const List = ({
@@ -38,7 +31,6 @@ const List = ({
   groupId = 0,
   taskListId = 0,
   className,
-  onClickCheckbox,
 }: ListProps) => {
   const repeatPeriod = changeFrequencyCode(frequency);
   const { mutate: patchTaskDone } = usePatchTaskDone(
@@ -51,6 +43,9 @@ const List = ({
 
   const handleClickCheckbox = (e: MouseEvent<HTMLInputElement>) => {
     const newDescription = description ?? "";
+
+    if (!groupId || !taskListId || !id) return;
+
     patchTaskDone({
       groupId,
       taskListId,

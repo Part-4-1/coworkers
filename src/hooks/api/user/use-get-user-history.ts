@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import getUserHistory from "@/api/user/get-user-history";
 
-const useGetUserHistory = (groupId: number) => {
+const useGetUserHistory = () => {
   return useQuery({
-    queryKey: ["history", groupId],
+    queryKey: ["history"],
     queryFn: () => getUserHistory(),
-    staleTime: 1000 * 60 * 5,
   });
 };
 
