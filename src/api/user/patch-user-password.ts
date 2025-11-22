@@ -1,6 +1,6 @@
 import instance from "@/utils/axios";
 
-interface PatchUserPasswordParams {
+interface PatchUserPasswordRequest {
   password: string;
   passwordConfirmation: string;
 }
@@ -12,7 +12,7 @@ interface PatchUserPasswordResponse {
 const patchUserPassword = async ({
   password,
   passwordConfirmation,
-}: PatchUserPasswordParams): Promise<PatchUserPasswordResponse> => {
+}: PatchUserPasswordRequest): Promise<PatchUserPasswordResponse> => {
   const response = await instance.patch<PatchUserPasswordResponse>(
     "/user/password",
     {
