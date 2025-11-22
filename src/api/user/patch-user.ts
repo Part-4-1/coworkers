@@ -1,8 +1,8 @@
 import instance from "@/utils/axios";
 
 interface PatchUserRequest {
-  nickname: string;
-  image: string;
+  nickname?: string;
+  image?: string;
 }
 
 interface PatchUserResponse {

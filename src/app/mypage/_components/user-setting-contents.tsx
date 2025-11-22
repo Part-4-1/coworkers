@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import {
   TextInput,
   Button,
@@ -11,8 +12,13 @@ import {
 import usePrompt from "@/hooks/use-prompt";
 import useDeleteUser from "@/hooks/api/user/use-delete-user";
 import usePatchUserPassword from "@/hooks/api/user/use-patch-user-password";
+import usePatchUser from "@/hooks/api/user/use-patch-user";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 
 const UserSettingContents = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const {
     Modal: DeleteModal,
     openPrompt: openDeleteModal,
@@ -26,6 +32,62 @@ const UserSettingContents = () => {
 
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: patchPassword } = usePatchUserPassword();
+  const { mutate: patchUser } = usePatchUser();
+  const { data: userInfo } = useGetUserInfoQuery();
+
+  const [nickname, setNickname] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+
+  const { handleFile, isLoading: isImageUploading } = useImageUpload({
+    maxCount: 1,
+    onImagesChange: (images) => {
+      if (images[0]) {
+        setProfileImage(images[0]);
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (userInfo) {
+      setNickname(userInfo.nickname || "");
+      setProfileImage(userInfo.image || "");
+    }
+  }, [userInfo]);
+
+  const isDirty =
+    (nickname !== (userInfo?.nickname || "") ||
+      profileImage !== (userInfo?.image || "")) &&
+    nickname.trim() !== "";
+
+  const handleImageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFile(file);
+    }
+  };
+
+  const handleSaveChanges = () => {
+    if (!nickname.trim()) {
+      return;
+    }
+
+    const updates: { nickname?: string; image?: string } = {};
+
+    if (nickname !== (userInfo?.nickname || "")) {
+      updates.nickname = nickname;
+    }
+
+    if (profileImage !== (userInfo?.image || "")) {
+      updates.image = profileImage;
+    }
+
+    patchUser(updates);
+  };
 
   return (
     <div className="flex flex-col items-start gap-8 px-[21px] pb-[74.5px] pt-[52.5px] tablet:gap-10 tablet:px-[45px] tablet:pb-[64px] tablet:pt-[61px]">
@@ -33,8 +95,15 @@ const UserSettingContents = () => {
         계정 설정
       </h2>
       <div className="w-full gap-6 flex-col-center">
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="hidden"
+        />
         <div className="group relative">
-          <ProfileEdit />
+          <ProfileEdit image={profileImage} onClick={handleImageClick} />
         </div>
         <div className="flex w-full flex-col items-start gap-3">
           <label
@@ -46,8 +115,8 @@ const UserSettingContents = () => {
           <TextInput
             id="name"
             type="name"
-            value="example"
-            onChange={() => {}}
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
           />
         </div>
         <div className="flex w-full flex-col items-start gap-3">
@@ -60,7 +129,7 @@ const UserSettingContents = () => {
           <TextInput
             id="email"
             type="email"
-            value="example@email.com"
+            value={userInfo?.email || ""}
             readOnly
           />
         </div>
@@ -95,9 +164,11 @@ const UserSettingContents = () => {
           <Button
             variant="none"
             className="w-fit rounded-[40px] text-md font-medium text-blue-200 tablet:text-lg"
+            onClick={handleSaveChanges}
+            disabled={!isDirty || isImageUploading}
           >
             <Icon icon="checkInverse" className="h-6 w-6" />
-            변경사항 저장하기
+            {isImageUploading ? "이미지 업로드 중..." : "변경사항 저장하기"}
           </Button>
         </div>
       </div>
