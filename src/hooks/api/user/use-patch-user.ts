@@ -9,11 +9,11 @@ const usePatchUser = () => {
   return useMutation({
     mutationFn: patchUser,
     onSuccess: () => {
-      toast.success("회원정보 변경에 성공했습니다.");
+      toast.success("계정 설정 변경에 성공했습니다.");
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
     },
     onError: () => {
-      toast.error("회원정보 변경에 실패했습니다.");
+      toast.error("계정 설정 변경에 실패했습니다.");
     },
   });
 };
