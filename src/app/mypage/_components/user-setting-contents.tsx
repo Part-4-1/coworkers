@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   TextInput,
   Button,
@@ -9,6 +10,7 @@ import {
   DeleteUserModalUI,
   PatchPasswordModalUI,
 } from "@/components/index";
+import UnsavedChangesModalUI from "@/components/modal-ui/unsaved-changes-modal-ui";
 import usePrompt from "@/hooks/use-prompt";
 import useDeleteUser from "@/hooks/api/user/use-delete-user";
 import usePatchUserPassword from "@/hooks/api/user/use-patch-user-password";
@@ -18,6 +20,7 @@ import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
 
 const UserSettingContents = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const {
     Modal: DeleteModal,
@@ -29,6 +32,11 @@ const UserSettingContents = () => {
     openPrompt: openPasswordModal,
     closePrompt: closePasswordModal,
   } = usePrompt();
+  const {
+    Modal: UnsavedModal,
+    openPrompt: openUnsavedModal,
+    closePrompt: closeUnsavedModal,
+  } = usePrompt();
 
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: patchPassword } = usePatchUserPassword();
@@ -38,6 +46,9 @@ const UserSettingContents = () => {
   const [nickname, setNickname] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [pendingNavigation, setPendingNavigation] = useState<string | null>(
+    null
+  );
 
   const {
     handleFile,
@@ -71,6 +82,59 @@ const UserSettingContents = () => {
     (nickname !== (userInfo?.nickname || "") ||
       profileImage !== (userInfo?.image || "")) &&
     nickname.trim() !== "";
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isDirty]);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (!isDirty) return;
+
+      const target = e.target as HTMLElement;
+      const link = target.closest("a");
+
+      if (link && link.href && !link.href.startsWith("#")) {
+        const url = new URL(link.href);
+        const currentUrl = new URL(window.location.href);
+
+        if (url.pathname !== currentUrl.pathname) {
+          e.preventDefault();
+          e.stopPropagation();
+          setPendingNavigation(url.href);
+          openUnsavedModal();
+        }
+      }
+    };
+
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, [isDirty, openUnsavedModal]);
+
+  useEffect(() => {
+    if (!isDirty) return;
+
+    const handlePopState = () => {
+      openUnsavedModal();
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isDirty, openUnsavedModal]);
 
   const handleImageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -115,6 +179,23 @@ const UserSettingContents = () => {
     }
 
     patchUser(updates);
+  };
+
+  const handleSaveAndNavigate = () => {
+    handleSaveChanges();
+    closeUnsavedModal();
+    if (pendingNavigation) {
+      router.push(pendingNavigation);
+      setPendingNavigation(null);
+    }
+  };
+
+  const handleCloseAndNavigate = () => {
+    closeUnsavedModal();
+    if (pendingNavigation) {
+      router.push(pendingNavigation);
+      setPendingNavigation(null);
+    }
   };
 
   return (
@@ -238,6 +319,20 @@ const UserSettingContents = () => {
             }}
           />
         </PasswordModal>
+        <UnsavedModal>
+          <UnsavedChangesModalUI
+            contents={<>저장하지 않은 변경사항이 있습니다</>}
+            description={
+              <>
+                변경사항을 저장하지 않고 나가면
+                <br />
+                모든 수정 내용이 사라집니다.
+              </>
+            }
+            handleSave={handleSaveAndNavigate}
+            handleClose={handleCloseAndNavigate}
+          />
+        </UnsavedModal>
       </div>
     </>
   );
