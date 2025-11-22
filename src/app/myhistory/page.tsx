@@ -1,25 +1,12 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import useGetUserHistory from "@/hooks/api/user/use-get-user-history";
 import { getMonthlyTaskList } from "@/utils/util";
-import { MonthlyTaskList } from "@/types/task";
 import HistoryList from "./_components/history-list";
 
 const Page = () => {
-  const param = useParams();
-  const groupId = Number(param.groupId);
-
-  const [monthlyTaskList, setMonthlyTaskList] = useState<MonthlyTaskList[]>([]);
   const { data: userHistory, isPending: userHistoryPending } =
     useGetUserHistory();
-
-  useEffect(() => {
-    if (!userHistoryPending) {
-      setMonthlyTaskList(getMonthlyTaskList(userHistory?.tasksDone));
-    }
-  }, [userHistoryPending]);
 
   return (
     <div className="mt-[100px] flex w-full max-w-[1120px] flex-col gap-4 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
@@ -27,7 +14,9 @@ const Page = () => {
         <div className="flex flex-col gap-[27px]">
           <p className="text-2lg font-bold">마이 히스토리</p>
           {!userHistoryPending ? (
-            <HistoryList monthlyTaskList={monthlyTaskList} />
+            <HistoryList
+              monthlyTaskList={getMonthlyTaskList(userHistory?.tasksDone)}
+            />
           ) : (
             <p>로딩 중</p>
           )}
