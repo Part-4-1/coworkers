@@ -41,7 +41,7 @@ const Redirect = () => {
           }
         );
         const data = await response.json();
-        console.log(data);
+
         if (!response.ok) throw new Error("로그인 실패");
 
         if (data.accessToken && data.refreshToken) {
