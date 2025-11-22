@@ -122,7 +122,7 @@ const Sidebar = () => {
                               variant="outlined"
                               className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
                             >
-                              + 팀 추가하기
+                              + 팀 생성하기
                             </Button>
                           </Link>
                         </motion.div>

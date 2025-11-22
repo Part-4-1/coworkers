@@ -50,13 +50,16 @@ const GnbHeader = () => {
               items={[
                 {
                   label: "마이 히스토리",
-                  onClick: () => router.push("/user/history"),
+                  onClick: () => router.push("/myhistory"),
                 },
                 {
                   label: "계정 설정",
-                  onClick: () => router.push("/user/Setting"),
+                  onClick: () => router.replace("/mypage"),
                 },
-                { label: "팀 참여", onClick: () => router.push("/team/") },
+                {
+                  label: "팀 참여",
+                  onClick: () => router.replace("/taketeam"),
+                },
                 {
                   label: "로그아웃",
                   onClick: handleLogout,
