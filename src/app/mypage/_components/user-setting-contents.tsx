@@ -9,6 +9,7 @@ import {
   PatchPasswordModalUI,
 } from "@/components/index";
 import usePrompt from "@/hooks/use-prompt";
+import useDeleteUser from "@/hooks/api/user/use-delete-user";
 
 const UserSettingContents = () => {
   const {
@@ -21,6 +22,8 @@ const UserSettingContents = () => {
     openPrompt: openPasswordModal,
     closePrompt: closePasswordModal,
   } = usePrompt();
+
+  const { mutate: deleteUser } = useDeleteUser();
 
   return (
     <div className="flex flex-col items-start gap-8 px-[21px] pb-[74.5px] pt-[52.5px] tablet:gap-10 tablet:px-[45px] tablet:pb-[64px] tablet:pt-[61px]">
@@ -107,7 +110,10 @@ const UserSettingContents = () => {
             </>
           }
           handleClose={closeDeleteModal}
-          handleClick={closeDeleteModal}
+          handleClick={() => {
+            deleteUser();
+            closeDeleteModal();
+          }}
         />
       </DeleteModal>
       <PasswordModal>
