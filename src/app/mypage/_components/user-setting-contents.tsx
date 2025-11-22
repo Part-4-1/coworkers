@@ -10,6 +10,7 @@ import {
 } from "@/components/index";
 import usePrompt from "@/hooks/use-prompt";
 import useDeleteUser from "@/hooks/api/user/use-delete-user";
+import usePatchUserPassword from "@/hooks/api/user/use-patch-user-password";
 
 const UserSettingContents = () => {
   const {
@@ -24,6 +25,7 @@ const UserSettingContents = () => {
   } = usePrompt();
 
   const { mutate: deleteUser } = useDeleteUser();
+  const { mutate: patchPassword } = usePatchUserPassword();
 
   return (
     <div className="flex flex-col items-start gap-8 px-[21px] pb-[74.5px] pt-[52.5px] tablet:gap-10 tablet:px-[45px] tablet:pb-[64px] tablet:pt-[61px]">
@@ -119,7 +121,8 @@ const UserSettingContents = () => {
       <PasswordModal>
         <PatchPasswordModalUI
           handleClose={closePasswordModal}
-          handleClick={() => {
+          handleClick={(password, passwordConfirmation) => {
+            patchPassword({ password, passwordConfirmation });
             closePasswordModal();
           }}
         />

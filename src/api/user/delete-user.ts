@@ -1,7 +1,7 @@
 import instance from "@/utils/axios";
 
-const DeleteUser = async (): Promise<void> => {
+const deleteUser = async (): Promise<void> => {
   await instance.delete("/user");
 };
 
-export default DeleteUser;
+export default deleteUser;
