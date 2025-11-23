@@ -18,6 +18,9 @@ export const useCreateTask = (params: UseCreateTaskParams) => {
       queryClient.invalidateQueries({
         queryKey: ["taskItems", params.groupId, params.taskListId, params.date],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["group", params.groupId],
+      });
       toast.success("할 일 생성에 성공했습니다.");
     },
     onError: () => {
