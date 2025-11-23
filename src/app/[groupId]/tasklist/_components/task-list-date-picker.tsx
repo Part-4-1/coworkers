@@ -34,10 +34,10 @@ const TaskListDatePicker = ({
   const [week, setWeek] = useState<number[] | null>(null);
   const [day, setDay] = useState<string>("");
   const [showCalendar, setShowCalendar] = useState(false);
-  const listId = useSearchParams().get("list");
   const { data: taskListData, isPending } = useGetTaskList(
     groupId,
-    Number(listId)
+    taskListId,
+    new Date().toLocaleDateString("sv-SE")
   );
   const { Modal, openPrompt, closePrompt } = usePrompt();
   const calendarRef = useRef<HTMLDivElement | null>(null);

@@ -9,6 +9,7 @@ import { TeamBannerMember } from "@/components";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
 import { useParams, useSearchParams } from "next/navigation";
+import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 const Page = () => {
   const param = useParams();
   const query = useSearchParams().get("list");
@@ -16,6 +17,7 @@ const Page = () => {
   const taskListId = Number(query);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { data: groupData, isPending } = useGetGroupInfo(groupId);
+
   const { data: taskItems } = useGetTaskItems(
     groupId,
     taskListId,
