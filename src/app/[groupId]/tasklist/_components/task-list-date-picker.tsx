@@ -122,7 +122,7 @@ const TaskListDatePicker = ({
         )}
       </div>
       <Button
-        className="fixed bottom-10 right-[13%] h-14 w-14 rounded-full"
+        className="fixed bottom-10 right-[13%] z-20 h-14 w-14 rounded-full"
         onClick={openPrompt}
       >
         <Icon icon="plus" className="h-6 w-6" />
