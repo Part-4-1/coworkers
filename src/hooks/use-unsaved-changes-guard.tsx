@@ -87,12 +87,9 @@ const useUnsavedChangesGuard = ({
     }
   };
 
-  const handleCloseAndNavigate = () => {
+  const handleCancel = () => {
     closeUnsavedModal();
-    if (pendingNavigation) {
-      router.push(pendingNavigation);
-      setPendingNavigation(null);
-    }
+    setPendingNavigation(null);
   };
 
   const UnsavedChangesModal = () => (
@@ -107,7 +104,7 @@ const useUnsavedChangesGuard = ({
           </>
         }
         handleSave={handleSaveAndNavigate}
-        handleClose={handleCloseAndNavigate}
+        handleClose={handleCancel}
       />
     </UnsavedModal>
   );
