@@ -25,6 +25,9 @@ const useUnsavedChangesGuard = ({
     null
   );
 
+  {
+    /* 탭 닫기/새로고침 브라우저 기본 경고 */
+  }
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -38,6 +41,9 @@ const useUnsavedChangesGuard = ({
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [isDirty]);
 
+  {
+    /* 페이지 이동시 커스텀 경고 모달 */
+  }
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (!isDirty) return;
@@ -62,6 +68,9 @@ const useUnsavedChangesGuard = ({
     return () => document.removeEventListener("click", handleClick, true);
   }, [isDirty, openUnsavedModal]);
 
+  {
+    /* 뒤로가기 버튼 클릭시 커스텀 경고 모달 */
+  }
   useEffect(() => {
     if (!isDirty) return;
 
