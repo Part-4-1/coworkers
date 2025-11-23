@@ -10,7 +10,7 @@ interface UseUnsavedChangesGuardOptions {
   onSave: () => void;
 }
 
-export const useUnsavedChangesGuard = ({
+const useUnsavedChangesGuard = ({
   isDirty,
   onSave,
 }: UseUnsavedChangesGuardOptions) => {
@@ -116,3 +116,5 @@ export const useUnsavedChangesGuard = ({
     UnsavedChangesModal,
   };
 };
+
+export default useUnsavedChangesGuard;

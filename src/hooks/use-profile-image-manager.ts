@@ -8,7 +8,7 @@ interface UseProfileImageManagerOptions {
   onImageChange?: (image: string) => void;
 }
 
-export const useProfileImageManager = ({
+const useProfileImageManager = ({
   initialImage = "",
   onImageChange,
 }: UseProfileImageManagerOptions = {}) => {
@@ -77,3 +77,5 @@ export const useProfileImageManager = ({
     isUploading: isLoading,
   };
 };
+
+export default useProfileImageManager;
