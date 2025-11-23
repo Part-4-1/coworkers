@@ -9,7 +9,6 @@ import { TeamBannerMember } from "@/components";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
 import { useParams, useSearchParams } from "next/navigation";
-import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 const Page = () => {
   const param = useParams();
   const query = useSearchParams().get("list");
@@ -17,7 +16,6 @@ const Page = () => {
   const taskListId = Number(query);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { data: groupData, isPending } = useGetGroupInfo(groupId);
-
   const { data: taskItems } = useGetTaskItems(
     groupId,
     taskListId,
@@ -44,9 +42,9 @@ const Page = () => {
         />
         <div
           className={cn(
-            "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[57px] pt-[38px]",
-            "tablet:h-[938px] tablet:rounded-[20px] tablet:px-[30px] tablet:pb-[102px] tablet:pt-[46px]",
-            "w-full pc:h-[970px]"
+            "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[37px] pt-[38px]",
+            "tablet:rounded-[20px] tablet:px-[30px] tablet:pt-[37px]",
+            "w-full"
           )}
         >
           <TaskListDatePicker
