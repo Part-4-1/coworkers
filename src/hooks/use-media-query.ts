@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * @author leohan
@@ -9,26 +9,25 @@ import { useState, useEffect } from "react";
  */
 
 const useMediaQuery = (size: string) => {
-  const [isMatch, setIsMatch] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia(size).matches;
-    }
-    return false;
-  });
+  const [isMatch, setIsMatch] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     const mediaQueryList = window.matchMedia(size);
 
-    const handleChange = (event: MediaQueryListEvent) => {
+    const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
       setIsMatch(event.matches);
     };
-    mediaQueryList.addEventListener("change", handleChange);
 
+    handleChange(mediaQueryList);
+
+    mediaQueryList.addEventListener("change", handleChange);
     return () => {
       mediaQueryList.removeEventListener("change", handleChange);
     };
   }, [size]);
+
   return isMatch;
 };
 

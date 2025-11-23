@@ -3,7 +3,7 @@ import { Dropdown, Profile } from "@/components/index";
 import Link from "next/link";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import { useLogout } from "@/hooks/api/user/use-logout";
-
+import { useRouter } from "next/navigation";
 /**
  * @author leohan
  * @description 사이드바의 하단 영역(푸터)에 표시되는 사용자 정보 또는 로그인 버튼 컴포넌트입니다.
@@ -12,6 +12,7 @@ import { useLogout } from "@/hooks/api/user/use-logout";
  */
 
 const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
+  const router = useRouter();
   const { data: userInfo, isLoading } = useGetUserInfoQuery();
   const { handleLogout } = useLogout();
 
@@ -24,9 +25,12 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
         <Dropdown
           trigger={<Profile size={`${isSidebarOpen ? "lg" : "md"}`} />}
           items={[
-            { label: "마이 히스토리" },
-            { label: "계정 설정" },
-            { label: "팀 참여" },
+            {
+              label: "마이 히스토리",
+              onClick: () => router.push("/myhistory"),
+            },
+            { label: "계정 설정", onClick: () => router.replace("/mypage") },
+            { label: "팀 참여", onClick: () => router.replace("/taketeam") },
             {
               label: "로그아웃",
               onClick: handleLogout,

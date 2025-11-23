@@ -61,7 +61,6 @@ const TaskModal = ({
     createTask(payload, {
       onSuccess: () => {
         reset();
-        close();
         onSuccess?.();
       },
     });

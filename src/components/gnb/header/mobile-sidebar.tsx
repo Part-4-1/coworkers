@@ -36,7 +36,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
             onClick={onClose}
           />
           <motion.div
-            className="fixed left-0 top-0 z-20 flex h-full w-[204px] flex-col gap-7 border-r border-gray-300 bg-white p-4"
+            className="fixed left-0 top-0 z-20 flex h-full w-[204px] flex-col gap-7 border-r border-gray-300 bg-white p-4 pr-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -44,12 +44,13 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
           >
             <div className="flex w-full justify-end">
               <Button variant="none" onClick={onClose}>
-                <Icon icon="x" className="h-5 w-5" />
+                <Icon icon="x" className="mr-4 h-5 w-5" />
               </Button>
             </div>
-            <div className="flex flex-col gap-3">
+            <hr className="mr-4" />
+            <div className="flex flex-col gap-3 overflow-y-auto">
               <div
-                className="flex flex-col gap-2 border-b border-gray-300 pb-6"
+                className="mr-4 flex flex-col gap-2 border-b border-gray-300 pb-6"
                 onClick={onClose}
               >
                 {userInfo?.memberships?.map((data) => (
@@ -67,7 +68,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                   variant="outlined"
                   className="w-full max-w-[172px] whitespace-nowrap px-3 py-2 text-md"
                 >
-                  + 팀 추가하기
+                  + 팀 생성하기
                 </Button>
               </div>
               <div onClick={onClose}>

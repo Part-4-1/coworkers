@@ -1,9 +1,9 @@
 import getUserGroups from "@/api/user/get-user-groups";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetUserGroups = () => {
+const useGetUserGroups = (groupId: string) => {
   return useQuery({
-    queryKey: ["userGroups"],
+    queryKey: ["userGroups", groupId],
     queryFn: () => getUserGroups(),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
