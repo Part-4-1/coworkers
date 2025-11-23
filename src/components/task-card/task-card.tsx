@@ -61,18 +61,21 @@ const TaskCard = ({
   return (
     <div
       className={cn(
-        "flex min-h-[54px] min-w-[270px] flex-col justify-center rounded-xl border border-gray-300",
+        "flex h-[54px] w-[270px] flex-col justify-center rounded-xl border border-gray-300",
         "gap-4 bg-white pl-5 pr-4",
         taskList && "pb-6 pt-4"
       )}
     >
       <div className="flex items-center justify-between">
         <Link href={`${pathName}?list=${taskListId}`}>
-          <span
-            className={`cursor-pointer truncate text-md font-semibold ${taskListId.toString() === listId && "rounded-xl text-blue-200"}`}
+          <p
+            className={cn(
+              "w-[150px] cursor-pointer truncate text-md font-semibold",
+              taskListId.toString() === listId && "text-blue-200"
+            )}
           >
             {taskTitle}
-          </span>
+          </p>
         </Link>
         <div className="flex">
           <Badge total={total} completed={completed} />

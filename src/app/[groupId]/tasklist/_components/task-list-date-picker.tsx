@@ -82,10 +82,10 @@ const TaskListDatePicker = ({
   return (
     <div className="flex w-full flex-col gap-6 tablet:gap-8">
       <div className="relative flex items-center justify-between">
-        <span className="text-2lg font-bold text-blue-700 tablet:text-xl">
+        <span className="truncate text-2lg font-bold text-blue-700 tablet:text-xl">
           {taskListData?.name}
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
             {currentSunday
               ? `${currentSunday.getFullYear()}년 ${currentSunday.getMonth() + 1}월`
