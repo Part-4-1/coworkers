@@ -1,5 +1,5 @@
+import { TaskItemSkeleton } from "@/components";
 import List from "@/components/list/list";
-import TaskItemSkeleton from "@/components/skeleton/list-skeleton/task-item-skeleton";
 import { Task, TasksDone } from "@/types/task";
 import Image from "next/image";
 import Link from "next/link";

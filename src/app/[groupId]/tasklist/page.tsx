@@ -9,7 +9,6 @@ import { TeamBannerMember } from "@/components";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
 import { useParams, useSearchParams } from "next/navigation";
-import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 const Page = () => {
   const param = useParams();
   const query = useSearchParams().get("list");
@@ -25,7 +24,6 @@ const Page = () => {
 
   useEffect(() => {
     setSelectedDate(new Date());
-    console.log(groupData?.taskLists.map((task) => task.name));
   }, []);
 
   return (
