@@ -43,6 +43,7 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
               />
             ) : (
               <TeamBannerMember
+                groupId={groupId}
                 groupName={groupInfo.name}
                 members={groupInfo.members}
               />

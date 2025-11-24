@@ -9,6 +9,7 @@ import { TeamBannerMember } from "@/components";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
 import { useParams, useSearchParams } from "next/navigation";
+import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 const Page = () => {
   const param = useParams();
   const query = useSearchParams().get("list");
@@ -27,9 +28,9 @@ const Page = () => {
   }, []);
 
   return (
-    //TODO: 관리자 배너 추가하기
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
       <TeamBannerMember
+        groupId={groupId}
         groupName={groupData?.name || ""}
         members={groupData?.members || []}
         onMemberListClick={() => {}}
