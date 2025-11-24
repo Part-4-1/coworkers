@@ -1,33 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
-import lottie from "lottie-web";
+import LottieAnimation from "@/components/lottie/LottieAnimation";
 import notfound from "@/../public/animations/404-not-found.json";
 
 const NotFound = () => {
-  const container = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (container.current) {
-      const animation = lottie.loadAnimation({
-        container: container.current,
-        renderer: "svg",
-        loop: true,
-        autoplay: true,
-        animationData: notfound,
-      });
-
-      return () => animation.destroy();
-    }
-  }, []);
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-4">
-      <div
-        ref={container}
+      <LottieAnimation
+        animationData={notfound}
         className="h-[300px] w-full max-w-[400px] md:h-[400px]"
-        role="img"
         aria-label="404 페이지를 찾을 수 없음"
       />
       <h1 className="mt-4 text-center text-2xl font-bold">
