@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/index";
 import SidebarMenu from "../sidebar-menu/sidebar-menu";
 import { motion, AnimatePresence } from "framer-motion";
@@ -33,6 +33,8 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
   const { data: userInfo } = useGetUserInfoQuery();
 
   const selectedMembership = userInfo?.memberships?.find(
@@ -42,8 +44,46 @@ const SidebarDropdown = ({
     ? selectedMembership.group.name
     : "팀 선택";
 
+  useEffect(() => {
+    const sidebarElement = sidebarRef.current;
+
+    if (!isSidebarOpen && sidebarElement) {
+      sidebarElement.style.paddingRight = "";
+      return;
+    }
+    if (!sidebarElement) return;
+
+    const updatePadding = () => {
+      const scrollBarWidth =
+        sidebarElement.offsetWidth - sidebarElement.clientWidth;
+
+      const basePadding = 16;
+      const newPadding = Math.max(basePadding - scrollBarWidth, 0);
+
+      sidebarElement.style.paddingRight = `${newPadding}px`;
+    };
+
+    updatePadding();
+
+    const observer = new ResizeObserver(() => {
+      updatePadding();
+    });
+
+    observer.observe(sidebarElement);
+
+    return () => observer.disconnect();
+  }, [isSidebarOpen]);
+
   return (
-    <div className="w-full max-w-[238px]">
+    <div
+      className={cn(
+        "w-full max-w-[255px] pr-4",
+        isSidebarOpen
+          ? "max-h-[300px] overflow-y-auto overflow-x-hidden"
+          : "max-h-[450px] overflow-visible"
+      )}
+      ref={sidebarRef}
+    >
       <div
         onClick={onToggle}
         className={`group relative flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
@@ -83,7 +123,7 @@ const SidebarDropdown = ({
         {isSidebarOpen && (
           <Icon
             icon="downArrow"
-            className={`h-5 w-5 text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
+            className={`h-5 w-5 shrink-0 text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
           />
         )}
       </div>

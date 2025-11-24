@@ -42,8 +42,6 @@ const Sidebar = () => {
   const isLoggedIn = !!userInfo && !isPending;
   const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
 
-  const sidebarRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (isLandingPage) {
       setIsSidebarOpen(false);
@@ -69,36 +67,6 @@ const Sidebar = () => {
       html.style.paddingRight = "0px";
     };
   }, [isTablet, isSidebarOpen]);
-
-  useEffect(() => {
-    const sidebarElement = sidebarRef.current;
-
-    if (!isSidebarOpen && sidebarElement) {
-      sidebarElement.style.paddingRight = "";
-      return;
-    }
-    if (!sidebarElement) return;
-
-    const updatePadding = () => {
-      const scrollBarWidth =
-        sidebarElement.offsetWidth - sidebarElement.clientWidth;
-
-      const basePadding = 16;
-      const newPadding = Math.max(basePadding - scrollBarWidth, 0);
-
-      sidebarElement.style.paddingRight = `${newPadding}px`;
-    };
-
-    updatePadding();
-
-    const observer = new ResizeObserver(() => {
-      updatePadding();
-    });
-
-    observer.observe(sidebarElement);
-
-    return () => observer.disconnect();
-  }, [isSidebarOpen, isDropdownOpen]);
 
   const handleToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -128,15 +96,7 @@ const Sidebar = () => {
             setIsSidebarOpen={setIsSidebarOpen}
           />
           {isLoggedIn && (
-            <div
-              ref={sidebarRef}
-              className={cn(
-                "flex flex-1 flex-col gap-3 px-4",
-                isSidebarOpen
-                  ? "overflow-y-auto overflow-x-hidden"
-                  : "overflow-visible"
-              )}
-            >
+            <div className={cn("flex flex-1 flex-col gap-3 pl-4")}>
               {isTeamExist && (
                 <div className={`flex flex-col gap-2`}>
                   <SidebarDropdown
@@ -155,7 +115,7 @@ const Sidebar = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}
-                    className="overflow-hidden border-b border-gray-300 pb-6"
+                    className="mr-4 overflow-hidden border-b border-gray-300 pb-6"
                   >
                     <Link href="/addteam">
                       <Button className="mb-2 w-full max-w-[238px] whitespace-nowrap border border-blue-200 px-4 py-2 text-md">
@@ -174,20 +134,22 @@ const Sidebar = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-              <SidebarMenu
-                iconName="board"
-                isSidebarOpen={isSidebarOpen}
-                title="자유게시판"
-                href={"/boards"}
-                isSelected={isBoardPage ? true : false}
-              />
-              <SidebarMenu
-                iconName="board"
-                isSidebarOpen={isSidebarOpen}
-                title="마이 히스토리"
-                href={"/myhistory"}
-                isSelected={isMyHistoryPage ? true : false}
-              />
+              <div className="pr-4">
+                <SidebarMenu
+                  iconName="board"
+                  isSidebarOpen={isSidebarOpen}
+                  title="자유게시판"
+                  href={"/boards"}
+                  isSelected={isBoardPage ? true : false}
+                />
+                <SidebarMenu
+                  iconName="board"
+                  isSidebarOpen={isSidebarOpen}
+                  title="마이 히스토리"
+                  href={"/myhistory"}
+                  isSelected={isMyHistoryPage ? true : false}
+                />
+              </div>
             </div>
           )}
         </div>

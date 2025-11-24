@@ -20,7 +20,7 @@ interface SidebarMenuProps {
 
 const menuStyles = {
   default:
-    "flex bg-white w-full cursor-pointer items-center gap-3 rounded-xl p-4 hover:bg-gray-100 text-lg relative group ",
+    "flex bg-white w-full cursor-pointer items-center gap-3 rounded-xl p-4 hover:bg-gray-100 text-lg relative group",
   selected: "bg-gray-200 text-blue-200 hover:bg-gray-200 cursor-default",
   sidebarOpen: "p-2",
 };
