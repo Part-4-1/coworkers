@@ -17,6 +17,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
   const isBoardPage = pathname === "/boards";
+  const isMyHistoryPage = pathname === "/myhistory";
   const { data: userInfo } = useGetUserInfoQuery();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -79,6 +80,14 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                   className="h-[44px]"
                   fontStyle="h-[17px]"
                   isSelected={isBoardPage ? true : false}
+                />
+                <SidebarMenu
+                  iconName="board"
+                  title="마이 히스토리"
+                  href={"/myhistory"}
+                  className="h-[44px]"
+                  fontStyle="h-[17px]"
+                  isSelected={isMyHistoryPage ? true : false}
                 />
               </div>
             </div>

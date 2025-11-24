@@ -31,6 +31,7 @@ const Sidebar = () => {
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
   const isBoardPage = pathname === "/boards";
+  const isMyHistoryPage = pathname === "/myhistory";
   const isLandingPage = pathname === "/";
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(isDesktop);
@@ -179,6 +180,13 @@ const Sidebar = () => {
                 title="자유게시판"
                 href={"/boards"}
                 isSelected={isBoardPage ? true : false}
+              />
+              <SidebarMenu
+                iconName="board"
+                isSidebarOpen={isSidebarOpen}
+                title="마이 히스토리"
+                href={"/myhistory"}
+                isSelected={isMyHistoryPage ? true : false}
               />
             </div>
           )}
