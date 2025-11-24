@@ -1,5 +1,6 @@
 import pretendard from "@/font/font";
 import "./globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import { Metadata } from "next";
 import QueryProviders from "@/providers";
 import { ToastProvider } from "@/toast-provider";

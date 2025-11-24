@@ -25,6 +25,7 @@ const Page = () => {
 
   useEffect(() => {
     setSelectedDate(new Date());
+    console.log(groupData?.taskLists.map((task) => task.name));
   }, []);
 
   return (
@@ -40,6 +41,7 @@ const Page = () => {
         <TaskListContainer
           groupId={groupId}
           taskList={groupData?.taskLists || []}
+          isPending={isPending}
         />
         <div
           className={cn(

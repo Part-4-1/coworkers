@@ -12,14 +12,21 @@ import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import { countDoneTask } from "@/utils/util";
 import { useRouter } from "next/navigation";
+import Skeleton from "react-loading-skeleton";
 
 interface TodoContainerProps {
   groupId: number;
   taskList: TaskList[];
+  isPending: boolean;
 }
 
-const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
-  const { mutate: createTaskList, isPending } = usePostTaskList();
+const TaskListContainer = ({
+  groupId,
+  taskList,
+  isPending,
+}: TodoContainerProps) => {
+  const { mutate: createTaskList, isPending: isPostPending } =
+    usePostTaskList();
   const { Modal: AddTaskListModal, openPrompt, closePrompt } = usePrompt(true);
   const router = useRouter();
   const handleClick = (name: string) => {
@@ -43,6 +50,7 @@ const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
           variant="outlined"
           className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold mobile:hidden pc:flex"
           onClick={openPrompt}
+          disabled={isPending}
         >
           <Icon icon="plus" className="h-4 w-4" />
           목록 추가
@@ -53,20 +61,24 @@ const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
         {/* mobile ~ tablet */}
         <div className="flex items-center justify-between pc:hidden">
           <Dropdown
-            items={taskList.map((task) => {
-              return {
-                label: task.name,
-                onClick: () => {
-                  router.push(`/${groupId}/tasklist?list=${task.id}`);
-                },
-                addon: (
-                  <Badge
-                    total={task.tasks.length}
-                    completed={countDoneTask(task.tasks)}
-                  />
-                ),
-              };
-            })}
+            items={
+              isPending
+                ? []
+                : taskList.map((task) => {
+                    return {
+                      label: task.name,
+                      onClick: () => {
+                        router.push(`/${groupId}/tasklist?list=${task.id}`);
+                      },
+                      addon: (
+                        <Badge
+                          total={task.tasks.length}
+                          completed={countDoneTask(task.tasks)}
+                        />
+                      ),
+                    };
+                  })
+            }
             isWidthFull
             defaultTriggerClassName={cn(
               "w-[180px] h-[44px] font-semibold text-sm text-blue-700 pl-4 pr-3 rounded-xl",
@@ -76,27 +88,35 @@ const TaskListContainer = ({ groupId, taskList }: TodoContainerProps) => {
         </div>
         {/* pc */}
         <ul className="hidden pc:flex pc:flex-col pc:gap-1">
-          {taskList
-            ? taskList.map((task) => {
-                return (
-                  <li key={task.id}>
-                    <TaskCard
-                      groupId={groupId}
-                      taskListId={task.id}
-                      taskTitle={task.name}
-                      total={task.tasks.length}
-                      completed={countDoneTask(task.tasks)}
-                    />
-                  </li>
-                );
-              })
-            : ""}
+          {!isPending ? (
+            taskList.map((task) => {
+              return (
+                <li key={task.id}>
+                  <TaskCard
+                    groupId={groupId}
+                    taskListId={task.id}
+                    taskTitle={task.name}
+                    total={task.tasks.length}
+                    completed={countDoneTask(task.tasks)}
+                  />
+                </li>
+              );
+            })
+          ) : (
+            <Skeleton
+              count={3}
+              height={54}
+              width={270}
+              containerClassName="flex-1"
+            />
+          )}
         </ul>
         <div className="flex pc:hidden">
           <Button
             variant="outlined"
             className="h-10 w-fit rounded-[40px] bg-white py-[14px] pl-4 pr-5 text-md font-semibold"
             onClick={openPrompt}
+            disabled={isPending}
           >
             <Icon icon="plus" className="h-4 w-4" />
             목록 추가
