@@ -24,8 +24,7 @@ const LoadingSpinner = ({
   return (
     <LottieAnimation
       animationData={loader}
-      style={{ width: "20px", height: "20px" }}
-      className={className}
+      className={cn("h-5 w-5", className)}
       aria-label={ariaLabel}
     />
   );
