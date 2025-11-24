@@ -84,7 +84,7 @@ const TaskListDatePicker = ({
       <div className="relative flex items-center justify-between">
         <span className="truncate text-2lg font-bold text-blue-700 tablet:text-xl">
           {taskListPending ? (
-            <Skeleton width={200} height={24} />
+            <Skeleton containerClassName="flex w-[100px] tablet:w-[200px]" />
           ) : (
             taskListData?.name
           )}
