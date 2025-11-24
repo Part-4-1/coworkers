@@ -14,10 +14,10 @@ import {
   getWeek,
 } from "@/utils/date-util";
 import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-list";
-import { useSearchParams } from "next/navigation";
 import useGetTaskList from "@/hooks/api/task/use-get-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import useClickOutside from "@/hooks/click-outside/use-click-outside";
+import Skeleton from "react-loading-skeleton";
 
 interface TaskListDatePickerProps {
   groupId: number;
@@ -34,7 +34,7 @@ const TaskListDatePicker = ({
   const [week, setWeek] = useState<number[] | null>(null);
   const [day, setDay] = useState<string>("");
   const [showCalendar, setShowCalendar] = useState(false);
-  const { data: taskListData, isPending } = useGetTaskList(
+  const { data: taskListData, isPending: taskListPending } = useGetTaskList(
     groupId,
     taskListId,
     new Date().toLocaleDateString("sv-SE")
@@ -83,13 +83,19 @@ const TaskListDatePicker = ({
     <div className="flex w-full flex-col gap-6 tablet:gap-8">
       <div className="relative flex items-center justify-between">
         <span className="truncate text-2lg font-bold text-blue-700 tablet:text-xl">
-          {taskListData?.name}
+          {taskListPending ? (
+            <Skeleton width={200} height={24} />
+          ) : (
+            taskListData?.name
+          )}
         </span>
         <div className="flex shrink-0 items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
-            {currentSunday
-              ? `${currentSunday.getFullYear()}년 ${currentSunday.getMonth() + 1}월`
-              : "date loading..."}
+            {currentSunday ? (
+              `${currentSunday.getFullYear()}년 ${currentSunday.getMonth() + 1}월`
+            ) : (
+              <Skeleton width={84} height={19} />
+            )}
           </p>
           <div className="flex items-center gap-1">
             <Button

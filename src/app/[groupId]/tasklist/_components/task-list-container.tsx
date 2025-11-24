@@ -61,24 +61,20 @@ const TaskListContainer = ({
         {/* mobile ~ tablet */}
         <div className="flex items-center justify-between pc:hidden">
           <Dropdown
-            items={
-              isPending
-                ? []
-                : taskList.map((task) => {
-                    return {
-                      label: task.name,
-                      onClick: () => {
-                        router.push(`/${groupId}/tasklist?list=${task.id}`);
-                      },
-                      addon: (
-                        <Badge
-                          total={task.tasks.length}
-                          completed={countDoneTask(task.tasks)}
-                        />
-                      ),
-                    };
-                  })
-            }
+            items={taskList.map((task) => {
+              return {
+                label: task.name,
+                onClick: () => {
+                  router.push(`/${groupId}/tasklist?list=${task.id}`);
+                },
+                addon: (
+                  <Badge
+                    total={task.tasks.length}
+                    completed={countDoneTask(task.tasks)}
+                  />
+                ),
+              };
+            })}
             isWidthFull
             defaultTriggerClassName={cn(
               "w-[180px] h-[44px] font-semibold text-sm text-blue-700 pl-4 pr-3 rounded-xl",
