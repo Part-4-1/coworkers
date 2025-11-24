@@ -16,7 +16,7 @@ const Page = () => {
   const taskListId = Number(query);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { data: groupData, isPending } = useGetGroupInfo(groupId);
-  const { data: taskItems } = useGetTaskItems(
+  const { data: taskItems, isPending: taskItemsPending } = useGetTaskItems(
     groupId,
     taskListId,
     selectedDate?.toLocaleDateString("sv-SE") || ""
@@ -52,11 +52,15 @@ const Page = () => {
             taskListId={taskListId}
             setSelectedDate={setSelectedDate}
           />
-          <TaskListItem
-            groupId={groupId}
-            taskListId={taskListId}
-            taskItems={taskItems}
-          />
+          {!taskItemsPending ? (
+            <TaskListItem
+              groupId={groupId}
+              taskListId={taskListId}
+              taskItems={taskItems}
+            />
+          ) : (
+            "불러오는 중..."
+          )}
         </div>
       </div>
     </div>
