@@ -23,7 +23,12 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
         <Dropdown
-          trigger={<Profile size={`${isSidebarOpen ? "lg" : "md"}`} />}
+          trigger={
+            <Profile
+              image={userInfo.image}
+              size={`${isSidebarOpen ? "lg" : "md"}`}
+            />
+          }
           items={[
             {
               label: "마이 히스토리",
@@ -69,7 +74,10 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
         <div
           className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
         >
-          <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
+          <Profile
+            image={userInfo?.image}
+            size={`${isSidebarOpen ? "lg" : "md"}`}
+          />
         </div>
       )}
       <span
