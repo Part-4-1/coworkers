@@ -5,7 +5,7 @@ import { Icon } from "@/components";
 const Footer = () => {
   return (
     <footer className="flex w-full justify-center bg-gray-300 text-gray-800">
-      <div className="w-full px-20 py-7">
+      <div className="w-full px-5 py-7 tablet:px-20">
         <div>
           <p className="text-12-regular tablet:text-14-regular">
             ©coworkers - 2025
