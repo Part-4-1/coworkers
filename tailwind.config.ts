@@ -40,8 +40,11 @@ const config: Config = {
           300: "#E93333",
           400: "#D71E1E",
         },
+        orange: {
+          100: "#F97316",
+          200: "#EA580C",
+        },
         pink: "#EC4899",
-        orange: "#F97316",
         yellow: "#EAB308",
         cyan: "#06B6D4",
         purple: "#A855F7",

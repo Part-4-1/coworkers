@@ -46,7 +46,7 @@ const GnbHeader = () => {
           </div>
           <div className="relative my-3 h-7 w-7 rounded-full">
             <Dropdown
-              trigger={<Profile size="md" />}
+              trigger={<Profile image={userInfo.image} size="md" />}
               items={[
                 {
                   label: "마이 히스토리",
