@@ -16,12 +16,14 @@ import Skeleton from "react-loading-skeleton";
 
 interface TodoContainerProps {
   groupId: number;
+  taskListId: number;
   taskList: TaskList[];
   isPending: boolean;
 }
 
 const TaskListContainer = ({
   groupId,
+  taskListId,
   taskList,
   isPending,
 }: TodoContainerProps) => {
@@ -91,6 +93,7 @@ const TaskListContainer = ({
                   <TaskCard
                     groupId={groupId}
                     taskListId={task.id}
+                    pageListId={taskListId}
                     taskTitle={task.name}
                     total={task.tasks.length}
                     completed={countDoneTask(task.tasks)}

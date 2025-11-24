@@ -6,7 +6,7 @@ import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import cn from "@/utils/clsx";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { MouseEventHandler } from "react";
 import Badge, { BadgeProps } from "../badge/badge";
 import Button from "../button/button";
@@ -18,6 +18,7 @@ import DeleteModalUI from "../modal-ui/delete-modal-ui";
 interface TaskCardProps extends BadgeProps {
   groupId: number;
   taskListId: number;
+  pageListId: number;
   taskTitle: string;
   taskList?: CheckboxProps[];
   handleClickCheckbox?: MouseEventHandler<HTMLInputElement>;
@@ -26,13 +27,13 @@ interface TaskCardProps extends BadgeProps {
 const TaskCard = ({
   groupId,
   taskListId,
+  pageListId,
   taskTitle,
   taskList,
   total,
   completed,
   handleClickCheckbox,
 }: TaskCardProps) => {
-  const listId = useSearchParams().get("list");
   const pathName = usePathname();
   const {
     Modal: DeleteModal,
@@ -71,7 +72,7 @@ const TaskCard = ({
           <p
             className={cn(
               "w-[150px] cursor-pointer truncate text-md font-semibold",
-              taskListId.toString() === listId && "text-blue-200"
+              taskListId === pageListId && "text-blue-200"
             )}
           >
             {taskTitle}

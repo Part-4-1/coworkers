@@ -38,6 +38,7 @@ const Page = () => {
       <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
         <TaskListContainer
           groupId={groupId}
+          taskListId={taskListId}
           taskList={groupData?.taskLists || []}
           isPending={isPending}
         />
