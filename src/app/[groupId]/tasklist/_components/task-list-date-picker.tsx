@@ -116,7 +116,10 @@ const TaskListDatePicker = ({
           </Button>
         </div>
         {showCalendar && (
-          <div className="absolute right-px top-8 bg-white" ref={calendarRef}>
+          <div
+            className="absolute right-px top-8 z-20 bg-white"
+            ref={calendarRef}
+          >
             <Calendar onDayClick={(value) => initDate(value)} />
           </div>
         )}
