@@ -29,7 +29,6 @@ const LottieAnimation: React.FC<LottieAnimationProps> = ({
   const animationContainer = useRef<HTMLDivElement>(null);
   const animationInstance = useRef<AnimationItem | null>(null);
 
-  // Lottie 애니메이션 로드 및 초기화
   useEffect(() => {
     if (!animationContainer.current) return;
 
@@ -46,14 +45,12 @@ const LottieAnimation: React.FC<LottieAnimationProps> = ({
 
     animationInstance.current = animation;
 
-    // 컴포넌트 unmount 시 애니메이션 제거
     return () => {
       animation.destroy();
       animationInstance.current = null;
     };
   }, [animationData, loop, autoplay]);
 
-  // Lottie 인터랙션 관리
   useEffect(() => {
     const animation = animationInstance.current;
     if (!animation) return;
