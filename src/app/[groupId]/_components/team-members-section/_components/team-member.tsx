@@ -8,9 +8,10 @@ import { Member } from "@/types/members";
 
 interface TeamMemberProps {
   member: Member;
+  isAdmin?: boolean;
 }
 
-const TeamMember = ({ member }: TeamMemberProps) => {
+const TeamMember = ({ member, isAdmin }: TeamMemberProps) => {
   const isMobile = useMediaQuery("(max-width: 744px)");
   const { Modal, openPrompt, closePrompt } = usePrompt(true);
   const { success, error, warning } = useToast();
@@ -40,11 +41,16 @@ const TeamMember = ({ member }: TeamMemberProps) => {
           <div className="truncate text-md font-medium text-blue-700">
             {member.userName}
           </div>
+          {isAdmin && (
+            <div className="ml-[4px] flex-shrink-0">
+              <Icon icon="crown" className="h-[16px] w-[16px] text-blue-200" />
+            </div>
+          )}
         </div>
         <div className="truncate text-xs text-blue-700">{member.userEmail}</div>
       </div>
 
-      <div onClick={openPrompt}>
+      <div onClick={openPrompt} className="ml-[4px]">
         <Icon
           icon="kebab"
           className="h-[20px] w-[20px] cursor-pointer text-gray-400"

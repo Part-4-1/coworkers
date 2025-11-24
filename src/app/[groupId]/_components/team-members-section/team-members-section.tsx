@@ -15,6 +15,10 @@ const TeamMembersSection = ({ members, groupId }: TeamMembersSectionProps) => {
   const { Modal, openPrompt, closePrompt } = usePrompt(true);
   const { data: invitationToken } = useGetInvitationToken(groupId);
   const { success, error } = useToast();
+  const sortedMembers = [
+    ...members.filter((member) => member.role === "ADMIN"),
+    ...members.filter((member) => member.role !== "ADMIN"),
+  ];
 
   const handleCopyLink = async () => {
     try {
@@ -42,8 +46,12 @@ const TeamMembersSection = ({ members, groupId }: TeamMembersSectionProps) => {
         </div>
       </div>
       <div className="grid w-full grid-cols-2 gap-[12px] tablet:grid-cols-3 pc:grid-cols-3">
-        {members.map((member) => (
-          <TeamMember key={member.userId} member={member} />
+        {sortedMembers.map((member) => (
+          <TeamMember
+            key={member.userId}
+            member={member}
+            isAdmin={member.role === "ADMIN"}
+          />
         ))}
       </div>
       <Modal>
