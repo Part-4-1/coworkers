@@ -41,6 +41,7 @@ const ProfileEdit = ({ image, className, onClick }: ProfileEditProps) => {
             alt="프로필"
             fill
             sizes="(max-width: 744px) 64px, 100px"
+            className="object-cover"
           />
         ) : (
           <Icon icon="user" className="bg-gray-300 object-cover"></Icon>
