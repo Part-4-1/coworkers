@@ -54,7 +54,11 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
           </section>
 
           <section className="mb-[290px] mt-[48px] px-[16px] tablet:mb-[230px] tablet:px-[0px] pc:mx-auto pc:mb-[67px] pc:w-full pc:max-w-[1120px]">
-            <TeamMembersSection members={groupInfo.members} groupId={groupId} />
+            <TeamMembersSection
+              members={groupInfo.members}
+              groupId={groupId}
+              isAdmin={isAdmin}
+            />
           </section>
         </main>
       }

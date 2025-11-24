@@ -1,6 +1,13 @@
 "use client";
 
-import { Icon, MemberProfileModalUI, Profile } from "@/components/index";
+import {
+  DeleteModalUI,
+  Dropdown,
+  Icon,
+  MemberProfileModalUI,
+  Profile,
+} from "@/components/index";
+import useDeleteGroupMember from "@/hooks/api/group/use-delete-group-member";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
 import useToast from "@/hooks/use-toast";
@@ -8,13 +15,32 @@ import { Member } from "@/types/members";
 
 interface TeamMemberProps {
   member: Member;
-  isAdmin?: boolean;
+  isThisMemberAdmin?: boolean;
+  isAdmin: boolean;
+  groupId: number;
 }
 
-const TeamMember = ({ member, isAdmin }: TeamMemberProps) => {
+const TeamMember = ({
+  member,
+  isThisMemberAdmin,
+  isAdmin,
+  groupId,
+}: TeamMemberProps) => {
+  const DELETE_MEMBER_MESSAGE = "내보내기";
   const isMobile = useMediaQuery("(max-width: 744px)");
-  const { Modal, openPrompt, closePrompt } = usePrompt(true);
+  const {
+    Modal: MemberProfileModal,
+    openPrompt: openMemberProfileModal,
+    closePrompt: closeMemberProfileModal,
+  } = usePrompt(true);
   const { success, error, warning } = useToast();
+  const { mutate: deleteGroupMember } = useDeleteGroupMember(groupId);
+
+  const {
+    Modal: DeleteMemberModal,
+    openPrompt: openDeleteMemberModal,
+    closePrompt: closeDeleteMemberModal,
+  } = usePrompt();
 
   const handleCopyEmail = async () => {
     try {
@@ -23,8 +49,20 @@ const TeamMember = ({ member, isAdmin }: TeamMemberProps) => {
     } catch (err) {
       error("이메일 복사에 실패했습니다. 다시 시도해주세요.");
     } finally {
-      closePrompt();
+      closeMemberProfileModal();
     }
+  };
+
+  const handleDeleteMember = () => {
+    deleteGroupMember(member.userId, {
+      onSuccess: () => {
+        success("멤버를 팀에서 내보냈어요.");
+      },
+      onError: () => {
+        error("멤버 내보내기에 실패했어요. 잠시 후 다시 시도해주세요.");
+      },
+    });
+    closeDeleteMemberModal;
   };
 
   return (
@@ -41,7 +79,7 @@ const TeamMember = ({ member, isAdmin }: TeamMemberProps) => {
           <div className="truncate text-md font-medium text-blue-700">
             {member.userName}
           </div>
-          {isAdmin && (
+          {isThisMemberAdmin && (
             <div className="ml-[4px] flex-shrink-0">
               <Icon icon="crown" className="h-[16px] w-[16px] text-blue-200" />
             </div>
@@ -50,15 +88,45 @@ const TeamMember = ({ member, isAdmin }: TeamMemberProps) => {
         <div className="truncate text-xs text-blue-700">{member.userEmail}</div>
       </div>
 
-      <div onClick={openPrompt} className="ml-[4px]">
-        <Icon
-          icon="kebab"
-          className="h-[20px] w-[20px] cursor-pointer text-gray-400"
-        />
-      </div>
-      <Modal>
+      {isAdmin ? (
+        <div className="ml-[4px]">
+          <Dropdown
+            trigger={
+              <Icon icon="kebab" className="h-[20px] w-[20px] text-gray-400" />
+            }
+            items={[
+              { label: "이메일 복사", onClick: openMemberProfileModal },
+              { label: DELETE_MEMBER_MESSAGE, onClick: openDeleteMemberModal },
+            ]}
+          />
+        </div>
+      ) : (
+        <div onClick={openMemberProfileModal} className="ml-[4px]">
+          <Icon
+            icon="kebab"
+            className="h-[20px] w-[20px] cursor-pointer text-gray-400"
+          />
+        </div>
+      )}
+
+      <MemberProfileModal>
         <MemberProfileModalUI onClick={handleCopyEmail} member={member} />
-      </Modal>
+      </MemberProfileModal>
+      <DeleteMemberModal>
+        <DeleteModalUI
+          contents={
+            <>
+              '{member.userName}' 님을
+              <br />
+              <br />
+              팀에서 내보내시겠어요?
+            </>
+          }
+          handleClick={handleDeleteMember}
+          handleClose={closeDeleteMemberModal}
+          confirmMessage={DELETE_MEMBER_MESSAGE}
+        />
+      </DeleteMemberModal>
     </div>
   );
 };
