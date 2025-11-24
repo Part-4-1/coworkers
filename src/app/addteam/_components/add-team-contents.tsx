@@ -14,7 +14,7 @@ const AddTeamContents = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<{ name: string }>({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: { name: "" },
   });
 
