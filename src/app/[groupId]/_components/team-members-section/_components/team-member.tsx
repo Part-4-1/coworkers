@@ -88,26 +88,34 @@ const TeamMember = ({
         <div className="truncate text-xs text-blue-700">{member.userEmail}</div>
       </div>
 
-      {isAdmin ? (
-        <div className="ml-[4px]">
-          <Dropdown
-            trigger={
-              <Icon icon="kebab" className="h-[20px] w-[20px] text-gray-400" />
-            }
-            items={[
-              { label: "이메일 복사", onClick: openMemberProfileModal },
-              { label: DELETE_MEMBER_MESSAGE, onClick: openDeleteMemberModal },
-            ]}
-          />
-        </div>
-      ) : (
-        <div onClick={openMemberProfileModal} className="ml-[4px]">
-          <Icon
-            icon="kebab"
-            className="h-[20px] w-[20px] cursor-pointer text-gray-400"
-          />
-        </div>
-      )}
+      <div className="flex h-full pt-[2px] tablet:pt-[4px]">
+        {isAdmin ? (
+          <div className="ml-[8px]">
+            <Dropdown
+              trigger={
+                <Icon
+                  icon="kebab"
+                  className="h-[20px] w-[20px] text-gray-400"
+                />
+              }
+              items={[
+                { label: "이메일 복사", onClick: openMemberProfileModal },
+                {
+                  label: DELETE_MEMBER_MESSAGE,
+                  onClick: openDeleteMemberModal,
+                },
+              ]}
+            />
+          </div>
+        ) : (
+          <div onClick={openMemberProfileModal} className="ml-[8px]">
+            <Icon
+              icon="kebab"
+              className="h-[20px] w-[20px] cursor-pointer text-gray-400"
+            />
+          </div>
+        )}
+      </div>
 
       <MemberProfileModal>
         <MemberProfileModalUI onClick={handleCopyEmail} member={member} />
