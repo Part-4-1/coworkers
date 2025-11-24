@@ -1,8 +1,8 @@
-import Button from "../button/button";
-import Icon from "../icon/Icon";
 import cn from "@/utils/clsx";
 import Image from "next/image";
 import { MouseEventHandler } from "react";
+import Button from "../button/button";
+import Icon from "../icon/Icon";
 
 /**
  * @author jinhyuk
@@ -13,7 +13,7 @@ import { MouseEventHandler } from "react";
  */
 
 interface ProfileEditProps {
-  image?: string;
+  image?: string | null;
   className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
@@ -41,6 +41,7 @@ const ProfileEdit = ({ image, className, onClick }: ProfileEditProps) => {
             alt="프로필"
             fill
             sizes="(max-width: 744px) 64px, 100px"
+            className="object-cover"
           />
         ) : (
           <Icon icon="user" className="bg-gray-300 object-cover"></Icon>
