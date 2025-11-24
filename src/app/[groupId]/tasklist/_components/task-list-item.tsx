@@ -1,4 +1,5 @@
 import List from "@/components/list/list";
+import TaskItemSkeleton from "@/components/skeleton/list-skeleton/task-item-skeleton";
 import { Task, TasksDone } from "@/types/task";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,9 +16,13 @@ const TaskListItem = ({
 }) => {
   const pathname = usePathname();
 
+  if (!taskItems) {
+    return <TaskItemSkeleton />;
+  }
+
   return (
     <ul className="flex flex-col gap-3 overflow-auto">
-      {taskItems && taskItems.length > 0 ? (
+      {taskItems.length > 0 ? (
         taskItems.map((task) => {
           return (
             <li key={task.id} className="relative">

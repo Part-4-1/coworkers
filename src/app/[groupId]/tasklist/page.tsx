@@ -55,15 +55,11 @@ const Page = () => {
             taskListId={taskListId}
             setSelectedDate={setSelectedDate}
           />
-          {!taskItemsPending ? (
-            <TaskListItem
-              groupId={groupId}
-              taskListId={taskListId}
-              taskItems={taskItems}
-            />
-          ) : (
-            "불러오는 중..."
-          )}
+          <TaskListItem
+            groupId={groupId}
+            taskListId={taskListId}
+            taskItems={taskItems}
+          />
         </div>
       </div>
     </div>
