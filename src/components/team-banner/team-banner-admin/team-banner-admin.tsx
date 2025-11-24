@@ -81,38 +81,37 @@ const TeamBannerAdmin = ({
   return (
     <div
       className={cn(
+        "relative flex min-w-[270px] flex-col justify-between bg-white shadow-xl",
         "h-[196px] w-full justify-between pb-[30px] pl-[25px] pr-[28px] pt-[20px] tablet:rounded-[20px]",
         "tablet:h-[239px] tablet:pb-[34px] tablet:pt-[30px] pc:w-[1120px] pc:pr-[36px] pc:pt-[32px]",
-        "relative flex min-w-[270px] flex-col justify-between bg-white shadow-xl",
         className
       )}
     >
-      {!isPc && (
-        <div className="absolute right-[24px] top-[24px] tablet:right-[28px] tablet:top-[34px]">
-          <Dropdown
-            trigger={
-              <Icon
-                icon="setting"
-                className="h-[20px] w-[20px] cursor-pointer tablet:h-[24px] tablet:w-[24px]"
-              />
-            }
-            items={[
-              {
-                label: "수정하기",
-                onClick: handleEditDropdown,
-              },
-              { label: "삭제하기", onClick: handleDeleteDropdown },
-            ]}
-            menuAlign="end"
-          />
-        </div>
-      )}
+      <div className="relative pr-[48px] tablet:pr-[56px]">
+        {!isPc && (
+          <div className="absolute right-[12px] top-[4px] tablet:right-[14px]">
+            <Dropdown
+              trigger={
+                <Icon
+                  icon="setting"
+                  className="h-[20px] w-[20px] cursor-pointer tablet:h-[24px] tablet:w-[24px]"
+                />
+              }
+              items={[
+                { label: "수정하기", onClick: handleEditDropdown },
+                { label: "삭제하기", onClick: handleDeleteDropdown },
+              ]}
+              menuAlign="end"
+            />
+          </div>
+        )}
 
-      <TeamBannerAdminHeader
-        groupName={groupName}
-        members={members}
-        showProfileListonPc={showProfileListOnPc}
-      />
+        <TeamBannerAdminHeader
+          groupName={groupName}
+          members={members}
+          showProfileListonPc={showProfileListOnPc}
+        />
+      </div>
       <div
         className={cn(
           "flex h-[84px] w-full justify-center gap-[22px]",
