@@ -7,6 +7,9 @@ import GnbWrapper from "@/components/gnb/gnb-wrapper";
 
 export const metadata: Metadata = {
   title: "Coworkers",
+  icons: {
+    icon: "/ic-coworkers-logo.svg",
+  },
 };
 
 export default function RootLayout({
