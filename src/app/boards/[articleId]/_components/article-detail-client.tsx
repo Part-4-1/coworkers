@@ -15,7 +15,7 @@ export default function ArticleDetailClient({
 }: ArticleDetailClientProps) {
   const { data, isPending, isError } = useGetArticleDetail(articleId);
 
-  if (isPending) return <div>로딩중...</div>;
+  if (isPending) return null;
 
   if (isError || !data?.article) {
     notFound();
