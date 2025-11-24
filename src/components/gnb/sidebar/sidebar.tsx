@@ -137,9 +137,7 @@ const Sidebar = () => {
               )}
             >
               {isTeamExist && (
-                <div
-                  className={`flex flex-col gap-2 ${isSidebarOpen && "border-b border-gray-300 pb-6"}`}
-                >
+                <div className={`flex flex-col gap-2`}>
                   <SidebarDropdown
                     isSidebarOpen={isSidebarOpen}
                     isOpen={isDropdownOpen}
@@ -147,28 +145,34 @@ const Sidebar = () => {
                     onToggle={handleToggle}
                     currentTeamId={currentTeamId}
                   />
-                  <AnimatePresence>
-                    {isSidebarOpen && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.15, ease: "easeOut" }}
-                        className="overflow-hidden"
-                      >
-                        <Link href="/addteam">
-                          <Button
-                            variant="outlined"
-                            className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
-                          >
-                            + 팀 생성하기
-                          </Button>
-                        </Link>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
               )}
+              <AnimatePresence>
+                {isSidebarOpen && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className="overflow-hidden border-b border-gray-300 pb-6"
+                  >
+                    <Link href="/addteam">
+                      <Button className="mb-2 w-full max-w-[238px] whitespace-nowrap border border-blue-200 px-4 py-2 text-md">
+                        + 팀 생성하기
+                      </Button>
+                    </Link>
+
+                    <Link href="/taketeam">
+                      <Button
+                        variant="outlined"
+                        className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
+                      >
+                        + 팀 참여하기
+                      </Button>
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               <SidebarMenu
                 iconName="board"
                 isSidebarOpen={isSidebarOpen}

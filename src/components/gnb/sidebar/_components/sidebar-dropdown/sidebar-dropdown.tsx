@@ -48,20 +48,21 @@ const SidebarDropdown = ({
         onClick={onToggle}
         className={`group relative flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 items-center gap-3">
           <Icon
             icon="chess"
             className={cn(
               iconStyles.default,
               isSidebarOpen && iconStyles.sidebarOpen,
-              !!selectedMembership && "text-blue-200"
+              !!selectedMembership && "text-blue-200",
+              "flex-shrink-0"
             )}
           />
           <AnimatePresence>
             {isSidebarOpen && (
               <motion.span
                 className={cn(
-                  "whitespace-nowrap text-gray-700 group-hover:text-blue-200",
+                  "truncate text-gray-700 group-hover:text-blue-200",
                   !!selectedMembership && "text-blue-200"
                 )}
                 initial={{ opacity: 0 }}
