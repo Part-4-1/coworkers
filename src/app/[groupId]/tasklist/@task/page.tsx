@@ -2,7 +2,7 @@
 
 import TaskDetailComment from "./_components/task-detail-comment";
 import TaskDetailContents from "./_components/task-detail-contents";
-import { InputReply } from "@/components";
+import { Icon, InputReply } from "@/components";
 import TaskDetailWrapper from "./_components/task-detail-wrapper";
 import {
   useParams,
@@ -89,12 +89,15 @@ const Page = () => {
                   isPending={isPending}
                 />
                 <div className="flex flex-col gap-4">
-                  <p className="text-lg font-bold tablet:text-2lg">
-                    댓글{" "}
-                    <span className="text-blue-200">
+                  <div className="flex items-center gap-1">
+                    <Icon
+                      icon="comment"
+                      className="h-[18px] w-[18px] tablet:h-5 tablet:w-5"
+                    />
+                    <span className="text-lg font-bold text-blue-200">
                       {taskDetailData?.commentCount || 0}
                     </span>
-                  </p>
+                  </div>
                   <InputReply onSubmit={postTaskDetailComment} />
                 </div>
               </div>

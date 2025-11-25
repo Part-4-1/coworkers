@@ -105,7 +105,7 @@ const TaskDetailContents = ({
     return () => {
       timer.current && clearTimeout(timer.current);
     };
-  }, [newDescription.current, newName.current, isPending]);
+  }, [newDescription.current, newName.current]);
 
   return (
     <>
