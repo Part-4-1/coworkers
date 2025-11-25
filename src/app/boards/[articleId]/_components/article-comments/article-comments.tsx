@@ -69,17 +69,22 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
 
   return (
     <div>
-      <div className="mb-3 mt-4 flex items-center justify-between tablet:mb-4 tablet:mt-[28px] pc:mt-[40px]">
+      <div className="mb-3 mt-[32px] flex items-center justify-between tablet:mb-4 tablet:mt-[61px]">
         <div className="flex items-center gap-4">
-          <h3 className="flex items-baseline gap-1 text-md font-bold tablet:text-2lg">
-            <span className="text-blue-700">댓글</span>
-            <span className="text-blue-200">{article.commentCount}</span>
-          </h3>
+          <div className="flex items-center gap-1 font-bold">
+            <Icon
+              icon="comment"
+              className="h-[18px] w-[18px] text-blue-100 tablet:h-5 tablet:w-5"
+            />
+            <span className="text-md tablet:text-2lg">
+              {article.commentCount}
+            </span>
+          </div>
           <Button
             variant="none"
             onClick={handleLikeClick}
             disabled={isLikePending}
-            className="relative flex items-baseline gap-1"
+            className="relative flex items-center gap-1"
           >
             <LikeButton isLiked={article.isLiked} />
             <Icon
@@ -93,7 +98,7 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
           <Button variant="none" className="pr-2">
             <Icon
               icon="articleList"
-              className="h-6 w-6 text-blue-300 pc:h-8 pc:w-8"
+              className="h-6 w-6 text-blue-100 pc:h-8 pc:w-8"
             />
           </Button>
         </Link>
