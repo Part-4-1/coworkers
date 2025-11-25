@@ -1,3 +1,5 @@
+"use client";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { Dropdown, Profile } from "@/components/index";
 import Link from "next/link";
@@ -11,12 +13,22 @@ import { useRouter } from "next/navigation";
  * @param isSidebarOpen - 사이드바가 현재 열려있는지(true) 닫혀있는지(false) 상태를 나타내는 값입니다.
  */
 
-const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
+const SidebarFooter = ({
+  isSidebarOpen,
+  currentTeamId,
+}: {
+  isSidebarOpen: boolean;
+  currentTeamId: string;
+}) => {
   const router = useRouter();
-  const { data: userInfo, isLoading } = useGetUserInfoQuery();
-  const { handleLogout } = useLogout();
+  const { data: userInfo, isPending } = useGetUserInfoQuery();
 
-  const isLoggedIn = !!userInfo && !isLoading;
+  const currentTeamIndex = userInfo?.memberships?.findIndex(
+    (data) => String(data.group.id) === currentTeamId
+  );
+
+  const { handleLogout } = useLogout();
+  const isLoggedIn = !!userInfo && !isPending;
   return isLoggedIn ? (
     <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
       <div
@@ -54,7 +66,7 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
               {userInfo.nickname}
             </span>
             <span className="whitespace-nowrap text-xs text-gray-700">
-              {userInfo?.memberships?.[0]?.group.name}
+              {userInfo?.memberships?.[currentTeamIndex || 0]?.group.name}
             </span>
           </motion.div>
         )}
