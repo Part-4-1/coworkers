@@ -30,6 +30,7 @@ export interface TaskDetailContentsProps extends TaskDetailHeaderProps {
   name: string;
   description: string;
   doneAt: string | null;
+  isPending: boolean;
 }
 
 const TaskDetailContents = ({
@@ -42,6 +43,7 @@ const TaskDetailContents = ({
   doneAt,
   createdAt,
   frequency,
+  isPending,
 }: TaskDetailContentsProps) => {
   const [text, setText] = useState<string>();
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -63,12 +65,12 @@ const TaskDetailContents = ({
   const { mutate } = usePatchTaskDetail();
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    newDescription.current = e.target.value;
+    newDescription.current = e.target.value.trim();
     setText(e.target.value);
   };
 
   const handleNameChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    newName.current = e.target.value;
+    newName.current = e.target.value.trim();
     setText(e.target.value);
   };
 
@@ -86,20 +88,18 @@ const TaskDetailContents = ({
   };
 
   useEffect(() => {
-    if (text?.trim() !== "") {
-      timer.current = setTimeout(() => {
-        mutate({
-          groupId,
-          taskListId,
-          taskId,
-          data: {
-            name: newName.current,
-            description: newDescription.current,
-            done: !!doneAt,
-          },
-        });
-      }, 500);
-    }
+    timer.current = setTimeout(() => {
+      mutate({
+        groupId,
+        taskListId,
+        taskId,
+        data: {
+          name: newName.current,
+          description: newDescription.current,
+          done: !!doneAt,
+        },
+      });
+    }, 500);
 
     return () => {
       timer.current && clearTimeout(timer.current);
@@ -111,11 +111,12 @@ const TaskDetailContents = ({
       <div className="flex flex-col gap-6">
         <div className="flex w-full flex-col gap-4">
           <div className="flex items-center justify-between">
-            {name ? (
+            {!isPending ? (
               <TextareaAutosize
                 name={name}
                 defaultValue={name}
                 maxLength={30}
+                placeholder="할 일 이름을 입력하세요."
                 onChange={handleNameChange}
                 className="h-auto w-full resize-none text-xl font-bold focus:outline-none tablet:text-2xl"
               />
@@ -156,10 +157,11 @@ const TaskDetailContents = ({
             <hr className="h-[2px] bg-gray-300" />
           </div>
         </div>
-        {description ? (
+        {!isPending ? (
           <TextareaAutosize
             name={`${name} description`}
             defaultValue={description}
+            placeholder="할 일 내용을 입력하세요."
             onChange={handleDescriptionChange}
             className="h-auto w-full resize-none focus:outline-none"
           />

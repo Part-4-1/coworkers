@@ -86,6 +86,7 @@ const Page = () => {
                   groupId={groupId}
                   taskListId={taskListId}
                   taskId={taskId}
+                  isPending={isPending}
                 />
                 <div className="flex flex-col gap-4">
                   <p className="text-lg font-bold tablet:text-2lg">
