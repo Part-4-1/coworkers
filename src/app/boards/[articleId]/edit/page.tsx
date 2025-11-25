@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useGetArticleDetail } from "@/hooks/api/articles/use-get-article-detail";
+import { ArticleEditSkeleton } from "@/components";
 import ArticleEditContents from "./_components/article-edit-contents/article-edit-contents";
 
 export default function EditPage() {
@@ -10,7 +11,7 @@ export default function EditPage() {
 
   const { data, isPending } = useGetArticleDetail(Number(articleId));
 
-  if (isPending) return <div>로딩중...</div>;
+  if (isPending) return <ArticleEditSkeleton />;
 
   if (!data?.article) return <div>게시글을 찾을 수 없습니다.</div>;
 
