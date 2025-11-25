@@ -97,7 +97,7 @@ const TaskDetailContents = ({
             done: !!doneAt,
           },
         });
-      }, 1500);
+      }, 500);
     }
 
     return () => {
