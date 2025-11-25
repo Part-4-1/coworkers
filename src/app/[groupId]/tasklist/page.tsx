@@ -16,7 +16,7 @@ const Page = () => {
   const taskListId = Number(query);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { data: groupData, isPending } = useGetGroupInfo(groupId);
-  const { data: taskItems } = useGetTaskItems(
+  const { data: taskItems, isPending: taskItemsPending } = useGetTaskItems(
     groupId,
     taskListId,
     selectedDate?.toLocaleDateString("sv-SE") || ""
@@ -27,9 +27,9 @@ const Page = () => {
   }, []);
 
   return (
-    //TODO: 관리자 배너 추가하기
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
       <TeamBannerMember
+        groupId={groupId}
         groupName={groupData?.name || ""}
         members={groupData?.members || []}
         onMemberListClick={() => {}}
@@ -38,13 +38,15 @@ const Page = () => {
       <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
         <TaskListContainer
           groupId={groupId}
+          taskListId={taskListId}
           taskList={groupData?.taskLists || []}
+          isPending={isPending}
         />
         <div
           className={cn(
-            "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[57px] pt-[38px]",
-            "tablet:h-[938px] tablet:rounded-[20px] tablet:px-[30px] tablet:pb-[102px] tablet:pt-[46px]",
-            "w-full pc:h-[970px]"
+            "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[37px] pt-[38px]",
+            "tablet:rounded-[20px] tablet:px-[30px] tablet:pt-[37px]",
+            "w-full"
           )}
         >
           <TaskListDatePicker

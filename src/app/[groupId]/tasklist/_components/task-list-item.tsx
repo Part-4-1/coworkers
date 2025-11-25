@@ -1,5 +1,7 @@
+import { TaskItemSkeleton } from "@/components";
 import List from "@/components/list/list";
 import { Task, TasksDone } from "@/types/task";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,9 +16,13 @@ const TaskListItem = ({
 }) => {
   const pathname = usePathname();
 
+  if (!taskItems) {
+    return <TaskItemSkeleton />;
+  }
+
   return (
     <ul className="flex flex-col gap-3 overflow-auto">
-      {taskItems &&
+      {taskItems.length > 0 ? (
         taskItems.map((task) => {
           return (
             <li key={task.id} className="relative">
@@ -27,7 +33,24 @@ const TaskListItem = ({
               <List {...{ ...task, groupId, taskListId }} />
             </li>
           );
-        })}
+        })
+      ) : (
+        <div className="h-[450px] flex-col-center">
+          <Image
+            src="/images/empty_task.png"
+            width={250}
+            height={125}
+            alt="empty_task"
+            quality={100}
+            draggable={false}
+          />
+          <p className="text-center text-md text-gray-700">
+            할 일이 없네요
+            <br />
+            조금 쉬어볼까요?
+          </p>
+        </div>
+      )}
     </ul>
   );
 };

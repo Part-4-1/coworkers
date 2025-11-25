@@ -1,6 +1,12 @@
 "use client";
 
-import { Button, Icon, ProfileEdit, TextInput } from "@/components";
+import {
+  Button,
+  Icon,
+  ProfileEdit,
+  TextInput,
+  LoadingSpinner,
+} from "@/components";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import usePatchGroup from "@/hooks/api/group/use-patch-group";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
@@ -127,11 +133,7 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
             onClick={onSubmit}
             disabled={groupName.length < 1 || isPending || isImageUploading}
           >
-            {isPending
-              ? "수정 중..."
-              : isImageUploading
-                ? "이미지 업로드 중..."
-                : "수정하기"}
+            {isPending || isImageUploading ? <LoadingSpinner /> : "수정하기"}
           </Button>
         </div>
         <div className="text-center text-xs text-gray-800 tablet:text-lg">

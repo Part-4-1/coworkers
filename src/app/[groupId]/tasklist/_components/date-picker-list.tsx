@@ -1,4 +1,4 @@
-import { DatePicker } from "@/components";
+import { CalendarListSkeleton, DatePicker } from "@/components";
 import { ChangeEvent } from "react";
 
 interface DatePickerListProps {
@@ -15,7 +15,7 @@ const DatePickerList = ({
   handleChangeDay,
 }: DatePickerListProps) => {
   if (!dateList) {
-    return null;
+    return <CalendarListSkeleton />;
   }
 
   return (
