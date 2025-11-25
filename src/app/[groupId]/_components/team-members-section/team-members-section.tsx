@@ -11,11 +11,13 @@ interface TeamMembersSectionProps {
   members: Member[];
   groupId: number;
   isAdmin: boolean;
+  userId?: number;
 }
 const TeamMembersSection = ({
   members,
   groupId,
   isAdmin,
+  userId,
 }: TeamMembersSectionProps) => {
   const {
     Modal: InviteModal,
@@ -63,6 +65,7 @@ const TeamMembersSection = ({
             isThisMemberAdmin={member.role === "ADMIN"}
             groupId={groupId}
             isAdmin={isAdmin}
+            isThisMemberMe={member.userId === userId}
           />
         ))}
       </div>

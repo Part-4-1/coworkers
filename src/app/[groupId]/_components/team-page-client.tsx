@@ -29,7 +29,7 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
           className={cn(
             "flex flex-col",
             "tablet:px-[24px] tablet:pt-[74px]",
-            "mx-auto min-w-[330px] pc:w-[1120px] pc:pt-[120px]"
+            "mx-auto min-w-[360px] pc:w-[1120px] pc:pt-[120px]"
           )}
         >
           <section className="pc:flex pc:justify-center">
@@ -59,6 +59,7 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
               members={groupInfo.members}
               groupId={groupId}
               isAdmin={isAdmin}
+              userId={userInfo?.id}
             />
           </section>
         </main>
