@@ -1,10 +1,12 @@
 import cn from "@/utils/clsx";
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@/components/index";
 import ICONS_MAP from "../../../../icon/icons-map";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { tooltipStyles } from "@/constants/styles";
+import { createPortal } from "react-dom";
+import { useTooltip } from "@/hooks/use-tooltip";
 
 type IconKeys = keyof typeof ICONS_MAP;
 interface SidebarMenuProps {
@@ -50,11 +52,14 @@ const SidebarMenu = ({
   className,
   fontStyle,
 }: SidebarMenuProps) => {
+  const { isHovered, tooltipPosition, handleMouseEnter, handleMouseLeave } =
+    useTooltip(isSidebarOpen);
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isSelected) {
       e.preventDefault();
     }
   };
+
   return (
     <Link
       className={cn(
@@ -65,6 +70,8 @@ const SidebarMenu = ({
       )}
       href={href}
       onClick={(e) => handleClick(e)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <Icon
         icon={iconName}
@@ -74,7 +81,7 @@ const SidebarMenu = ({
           isSidebarOpen && iconStyles.SidebarOpen
         )}
       />
-      {!isSidebarOpen && (
+      {/* {!isSidebarOpen && (
         <div
           className={cn(
             tooltipStyles.base,
@@ -84,7 +91,19 @@ const SidebarMenu = ({
         >
           {title}
         </div>
-      )}
+      )} */}
+
+      {!isSidebarOpen &&
+        isHovered &&
+        createPortal(
+          <span
+            className={cn(tooltipStyles.base, tooltipStyles.before)}
+            style={{ top: tooltipPosition.top, left: tooltipPosition.left }}
+          >
+            {title}
+          </span>,
+          document.body
+        )}
 
       <AnimatePresence>
         {isSidebarOpen && (

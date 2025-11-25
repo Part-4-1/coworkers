@@ -115,7 +115,7 @@ const Sidebar = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}
-                    className="mr-4 overflow-hidden border-b border-gray-300 pb-6"
+                    className="mr-4 overflow-hidden pb-4"
                   >
                     <Link href="/addteam">
                       <Button className="mb-2 w-full max-w-[238px] whitespace-nowrap border border-blue-200 px-4 py-2 text-md">
@@ -134,7 +134,8 @@ const Sidebar = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-              <div className="pr-4">
+              <hr className="mr-4 border-gray-400" />
+              <div className="bg-white pr-4">
                 <SidebarMenu
                   iconName="board"
                   isSidebarOpen={isSidebarOpen}

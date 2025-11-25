@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import cn from "@/utils/clsx";
 import { tooltipStyles } from "@/constants/styles";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { useTooltip } from "@/hooks/use-tooltip";
+import { createPortal } from "react-dom";
 
 /**
  * @author leohan
@@ -44,6 +46,9 @@ const SidebarDropdown = ({
     ? selectedMembership.group.name
     : "팀 선택";
 
+  const { isHovered, tooltipPosition, handleMouseEnter, handleMouseLeave } =
+    useTooltip(isSidebarOpen);
+
   useEffect(() => {
     const sidebarElement = sidebarRef.current;
 
@@ -80,7 +85,7 @@ const SidebarDropdown = ({
         "w-full max-w-[255px] pr-4",
         isSidebarOpen
           ? "max-h-[300px] overflow-y-auto overflow-x-hidden"
-          : "max-h-[450px] overflow-visible"
+          : "max-h-[300px] overflow-y-auto overflow-x-visible scrollbar-hide"
       )}
       ref={sidebarRef}
     >
@@ -88,7 +93,11 @@ const SidebarDropdown = ({
         onClick={onToggle}
         className={`group relative flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
       >
-        <div className="flex min-w-0 items-center gap-3">
+        <div
+          className="flex min-w-0 items-center gap-3"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <Icon
             icon="chess"
             className={cn(
@@ -115,11 +124,23 @@ const SidebarDropdown = ({
             )}
           </AnimatePresence>
         </div>
-        {!isSidebarOpen && !isOpen && (
+        {/* {!isSidebarOpen && !isOpen && (
           <span className={cn(tooltipStyles.base, tooltipStyles.before)}>
             {selectedTeamName}
           </span>
-        )}
+        )} */}
+        {!isSidebarOpen &&
+          !isOpen &&
+          isHovered &&
+          createPortal(
+            <span
+              className={cn(tooltipStyles.base, tooltipStyles.before)}
+              style={{ top: tooltipPosition.top, left: tooltipPosition.left }}
+            >
+              {selectedTeamName}
+            </span>,
+            document.body
+          )}
         {isSidebarOpen && (
           <Icon
             icon="downArrow"
