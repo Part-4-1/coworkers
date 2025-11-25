@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, TextInput } from "@/components";
+import { Button, TextInput, LoadingSpinner } from "@/components";
 import { EMAIL_REGEX } from "@/constants/regex";
 import { useSendPasswordResetQuery } from "@/hooks/api/user/use-send-password-reset-email-action";
 import React, { useState } from "react";
@@ -66,7 +66,7 @@ const PasswordResetModal = ({ closePrompt }: { closePrompt: () => void }) => {
           onClick={handleSubmit}
           aria-label="send link"
         >
-          {isPending ? "전송 중..." : "링크 보내기"}
+          {isPending ? <LoadingSpinner /> : "링크 보내기"}
         </Button>
       </div>
     </div>
