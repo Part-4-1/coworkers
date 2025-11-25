@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon, Profile } from "@/components";
+import { Icon, Profile, TaskDetailContentSkeleton } from "@/components";
 import ICONS_MAP from "@/components/icon/icons-map";
 import usePatchTaskDetail from "@/hooks/api/task/use-patch-task-detail";
 import { Writer } from "@/types/user";
@@ -163,10 +163,10 @@ const TaskDetailContents = ({
             defaultValue={description}
             placeholder="할 일 내용을 입력하세요."
             onChange={handleDescriptionChange}
-            className="h-auto w-full resize-none focus:outline-none"
+            className="h-auto w-full resize-none text-md focus:outline-none"
           />
         ) : (
-          <Skeleton containerClassName="flex w-full h-6" className="h-full" />
+          <TaskDetailContentSkeleton />
         )}
       </div>
     </>

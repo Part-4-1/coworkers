@@ -1,5 +1,4 @@
-import { Reply } from "@/components";
-import CommentListSkeleton from "@/components/skeleton/comment-list-skeleton/comment-list-skeleton";
+import { Reply, CommentListSkeleton } from "@/components";
 import useGetComments from "@/hooks/api/comments/use-get-comments";
 
 interface TaskDetailCommentProps {
