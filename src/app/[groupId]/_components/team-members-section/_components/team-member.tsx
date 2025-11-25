@@ -46,10 +46,9 @@ const TeamMember = ({
     try {
       await navigator.clipboard.writeText(member.userEmail);
       success("이메일이 클립보드에 복사되었습니다.");
+      closeMemberProfileModal();
     } catch (err) {
       error("이메일 복사에 실패했습니다. 다시 시도해주세요.");
-    } finally {
-      closeMemberProfileModal();
     }
   };
 
@@ -62,7 +61,7 @@ const TeamMember = ({
         error("멤버 내보내기에 실패했어요. 잠시 후 다시 시도해주세요.");
       },
     });
-    closeDeleteMemberModal;
+    closeDeleteMemberModal();
   };
 
   return (
