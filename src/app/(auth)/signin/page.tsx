@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
 import { Button, Icon, TextInput, LoadingSpinner } from "@/components";
 import { EMAIL_REGEX, PASSWORD_MIN_LENGTH } from "@/constants/regex";
@@ -8,18 +8,14 @@ import { SignupRequest } from "@/api/auth/signup-action";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import SimpleSignUpIn from "../_components/simple-signUpIn";
-import { getCookie } from "@/utils/cookie-utils";
 import { useSigninQuery } from "@/hooks/auth/use-signin-query";
 import { SignInRequest } from "@/api/auth/signin-action";
-import { useRouter } from "next/navigation";
 import usePrompt from "@/hooks/use-prompt";
 import PasswordRestModal from "../_components/password-reset-modal";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
 
-  const accessToken = getCookie("accessToken");
   const { Modal, openPrompt, closePrompt } = usePrompt();
   const { mutate, isPending } = useSigninQuery();
   const {
@@ -37,12 +33,6 @@ const Page = () => {
       password: formData.password,
     });
   };
-
-  useEffect(() => {
-    if (accessToken) {
-      router.push("/");
-    }
-  }, [accessToken]);
 
   return (
     <>
