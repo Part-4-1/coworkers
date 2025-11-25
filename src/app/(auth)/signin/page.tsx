@@ -101,12 +101,13 @@ const Page = () => {
                   },
                 })}
               />
-              <div className="flex cursor-pointer justify-end text-lg font-medium text-blue-200 underline hover:text-blue-100">
+              <div className="flex cursor-pointer justify-end text-lg text-blue-200 underline hover:text-blue-100">
                 <Button
                   type="button"
                   onClick={openPrompt}
                   variant="none"
                   aria-label="Forget Password?"
+                  className="font-medium"
                 >
                   비밀번호를 잊으셨나요?
                 </Button>
