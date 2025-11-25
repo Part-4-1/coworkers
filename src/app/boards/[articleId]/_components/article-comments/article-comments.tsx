@@ -1,12 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { Article } from "@/types/article";
-import { InputReply, Reply } from "@/components/index";
+import { InputReply, Reply, Button, Icon } from "@/components/index";
 import { usePostArticleComment } from "@/hooks/api/articles/use-post-article-comment";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import useGetArticleComments from "@/hooks/api/articles/use-get-article-comments";
+import useToggleArticleLike from "@/hooks/api/articles/use-toggle-article-like";
+import LikeButton from "@/components/lottie/LikeButton";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 
 interface ArticleCommentsProps {
@@ -20,6 +23,14 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
     useGetArticleComments({ articleId: article.id });
 
   const { data: userInfo } = useGetUserInfoQuery();
+
+  const { mutate: toggleLike, isPending: isLikePending } = useToggleArticleLike(
+    article.id
+  );
+
+  const handleLikeClick = () => {
+    toggleLike(article.isLiked);
+  };
 
   const observerTarget = useRef<HTMLDivElement>(null);
 
@@ -58,10 +69,35 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
 
   return (
     <div>
-      <h3 className="mb-3 mt-4 flex gap-1 text-2lg font-bold tablet:mb-4 tablet:mt-[28px] pc:mt-[40px]">
-        <span className="text-blue-700">댓글</span>
-        <span className="text-blue-200">{article.commentCount}</span>
-      </h3>
+      <div className="mb-3 mt-4 flex items-center justify-between tablet:mb-4 tablet:mt-[28px] pc:mt-[40px]">
+        <div className="flex items-center gap-4">
+          <h3 className="flex items-baseline gap-1 text-md font-bold tablet:text-2lg">
+            <span className="text-blue-700">댓글</span>
+            <span className="text-blue-200">{article.commentCount}</span>
+          </h3>
+          <Button
+            variant="none"
+            onClick={handleLikeClick}
+            disabled={isLikePending}
+            className="relative flex items-baseline gap-1"
+          >
+            <LikeButton isLiked={article.isLiked} />
+            <Icon
+              icon={article.isLiked ? "heartActive" : "heartDefault"}
+              className="h-[18px] w-[18px] tablet:h-5 tablet:w-5"
+            />
+            <p className="text-md tablet:text-2lg">{article.likeCount}</p>
+          </Button>
+        </div>
+        <Link href="/boards">
+          <Button variant="none" className="pr-2">
+            <Icon
+              icon="articleList"
+              className="h-6 w-6 text-blue-300 pc:h-8 pc:w-8"
+            />
+          </Button>
+        </Link>
+      </div>
       <div className="mb-[28px] flex items-center gap-4 tablet:mb-[36px]">
         {userInfo?.image ? (
           <Image
