@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button, Icon } from "@/components/index";
 import { Article } from "@/types/article";
 import useToggleArticleLike from "@/hooks/api/articles/use-toggle-article-like";
+import LikeButton from "@/components/lottie/LikeButton";
 
 interface ArticleContentsProps {
   article: Article;
@@ -35,8 +36,9 @@ const ArticleContents = ({ article }: ArticleContentsProps) => {
           variant="none"
           onClick={handleLikeClick}
           disabled={isPending}
-          className="min-w-[60px]"
+          className="relative min-w-[60px]"
         >
+          <LikeButton isLiked={article.isLiked} />
           <Icon
             icon={article.isLiked ? "heartActive" : "heartDefault"}
             className="h-7 w-7"

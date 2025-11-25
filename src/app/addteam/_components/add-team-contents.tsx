@@ -1,7 +1,13 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { ProfileEdit, TextInput, Button, Icon } from "@/components/index";
+import {
+  ProfileEdit,
+  TextInput,
+  Button,
+  Icon,
+  LoadingSpinner,
+} from "@/components/index";
 import usePostGroup from "@/hooks/api/group/use-post-group";
 import useProfileImageManager from "@/hooks/use-profile-image-manager";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
@@ -14,7 +20,7 @@ const AddTeamContents = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<{ name: string }>({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: { name: "" },
   });
 
@@ -29,10 +35,10 @@ const AddTeamContents = () => {
     isUploading: isImageUploading,
   } = useProfileImageManager();
 
-  const onSubmit = (data: { name: string }) => {
+  const onSubmit = (data: { name: string; image?: string }) => {
     createGroup({
       name: data.name,
-      image: profileImage,
+      ...(profileImage && { image: profileImage }),
     });
   };
 
@@ -103,11 +109,7 @@ const AddTeamContents = () => {
             className="text-lg font-medium"
             disabled={!isValid || isPending || isImageUploading}
           >
-            {isPending
-              ? "생성 중..."
-              : isImageUploading
-                ? "이미지 업로드 중..."
-                : "생성하기"}
+            {isPending || isImageUploading ? <LoadingSpinner /> : "생성하기"}
           </Button>
           <p className="text-xs text-gray-800 tablet:text-lg">
             팀 이름은 회사명이나 모임 이름 등으로 설정하면 좋아요.

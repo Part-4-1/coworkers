@@ -8,8 +8,17 @@ const usePatchTaskList = (groupId: number) => {
 
   return useMutation({
     mutationFn: patchTaskList,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["group", groupId] }),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["group", groupId] });
+      queryClient.invalidateQueries({
+        queryKey: [
+          "taskList",
+          groupId,
+          variables.taskListId,
+          new Date().toLocaleDateString("sv-SE"),
+        ],
+      });
+    },
     onError: () => toast.error("변경에 실패했습니다."),
   });
 };

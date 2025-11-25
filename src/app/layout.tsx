@@ -1,5 +1,6 @@
 import pretendard from "@/font/font";
 import "./globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import { Metadata } from "next";
 import QueryProviders from "@/providers";
 import { ToastProvider } from "@/toast-provider";
@@ -7,6 +8,9 @@ import GnbWrapper from "@/components/gnb/gnb-wrapper";
 
 export const metadata: Metadata = {
   title: "Coworkers",
+  icons: {
+    icon: "/ic-coworkers-logo.svg",
+  },
 };
 
 export default function RootLayout({
