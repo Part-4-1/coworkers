@@ -89,6 +89,8 @@ const TaskDetailContents = ({
   };
 
   useEffect(() => {
+    if (isPending) return;
+
     timer.current = setTimeout(() => {
       mutate({
         groupId,
@@ -105,7 +107,7 @@ const TaskDetailContents = ({
     return () => {
       timer.current && clearTimeout(timer.current);
     };
-  }, [newDescription.current, newName.current]);
+  }, [newDescription.current, newName.current, isPending]);
 
   return (
     <>
