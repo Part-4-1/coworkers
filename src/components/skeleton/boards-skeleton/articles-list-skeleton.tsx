@@ -25,7 +25,7 @@ const ArticlesListSkeleton = ({
         <Skeleton
           key={idx}
           containerClassName={`${height} w-full`}
-          className="h-full"
+          className="h-full rounded-full"
         />
       ))}
     </div>
