@@ -77,13 +77,21 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
         <InputReply onSubmit={handleCommentSubmit} disabled={isPending} />
       </div>
       <div className="flex flex-col gap-4">
-        {allComments.map((comment) => (
-          <div key={comment.id}>
-            <hr className="border-gray-300 pb-5" />
-            <Reply comment={comment} articleId={article.id} />
+        {allComments.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <p className="text-lg text-gray-400">아직 작성된 댓글이 없습니다</p>
           </div>
-        ))}
-        <div ref={observerTarget} className="h-4" />
+        ) : (
+          <>
+            {allComments.map((comment) => (
+              <div key={comment.id}>
+                <hr className="border-gray-300 pb-5" />
+                <Reply comment={comment} articleId={article.id} />
+              </div>
+            ))}
+            <div ref={observerTarget} className="h-4" />
+          </>
+        )}
       </div>
     </div>
   );
