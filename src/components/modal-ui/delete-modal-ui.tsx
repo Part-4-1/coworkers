@@ -4,9 +4,10 @@ import Icon from "../icon/Icon";
 
 interface DeleteModalUIProps {
   contents: ReactNode;
-  description: string;
+  description?: string;
   handleClick: () => void;
   handleClose: () => void;
+  confirmMessage?: string;
 }
 
 const DeleteModalUI = ({
@@ -14,6 +15,7 @@ const DeleteModalUI = ({
   description,
   handleClick,
   handleClose,
+  confirmMessage,
 }: DeleteModalUIProps) => {
   return (
     <div className="flex w-full flex-col justify-center gap-6 px-[31.5px] pt-6 tablet:px-9">
@@ -39,7 +41,7 @@ const DeleteModalUI = ({
           onClick={handleClick}
           className="h-[48px] tablet:w-[138px]"
         >
-          삭제하기
+          {confirmMessage ?? "삭제하기"}
         </Button>
       </div>
     </div>
