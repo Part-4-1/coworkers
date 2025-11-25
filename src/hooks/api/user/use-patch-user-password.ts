@@ -19,7 +19,7 @@ const usePatchUserPassword = () => {
 
       queryClient.clear();
 
-      router.push("/signin");
+      window.location.href = "/signin";
     },
     onError: () => {
       toast.error("비밀번호 변경에 실패했습니다 !");

@@ -20,7 +20,7 @@ const AddTeamContents = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<{ name: string }>({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: { name: "" },
   });
 
@@ -35,10 +35,10 @@ const AddTeamContents = () => {
     isUploading: isImageUploading,
   } = useProfileImageManager();
 
-  const onSubmit = (data: { name: string }) => {
+  const onSubmit = (data: { name: string; image?: string }) => {
     createGroup({
       name: data.name,
-      image: profileImage,
+      ...(profileImage && { image: profileImage }),
     });
   };
 

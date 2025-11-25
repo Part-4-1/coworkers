@@ -12,6 +12,7 @@ import useDeleteUser from "@/hooks/api/user/use-delete-user";
 import usePatchUserPassword from "@/hooks/api/user/use-patch-user-password";
 import usePatchUser from "@/hooks/api/user/use-patch-user";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import isSocialLogin from "@/utils/auth-helper";
 
 const UserSettingContents = () => {
   const {
@@ -29,6 +30,8 @@ const UserSettingContents = () => {
   const { mutate: patchPassword } = usePatchUserPassword();
   const { mutate: patchUser } = usePatchUser();
   const { data: userInfo } = useGetUserInfoQuery();
+
+  const isUserSocialLogin = isSocialLogin(userInfo?.email);
 
   const [nickname, setNickname] = useState("");
 
@@ -99,12 +102,14 @@ const UserSettingContents = () => {
           <UserAccountInfoSection
             email={userInfo?.email || ""}
             onPasswordChangeClick={openPasswordModal}
+            isSocialLogin={isUserSocialLogin}
           />
           <UserSettingsActions
             isDirty={isDirty}
             isImageUploading={isImageUploading}
             onDeleteClick={openDeleteModal}
             onSaveClick={handleSaveChanges}
+            isSocialLogin={isUserSocialLogin}
           />
         </div>
         <DeleteModal>

@@ -21,6 +21,6 @@ export const useGetUserInfoQuery = () => {
       }
       return failCount < 2;
     },
-    staleTime: 0,
+    staleTime: 5 * 60 * 1000,
   });
 };
