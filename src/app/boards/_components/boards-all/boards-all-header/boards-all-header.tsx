@@ -22,7 +22,7 @@ const BoardsAllHeader = ({
         },
       },
       {
-        label: "좋아요 많은순",
+        label: "좋아요순",
         onClick: () => {
           onOrderByChange("like");
           onPageReset();

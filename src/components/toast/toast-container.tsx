@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAtomValue } from "jotai";
 import ReactDOM from "react-dom";
 import { ToastDataAtom } from "@/atoms/toast-atom";
@@ -9,19 +9,35 @@ import Toast from "./toast";
 const ToastContainer = () => {
   const [isClient, setIsClient] = useState(false);
   const toast = useAtomValue(ToastDataAtom);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (!dialogRef.current) return;
+
+    if (toast) {
+      if (!dialogRef.current.open) {
+        dialogRef.current.showModal();
+      }
+    } else {
+      dialogRef.current.close();
+    }
+  }, [toast]);
 
   if (!isClient) {
     return null;
   }
 
   return ReactDOM.createPortal(
-    <div className="fixed left-1/2 top-8 z-50 -translate-x-1/2">
+    <dialog
+      ref={dialogRef}
+      className="pointer-events-none fixed inset-0 flex h-full w-full items-start justify-center border-0 bg-transparent p-0 pt-8 backdrop:bg-transparent"
+    >
       {toast && <Toast {...toast} />}
-    </div>,
+    </dialog>,
     document.body
   );
 };
