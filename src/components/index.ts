@@ -39,3 +39,4 @@ export { default as TaskItemSkeleton } from "./skeleton/list-skeleton/task-item-
 export { default as ArticlesListSkeleton } from "./skeleton/boards-skeleton/articles-list-skeleton";
 export { default as ArticleDetailSkeleton } from "./skeleton/boards-skeleton/article-detail-skeleton";
 export { default as ArticleEditSkeleton } from "./skeleton/boards-skeleton/article-edit-skeleton";
+export { default as UserSettingsSkeleton } from "./skeleton/user-skeleton/user-settings-skeleton";
