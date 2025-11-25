@@ -27,10 +27,11 @@ const TeamMembersSection = ({
 
   const { data: invitationToken } = useGetInvitationToken(groupId);
   const { success, error } = useToast();
-  const sortedMembers = [
-    ...members.filter((member) => member.role === "ADMIN"),
-    ...members.filter((member) => member.role !== "ADMIN"),
-  ];
+  const sortedMembers = [...members].sort((a, b) => {
+    if (a.role === "ADMIN" && b.role !== "ADMIN") return -1;
+    if (a.role !== "ADMIN" && b.role === "ADMIN") return 1;
+    return 0;
+  });
 
   const handleCopyLink = async () => {
     try {

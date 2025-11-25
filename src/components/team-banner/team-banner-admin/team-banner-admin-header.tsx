@@ -23,6 +23,12 @@ const TeamBannerAdminHeader = ({
   const isPc = useMediaQuery("(min-width: 1280px)");
   const isTablet = useMediaQuery("(min-width: 744px) and (max-width: 1280px)");
 
+  const sortedMembers = [...members].sort((a, b) => {
+    if (a.role === "ADMIN" && b.role !== "ADMIN") return -1;
+    if (a.role !== "ADMIN" && b.role === "ADMIN") return 1;
+    return 0;
+  });
+
   return (
     <div
       className={cn(
@@ -41,7 +47,7 @@ const TeamBannerAdminHeader = ({
         {isPc ? (
           showProfileListonPc && (
             <ProfileList
-              members={members}
+              members={sortedMembers}
               className="max-w-[75px] shrink-0 tablet:max-w-[87px]"
             />
           )
