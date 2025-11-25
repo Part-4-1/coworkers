@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarHeader from "./_components/sidebar-header/sidebar-header";
 import SidebarDropdown from "./_components/sidebar-dropdown/sidebar-dropdown";
 import SidebarFooter from "./_components/sidebar-footer/sidebar-footer";

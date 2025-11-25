@@ -81,17 +81,6 @@ const SidebarMenu = ({
           isSidebarOpen && iconStyles.SidebarOpen
         )}
       />
-      {/* {!isSidebarOpen && (
-        <div
-          className={cn(
-            tooltipStyles.base,
-            tooltipStyles.before,
-            isSelected && "text-blue-200"
-          )}
-        >
-          {title}
-        </div>
-      )} */}
 
       {!isSidebarOpen &&
         isHovered &&

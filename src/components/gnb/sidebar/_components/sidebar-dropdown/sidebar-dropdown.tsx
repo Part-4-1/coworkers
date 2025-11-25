@@ -35,7 +35,8 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
-  const sidebarRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [showScrollbar, setShowScrollbar] = useState(false);
 
   const { data: userInfo } = useGetUserInfoQuery();
 
@@ -50,32 +51,38 @@ const SidebarDropdown = ({
     useTooltip(isSidebarOpen);
 
   useEffect(() => {
-    const sidebarElement = sidebarRef.current;
+    const dropdownElement = dropdownRef.current;
 
-    if (!isSidebarOpen && sidebarElement) {
-      sidebarElement.style.paddingRight = "";
-      return;
-    }
-    if (!sidebarElement) return;
+    if (!dropdownElement) return;
 
-    const updatePadding = () => {
-      const scrollBarWidth =
-        sidebarElement.offsetWidth - sidebarElement.clientWidth;
-
-      const basePadding = 16;
-      const newPadding = Math.max(basePadding - scrollBarWidth, 0);
-
-      sidebarElement.style.paddingRight = `${newPadding}px`;
+    const handleScroll = () => {
+      setShowScrollbar(true);
     };
 
-    updatePadding();
+    dropdownElement.addEventListener("scroll", handleScroll);
+    return () => dropdownElement.removeEventListener("scroll", handleScroll);
+  }, []);
 
+  useEffect(() => {
+    const dropdownElement = dropdownRef.current;
+
+    if (!isSidebarOpen && dropdownElement) {
+      dropdownElement.style.paddingRight = "";
+      return;
+    }
+    if (!dropdownElement) return;
+    const updatePadding = () => {
+      const scrollBarWidth =
+        dropdownElement.offsetWidth - dropdownElement.clientWidth;
+      const basePadding = 16;
+      const newPadding = Math.max(basePadding - scrollBarWidth, 0);
+      dropdownElement.style.paddingRight = `${newPadding}px`;
+    };
+    updatePadding();
     const observer = new ResizeObserver(() => {
       updatePadding();
     });
-
-    observer.observe(sidebarElement);
-
+    observer.observe(dropdownElement);
     return () => observer.disconnect();
   }, [isSidebarOpen]);
 
@@ -84,10 +91,18 @@ const SidebarDropdown = ({
       className={cn(
         "w-full max-w-[255px] pr-4",
         isSidebarOpen
-          ? "max-h-[300px] overflow-y-auto overflow-x-hidden"
+          ? [
+              "max-h-[300px] overflow-y-auto",
+              "[&::-webkit-scrollbar]:w-1.5",
+              "[&::-webkit-scrollbar-track]:bg-transparent",
+              "[&::-webkit-scrollbar-thumb]:rounded-full",
+              "[&::-webkit-scrollbar-thumb]:bg-transparent",
+              (showScrollbar || isHovered) &&
+                "[&::-webkit-scrollbar-thumb]:bg-gray-300",
+            ]
           : "max-h-[300px] overflow-y-auto overflow-x-visible scrollbar-hide"
       )}
-      ref={sidebarRef}
+      ref={dropdownRef}
     >
       <div
         onClick={onToggle}
@@ -124,11 +139,7 @@ const SidebarDropdown = ({
             )}
           </AnimatePresence>
         </div>
-        {/* {!isSidebarOpen && !isOpen && (
-          <span className={cn(tooltipStyles.base, tooltipStyles.before)}>
-            {selectedTeamName}
-          </span>
-        )} */}
+
         {!isSidebarOpen &&
           !isOpen &&
           isHovered &&
