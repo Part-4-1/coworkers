@@ -68,8 +68,8 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
   const allComments = data?.pages.flatMap((page) => page.list) ?? [];
 
   return (
-    <div>
-      <div className="mb-3 mt-[32px] flex items-center justify-between tablet:mb-4 tablet:mt-[61px]">
+    <>
+      <div className="mb-3 mt-8 flex items-center justify-between tablet:mb-4 tablet:mt-[61px]">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1 font-bold">
             <Icon
@@ -91,14 +91,14 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
               icon={article.isLiked ? "heartActive" : "heartDefault"}
               className="h-[18px] w-[18px] tablet:h-5 tablet:w-5"
             />
-            <p className="text-md tablet:text-2lg">{article.likeCount}</p>
+            <span className="text-md tablet:text-2lg">{article.likeCount}</span>
           </Button>
         </div>
         <Link href="/boards">
           <Button variant="none" className="pr-2">
             <Icon
               icon="articleList"
-              className="h-6 w-6 text-blue-100 pc:h-8 pc:w-8"
+              className="h-[18px] w-[18px] text-blue-100 pc:h-5 pc:w-5"
             />
           </Button>
         </Link>
@@ -117,24 +117,25 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
         )}
         <InputReply onSubmit={handleCommentSubmit} disabled={isPending} />
       </div>
-      <div className="flex flex-col gap-4">
-        {allComments.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20">
-            <p className="text-lg text-gray-400">아직 작성된 댓글이 없습니다</p>
-          </div>
-        ) : (
-          <>
-            {allComments.map((comment) => (
-              <div key={comment.id}>
-                <hr className="border-gray-300 pb-5" />
-                <Reply comment={comment} articleId={article.id} />
-              </div>
-            ))}
-            <div ref={observerTarget} className="h-4" />
-          </>
-        )}
-      </div>
-    </div>
+
+      {allComments.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-20">
+          <p className="text-lg text-gray-400">아직 작성된 댓글이 없습니다</p>
+        </div>
+      )}
+
+      {allComments.length > 0 && (
+        <div className="flex flex-col gap-4">
+          {allComments.map((comment) => (
+            <div key={comment.id}>
+              <hr className="border-gray-300 pb-5" />
+              <Reply comment={comment} articleId={article.id} />
+            </div>
+          ))}
+          <div ref={observerTarget} className="h-4" />
+        </div>
+      )}
+    </>
   );
 };
 
