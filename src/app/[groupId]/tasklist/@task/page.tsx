@@ -80,27 +80,19 @@ const Page = () => {
           <TaskDetailWrapper onClose={handleClose}>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-10 tablet:gap-14 pc:gap-[68px]">
-                {!isPending ? (
-                  <TaskDetailContents
-                    {...taskDetailData}
-                    createdAt={taskDetailData.recurring.createdAt}
-                    groupId={groupId}
-                    taskListId={taskListId}
-                    taskId={taskId}
-                  />
-                ) : (
-                  ""
-                )}
+                <TaskDetailContents
+                  {...taskDetailData}
+                  createdAt={taskDetailData?.recurring?.createdAt}
+                  groupId={groupId}
+                  taskListId={taskListId}
+                  taskId={taskId}
+                />
                 <div className="flex flex-col gap-4">
                   <p className="text-lg font-bold tablet:text-2lg">
                     댓글{" "}
-                    {!isPending ? (
-                      <span className="text-blue-200">
-                        {taskDetailData.commentCount}
-                      </span>
-                    ) : (
-                      ""
-                    )}
+                    <span className="text-blue-200">
+                      {taskDetailData?.commentCount || 0}
+                    </span>
                   </p>
                   <InputReply onSubmit={postTaskDetailComment} />
                 </div>

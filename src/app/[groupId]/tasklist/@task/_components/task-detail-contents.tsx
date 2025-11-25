@@ -9,6 +9,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
 import { toKoreanDateWithTimeString } from "@/utils/date-util";
 import { changeFrequencyCode } from "@/utils/util";
+import Skeleton from "react-loading-skeleton";
 
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
@@ -110,16 +111,31 @@ const TaskDetailContents = ({
       <div className="flex flex-col gap-6">
         <div className="flex w-full flex-col gap-4">
           <div className="flex items-center justify-between">
-            <TextareaAutosize
-              name={name}
-              defaultValue={name}
-              onChange={handleNameChange}
-              className="h-auto w-full resize-none text-xl font-bold focus:outline-none tablet:text-2xl"
-            />
+            {name ? (
+              <TextareaAutosize
+                name={name}
+                defaultValue={name}
+                maxLength={30}
+                onChange={handleNameChange}
+                className="h-auto w-full resize-none text-xl font-bold focus:outline-none tablet:text-2xl"
+              />
+            ) : (
+              <Skeleton
+                containerClassName="flex w-full h-6 tablet:h-7"
+                className="h-full"
+              />
+            )}
           </div>
           <div className="flex items-center gap-3">
-            <Profile image={writer.image ?? ""} size="md" />
-            <span className="text-md font-medium">{writer.nickname}</span>
+            <Profile image={writer?.image ?? ""} size="md" />
+            {writer ? (
+              <span className="text-md font-medium">{writer?.nickname}</span>
+            ) : (
+              <Skeleton
+                containerClassName="flex w-16 h-[17px]"
+                className="h-full"
+              />
+            )}
           </div>
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
@@ -140,12 +156,16 @@ const TaskDetailContents = ({
             <hr className="h-[2px] bg-gray-300" />
           </div>
         </div>
-        <TextareaAutosize
-          name={`${name} description`}
-          defaultValue={description}
-          onChange={handleDescriptionChange}
-          className="h-auto w-full resize-none focus:outline-none"
-        />
+        {description ? (
+          <TextareaAutosize
+            name={`${name} description`}
+            defaultValue={description}
+            onChange={handleDescriptionChange}
+            className="h-auto w-full resize-none focus:outline-none"
+          />
+        ) : (
+          <Skeleton containerClassName="flex w-full h-6" className="h-full" />
+        )}
       </div>
     </>
   );
@@ -166,7 +186,14 @@ const TaskMetadata = ({ icon, label, text }: TaskMetadataProps) => {
         <Icon icon={icon} className="h-4 w-4" />
         <span className="text-xs text-gray-800">{label}</span>
       </div>
-      <span className="text-xs">{text}</span>
+      {text ? (
+        <span className="text-xs">{text}</span>
+      ) : (
+        <Skeleton
+          containerClassName="h-[14px] w-[140px] flex"
+          className="h-full"
+        />
+      )}
     </div>
   );
 };
