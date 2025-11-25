@@ -37,7 +37,13 @@ const usePatchTaskDone = (date: string) => {
         queryKey: ["taskItems", variables.groupId, variables.taskListId, date],
       });
       queryClient.invalidateQueries({
-        queryKey: ["taskDetail", variables.groupId, variables.taskListId],
+        queryKey: [
+          "taskDetail",
+          variables.groupId,
+          variables.taskListId,
+          variables.taskId,
+        ],
+        refetchType: "inactive",
       });
       queryClient.invalidateQueries({
         queryKey: ["group", variables.groupId],
