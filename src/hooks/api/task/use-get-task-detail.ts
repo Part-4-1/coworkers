@@ -9,7 +9,6 @@ const useGetTaskDetail = (
   return useQuery({
     queryKey: ["taskDetail", groupId, taskListId, taskId],
     queryFn: () => getTaskDetail(groupId, taskListId, taskId),
-    // gcTime: 0,
     retry: 1,
     enabled: !!taskId,
   });
