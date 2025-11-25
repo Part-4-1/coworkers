@@ -16,7 +16,7 @@ const UserSettingsActions = ({
   isSocialLogin = false,
 }: UserSettingsActionsProps) => {
   return (
-    <div className="mt-[41.5px] flex w-full items-center justify-between tablet:mt-[42.5px] pc:mt-[30.5px]">
+    <div className="flex w-full items-center justify-between">
       {!isSocialLogin && (
         <Button
           variant="none"
