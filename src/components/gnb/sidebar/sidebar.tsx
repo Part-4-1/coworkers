@@ -134,7 +134,8 @@ const Sidebar = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-              <hr className="mr-4 border-gray-400" />
+              {isTeamExist ||
+                (isSidebarOpen && <hr className="mr-4 border-gray-400" />)}
               <div className="bg-white pr-4">
                 <SidebarMenu
                   iconName="board"
