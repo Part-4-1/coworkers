@@ -1,3 +1,4 @@
+import cn from "@/utils/clsx";
 import Skeleton from "react-loading-skeleton";
 
 interface ArticlesListSkeletonProps {
@@ -24,7 +25,11 @@ const ArticlesListSkeleton = ({
       {Array.from({ length: count }).map((_, idx) => (
         <Skeleton
           key={idx}
-          containerClassName={`${height} w-full`}
+          containerClassName={cn(
+            `${height} w-full`,
+            isBest && idx === 1 && "hidden tablet:block",
+            isBest && idx === 2 && "hidden pc:block"
+          )}
           className="h-full"
           borderRadius="20px"
         />
