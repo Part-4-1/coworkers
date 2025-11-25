@@ -36,3 +36,4 @@ export { default as TeamBannerAdmin } from "./team-banner/team-banner-admin/team
 export { default as TeamBannerMember } from "./team-banner/team-banner-member/team-banner-member";
 export { default as CalendarListSkeleton } from "./skeleton/list-skeleton/calendar-list-skeleton";
 export { default as TaskItemSkeleton } from "./skeleton/list-skeleton/task-item-skeleton";
+export { default as ArticlesListSkeleton } from "./skeleton/boards-skeleton/articles-list-skeleton";
