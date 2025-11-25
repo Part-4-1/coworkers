@@ -4,7 +4,12 @@ import TaskDetailComment from "./_components/task-detail-comment";
 import TaskDetailContents from "./_components/task-detail-contents";
 import { InputReply } from "@/components";
 import TaskDetailWrapper from "./_components/task-detail-wrapper";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import useGetTaskDetail from "@/hooks/api/task/use-get-task-detail";
 import { AnimatePresence } from "framer-motion";
 import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
@@ -39,13 +44,14 @@ const pageVariants = {
 const Page = () => {
   const router = useRouter();
   const param = useParams();
+  const pathName = usePathname();
   const searchParam = useSearchParams();
   const taskId = Number(searchParam.get("task"));
   const taskListId = Number(searchParam.get("list"));
   const groupId = Number(param.groupId);
 
   const handleClose = () => {
-    router.back();
+    router.push(`${pathName}?list=${taskListId}`);
   };
 
   const { data: taskDetailData, isPending } = useGetTaskDetail(

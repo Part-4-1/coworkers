@@ -37,12 +37,7 @@ const usePatchTaskDone = (date: string) => {
         queryKey: ["taskItems", variables.groupId, variables.taskListId, date],
       });
       queryClient.invalidateQueries({
-        queryKey: [
-          "taskDetail",
-          variables.groupId,
-          variables.taskListId,
-          variables.taskId,
-        ],
+        queryKey: ["taskDetail", variables.groupId, variables.taskListId],
       });
       queryClient.invalidateQueries({
         queryKey: ["group", variables.groupId],
@@ -52,7 +47,7 @@ const usePatchTaskDone = (date: string) => {
       });
     },
     onError: (error) => {
-      console.error("완료하지 못했습니다.", error);
+      console.error(error);
     },
   });
 };
