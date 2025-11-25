@@ -11,6 +11,7 @@ export { default as Sidebar } from "./gnb/sidebar/sidebar";
 export { default as Icon } from "./icon/Icon";
 export { default as ImageUpload } from "./image-upload/image-upload";
 export { default as InputBox } from "./input-box/input-box";
+export { default as LoadingSpinner } from "./loading-spinner/loading-spinner";
 export { default as TextInput } from "./input-components/text-input";
 export { default as InputReply } from "./input-reply/input-reply";
 export { default as AddTaskListModalUI } from "./modal-ui/add-task-list-modal-ui";

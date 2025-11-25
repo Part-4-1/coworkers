@@ -83,7 +83,7 @@ const TeamBannerAdmin = ({
       className={cn(
         "relative flex min-w-[270px] flex-col justify-between bg-white shadow-xl",
         "h-[196px] w-full justify-between pb-[30px] pl-[25px] pr-[28px] pt-[20px] tablet:rounded-[20px]",
-        "tablet:h-[239px] tablet:pb-[34px] tablet:pt-[30px] pc:w-[1120px] pc:pr-[36px] pc:pt-[32px]",
+        "tablet:h-[239px] tablet:pb-[34px] tablet:pt-[30px] pc:pr-[36px] pc:pt-[32px]",
         className
       )}
     >

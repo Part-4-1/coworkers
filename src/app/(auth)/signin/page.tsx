@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
-import { Button, Icon, TextInput } from "@/components";
+import { Button, Icon, TextInput, LoadingSpinner } from "@/components";
 import { EMAIL_REGEX, PASSWORD_MIN_LENGTH } from "@/constants/regex";
 import { SignupRequest } from "@/api/auth/signup-action";
 import { useForm } from "react-hook-form";
@@ -115,10 +115,10 @@ const Page = () => {
             <Button
               className="mt-4"
               type="submit"
-              disabled={!isValid}
+              disabled={!isValid || isPending}
               aria-label="Login"
             >
-              {isPending ? "전송 중..." : "로그인"}
+              {isPending ? <LoadingSpinner /> : "로그인"}
             </Button>
             <div className="gap-3 flex-center">
               <p className="flex justify-end text-lg font-medium text-blue-700">

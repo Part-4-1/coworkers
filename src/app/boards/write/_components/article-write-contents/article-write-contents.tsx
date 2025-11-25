@@ -4,7 +4,12 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import cn from "@/utils/clsx";
-import { InputBox, ImageUpload, Button } from "@/components/index";
+import {
+  InputBox,
+  ImageUpload,
+  Button,
+  LoadingSpinner,
+} from "@/components/index";
 import { usePostArticle } from "@/hooks/api/articles/use-post-article";
 
 interface WriteFormData {
@@ -96,7 +101,7 @@ const ArticleWriteContents = () => {
         disabled={isPending}
         className={isPending ? "cursor-not-allowed opacity-50" : ""}
       >
-        {isPending ? "등록중..." : "등록하기"}
+        {isPending ? <LoadingSpinner /> : "등록하기"}
       </Button>
     </form>
   );

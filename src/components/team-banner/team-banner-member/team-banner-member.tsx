@@ -41,7 +41,7 @@ const TeamBannerMember = ({
       className={cn(
         "relative flex h-[56px] w-full justify-between bg-white pl-[18px] pr-[16px]",
         "items-center tablet:h-[64px] tablet:rounded-[12px] tablet:pl-[26px] tablet:pr-[20px]",
-        "min-w-[270px] pc:w-[1120px]",
+        "min-w-[270px]",
         className
       )}
     >
