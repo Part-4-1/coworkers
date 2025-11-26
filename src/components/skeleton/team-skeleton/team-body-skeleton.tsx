@@ -11,10 +11,7 @@ const TeamBodySkeleton = () => {
 
         <div className="flex flex-col gap-[16px]">
           {Array.from({ length: 3 }).map((_, idx) => (
-            <div
-              key={idx}
-              className="flex h-[40px] w-full rounded-[12px] bg-white"
-            ></div>
+            <Skeleton key={idx} className="h-[40px] w-full rounded-[12px]" />
           ))}
         </div>
       </div>
