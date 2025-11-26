@@ -15,6 +15,7 @@ import { AnimatePresence } from "framer-motion";
 import { useCreateComment } from "@/hooks/api/comments/use-create-comment";
 import { motion } from "framer-motion";
 import cn from "@/utils/clsx";
+import TaskDetailInputReply from "./_components/task-detail-input-reply";
 
 const pageVariants = {
   initial: {
@@ -98,7 +99,7 @@ const Page = () => {
                       {taskDetailData?.commentCount || 0}
                     </span>
                   </div>
-                  <InputReply onSubmit={postTaskDetailComment} />
+                  <TaskDetailInputReply taskId={taskId} />
                 </div>
               </div>
               <TaskDetailComment taskId={taskId} />
