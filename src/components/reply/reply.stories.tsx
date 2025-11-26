@@ -12,6 +12,12 @@ const meta = {
     comment: {
       description: "댓글 데이터 객체",
     },
+    onEdit: {
+      description: "댓글 수정 콜백",
+    },
+    onDelete: {
+      description: "댓글 삭제 콜백",
+    },
   },
   decorators: [
     (Story) => (
@@ -39,6 +45,9 @@ export const Default: Story = {
       createdAt: "2024-07-25T06:30:00.000Z",
       updatedAt: "2024-07-25T06:30:00.000Z",
     },
+    onEdit: (commentId: number, content: string) =>
+      console.log("댓글 수정:", commentId, content),
+    onDelete: (commentId: number) => console.log("댓글 삭제:", commentId),
   },
 };
 
@@ -57,6 +66,9 @@ export const LongContent: Story = {
       createdAt: "2024-07-25T06:30:00.000Z",
       updatedAt: "2024-07-25T06:30:00.000Z",
     },
+    onEdit: (commentId: number, content: string) =>
+      console.log("댓글 수정:", commentId, content),
+    onDelete: (commentId: number) => console.log("댓글 삭제:", commentId),
   },
 };
 
@@ -74,6 +86,9 @@ export const ShortContent: Story = {
       createdAt: "2024-07-25T06:30:00.000Z",
       updatedAt: "2024-07-25T06:30:00.000Z",
     },
+    onEdit: (commentId: number, content: string) =>
+      console.log("댓글 수정:", commentId, content),
+    onDelete: (commentId: number) => console.log("댓글 삭제:", commentId),
   },
 };
 
@@ -91,6 +106,9 @@ export const LongNickname: Story = {
       createdAt: "2024-07-25T06:30:00.000Z",
       updatedAt: "2024-07-25T06:30:00.000Z",
     },
+    onEdit: (commentId: number, content: string) =>
+      console.log("댓글 수정:", commentId, content),
+    onDelete: (commentId: number) => console.log("댓글 삭제:", commentId),
   },
 };
 
@@ -107,5 +125,8 @@ export const NoProfileImage: Story = {
       createdAt: "2024-07-25T06:30:00.000Z",
       updatedAt: "2024-07-25T06:30:00.000Z",
     },
+    onEdit: (commentId: number, content: string) =>
+      console.log("댓글 수정:", commentId, content),
+    onDelete: (commentId: number) => console.log("댓글 삭제:", commentId),
   },
 };
