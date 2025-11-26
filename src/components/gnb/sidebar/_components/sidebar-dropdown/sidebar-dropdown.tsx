@@ -1,12 +1,14 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/index";
 import SidebarMenu from "../sidebar-menu/sidebar-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import cn from "@/utils/clsx";
 import { tooltipStyles } from "@/constants/styles";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { useTooltip } from "@/hooks/use-tooltip";
+import { createPortal } from "react-dom";
 
 /**
  * @author leohan
@@ -33,6 +35,9 @@ const SidebarDropdown = ({
   onToggle,
   currentTeamId,
 }: SidebarDropdownProps) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [showScrollbar, setShowScrollbar] = useState(false);
+
   const { data: userInfo } = useGetUserInfoQuery();
 
   const selectedMembership = userInfo?.memberships?.find(
@@ -42,26 +47,86 @@ const SidebarDropdown = ({
     ? selectedMembership.group.name
     : "팀 선택";
 
+  const { isHovered, tooltipPosition, handleMouseEnter, handleMouseLeave } =
+    useTooltip(isSidebarOpen);
+
+  useEffect(() => {
+    const dropdownElement = dropdownRef.current;
+
+    if (!dropdownElement) return;
+
+    const handleScroll = () => {
+      setShowScrollbar(true);
+    };
+
+    dropdownElement.addEventListener("scroll", handleScroll);
+    return () => dropdownElement.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const dropdownElement = dropdownRef.current;
+
+    if (!isSidebarOpen && dropdownElement) {
+      dropdownElement.style.paddingRight = "";
+      return;
+    }
+    if (!dropdownElement) return;
+    const updatePadding = () => {
+      const scrollBarWidth =
+        dropdownElement.offsetWidth - dropdownElement.clientWidth;
+      const basePadding = 16;
+      const newPadding = Math.max(basePadding - scrollBarWidth, 0);
+      dropdownElement.style.paddingRight = `${newPadding}px`;
+    };
+    updatePadding();
+    const observer = new ResizeObserver(() => {
+      updatePadding();
+    });
+    observer.observe(dropdownElement);
+    return () => observer.disconnect();
+  }, [isSidebarOpen]);
+
   return (
-    <div className="w-full max-w-[238px]">
+    <div
+      className={cn(
+        "w-full max-w-[255px] pr-4",
+        isSidebarOpen
+          ? [
+              "max-h-[300px] overflow-y-auto",
+              "[&::-webkit-scrollbar]:w-1.5",
+              "[&::-webkit-scrollbar-track]:bg-transparent",
+              "[&::-webkit-scrollbar-thumb]:rounded-full",
+              "[&::-webkit-scrollbar-thumb]:bg-transparent",
+              (showScrollbar || isHovered) &&
+                "[&::-webkit-scrollbar-thumb]:bg-gray-300",
+            ]
+          : "max-h-[300px] overflow-y-auto overflow-x-visible scrollbar-hide"
+      )}
+      ref={dropdownRef}
+    >
       <div
         onClick={onToggle}
         className={`group relative flex cursor-pointer justify-between rounded-xl py-2 ${isSidebarOpen ? "px-4" : "px-2"}`}
       >
-        <div className="flex items-center gap-3">
+        <div
+          className="flex min-w-0 items-center gap-3"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <Icon
             icon="chess"
             className={cn(
               iconStyles.default,
               isSidebarOpen && iconStyles.sidebarOpen,
-              !!selectedMembership && "text-blue-200"
+              !!selectedMembership && "text-blue-200",
+              "flex-shrink-0"
             )}
           />
           <AnimatePresence>
             {isSidebarOpen && (
               <motion.span
                 className={cn(
-                  "whitespace-nowrap text-gray-700 group-hover:text-blue-200",
+                  "truncate text-gray-700 group-hover:text-blue-200",
                   !!selectedMembership && "text-blue-200"
                 )}
                 initial={{ opacity: 0 }}
@@ -74,15 +139,23 @@ const SidebarDropdown = ({
             )}
           </AnimatePresence>
         </div>
-        {!isSidebarOpen && !isOpen && (
-          <span className={cn(tooltipStyles.base, tooltipStyles.before)}>
-            {selectedTeamName}
-          </span>
-        )}
+
+        {!isSidebarOpen &&
+          !isOpen &&
+          isHovered &&
+          createPortal(
+            <span
+              className={cn(tooltipStyles.base, tooltipStyles.before)}
+              style={{ top: tooltipPosition.top, left: tooltipPosition.left }}
+            >
+              {selectedTeamName}
+            </span>,
+            document.body
+          )}
         {isSidebarOpen && (
           <Icon
             icon="downArrow"
-            className={`h-5 w-5 text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
+            className={`h-5 w-5 shrink-0 text-gray-800 transition-transform duration-200 ease-in-out group-hover:text-gray-400 ${isOpen ? "rotate-180" : "rotate-0"}`}
           />
         )}
       </div>
