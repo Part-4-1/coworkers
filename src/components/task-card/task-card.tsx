@@ -5,8 +5,6 @@ import useDeleteTaskList from "@/hooks/api/task/use-delete-task-list";
 import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import cn from "@/utils/clsx";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { MouseEventHandler } from "react";
 import Badge, { BadgeProps } from "../badge/badge";
 import Button from "../button/button";
@@ -34,7 +32,6 @@ const TaskCard = ({
   completed,
   handleClickCheckbox,
 }: TaskCardProps) => {
-  const pathName = usePathname();
   const {
     Modal: DeleteModal,
     openPrompt: openDeleteModal,
@@ -63,22 +60,19 @@ const TaskCard = ({
     <div
       className={cn(
         "flex h-[54px] w-[270px] flex-col justify-center rounded-xl border border-gray-300",
-        "gap-4 bg-white pl-5 pr-4",
+        "pointer-events-none relative inset-0 gap-4 bg-white pl-5 pr-4",
         taskList && "pb-6 pt-4"
       )}
     >
       <div className="flex items-center justify-between">
-        <Link href={`${pathName}?list=${taskListId}`}>
-          <p
-            className={cn(
-              "w-[150px] cursor-pointer truncate text-md font-semibold",
-              taskListId === pageListId && "text-blue-200"
-            )}
-          >
-            {taskTitle}
-          </p>
-        </Link>
-        <div className="flex">
+        <p
+          className={cn(
+            "w-[150px] cursor-pointer truncate text-md font-semibold"
+          )}
+        >
+          {taskTitle}
+        </p>
+        <div className="flex" onClick={(e) => e.stopPropagation()}>
           <Badge total={total} completed={completed} />
           <Dropdown
             trigger={
@@ -90,6 +84,8 @@ const TaskCard = ({
               { label: "수정하기", onClick: openChangeModal },
               { label: "삭제하기", onClick: openDeleteModal },
             ]}
+            className="pointer-events-auto"
+            menuAlign="start"
           />
         </div>
       </div>
