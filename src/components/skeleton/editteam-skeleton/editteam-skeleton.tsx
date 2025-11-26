@@ -12,19 +12,19 @@ const EditTeamSkeleton = () => {
         )}
       >
         <div className="mb-[32px] w-full items-start">
-          <Skeleton className="h-[28px] tablet:h-[32px]" />
+          <Skeleton className="h-[28px] tablet:h-[32px]" borderRadius="8px" />
         </div>
 
         <div className="mb-[12px] w-[77px] tablet:mb-[24px] tablet:w-[112px]">
-          <Skeleton className="h-[78px] tablet:h-[116px]" />
+          <Skeleton className="h-[78px] tablet:h-[116px]" borderRadius="12px" />
         </div>
 
         <div className="mb-[40px] w-full">
-          <Skeleton className="h-[48px]" />
+          <Skeleton className="h-[48px]" borderRadius="12px" />
         </div>
 
         <div className="mb-[20px] w-full tablet:mb-[24px]">
-          <Skeleton className="h-[48px]" />
+          <Skeleton className="h-[48px]" borderRadius="12px" />
         </div>
       </div>
     </main>
