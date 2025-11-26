@@ -16,6 +16,7 @@ const NoTeam = () => {
           sizes="h-[120px] w-[183px] tablet:h-[211px] tablet:w-[323px] pc:h-[264px] pc:w-[404px]"
           className="object-contain"
           priority={true}
+          draggable={false}
         />
       </div>
       <div

@@ -36,6 +36,12 @@ const TeamBannerMember = ({
   showProfileListonPc = true,
 }: TeamBannerMemberProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
+  const sortedMembers = [...members].sort((a, b) => {
+    if (a.role === "ADMIN" && b.role !== "ADMIN") return -1;
+    if (a.role !== "ADMIN" && b.role === "ADMIN") return 1;
+    return 0;
+  });
+
   return (
     <div
       className={cn(
@@ -66,13 +72,13 @@ const TeamBannerMember = ({
           {isPc ? (
             showProfileListonPc && (
               <ProfileList
-                members={members}
+                members={sortedMembers}
                 className="max-w-[75px] shrink-0 tablet:max-w-[87px]"
               />
             )
           ) : (
             <ProfileList
-              members={members}
+              members={sortedMembers}
               className="max-w-[75px] shrink-0 tablet:max-w-[87px]"
             />
           )}

@@ -110,6 +110,7 @@ const TeamBannerAdmin = ({
           groupName={groupName}
           members={members}
           showProfileListonPc={showProfileListOnPc}
+          groupId={groupId}
         />
       </div>
       <div

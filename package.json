@@ -28,7 +28,8 @@
     "react-hook-form": "^7.65.0",
     "react-loading-skeleton": "^3.5.0",
     "react-textarea-autosize": "^8.5.9",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "tailwind-scrollbar-hide": "^4.0.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.2",
