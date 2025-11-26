@@ -17,7 +17,6 @@ const ArticleContents = ({ article }: ArticleContentsProps) => {
           width={140}
           height={140}
           className="rounded-lg tablet:h-[200px] tablet:w-[200px]"
-          onError={() => console.log("이미지 로드 실패:", article.image)}
         />
       )}
       <p className="whitespace-pre-wrap break-words">{article.content}</p>
