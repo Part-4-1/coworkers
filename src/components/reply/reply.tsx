@@ -26,7 +26,7 @@ const Reply = ({ comment, onEdit, onDelete }: CommentProps) => {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
+  const handleEdit = () => {
     onEdit(comment.id, editedContent);
     setIsEditing(false);
   };
@@ -103,7 +103,7 @@ const Reply = ({ comment, onEdit, onDelete }: CommentProps) => {
             />
             <div className="flex gap-2">
               <Button
-                onClick={handleSave}
+                onClick={handleEdit}
                 className="text-md"
                 disabled={isSaveDisabled}
               >
