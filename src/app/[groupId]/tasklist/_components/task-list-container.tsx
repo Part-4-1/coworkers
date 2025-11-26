@@ -11,8 +11,10 @@ import {
 import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import { countDoneTask } from "@/utils/util";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import Link from "next/link";
 
 interface TodoContainerProps {
   groupId: number;
@@ -27,6 +29,7 @@ const TaskListContainer = ({
   taskList,
   isPending,
 }: TodoContainerProps) => {
+  const pathName = usePathname();
   const { mutate: createTaskList, isPending: isPostPending } =
     usePostTaskList();
   const { Modal: AddTaskListModal, openPrompt, closePrompt } = usePrompt(true);
@@ -35,6 +38,12 @@ const TaskListContainer = ({
     closePrompt();
     createTaskList({ groupId: groupId, name: name });
   };
+
+  const [optimisticTaskListId, setOptimisticTaskListId] = useState(taskListId);
+
+  useEffect(() => {
+    setOptimisticTaskListId(taskListId);
+  }, [taskListId]);
 
   return (
     <div
@@ -89,7 +98,22 @@ const TaskListContainer = ({
           {!isPending ? (
             taskList.map((task) => {
               return (
-                <li key={task.id}>
+                <li
+                  key={task.id}
+                  className={cn(
+                    "relative",
+                    task.id === optimisticTaskListId
+                      ? "text-blue-200"
+                      : "text-blue-700"
+                  )}
+                  onClick={() => setOptimisticTaskListId(task.id)}
+                >
+                  <Link
+                    href={`${pathName}?list=${task.id}`}
+                    scroll={false}
+                    className="absolute inset-0 z-0"
+                  />
+
                   <TaskCard
                     groupId={groupId}
                     taskListId={task.id}
