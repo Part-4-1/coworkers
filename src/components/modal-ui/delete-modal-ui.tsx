@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Button from "../button/button";
 import Icon from "../icon/Icon";
+import LoadingSpinner from "../loading-spinner/loading-spinner";
 
 interface DeleteModalUIProps {
   contents: ReactNode;
@@ -8,6 +9,7 @@ interface DeleteModalUIProps {
   handleClick: () => void;
   handleClose: () => void;
   confirmMessage?: string;
+  isPeding?: boolean;
 }
 
 const DeleteModalUI = ({
@@ -16,6 +18,7 @@ const DeleteModalUI = ({
   handleClick,
   handleClose,
   confirmMessage,
+  isPeding,
 }: DeleteModalUIProps) => {
   return (
     <div className="flex w-full flex-col justify-center gap-6 px-[31.5px] pt-6 tablet:px-9">
@@ -40,8 +43,9 @@ const DeleteModalUI = ({
           variant="alert"
           onClick={handleClick}
           className="h-[48px] tablet:w-[138px]"
+          disabled={isPeding}
         >
-          {confirmMessage ?? "삭제하기"}
+          {isPeding ? <LoadingSpinner /> : (confirmMessage ?? "삭제하기")}
         </Button>
       </div>
     </div>
