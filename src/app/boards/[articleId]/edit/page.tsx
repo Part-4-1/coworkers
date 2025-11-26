@@ -1,5 +1,6 @@
 "use client";
 
+import cn from "@/utils/clsx";
 import { useParams } from "next/navigation";
 import { useGetArticleDetail } from "@/hooks/api/articles/use-get-article-detail";
 import { ArticleEditSkeleton } from "@/components";
@@ -19,7 +20,13 @@ export default function EditPage() {
   }
 
   return (
-    <div className="mx-auto my-[36px] w-full max-w-[343px] rounded-[20px] bg-white tablet:mb-[137px] tablet:mt-[117px] tablet:max-w-[620px] pc:my-[100px] pc:max-w-[900px]">
+    <div
+      className={cn(
+        "mx-auto mt-[36px] w-full max-w-[343px] rounded-[20px] bg-white",
+        "tablet:mb-[137px] tablet:mt-[117px] tablet:max-w-[620px]",
+        "pc:my-[100px] pc:max-w-[900px]"
+      )}
+    >
       <ArticleEditContents article={data.article} />
     </div>
   );
