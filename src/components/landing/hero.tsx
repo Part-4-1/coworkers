@@ -50,6 +50,7 @@ export default function HeroSection() {
             className="hidden h-auto w-full pc:block"
             alt="대시보드 미리보기 이미지"
             priority
+            quality={100}
           />
         </motion.div>
         <motion.div
@@ -65,6 +66,7 @@ export default function HeroSection() {
             className="col-start-1 row-start-1 h-auto w-full pc:hidden"
             alt="대시보드 미리보기 이미지"
             priority
+            quality={100}
           />
         </motion.div>
       </div>

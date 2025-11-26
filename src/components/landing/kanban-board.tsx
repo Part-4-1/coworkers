@@ -40,6 +40,7 @@ export default function KanbanBoardSection() {
             className="mx-auto h-auto w-full max-w-[1024px] rounded-xl border border-gray-100 drop-shadow-2xl"
             width={1024}
             height={600}
+            quality={100}
           />
         </motion.div>
       </div>
