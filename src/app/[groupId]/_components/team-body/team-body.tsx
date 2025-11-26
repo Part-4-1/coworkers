@@ -9,6 +9,7 @@ import useDeleteTaskList from "@/hooks/api/task/use-delete-task-list";
 import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
 import usePostTaskList from "@/hooks/api/task/use-post-task-list";
 import usePrompt from "@/hooks/use-prompt";
+import useToast from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import TaskListsSection from "./task-lists-section";
@@ -38,9 +39,11 @@ const TeamBody = ({ taskLists, groupId }: TeamBodyProps) => {
     (a, b) => a.displayIndex - b.displayIndex
   );
 
-  const { mutate: postTaskList } = usePostTaskList();
-  const { mutate: patchTaskList } = usePatchTaskList(groupId);
+  const { mutate: postTaskList, isPending: isPostPending } = usePostTaskList();
+  const { mutate: patchTaskList, isPending: isPatchPending } =
+    usePatchTaskList(groupId);
   const { mutate: deleteTaskList } = useDeleteTaskList(groupId);
+  const { success, error, warning } = useToast();
 
   const [selectedTaskList, setSelectedTaskList] = useState<TaskList | null>(
     null
@@ -65,17 +68,33 @@ const TeamBody = ({ taskLists, groupId }: TeamBodyProps) => {
   } = usePrompt();
 
   const handleAddTaskList = (name: string) => {
-    closeAddModal();
-    postTaskList({ groupId, name }, {});
+    postTaskList(
+      { groupId, name },
+      {
+        onSuccess: () => {
+          success("할 일을 추가했습니다. ");
+          closeAddModal();
+        },
+        onError: () => {
+          error("할 일 추가에 실패했습니다.");
+        },
+      }
+    );
   };
 
   const handlePatchTaskList = (newName: string) => {
     if (!selectedTaskList) return;
 
-    closeChangeModal();
     patchTaskList(
       { groupId, taskListId: selectedTaskList.id, name: newName },
-      {}
+      {
+        onSuccess: () => {
+          closeChangeModal();
+        },
+        onError: () => {
+          error("이름 변경 실패");
+        },
+      }
     );
   };
 
@@ -100,7 +119,11 @@ const TeamBody = ({ taskLists, groupId }: TeamBodyProps) => {
       { groupId, taskListId: selectedTaskList.id },
       {
         onSuccess: () => {
+          success("할 일을 삭제했습니다.");
           closeDeleteModal();
+        },
+        onError: () => {
+          error("할 일 삭제에 실패했습니다");
         },
       }
     );
@@ -140,7 +163,10 @@ const TeamBody = ({ taskLists, groupId }: TeamBodyProps) => {
       </div>
 
       <AddModal>
-        <AddTaskListModalUI handleClick={handleAddTaskList} />
+        <AddTaskListModalUI
+          handleClick={handleAddTaskList}
+          isPending={isPostPending}
+        />
       </AddModal>
 
       <ChangeModal>
@@ -148,6 +174,7 @@ const TeamBody = ({ taskLists, groupId }: TeamBodyProps) => {
           <ChangeTaskListModalUI
             taskTitle={selectedTaskList.name}
             handleClick={handlePatchTaskList}
+            isPending={isPatchPending}
           />
         )}
       </ChangeModal>
