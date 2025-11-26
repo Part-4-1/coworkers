@@ -56,7 +56,7 @@ const Redirect = () => {
 
         ToastSuccess("로그인이 되었습니다.");
 
-        router.replace("/");
+        router.replace("/boards");
       } catch (error) {
         console.error(error);
         ToastError("로그인 실패");
