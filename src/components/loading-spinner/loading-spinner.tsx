@@ -1,8 +1,10 @@
 import LottieAnimation from "@/components/lottie/LottieAnimation";
 import loader from "@/../public/animations/loader.json";
+import cn from "@/utils/clsx";
 
 interface LoadingSpinnerProps {
   ariaLabel?: string;
+  className?: string;
 }
 
 /**
@@ -14,11 +16,14 @@ interface LoadingSpinnerProps {
  *   {isPending ? <LoadingSpinner /> : "등록하기"}
  * </Button>
  */
-const LoadingSpinner = ({ ariaLabel = "로딩 중" }: LoadingSpinnerProps) => {
+const LoadingSpinner = ({
+  ariaLabel = "로딩 중",
+  className,
+}: LoadingSpinnerProps) => {
   return (
     <LottieAnimation
       animationData={loader}
-      className="h-5 w-5"
+      className={cn("h-5 w-5", className)}
       aria-label={ariaLabel}
     />
   );

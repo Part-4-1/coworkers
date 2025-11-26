@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import randomStringGenerator from "@/utils/random-string-generator";
+import { LoadingSpinner } from "@/components";
 
 const Redirect = () => {
   const searchParams = useSearchParams();
@@ -67,7 +68,11 @@ const Redirect = () => {
     kakaoSignin();
   }, [code, router, redirect_uri, ToastSuccess, ToastError, queryClient]);
 
-  return <div>카카오 로그인 중...</div>;
+  return (
+    <div className="h-screen w-full flex-center">
+      <LoadingSpinner className="h-10 w-10" />
+    </div>
+  );
 };
 
 export default Redirect;
