@@ -4,6 +4,7 @@ import { useGetArticleDetail } from "@/hooks/api/articles/use-get-article-detail
 import ArticleHeader from "./article-header/article-header";
 import ArticleContents from "./article-contents/article-contents";
 import ArticleComments from "./article-comments/article-comments";
+import { ArticleDetailSkeleton } from "@/components";
 import { notFound } from "next/navigation";
 
 interface ArticleDetailClientProps {
@@ -15,7 +16,7 @@ export default function ArticleDetailClient({
 }: ArticleDetailClientProps) {
   const { data, isPending, isError } = useGetArticleDetail(articleId);
 
-  if (isPending) return null;
+  if (isPending) return <ArticleDetailSkeleton />;
 
   if (isError || !data?.article) {
     notFound();
