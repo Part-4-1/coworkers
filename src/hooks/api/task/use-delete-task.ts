@@ -13,6 +13,7 @@ const useDeleteTask = (date: string) => {
         queryKey: ["taskItems", variables.groupId, variables.taskListId, date],
       });
       queryClient.invalidateQueries({ queryKey: ["group", variables.groupId] });
+      queryClient.invalidateQueries({ queryKey: ["history"] });
 
       toast.success("할 일이 삭제되었습니다.");
     },

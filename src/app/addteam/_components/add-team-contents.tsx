@@ -1,14 +1,18 @@
 "use client";
 
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { ProfileEdit, TextInput, Button, Icon } from "@/components/index";
+import {
+  ProfileEdit,
+  TextInput,
+  Button,
+  Icon,
+  LoadingSpinner,
+} from "@/components/index";
 import usePostGroup from "@/hooks/api/group/use-post-group";
-import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
+import useProfileImageManager from "@/hooks/use-profile-image-manager";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 const AddTeamContents = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const { data: userInfo } = useGetUserInfoQuery();
 
   const {
@@ -16,43 +20,25 @@ const AddTeamContents = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<{ name: string }>({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: { name: "" },
   });
 
   const { mutate: createGroup, isPending } = usePostGroup();
 
   const {
-    previews,
-    handleFile,
-    removeImage,
-    isLoading: isImageUploading,
-  } = useImageUpload({
-    maxCount: 1,
-  });
+    profileImage,
+    fileInputRef,
+    handleImageClick,
+    handleFileChange,
+    handleRemoveImage,
+    isUploading: isImageUploading,
+  } = useProfileImageManager();
 
-  const handleImageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      handleFile(file);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    if (previews[0]) {
-      removeImage(previews[0].id);
-    }
-  };
-
-  const onSubmit = (data: { name: string }) => {
+  const onSubmit = (data: { name: string; image?: string }) => {
     createGroup({
       name: data.name,
-      image: previews[0]?.url,
+      ...(profileImage && { image: profileImage }),
     });
   };
 
@@ -74,8 +60,8 @@ const AddTeamContents = () => {
             className="hidden"
           />
           <div className="group relative">
-            <ProfileEdit image={previews[0]?.url} onClick={handleImageClick} />
-            {previews[0] && (
+            <ProfileEdit image={profileImage} onClick={handleImageClick} />
+            {profileImage && (
               <Button
                 variant="none"
                 onClick={handleRemoveImage}
@@ -123,11 +109,7 @@ const AddTeamContents = () => {
             className="text-lg font-medium"
             disabled={!isValid || isPending || isImageUploading}
           >
-            {isPending
-              ? "생성 중..."
-              : isImageUploading
-                ? "이미지 업로드 중..."
-                : "생성하기"}
+            {isPending || isImageUploading ? <LoadingSpinner /> : "생성하기"}
           </Button>
           <p className="text-xs text-gray-800 tablet:text-lg">
             팀 이름은 회사명이나 모임 이름 등으로 설정하면 좋아요.

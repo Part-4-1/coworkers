@@ -11,8 +11,8 @@ import useMediaQuery from "@/hooks/use-media-query";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
-import { el } from "react-day-picker/locale";
 import Link from "next/link";
+import cn from "@/utils/clsx";
 
 /**
  * @author leohan
@@ -31,6 +31,7 @@ const Sidebar = () => {
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
   const isBoardPage = pathname === "/boards";
+  const isMyHistoryPage = pathname === "/myhistory";
   const isLandingPage = pathname === "/";
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(isDesktop);
@@ -89,47 +90,54 @@ const Sidebar = () => {
           "fixed left-0 top-0 z-20 flex h-screen flex-col justify-between border-r border-gray-300 bg-white"
         }
       >
-        <div>
+        <div className="flex min-h-0 flex-1 flex-col">
           <SidebarHeader
             isSidebarOpen={isSidebarOpen}
             setIsSidebarOpen={setIsSidebarOpen}
           />
           {isLoggedIn && (
-            <div className="flex flex-1 flex-col justify-between px-4">
-              <div className="flex flex-col gap-3">
-                {isTeamExist && (
-                  <div
-                    className={`flex flex-col gap-2 ${isSidebarOpen && "border-b border-gray-300 pb-6"}`}
+            <div className={cn("flex flex-1 flex-col gap-3 pl-4")}>
+              {isTeamExist && (
+                <div className={`flex flex-col gap-2`}>
+                  <SidebarDropdown
+                    isSidebarOpen={isSidebarOpen}
+                    isOpen={isDropdownOpen}
+                    setIsOpen={setIsDropdownOpen}
+                    onToggle={handleToggle}
+                    currentTeamId={currentTeamId}
+                  />
+                </div>
+              )}
+              <AnimatePresence>
+                {isSidebarOpen && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className="mr-4 overflow-hidden pb-4"
                   >
-                    <SidebarDropdown
-                      isSidebarOpen={isSidebarOpen}
-                      isOpen={isDropdownOpen}
-                      setIsOpen={setIsDropdownOpen}
-                      onToggle={handleToggle}
-                      currentTeamId={currentTeamId}
-                    />
-                    <AnimatePresence>
-                      {isSidebarOpen && (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.15, ease: "easeOut" }}
-                          className="overflow-hidden"
-                        >
-                          <Link href="/addteam">
-                            <Button
-                              variant="outlined"
-                              className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
-                            >
-                              + 팀 추가하기
-                            </Button>
-                          </Link>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                    <Link href="/addteam">
+                      <Button className="mb-2 w-full max-w-[238px] whitespace-nowrap border border-blue-200 px-4 py-2 text-md">
+                        + 팀 생성하기
+                      </Button>
+                    </Link>
+
+                    <Link href="/taketeam">
+                      <Button
+                        variant="outlined"
+                        className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
+                      >
+                        + 팀 참여하기
+                      </Button>
+                    </Link>
+                  </motion.div>
                 )}
+              </AnimatePresence>
+              {(isTeamExist || isSidebarOpen) && (
+                <hr className="mr-4 border-gray-400" />
+              )}
+              <div className="bg-white pr-4">
                 <SidebarMenu
                   iconName="board"
                   isSidebarOpen={isSidebarOpen}
@@ -137,12 +145,22 @@ const Sidebar = () => {
                   href={"/boards"}
                   isSelected={isBoardPage ? true : false}
                 />
+                <SidebarMenu
+                  iconName="board"
+                  isSidebarOpen={isSidebarOpen}
+                  title="마이 히스토리"
+                  href={"/myhistory"}
+                  isSelected={isMyHistoryPage ? true : false}
+                />
               </div>
             </div>
           )}
         </div>
         <div className={isSidebarOpen ? "px-4" : "px-4"}>
-          <SidebarFooter isSidebarOpen={isSidebarOpen} />
+          <SidebarFooter
+            currentTeamId={currentTeamId}
+            isSidebarOpen={isSidebarOpen}
+          />
         </div>
       </motion.aside>
     </>,

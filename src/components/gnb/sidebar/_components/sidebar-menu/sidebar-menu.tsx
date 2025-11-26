@@ -1,10 +1,12 @@
 import cn from "@/utils/clsx";
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@/components/index";
 import ICONS_MAP from "../../../../icon/icons-map";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { tooltipStyles } from "@/constants/styles";
+import { createPortal } from "react-dom";
+import { useTooltip } from "@/hooks/use-tooltip";
 
 type IconKeys = keyof typeof ICONS_MAP;
 interface SidebarMenuProps {
@@ -26,7 +28,7 @@ const menuStyles = {
 };
 
 const iconStyles = {
-  default: "text-gray-400 w-6 h-6",
+  default: "text-gray-400 w-6 h-6 flex-shrink-0",
   selected: "text-blue-200",
   SidebarOpen: "w-5 h-5",
 };
@@ -50,11 +52,14 @@ const SidebarMenu = ({
   className,
   fontStyle,
 }: SidebarMenuProps) => {
+  const { isHovered, tooltipPosition, handleMouseEnter, handleMouseLeave } =
+    useTooltip(isSidebarOpen);
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isSelected) {
       e.preventDefault();
     }
   };
+
   return (
     <Link
       className={cn(
@@ -65,6 +70,8 @@ const SidebarMenu = ({
       )}
       href={href}
       onClick={(e) => handleClick(e)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <Icon
         icon={iconName}
@@ -74,17 +81,18 @@ const SidebarMenu = ({
           isSidebarOpen && iconStyles.SidebarOpen
         )}
       />
-      {!isSidebarOpen && (
-        <div
-          className={cn(
-            tooltipStyles.base,
-            tooltipStyles.before,
-            isSelected && "text-blue-200"
-          )}
-        >
-          {title}
-        </div>
-      )}
+
+      {!isSidebarOpen &&
+        isHovered &&
+        createPortal(
+          <span
+            className={cn(tooltipStyles.base, tooltipStyles.before)}
+            style={{ top: tooltipPosition.top, left: tooltipPosition.left }}
+          >
+            {title}
+          </span>,
+          document.body
+        )}
 
       <AnimatePresence>
         {isSidebarOpen && (
@@ -93,7 +101,7 @@ const SidebarMenu = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className={cn("whitespace-nowrap", fontStyle)}
+            className={cn("truncate", fontStyle)}
           >
             {title}
           </motion.span>

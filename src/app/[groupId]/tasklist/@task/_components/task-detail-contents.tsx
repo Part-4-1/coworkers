@@ -1,14 +1,16 @@
 "use client";
 
-import { Icon, Profile } from "@/components";
+import { Icon, Profile, TaskDetailContentSkeleton } from "@/components";
 import ICONS_MAP from "@/components/icon/icons-map";
 import usePatchTaskDetail from "@/hooks/api/task/use-patch-task-detail";
 import { Writer } from "@/types/user";
-import { ChangeEvent, memo, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
 import { toKoreanDateWithTimeString } from "@/utils/date-util";
 import { changeFrequencyCode } from "@/utils/util";
+import Skeleton from "react-loading-skeleton";
+import cn from "@/utils/clsx";
 
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
@@ -29,6 +31,7 @@ export interface TaskDetailContentsProps extends TaskDetailHeaderProps {
   name: string;
   description: string;
   doneAt: string | null;
+  isPending: boolean;
 }
 
 const TaskDetailContents = ({
@@ -41,6 +44,7 @@ const TaskDetailContents = ({
   doneAt,
   createdAt,
   frequency,
+  isPending,
 }: TaskDetailContentsProps) => {
   const [text, setText] = useState<string>();
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -62,12 +66,12 @@ const TaskDetailContents = ({
   const { mutate } = usePatchTaskDetail();
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    newDescription.current = e.target.value;
+    newDescription.current = e.target.value.trim();
     setText(e.target.value);
   };
 
   const handleNameChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    newName.current = e.target.value;
+    newName.current = e.target.value.trim();
     setText(e.target.value);
   };
 
@@ -85,48 +89,71 @@ const TaskDetailContents = ({
   };
 
   useEffect(() => {
-    if (text?.trim() !== "") {
-      timer.current = setTimeout(() => {
-        mutate({
-          groupId,
-          taskListId,
-          taskId,
-          data: {
-            name: newName.current,
-            description: newDescription.current,
-            done: !!doneAt,
-          },
-        });
-      }, 1500);
-    }
+    if (isPending) return;
+
+    timer.current = setTimeout(() => {
+      mutate({
+        groupId,
+        taskListId,
+        taskId,
+        data: {
+          name: newName.current,
+          description: newDescription.current,
+          done: !!doneAt,
+        },
+      });
+    }, 500);
 
     return () => {
       timer.current && clearTimeout(timer.current);
     };
-  }, [text]);
+  }, [newDescription.current, newName.current, isPending]);
 
   return (
     <>
       <div className="flex flex-col gap-6">
         <div className="flex w-full flex-col gap-4">
           <div className="flex items-center justify-between">
-            <TextareaAutosize
-              name={name}
-              defaultValue={name}
-              onChange={handleNameChange}
-              className="h-auto w-full resize-none text-xl font-bold focus:outline-none tablet:text-2xl"
-            />
+            {!isPending ? (
+              <TextareaAutosize
+                name={name}
+                defaultValue={name}
+                maxLength={30}
+                placeholder="할 일 이름을 입력하세요."
+                onChange={handleNameChange}
+                className={cn(
+                  "h-auto w-full resize-none text-xl font-bold focus:outline-none tablet:text-2xl",
+                  doneAt && "text-gray-800 line-through"
+                )}
+              />
+            ) : (
+              <Skeleton
+                containerClassName="flex w-full h-6 tablet:h-7"
+                className="h-full"
+              />
+            )}
           </div>
           <div className="flex items-center gap-3">
-            <Profile image={writer.image ?? ""} size="md" />
-            <span className="text-md font-medium">{writer.nickname}</span>
+            <Profile image={writer?.image ?? ""} size="md" />
+            {writer ? (
+              <span className="text-md font-medium">{writer?.nickname}</span>
+            ) : (
+              <Skeleton
+                containerClassName="flex w-16 h-[17px]"
+                className="h-full"
+              />
+            )}
           </div>
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
               <div className="flex flex-col gap-2">
                 {taskMetadataArr.map((taskMetadata) => {
                   return (
-                    <TaskMetadata key={taskMetadata.label} {...taskMetadata} />
+                    <TaskMetadata
+                      key={taskMetadata.label}
+                      {...taskMetadata}
+                      isPending={isPending}
+                    />
                   );
                 })}
               </div>
@@ -140,12 +167,17 @@ const TaskDetailContents = ({
             <hr className="h-[2px] bg-gray-300" />
           </div>
         </div>
-        <TextareaAutosize
-          name={`${name} description`}
-          defaultValue={description}
-          onChange={handleDescriptionChange}
-          className="h-auto w-full resize-none focus:outline-none"
-        />
+        {!isPending ? (
+          <TextareaAutosize
+            name={`${name} description`}
+            defaultValue={description}
+            placeholder="할 일 내용을 입력하세요."
+            onChange={handleDescriptionChange}
+            className="h-auto w-full resize-none text-md focus:outline-none"
+          />
+        ) : (
+          <TaskDetailContentSkeleton />
+        )}
       </div>
     </>
   );
@@ -159,16 +191,28 @@ const TaskDetailContents = ({
  * @param text 표출하는 정보
  * @returns <TaskMetadata />
  */
-const TaskMetadata = ({ icon, label, text }: TaskMetadataProps) => {
+const TaskMetadata = ({
+  icon,
+  label,
+  text,
+  isPending,
+}: TaskMetadataProps & { isPending: boolean }) => {
   return (
     <div className="flex items-center gap-3">
       <div className="flex items-center gap-[6px]">
         <Icon icon={icon} className="h-4 w-4" />
         <span className="text-xs text-gray-800">{label}</span>
       </div>
-      <span className="text-xs">{text}</span>
+      {!isPending ? (
+        <span className="text-xs">{text}</span>
+      ) : (
+        <Skeleton
+          containerClassName="h-[14px] w-[140px] flex"
+          className="h-full"
+        />
+      )}
     </div>
   );
 };
 
-export default memo(TaskDetailContents);
+export default TaskDetailContents;

@@ -10,11 +10,28 @@ import TeamMember from "./_components/team-member";
 interface TeamMembersSectionProps {
   members: Member[];
   groupId: number;
+  isAdmin: boolean;
+  userId?: number;
 }
-const TeamMembersSection = ({ members, groupId }: TeamMembersSectionProps) => {
-  const { Modal, openPrompt, closePrompt } = usePrompt(true);
+const TeamMembersSection = ({
+  members,
+  groupId,
+  isAdmin,
+  userId,
+}: TeamMembersSectionProps) => {
+  const {
+    Modal: InviteModal,
+    openPrompt: openInviteModal,
+    closePrompt: closeInviteModal,
+  } = usePrompt(true);
+
   const { data: invitationToken } = useGetInvitationToken(groupId);
   const { success, error } = useToast();
+  const sortedMembers = [...members].sort((a, b) => {
+    if (a.role === "ADMIN" && b.role !== "ADMIN") return -1;
+    if (a.role !== "ADMIN" && b.role === "ADMIN") return 1;
+    return 0;
+  });
 
   const handleCopyLink = async () => {
     try {
@@ -23,7 +40,7 @@ const TeamMembersSection = ({ members, groupId }: TeamMembersSectionProps) => {
     } catch (err) {
       error("초대링크 복사에 실패했습니다. 다시 시도해주세요.");
     } finally {
-      closePrompt();
+      closeInviteModal();
     }
   };
 
@@ -36,19 +53,26 @@ const TeamMembersSection = ({ members, groupId }: TeamMembersSectionProps) => {
         </div>
         <div
           className="cursor-pointer text-md text-blue-200"
-          onClick={openPrompt}
+          onClick={openInviteModal}
         >
           + 새로운 멤버 초대하기
         </div>
       </div>
       <div className="grid w-full grid-cols-2 gap-[12px] tablet:grid-cols-3 pc:grid-cols-3">
-        {members.map((member) => (
-          <TeamMember key={member.userId} member={member} />
+        {sortedMembers.map((member) => (
+          <TeamMember
+            key={member.userId}
+            member={member}
+            isThisMemberAdmin={member.role === "ADMIN"}
+            groupId={groupId}
+            isAdmin={isAdmin}
+            isThisMemberMe={member.userId === userId}
+          />
         ))}
       </div>
-      <Modal>
+      <InviteModal>
         <InviteMemberModalUI onClick={handleCopyLink} />
-      </Modal>
+      </InviteModal>
     </div>
   );
 };

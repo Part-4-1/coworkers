@@ -6,6 +6,7 @@ import { setAuthCookies } from "@/utils/setAuthCookies";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import randomStringGenerator from "@/utils/random-string-generator";
 
 const Redirect = () => {
   const searchParams = useSearchParams();
@@ -13,6 +14,7 @@ const Redirect = () => {
   const queryClient = useQueryClient();
   const redirect_uri = process.env.NEXT_PUBLIC_REDIRECT_URI;
   const code = searchParams.get("code");
+  const state = randomStringGenerator(10);
   const { success: ToastSuccess, error: ToastError } = useToast();
 
   const isProcessing = useRef(false);
@@ -31,7 +33,7 @@ const Redirect = () => {
           {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              state: "string",
+              state: state,
               redirectUri: redirect_uri,
               token: code,
             }),
@@ -45,15 +47,16 @@ const Redirect = () => {
         if (data.accessToken && data.refreshToken) {
           setCookie("accessToken", data.accessToken);
           setCookie("refreshToken", data.refreshToken);
-
           await setAuthCookies(data.accessToken, data.refreshToken);
         }
 
-        await queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+        queryClient.setQueryData(["userInfo"], () => {
+          return { ...data.user };
+        });
 
         ToastSuccess("로그인이 되었습니다.");
 
-        router.replace("/");
+        router.replace("/boards");
       } catch (error) {
         console.error(error);
         ToastError("로그인 실패");

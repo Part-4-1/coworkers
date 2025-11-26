@@ -43,13 +43,17 @@ const usePatchTaskDone = (date: string) => {
           variables.taskListId,
           variables.taskId,
         ],
+        refetchType: "all",
       });
       queryClient.invalidateQueries({
         queryKey: ["group", variables.groupId],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["history"],
+      });
     },
     onError: (error) => {
-      console.error("완료하지 못했습니다.", error);
+      console.error(error);
     },
   });
 };

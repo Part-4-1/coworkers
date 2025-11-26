@@ -1,12 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { Article } from "@/types/article";
-import { InputReply, Reply } from "@/components/index";
+import { InputReply, Reply, Button, Icon } from "@/components/index";
 import { usePostArticleComment } from "@/hooks/api/articles/use-post-article-comment";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import useGetArticleComments from "@/hooks/api/articles/use-get-article-comments";
+import useToggleArticleLike from "@/hooks/api/articles/use-toggle-article-like";
+import LikeButton from "@/components/lottie/LikeButton";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 
 interface ArticleCommentsProps {
@@ -20,6 +23,14 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
     useGetArticleComments({ articleId: article.id });
 
   const { data: userInfo } = useGetUserInfoQuery();
+
+  const { mutate: toggleLike, isPending: isLikePending } = useToggleArticleLike(
+    article.id
+  );
+
+  const handleLikeClick = () => {
+    toggleLike(article.isLiked);
+  };
 
   const observerTarget = useRef<HTMLDivElement>(null);
 
@@ -57,11 +68,41 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
   const allComments = data?.pages.flatMap((page) => page.list) ?? [];
 
   return (
-    <div>
-      <h3 className="mb-3 mt-4 flex gap-1 text-2lg font-bold tablet:mb-4 tablet:mt-[28px] pc:mt-[40px]">
-        <span className="text-blue-700">댓글</span>
-        <span className="text-blue-200">{article.commentCount}</span>
-      </h3>
+    <>
+      <div className="mb-3 mt-8 flex items-center justify-between tablet:mb-4 tablet:mt-[61px]">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 font-bold">
+            <Icon
+              icon="comment"
+              className="h-[18px] w-[18px] text-blue-100 tablet:h-5 tablet:w-5"
+            />
+            <span className="text-md tablet:text-lg">
+              {article.commentCount}
+            </span>
+          </div>
+          <Button
+            variant="none"
+            onClick={handleLikeClick}
+            disabled={isLikePending}
+            className="relative flex items-center gap-1"
+          >
+            <LikeButton isLiked={article.isLiked} />
+            <Icon
+              icon={article.isLiked ? "heartActive" : "heartDefault"}
+              className="h-[18px] w-[18px] tablet:h-5 tablet:w-5"
+            />
+            <span className="text-md tablet:text-lg">{article.likeCount}</span>
+          </Button>
+        </div>
+        <Link href="/boards">
+          <Button variant="none" className="pr-2">
+            <Icon
+              icon="articleList"
+              className="h-[18px] w-[18px] text-blue-100 pc:h-5 pc:w-5"
+            />
+          </Button>
+        </Link>
+      </div>
       <div className="mb-[28px] flex items-center gap-4 tablet:mb-[36px]">
         {userInfo?.image ? (
           <Image
@@ -76,16 +117,25 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
         )}
         <InputReply onSubmit={handleCommentSubmit} disabled={isPending} />
       </div>
-      <div className="flex flex-col gap-4">
-        {allComments.map((comment) => (
-          <div key={comment.id}>
-            <hr className="border-gray-300 pb-5" />
-            <Reply comment={comment} articleId={article.id} />
-          </div>
-        ))}
-        <div ref={observerTarget} className="h-4" />
-      </div>
-    </div>
+
+      {allComments.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-20">
+          <p className="text-lg text-gray-400">아직 작성된 댓글이 없습니다</p>
+        </div>
+      )}
+
+      {allComments.length > 0 && (
+        <div className="flex flex-col gap-4">
+          {allComments.map((comment) => (
+            <div key={comment.id}>
+              <hr className="border-gray-300 pb-5" />
+              <Reply comment={comment} articleId={article.id} />
+            </div>
+          ))}
+          <div ref={observerTarget} className="h-4" />
+        </div>
+      )}
+    </>
   );
 };
 

@@ -8,16 +8,13 @@ import {
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
 } from "@/constants/regex";
-import { Button, Icon, TextInput } from "@/components";
+import { Button, Icon, TextInput, LoadingSpinner } from "@/components";
 import { useSignupQuery } from "@/hooks/auth/use-signup-query";
 import type { SignupRequest } from "@/api/auth/signup-action";
-import { useRouter } from "next/navigation";
-import { getCookie } from "@/utils/cookie-utils";
 import SimpleSignUpIn from "../_components/simple-signUpIn";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
   const {
     register,
     formState: { errors, isValid },
@@ -27,7 +24,6 @@ const Page = () => {
     mode: "all",
     defaultValues: { email: "", password: "" },
   });
-  const accessToken = getCookie("accessToken");
 
   const { mutate, isPending } = useSignupQuery();
 
@@ -39,12 +35,6 @@ const Page = () => {
       passwordConfirmation: formData.passwordConfirmation,
     });
   };
-
-  useEffect(() => {
-    if (accessToken) {
-      router.push("/");
-    }
-  }, [accessToken]);
 
   return (
     <SingUpInFormWrapper>
@@ -154,10 +144,10 @@ const Page = () => {
           <Button
             className="mt-4"
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isPending}
             aria-label="Signup"
           >
-            {isPending ? "전송 중..." : "회원가입"}
+            {isPending ? <LoadingSpinner /> : "회원가입"}
           </Button>
         </form>
       </div>

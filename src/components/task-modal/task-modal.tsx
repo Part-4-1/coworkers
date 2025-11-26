@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/index";
+import { Button, LoadingSpinner } from "@/components/index";
 import { useTaskForm } from "@/hooks/use-task-form";
 import { useCreateTask } from "@/hooks/api/task/use-create-task";
 import { TaskFormData } from "@/types/task-modal.types";
@@ -96,7 +96,7 @@ const TaskModal = ({
       <TaskMemoField register={register} />
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? "생성 중..." : "만들기"}
+        {isPending ? <LoadingSpinner /> : "만들기"}
       </Button>
     </form>
   );

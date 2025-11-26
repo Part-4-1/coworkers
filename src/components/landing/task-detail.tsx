@@ -19,6 +19,7 @@ export default function TaskDetailSection() {
             className="h-auto w-full max-w-[940px] rounded-xl border border-gray-100 drop-shadow-2xl"
             width={849}
             height={705}
+            quality={100}
           />
         </motion.div>
         <motion.div
