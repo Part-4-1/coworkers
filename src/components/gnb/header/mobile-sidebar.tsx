@@ -76,7 +76,6 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                       isSelected={String(data.group.id) === currentTeamId}
                       href={`/${data.group.id}`}
                       className="h-[44px]"
-                      fontStyle="h-[17px]"
                     />
                   ))}
                 </div>

@@ -62,11 +62,12 @@ const SidebarFooter = ({
             exit={{ opacity: 0, width: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <span className="whitespace-nowrap text-sm font-medium text-blue-700">
+            <span className="truncate text-sm font-medium text-blue-700">
               {userInfo.nickname}
             </span>
-            <span className="whitespace-nowrap text-xs text-gray-700">
-              {userInfo?.memberships?.[currentTeamIndex || 0]?.group.name}
+            <span className="truncate text-xs text-gray-700">
+              {userInfo?.memberships?.[currentTeamIndex || 0]?.group.name ||
+                null}
             </span>
           </motion.div>
         )}
