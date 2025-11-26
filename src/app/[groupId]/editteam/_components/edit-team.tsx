@@ -3,13 +3,15 @@
 import {
   Button,
   Icon,
+  LoadingSpinner,
   ProfileEdit,
   TextInput,
-  LoadingSpinner,
 } from "@/components";
+import EditTeamSkeleton from "@/components/skeleton/editteam-skeleton/editteam-skeleton";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import usePatchGroup from "@/hooks/api/group/use-patch-group";
 import { useImageUpload } from "@/hooks/image-upload/use-image-upload";
+import useToast from "@/hooks/use-toast";
 import cn from "@/utils/clsx";
 import { useEffect, useRef, useState } from "react";
 
@@ -19,8 +21,9 @@ interface EditTeamProps {
 
 const EditTeam = ({ groupId }: EditTeamProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { data: groupInfo } = useGetGroupInfo(groupId);
-
+  const { data: groupInfo, isPending: isGroupDataPending } =
+    useGetGroupInfo(groupId);
+  const { success, error, warning } = useToast();
   const [groupName, setGroupName] = useState("");
   const [initialImage, setInitialImage] = useState<string | null>();
 
@@ -60,12 +63,22 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
   };
 
   const onSubmit = () => {
-    patchGroup({
-      name: groupName,
-      image: previews[0]?.url ?? initialImage ?? null,
-    });
+    patchGroup(
+      {
+        name: groupName,
+        image: previews[0]?.url ?? initialImage ?? null,
+      },
+      {
+        onSuccess: () => {
+          success("팀 정보를 수정했습니다.");
+        },
+        onError: () => {
+          error("팀 정보 수정을 실패했습니다.");
+        },
+      }
+    );
   };
-  if (!groupInfo) return null;
+
   const handleRemoveImage = () => {
     if (previews[0]) {
       removeImage(previews[0].id);
@@ -73,6 +86,9 @@ const EditTeam = ({ groupId }: EditTeamProps) => {
     setInitialImage(null);
   };
 
+  if (isGroupDataPending || !groupInfo) {
+    return <EditTeamSkeleton />;
+  }
   return (
     <main className="h-screen w-full flex-center">
       <div
