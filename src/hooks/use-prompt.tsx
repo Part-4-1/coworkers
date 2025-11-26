@@ -61,6 +61,7 @@ const usePrompt = (showCloseBtn = false) => {
       const handleBackdropClick = (e: MouseEvent<HTMLDialogElement>) => {
         if (e.target === e.currentTarget) {
           closePrompt();
+          e.stopPropagation();
         }
       };
 
