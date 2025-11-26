@@ -4,6 +4,7 @@ import Dropdown from "@/components/dropdown-components/dropdown";
 import Icon from "@/components/icon/Icon";
 import DeleteModalUI from "@/components/modal-ui/delete-modal-ui";
 import useDeleteGroup from "@/hooks/api/group/use-delete-group";
+import useDeleteGroupMember from "@/hooks/api/group/use-delete-group-member";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
@@ -37,6 +38,8 @@ interface TeamBannerAdminProps {
   showProfileListOnPc?: boolean;
   className?: string;
   groupId: number;
+  isAdmin: boolean;
+  myId: number;
 }
 
 const TeamBannerAdmin = ({
@@ -47,12 +50,30 @@ const TeamBannerAdmin = ({
   showProfileListOnPc = true,
   className,
   groupId,
+  isAdmin,
+  myId,
 }: TeamBannerAdminProps) => {
   const isPc = useMediaQuery("(min-width: 1280px)");
   const router = useRouter();
-  const { Modal, openPrompt, closePrompt } = usePrompt(false);
+
+  const {
+    Modal: DeleteTeamModal,
+    openPrompt: openDeleteTeamModal,
+    closePrompt: closeDeleteTeamModal,
+  } = usePrompt(false);
+
+  const {
+    Modal: LeaveTeamModal,
+    openPrompt: openLeaveTeamModal,
+    closePrompt: closeLeaveTeamModal,
+  } = usePrompt();
+
   const { mutate: deleteGroup, isPending: isDeletePeding } =
     useDeleteGroup(groupId);
+
+  const { mutate: deleteGroupMember, isPending: isDeleteGroupMemberPending } =
+    useDeleteGroupMember(groupId);
+
   const { refetch: refetchUserInfo } = useGetUserInfoQuery();
   const { success, error, warning } = useToast();
 
@@ -61,7 +82,7 @@ const TeamBannerAdmin = ({
   };
 
   const handleDeleteDropdown = () => {
-    openPrompt();
+    openDeleteTeamModal();
   };
 
   const handleConfirmDelete = () => {
@@ -71,19 +92,44 @@ const TeamBannerAdmin = ({
         const { data: newUserInfo } = await refetchUserInfo();
         const newGroups = newUserInfo?.memberships ?? [];
         if (newGroups.length === 0) {
-          await router.push("/board");
-          closePrompt();
+          await router.push("/boards");
+          closeDeleteTeamModal();
           return;
         }
 
         await router.push(`/${newGroups[0].groupId}`);
-        closePrompt();
+        closeDeleteTeamModal();
       },
       onError: () => {
         error("팀 삭제에 실패했습니다.");
       },
     });
   };
+
+  const handleLeaveTeam = () => {
+    deleteGroupMember(myId, {
+      onSuccess: async () => {
+        success("팀을 나갔습니다.");
+        const { data: newUserInfo } = await refetchUserInfo();
+        const newGroups = newUserInfo?.memberships ?? [];
+        if (newGroups.length === 0) {
+          await router.push("/boards");
+          closeLeaveTeamModal();
+          return;
+        }
+
+        await router.push(`/${newGroups[0].groupId}`);
+        closeLeaveTeamModal();
+      },
+    });
+  };
+
+  const adminItems = [
+    { label: "수정하기", onClick: handleEditDropdown },
+    { label: "삭제하기", onClick: handleDeleteDropdown },
+  ];
+
+  const memberItems = [{ label: "팀 나가기", onClick: openLeaveTeamModal }];
 
   return (
     <div
@@ -97,19 +143,18 @@ const TeamBannerAdmin = ({
       <div className="relative pr-[48px] tablet:pr-[56px]">
         {!isPc && (
           <div className="absolute right-[12px] top-[4px] tablet:right-[14px]">
-            <Dropdown
-              trigger={
-                <Icon
-                  icon="setting"
-                  className="h-[20px] w-[20px] cursor-pointer tablet:h-[24px] tablet:w-[24px]"
-                />
-              }
-              items={[
-                { label: "수정하기", onClick: handleEditDropdown },
-                { label: "삭제하기", onClick: handleDeleteDropdown },
-              ]}
-              menuAlign="end"
-            />
+            {
+              <Dropdown
+                trigger={
+                  <Icon
+                    icon="setting"
+                    className="h-[20px] w-[20px] cursor-pointer tablet:h-[24px] tablet:w-[24px]"
+                  />
+                }
+                items={isAdmin ? adminItems : memberItems}
+                menuAlign="end"
+              />
+            }
           </div>
         )}
 
@@ -137,26 +182,16 @@ const TeamBannerAdmin = ({
                   className="h-[24px] w-[24px] cursor-pointer"
                 />
               }
-              items={[
-                {
-                  label: "수정하기",
-                  onClick: handleEditDropdown,
-                },
-                {
-                  label: "삭제하기",
-                  onClick: handleDeleteDropdown,
-                },
-                //TODO: 클릭시 로직 추가
-              ]}
+              items={isAdmin ? adminItems : memberItems}
               menuAlign="end"
             />
           )}
         </div>
       </div>
-      <Modal>
+      <DeleteTeamModal>
         <DeleteModalUI
           handleClick={handleConfirmDelete}
-          handleClose={closePrompt}
+          handleClose={closeDeleteTeamModal}
           contents={
             <>
               '{groupName}'
@@ -167,7 +202,24 @@ const TeamBannerAdmin = ({
           description="삭제 후에는 되돌릴 수 없습니다."
           isPeding={isDeletePeding}
         />
-      </Modal>
+      </DeleteTeamModal>
+      <LeaveTeamModal>
+        <DeleteModalUI
+          contents={
+            <>
+              '{groupName}'
+              <br />
+              <br />
+              팀에서 나가시겠어요?
+            </>
+          }
+          description="언제든 다시 참여하실 수 있어요"
+          handleClick={handleLeaveTeam}
+          handleClose={closeLeaveTeamModal}
+          confirmMessage="나가기"
+          isPeding={isDeleteGroupMemberPending}
+        />
+      </LeaveTeamModal>
     </div>
   );
 };
