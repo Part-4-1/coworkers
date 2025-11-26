@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import cn from "@/utils/clsx";
 import Button from "../button/button";
 import Icon from "../icon/Icon";
@@ -6,18 +9,36 @@ import { Comment } from "@/types/index";
 import TextareaAutosize from "react-textarea-autosize";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 import { toDotDateString } from "@/utils/date-util";
-import { useCommentHandlers } from "@/hooks/comment-handlers/use-comment-handlers";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 interface CommentProps {
   comment: Comment;
-  articleId?: number;
+  onSave: (commentId: number, content: string) => void;
+  onDelete: (commentId: number) => void;
 }
 
-const Reply = ({ comment, articleId }: CommentProps) => {
+const Reply = ({ comment, onSave, onDelete }: CommentProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
-  const { isEditing, editedContent, setEditedContent, ...handlers } =
-    useCommentHandlers(comment, articleId);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(comment.content);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    onSave(comment.id, editedContent);
+    setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    onDelete(comment.id);
+  };
+
+  const handleCancel = () => {
+    setEditedContent(comment.content);
+    setIsEditing(false);
+  };
 
   const isWriter = userInfo?.id === comment.writer.id;
 
@@ -63,8 +84,8 @@ const Reply = ({ comment, articleId }: CommentProps) => {
                   </Button>
                 }
                 items={[
-                  { label: "수정하기", onClick: handlers.handleEdit },
-                  { label: "삭제하기", onClick: handlers.handleDelete },
+                  { label: "수정하기", onClick: handleEdit },
+                  { label: "삭제하기", onClick: handleDelete },
                 ]}
                 isWidthFull={false}
               />
@@ -82,7 +103,7 @@ const Reply = ({ comment, articleId }: CommentProps) => {
             />
             <div className="flex gap-2">
               <Button
-                onClick={handlers.handleSave}
+                onClick={handleSave}
                 className="text-md"
                 disabled={isSaveDisabled}
               >
@@ -90,7 +111,7 @@ const Reply = ({ comment, articleId }: CommentProps) => {
               </Button>
               <Button
                 variant="outlined"
-                onClick={handlers.handleCancel}
+                onClick={handleCancel}
                 className="text-md"
               >
                 취소
