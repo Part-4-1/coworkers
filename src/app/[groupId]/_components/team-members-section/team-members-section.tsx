@@ -11,11 +11,13 @@ interface TeamMembersSectionProps {
   members: Member[];
   groupId: number;
   isAdmin: boolean;
+  userId?: number;
 }
 const TeamMembersSection = ({
   members,
   groupId,
   isAdmin,
+  userId,
 }: TeamMembersSectionProps) => {
   const {
     Modal: InviteModal,
@@ -25,10 +27,11 @@ const TeamMembersSection = ({
 
   const { data: invitationToken } = useGetInvitationToken(groupId);
   const { success, error } = useToast();
-  const sortedMembers = [
-    ...members.filter((member) => member.role === "ADMIN"),
-    ...members.filter((member) => member.role !== "ADMIN"),
-  ];
+  const sortedMembers = [...members].sort((a, b) => {
+    if (a.role === "ADMIN" && b.role !== "ADMIN") return -1;
+    if (a.role !== "ADMIN" && b.role === "ADMIN") return 1;
+    return 0;
+  });
 
   const handleCopyLink = async () => {
     try {
@@ -63,6 +66,7 @@ const TeamMembersSection = ({
             isThisMemberAdmin={member.role === "ADMIN"}
             groupId={groupId}
             isAdmin={isAdmin}
+            isThisMemberMe={member.userId === userId}
           />
         ))}
       </div>
