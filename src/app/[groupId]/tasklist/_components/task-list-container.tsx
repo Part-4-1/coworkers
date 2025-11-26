@@ -131,6 +131,7 @@ const TaskListContainer = ({
               height={54}
               width={270}
               containerClassName="flex-1"
+              borderRadius={12}
             />
           )}
         </ul>
