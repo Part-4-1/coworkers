@@ -1,5 +1,6 @@
 import { Reply, CommentListSkeleton } from "@/components";
 import useGetComments from "@/hooks/api/comments/use-get-comments";
+import usePatchTaskComment from "@/hooks/api/task/use-patch-task-comment";
 
 interface TaskDetailCommentProps {
   taskId: number;
@@ -7,6 +8,7 @@ interface TaskDetailCommentProps {
 
 const TaskDetailComment = ({ taskId }: TaskDetailCommentProps) => {
   const { data: comments, isPending } = useGetComments(Number(taskId));
+  const { mutate: patchTaskComment } = usePatchTaskComment();
 
   if (isPending || !comments) return <CommentListSkeleton />;
 
