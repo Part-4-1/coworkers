@@ -75,8 +75,9 @@ const TeamBody = ({ taskLists, groupId }: TeamBodyProps) => {
           success("할 일을 추가했습니다. ");
           closeAddModal();
         },
-        onError: () => {
-          error("할 일 추가에 실패했습니다.");
+        onError: (err: any) => {
+          const msg = err.response.data.message ?? "할 일 추가에 실패했습니다.";
+          error(msg);
         },
       }
     );
@@ -91,8 +92,10 @@ const TeamBody = ({ taskLists, groupId }: TeamBodyProps) => {
         onSuccess: () => {
           closeChangeModal();
         },
-        onError: () => {
-          error("이름 변경 실패");
+        onError: (err: any) => {
+          const msg =
+            err.response.data.message ?? "할 일 목록 수정에 실패했습니다.";
+          error(msg);
         },
       }
     );
