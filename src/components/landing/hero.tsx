@@ -31,7 +31,7 @@ export default function HeroSection() {
             </div>
           </div>
           <Link
-            href={"/signin"}
+            href={"/board"}
             className="ml-6 mr-3 max-h-12 w-[120px] flex-shrink-0 self-end rounded-xl bg-blue-200 py-3 text-center text-md font-semibold text-white hover:bg-blue-300 tablet:w-[160px] tablet:py-[14px] tablet:text-lg pc:self-start"
           >
             지금 시작하기

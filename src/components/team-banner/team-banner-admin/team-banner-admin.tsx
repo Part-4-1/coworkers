@@ -67,7 +67,7 @@ const TeamBannerAdmin = ({
         const { data: newUserInfo } = await refetchUserInfo();
         const newGroups = newUserInfo?.memberships ?? [];
         if (newGroups.length === 0) {
-          await router.push("/noteam");
+          await router.push("/board");
           closePrompt();
           return;
         }
