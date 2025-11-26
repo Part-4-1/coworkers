@@ -83,7 +83,7 @@ const TeamMember = ({
 
           {isThisMemberAdmin && (
             <div className="ml-[4px] flex-shrink-0">
-              <Icon icon="crown" className="h-[24px] w-[24px] text-blue-200" />
+              <Icon icon="crown" className="h-[24px] w-[24px] text-yellow" />
             </div>
           )}
           {isThisMemberMe && (
