@@ -1,14 +1,16 @@
 "use client";
 
-import { Button } from "@/components";
+import { Button, LoadingSpinner } from "@/components";
 import { ChangeEvent, useState } from "react";
 
 const ChangeTaskListModalUI = ({
   taskTitle,
   handleClick,
+  isPending,
 }: {
   taskTitle: string;
   handleClick: (name: string) => void;
+  isPending?: boolean;
 }) => {
   const [input, setInput] = useState<string>(taskTitle);
 
@@ -27,8 +29,11 @@ const ChangeTaskListModalUI = ({
           }
         />
       </div>
-      <Button onClick={() => handleClick(input)} disabled={input.length < 1}>
-        수정하기
+      <Button
+        onClick={() => handleClick(input)}
+        disabled={input.length < 1 || isPending}
+      >
+        {isPending ? <LoadingSpinner /> : "수정하기"}
       </Button>
     </div>
   );

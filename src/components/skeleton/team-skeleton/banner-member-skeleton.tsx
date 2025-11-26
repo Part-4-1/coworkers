@@ -16,7 +16,7 @@ const BannerMemberSkeleton = ({ className }: BannerMemberSkeletonProps) => {
       )}
     >
       <div className="w-[200px] tablet:w-[300px]">
-        <Skeleton className="h-[32px]" />
+        <Skeleton className="h-[32px]" borderRadius="12px" />
       </div>
     </div>
   );

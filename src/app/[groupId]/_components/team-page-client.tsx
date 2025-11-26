@@ -1,6 +1,6 @@
 "use client";
 
-import { TeamBannerAdmin, TeamBannerMember } from "@/components/index";
+import { TeamBannerAdmin } from "@/components/index";
 import BannerAdminSkeleton from "@/components/skeleton/team-skeleton/banner-admin-skeleton";
 import TeamBodySkeleton from "@/components/skeleton/team-skeleton/team-body-skeleton";
 import TeamMemberSectionSkeleton from "@/components/skeleton/team-skeleton/team-member-section-skeleton";
@@ -20,7 +20,7 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
   const { data: groupInfo, isPending } = useGetGroupInfo(groupId);
   const isAdmin = isUserAdmin(userInfo, groupId);
 
-  if (isPending || !groupInfo) {
+  if (isPending || !groupInfo || !userInfo) {
     return (
       <div
         className={cn(
@@ -55,21 +55,15 @@ const TeamPageClient = ({ groupId }: TeamPageClientProps) => {
           )}
         >
           <section className="pc:flex pc:justify-center">
-            {isAdmin ? (
-              <TeamBannerAdmin
-                groupName={groupInfo.name}
-                tasksTodo={tasksTodo}
-                tasksDone={tasksDone}
-                members={groupInfo.members}
-                groupId={groupId}
-              />
-            ) : (
-              <TeamBannerMember
-                groupId={groupId}
-                groupName={groupInfo.name}
-                members={groupInfo.members}
-              />
-            )}
+            <TeamBannerAdmin
+              groupName={groupInfo.name}
+              tasksTodo={tasksTodo}
+              tasksDone={tasksDone}
+              members={groupInfo.members}
+              groupId={groupId}
+              isAdmin={isAdmin}
+              myId={userInfo.id}
+            />
           </section>
 
           <section className="pc:mx-auto pc:w-full pc:max-w-[1120px]">
