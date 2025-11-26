@@ -76,7 +76,7 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
               icon="comment"
               className="h-[18px] w-[18px] text-blue-100 tablet:h-5 tablet:w-5"
             />
-            <span className="text-md tablet:text-2lg">
+            <span className="text-md tablet:text-lg">
               {article.commentCount}
             </span>
           </div>
@@ -91,7 +91,7 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
               icon={article.isLiked ? "heartActive" : "heartDefault"}
               className="h-[18px] w-[18px] tablet:h-5 tablet:w-5"
             />
-            <span className="text-md tablet:text-2lg">{article.likeCount}</span>
+            <span className="text-md tablet:text-lg">{article.likeCount}</span>
           </Button>
         </div>
         <Link href="/boards">
