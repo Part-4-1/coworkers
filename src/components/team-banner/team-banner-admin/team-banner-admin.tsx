@@ -7,6 +7,7 @@ import useDeleteGroup from "@/hooks/api/group/use-delete-group";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import useMediaQuery from "@/hooks/use-media-query";
 import usePrompt from "@/hooks/use-prompt";
+import useToast from "@/hooks/use-toast";
 import { Member } from "@/types/members";
 import cn from "@/utils/clsx";
 import { useRouter } from "next/navigation";
@@ -50,8 +51,10 @@ const TeamBannerAdmin = ({
   const isPc = useMediaQuery("(min-width: 1280px)");
   const router = useRouter();
   const { Modal, openPrompt, closePrompt } = usePrompt(false);
-  const { mutate: deleteGroup } = useDeleteGroup(groupId);
+  const { mutate: deleteGroup, isPending: isDeletePeding } =
+    useDeleteGroup(groupId);
   const { refetch: refetchUserInfo } = useGetUserInfoQuery();
+  const { success, error, warning } = useToast();
 
   const handleEditDropdown = () => {
     router.push(`/${groupId}/editteam`);
@@ -64,6 +67,7 @@ const TeamBannerAdmin = ({
   const handleConfirmDelete = () => {
     deleteGroup(groupId, {
       onSuccess: async () => {
+        success("팀 삭제에 성공했습니다.");
         const { data: newUserInfo } = await refetchUserInfo();
         const newGroups = newUserInfo?.memberships ?? [];
         if (newGroups.length === 0) {
@@ -74,6 +78,9 @@ const TeamBannerAdmin = ({
 
         await router.push(`/${newGroups[0].groupId}`);
         closePrompt();
+      },
+      onError: () => {
+        error("팀 삭제에 실패했습니다.");
       },
     });
   };
@@ -158,6 +165,7 @@ const TeamBannerAdmin = ({
             </>
           }
           description="삭제 후에는 되돌릴 수 없습니다."
+          isPeding={isDeletePeding}
         />
       </Modal>
     </div>
