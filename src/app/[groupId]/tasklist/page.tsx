@@ -1,15 +1,16 @@
 "use client";
 
-import { TeamBannerMember } from "@/components";
+import TaskListContainer from "./_components/task-list-container";
+import { useEffect, useState } from "react";
+import TaskListDatePicker from "./_components/task-list-date-picker";
+import TaskListItem from "./_components/task-list-item";
+import cn from "@/utils/clsx";
+import { Button, Icon, TaskModal, TeamBannerMember } from "@/components";
 import BannerMemberSkeleton from "@/components/skeleton/team-skeleton/banner-member-skeleton";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
-import cn from "@/utils/clsx";
 import { useParams, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import TaskListContainer from "./_components/task-list-container";
-import TaskListDatePicker from "./_components/task-list-date-picker";
-import TaskListItem from "./_components/task-list-item";
+import usePrompt from "@/hooks/use-prompt";
 
 const Page = () => {
   const param = useParams();
@@ -23,6 +24,8 @@ const Page = () => {
     taskListId,
     selectedDate?.toLocaleDateString("sv-SE") || ""
   );
+
+  const { Modal, openPrompt, closePrompt } = usePrompt();
 
   useEffect(() => {
     setSelectedDate(new Date());
@@ -50,7 +53,7 @@ const Page = () => {
         />
         <div
           className={cn(
-            "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[37px] pt-[38px]",
+            "relative flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[37px] pt-[38px]",
             "tablet:rounded-[20px] tablet:px-[30px] tablet:pt-[37px]",
             "w-full"
           )}
@@ -65,8 +68,22 @@ const Page = () => {
             taskListId={taskListId}
             taskItems={taskItems}
           />
+          <Button
+            className="absolute bottom-10 right-1 z-20 h-14 w-14 rounded-full tablet:right-[-3%] pc:right-[-5%]"
+            onClick={openPrompt}
+          >
+            <Icon icon="plus" className="h-6 w-6" />
+          </Button>
         </div>
       </div>
+      <Modal>
+        <TaskModal
+          groupId={groupId}
+          taskListId={taskListId}
+          className="px-2 pt-8"
+          onSuccess={closePrompt}
+        />
+      </Modal>
     </div>
   );
 };

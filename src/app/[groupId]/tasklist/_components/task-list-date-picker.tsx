@@ -1,4 +1,4 @@
-import { Button, Calendar, Icon, TaskModal } from "@/components";
+import { Button, Calendar, Icon } from "@/components";
 import {
   ChangeEvent,
   Dispatch,
@@ -15,7 +15,6 @@ import {
 } from "@/utils/date-util";
 import DatePickerList from "@/app/[groupId]/tasklist/_components/date-picker-list";
 import useGetTaskList from "@/hooks/api/task/use-get-task-list";
-import usePrompt from "@/hooks/use-prompt";
 import useClickOutside from "@/hooks/click-outside/use-click-outside";
 import Skeleton from "react-loading-skeleton";
 
@@ -39,7 +38,6 @@ const TaskListDatePicker = ({
     taskListId,
     new Date().toLocaleDateString("sv-SE")
   );
-  const { Modal, openPrompt, closePrompt } = usePrompt();
   const calendarRef = useRef<HTMLDivElement | null>(null);
 
   useClickOutside(calendarRef, () => setShowCalendar(false), showCalendar);
@@ -130,25 +128,11 @@ const TaskListDatePicker = ({
           </div>
         )}
       </div>
-      <Button
-        className="fixed bottom-10 right-[13%] z-20 h-14 w-14 rounded-full"
-        onClick={openPrompt}
-      >
-        <Icon icon="plus" className="h-6 w-6" />
-      </Button>
       <DatePickerList
         dateList={week}
         checkedDay={day}
         handleChangeDay={handleChangeDay}
       />
-      <Modal>
-        <TaskModal
-          groupId={groupId}
-          taskListId={taskListId}
-          className="px-2 pt-8"
-          onSuccess={closePrompt}
-        />
-      </Modal>
     </div>
   );
 };
