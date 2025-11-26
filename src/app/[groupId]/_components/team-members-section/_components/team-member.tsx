@@ -18,6 +18,7 @@ interface TeamMemberProps {
   isThisMemberAdmin?: boolean;
   isAdmin: boolean;
   groupId: number;
+  isThisMemberMe: boolean;
 }
 
 const TeamMember = ({
@@ -25,6 +26,7 @@ const TeamMember = ({
   isThisMemberAdmin,
   isAdmin,
   groupId,
+  isThisMemberMe,
 }: TeamMemberProps) => {
   const DELETE_MEMBER_MESSAGE = "내보내기";
   const isMobile = useMediaQuery("(max-width: 744px)");
@@ -78,9 +80,15 @@ const TeamMember = ({
           <div className="truncate text-md font-medium text-blue-700">
             {member.userName}
           </div>
+
           {isThisMemberAdmin && (
             <div className="ml-[4px] flex-shrink-0">
-              <Icon icon="crown" className="h-[16px] w-[16px] text-blue-200" />
+              <Icon icon="crown" className="h-[24px] w-[24px] text-yellow" />
+            </div>
+          )}
+          {isThisMemberMe && (
+            <div className="ml-[4px] flex-shrink-0 pt-[1px] text-xs text-gray-400">
+              (나)
             </div>
           )}
         </div>
@@ -88,7 +96,7 @@ const TeamMember = ({
       </div>
 
       <div className="flex h-full pt-[2px] tablet:pt-[4px]">
-        {isAdmin ? (
+        {isAdmin && !isThisMemberMe ? (
           <div className="ml-[8px]">
             <Dropdown
               trigger={

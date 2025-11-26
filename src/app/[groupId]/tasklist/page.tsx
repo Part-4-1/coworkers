@@ -6,10 +6,12 @@ import TaskListDatePicker from "./_components/task-list-date-picker";
 import TaskListItem from "./_components/task-list-item";
 import cn from "@/utils/clsx";
 import { Button, Icon, TaskModal, TeamBannerMember } from "@/components";
+import BannerMemberSkeleton from "@/components/skeleton/team-skeleton/banner-member-skeleton";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
 import { useParams, useSearchParams } from "next/navigation";
 import usePrompt from "@/hooks/use-prompt";
+
 const Page = () => {
   const param = useParams();
   const query = useSearchParams().get("list");
@@ -31,13 +33,17 @@ const Page = () => {
 
   return (
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
-      <TeamBannerMember
-        groupId={groupId}
-        groupName={groupData?.name || ""}
-        members={groupData?.members || []}
-        onMemberListClick={() => {}}
-        className="py-3 tablet:mt-[69px] tablet:py-4"
-      />
+      {isPending ? (
+        <BannerMemberSkeleton className="mt-[52px] py-3 tablet:mt-[69px] tablet:py-4" />
+      ) : (
+        <TeamBannerMember
+          groupId={groupId}
+          groupName={groupData?.name || ""}
+          members={groupData?.members || []}
+          onMemberListClick={() => {}}
+          className="py-3 tablet:mt-[69px] tablet:py-4"
+        />
+      )}
       <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
         <TaskListContainer
           groupId={groupId}

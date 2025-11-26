@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DeleteUserModalUI, PatchPasswordModalUI } from "@/components/index";
+import {
+  DeleteUserModalUI,
+  PatchPasswordModalUI,
+  UserSettingsSkeleton,
+} from "@/components/index";
 import UserProfileSection from "./user-profile-section";
 import UserAccountInfoSection from "./user-account-info-section";
 import UserSettingsActions from "./user-settings-actions";
@@ -29,28 +33,26 @@ const UserSettingContents = () => {
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: patchPassword } = usePatchUserPassword();
   const { mutate: patchUser } = usePatchUser();
-  const { data: userInfo } = useGetUserInfoQuery();
-
-  const isUserSocialLogin = isSocialLogin(userInfo?.email);
+  const { data: userInfo, isPending } = useGetUserInfoQuery();
 
   const [nickname, setNickname] = useState("");
 
   const {
     profileImage,
+    setProfileImage,
     fileInputRef,
     handleImageClick,
     handleFileChange,
     handleRemoveImage,
     isUploading: isImageUploading,
-  } = useProfileImageManager({
-    initialImage: userInfo?.image || "",
-  });
+  } = useProfileImageManager();
 
   useEffect(() => {
     if (userInfo) {
       setNickname(userInfo.nickname || "");
+      setProfileImage(userInfo.image || "");
     }
-  }, [userInfo]);
+  }, [userInfo, setProfileImage]);
 
   const isDirty =
     nickname !== (userInfo?.nickname || "") ||
@@ -82,6 +84,12 @@ const UserSettingContents = () => {
     isDirty,
     onSave: handleSaveChanges,
   });
+
+  const isUserSocialLogin = isSocialLogin(userInfo?.email);
+
+  if (isPending) {
+    return <UserSettingsSkeleton />;
+  }
 
   return (
     <>

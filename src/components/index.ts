@@ -38,3 +38,7 @@ export { default as CalendarListSkeleton } from "./skeleton/list-skeleton/calend
 export { default as TaskItemSkeleton } from "./skeleton/list-skeleton/task-item-skeleton";
 export { default as CommentListSkeleton } from "./skeleton/comment-list-skeleton/comment-list-skeleton";
 export { default as TaskDetailContentSkeleton } from "./skeleton/task-detail-skeleton/task-detail-content-skeleton";
+export { default as ArticlesListSkeleton } from "./skeleton/boards-skeleton/articles-list-skeleton";
+export { default as ArticleDetailSkeleton } from "./skeleton/boards-skeleton/article-detail-skeleton";
+export { default as ArticleEditSkeleton } from "./skeleton/boards-skeleton/article-edit-skeleton";
+export { default as UserSettingsSkeleton } from "./skeleton/user-skeleton/user-settings-skeleton";

@@ -4,11 +4,10 @@ import cn from "@/utils/clsx";
 import { useGetArticles } from "@/hooks/api/articles/use-get-articles";
 import BoardsBestHeader from "./boards-best-header/boards-best-header";
 import BoardBestPost from "./boards-best-post/boards-best-post";
+import { ArticlesListSkeleton } from "@/components/index";
 
 const BoardsBest = () => {
   const { data: bestArticles, isPending } = useGetArticles(1, 15, "like");
-
-  if (isPending) return <div>로딩중...</div>;
 
   return (
     <div
@@ -26,7 +25,11 @@ const BoardsBest = () => {
         )}
       >
         <BoardsBestHeader />
-        <BoardBestPost articles={bestArticles?.list || []} />
+        {isPending ? (
+          <ArticlesListSkeleton count={3} isBest={true} />
+        ) : (
+          <BoardBestPost articles={bestArticles?.list || []} />
+        )}
       </div>
     </div>
   );

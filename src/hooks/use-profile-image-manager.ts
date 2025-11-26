@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useImageUpload } from "./image-upload/use-image-upload";
 
 interface UseProfileImageManagerOptions {
@@ -16,14 +16,19 @@ const useProfileImageManager = ({
   const [profileImage, setProfileImage] = useState(initialImage);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
 
-  const { handleFile, removeImage, previews, isLoading } = useImageUpload({
-    maxCount: 1,
-    onImagesChange: (images) => {
+  const handleImagesChange = useCallback(
+    (images: string[]) => {
       if (images[0]) {
         setProfileImage(images[0]);
         onImageChange?.(images[0]);
       }
     },
+    [onImageChange]
+  );
+
+  const { handleFile, removeImage, previews, isLoading } = useImageUpload({
+    maxCount: 1,
+    onImagesChange: handleImagesChange,
   });
 
   useEffect(() => {

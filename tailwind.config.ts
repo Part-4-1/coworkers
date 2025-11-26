@@ -84,7 +84,7 @@ const config: Config = {
       xl: "0px 15px 50px -12px rgba(0, 0, 0, 0.05)",
     },
   },
-  plugins: [flexCenter, flexColCenter],
+  plugins: [flexCenter, flexColCenter, require("tailwind-scrollbar-hide")],
 };
 
 export default config;
