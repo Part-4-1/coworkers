@@ -13,21 +13,21 @@ import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 
 interface CommentProps {
   comment: Comment;
-  onSave: (commentId: number, content: string) => void;
+  onEdit: (commentId: number, content: string) => void;
   onDelete: (commentId: number) => void;
 }
 
-const Reply = ({ comment, onSave, onDelete }: CommentProps) => {
+const Reply = ({ comment, onEdit, onDelete }: CommentProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
 
-  const handleEdit = () => {
+  const handleEditClick = () => {
     setIsEditing(true);
   };
 
   const handleSave = () => {
-    onSave(comment.id, editedContent);
+    onEdit(comment.id, editedContent);
     setIsEditing(false);
   };
 
@@ -84,7 +84,7 @@ const Reply = ({ comment, onSave, onDelete }: CommentProps) => {
                   </Button>
                 }
                 items={[
-                  { label: "수정하기", onClick: handleEdit },
+                  { label: "수정하기", onClick: handleEditClick },
                   { label: "삭제하기", onClick: handleDelete },
                 ]}
                 isWidthFull={false}

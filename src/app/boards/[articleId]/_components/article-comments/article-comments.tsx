@@ -135,7 +135,7 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
               <hr className="border-gray-300 pb-5" />
               <Reply
                 comment={comment}
-                onSave={(commentId, content) =>
+                onEdit={(commentId, content) =>
                   patchComment({ commentId, content })
                 }
                 onDelete={(commentId) =>

@@ -25,7 +25,7 @@ const TaskDetailComment = ({ taskId }: TaskDetailCommentProps) => {
                 ...comment,
                 writer: comment.user,
               }}
-              onSave={(commentId, content) =>
+              onEdit={(commentId, content) =>
                 patchComment({ taskId, commentId, content })
               }
               onDelete={(commentId) => deleteComment({ taskId, commentId })}

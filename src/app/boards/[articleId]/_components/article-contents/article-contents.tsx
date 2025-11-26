@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/index";
 import { Article } from "@/types/article";
 
 interface ArticleContentsProps {
