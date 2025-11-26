@@ -6,10 +6,8 @@ const TeamBodySkeleton = () => {
       <div className="mb-[28px] mt-[32px] border-[1px] border-gray-300" />
 
       <div className="flex flex-col gap-[16px]">
-        <header className="">
-          <div className="flex items-center gap-[8px]"></div>
-          <Skeleton className="h-[20px] w-[140px]" />
-        </header>
+        <div className="flex items-center gap-[8px]"></div>
+        <Skeleton className="h-[20px]" />
 
         <div className="flex flex-col gap-[16px]">
           {Array.from({ length: 3 }).map((_, idx) => (

@@ -10,7 +10,6 @@ const TeamMemberSectionSkeleton = () => {
               key={idx}
               className="flex h-[72px] w-full items-center gap-[12px] rounded-[12px] bg-white p-[12px]"
             >
-              <Skeleton className="h-[48px] w-[48px] rounded-full" />
               <div className="flex flex-1 flex-col gap-[6px]">
                 <Skeleton className="h-[16px]" />
                 <Skeleton className="h-[16px]" />
