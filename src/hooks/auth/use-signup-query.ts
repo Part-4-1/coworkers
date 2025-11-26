@@ -12,7 +12,7 @@ export const useSignupQuery = () => {
   return useMutation({
     mutationFn: signupAction,
     onSuccess: () => {
-      router.push("/");
+      router.push("/boards");
     },
     onError: (error) => {
       console.log(error.message);

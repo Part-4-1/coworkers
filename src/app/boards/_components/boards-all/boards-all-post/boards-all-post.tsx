@@ -2,11 +2,10 @@
 
 import cn from "@/utils/clsx";
 import Link from "next/link";
-import { PostCard, Icon, Button } from "@/components/index";
+import { Icon, Button } from "@/components/index";
 import { Article } from "@/types/article";
 import { useState } from "react";
 import BoardsArticleWrapper from "../../boards-article-wrapper";
-import { article } from "framer-motion/client";
 
 const PAGE_COUNT = 5;
 const PER_PAGE_COUNT = 6;

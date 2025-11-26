@@ -27,14 +27,16 @@ const usePrompt = (showCloseBtn = false) => {
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
     document.documentElement.style.overflow = "hidden";
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    if (scrollbarWidth > 0) {
+      document.documentElement.style.paddingRight = `${scrollbarWidth}px`;
+    }
   }, []);
 
   const allowScroll = useCallback(() => {
-    document.documentElement.style.overflow = "unset";
-    document.body.style.paddingRight = "0px";
+    document.documentElement.style.overflow = "auto";
+    document.documentElement.style.paddingRight = "0";
   }, []);
-
   const openPrompt = useCallback(() => setIsOpen(true), []);
   const closePrompt = useCallback(() => setIsOpen(false), []);
 

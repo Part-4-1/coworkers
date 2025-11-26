@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import postImage from "../../api/image/post-image";
+import useToast from "../use-toast";
 
 interface ImagePreview {
   id: string;
@@ -22,12 +23,13 @@ export const useImageUpload = ({
   onImagesChange,
   initialImages = [],
 }: UseImageUploadOptions = {}) => {
+  const toast = useToast();
   const [previews, setPreviews] = useState<ImagePreview[]>(
     initialImages.map((url) => ({ id: crypto.randomUUID(), url }))
   );
   const [error, setError] = useState<string | null>(null);
 
-  const MAX_SIZE = 10 * 1024 * 1024;
+  const MAX_SIZE = 5 * 1024 * 1024;
 
   useEffect(() => {
     onImagesChange?.(previews.map((p) => p.url));
@@ -37,6 +39,7 @@ export const useImageUpload = ({
     if (previews.length >= maxCount) {
       const message = `최대 ${maxCount}개까지만 업로드 가능합니다.`;
       setError(message);
+      toast.error(message);
       onError?.(message);
       return false;
     }
@@ -44,13 +47,15 @@ export const useImageUpload = ({
     if (!file.type.startsWith("image/")) {
       const message = "이미지 파일만 업로드 가능합니다.";
       setError(message);
+      toast.error(message);
       onError?.(message);
       return false;
     }
 
     if (file.size > MAX_SIZE) {
-      const message = "파일 크기는 10MB 이하여야 합니다.";
+      const message = "파일 크기는 5MB 이하여야 합니다.";
       setError(message);
+      toast.error(message);
       onError?.(message);
       return false;
     }
@@ -69,6 +74,7 @@ export const useImageUpload = ({
     onError: () => {
       const errorMessage = "업로드 중 오류가 발생했습니다.";
       setError(errorMessage);
+      toast.error(errorMessage);
       onError?.(errorMessage);
     },
   });

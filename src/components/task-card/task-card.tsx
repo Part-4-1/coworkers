@@ -6,7 +6,7 @@ import usePatchTaskList from "@/hooks/api/task/use-patch-task-list";
 import usePrompt from "@/hooks/use-prompt";
 import cn from "@/utils/clsx";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { MouseEventHandler } from "react";
 import Badge, { BadgeProps } from "../badge/badge";
 import Button from "../button/button";
@@ -18,6 +18,7 @@ import DeleteModalUI from "../modal-ui/delete-modal-ui";
 interface TaskCardProps extends BadgeProps {
   groupId: number;
   taskListId: number;
+  pageListId: number;
   taskTitle: string;
   taskList?: CheckboxProps[];
   handleClickCheckbox?: MouseEventHandler<HTMLInputElement>;
@@ -26,13 +27,13 @@ interface TaskCardProps extends BadgeProps {
 const TaskCard = ({
   groupId,
   taskListId,
+  pageListId,
   taskTitle,
   taskList,
   total,
   completed,
   handleClickCheckbox,
 }: TaskCardProps) => {
-  const listId = useSearchParams().get("list");
   const pathName = usePathname();
   const {
     Modal: DeleteModal,
@@ -61,18 +62,21 @@ const TaskCard = ({
   return (
     <div
       className={cn(
-        "flex min-h-[54px] min-w-[270px] flex-col justify-center rounded-xl border border-gray-300",
+        "flex h-[54px] w-[270px] flex-col justify-center rounded-xl border border-gray-300",
         "gap-4 bg-white pl-5 pr-4",
         taskList && "pb-6 pt-4"
       )}
     >
       <div className="flex items-center justify-between">
         <Link href={`${pathName}?list=${taskListId}`}>
-          <span
-            className={`cursor-pointer truncate text-md font-semibold ${taskListId.toString() === listId && "rounded-xl text-blue-200"}`}
+          <p
+            className={cn(
+              "w-[150px] cursor-pointer truncate text-md font-semibold",
+              taskListId === pageListId && "text-blue-200"
+            )}
           >
             {taskTitle}
-          </span>
+          </p>
         </Link>
         <div className="flex">
           <Badge total={total} completed={completed} />

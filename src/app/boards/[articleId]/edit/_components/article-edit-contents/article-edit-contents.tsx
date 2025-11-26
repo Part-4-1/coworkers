@@ -4,7 +4,12 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import cn from "@/utils/clsx";
-import { InputBox, ImageUpload, Button } from "@/components/index";
+import {
+  InputBox,
+  ImageUpload,
+  Button,
+  LoadingSpinner,
+} from "@/components/index";
 import usePatchArticle from "@/hooks/api/articles/use-patch-article";
 import { Article } from "@/types/article";
 
@@ -115,7 +120,7 @@ const ArticleEditContents = ({ article }: ArticleEditContentsProps) => {
         disabled={isPending}
         className={isPending ? "cursor-not-allowed opacity-50" : ""}
       >
-        {isPending ? "수정중..." : "수정하기"}
+        {isPending ? <LoadingSpinner /> : "수정하기"}
       </Button>
     </form>
   );

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
-import { Button, Icon, TextInput } from "@/components";
+import { Button, Icon, TextInput, LoadingSpinner } from "@/components";
 import { useForm } from "react-hook-form";
 import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX } from "@/constants/regex";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -120,10 +120,10 @@ const ResetPasswordPage = () => {
           <Button
             className="mt-4"
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isPending}
             aria-label="password-reset"
           >
-            {isPending ? "전송 중..." : "재설정"}
+            {isPending ? <LoadingSpinner /> : "재설정"}
           </Button>
         </form>
       </div>

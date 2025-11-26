@@ -9,7 +9,7 @@ interface EditTeamPageProps {
 const EditTeamPage = async ({ params }: EditTeamPageProps) => {
   const { groupId } = await params;
 
-  return <EditTeam groupId={groupId} />;
+  return <EditTeam groupId={Number(groupId)} />;
 };
 
 export default EditTeamPage;

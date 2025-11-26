@@ -8,7 +8,6 @@ import DefaultProfile from "@/assets/icons/ic-user.svg";
 import { toDotDateString } from "@/utils/date-util";
 import { useCommentHandlers } from "@/hooks/comment-handlers/use-comment-handlers";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
-import { is } from "react-day-picker/locale";
 
 interface CommentProps {
   comment: Comment;

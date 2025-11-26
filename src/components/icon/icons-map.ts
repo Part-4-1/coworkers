@@ -9,9 +9,10 @@ import CheckboxActive from "@/assets/icons/ic-checkbox-active.svg";
 import CheckboxDefault from "@/assets/icons/ic-checkbox-default.svg";
 import Chess from "@/assets/icons/ic-chess.svg";
 import Comment from "@/assets/icons/ic-comment.svg";
+import Crown from "@/assets/icons/ic-crown.svg";
 import DownArrow from "@/assets/icons/ic-down-arrow.svg";
-import FolderFill from "@/assets/icons/ic-folder-fill.svg";
 import Facebook from "@/assets/icons/ic-facebook.svg";
+import FolderFill from "@/assets/icons/ic-folder-fill.svg";
 import Github from "@/assets/icons/ic-github.svg";
 import Menu from "@/assets/icons/ic-gnb-menu.svg";
 import HeartActive from "@/assets/icons/ic-heart-active.svg";
@@ -21,14 +22,14 @@ import Instagram from "@/assets/icons/ic-instagram.svg";
 import Invisible from "@/assets/icons/ic-invisible.svg";
 import Kakao from "@/assets/icons/ic-kakaotalk.svg";
 import Kebab from "@/assets/icons/ic-kebab.svg";
-import LogoLight from "@/assets/icons/ic-logo-light.svg";
 import LeftArrow from "@/assets/icons/ic-left-arrow.svg";
 import LeftFold from "@/assets/icons/ic-left-fold.svg";
 import leftTriangleArrow from "@/assets/icons/ic-left-triangle-arrow.svg";
+import LogoLight from "@/assets/icons/ic-logo-light.svg";
 import Pencil from "@/assets/icons/ic-pencil.svg";
 import Plus from "@/assets/icons/ic-plus.svg";
-import Progress from "@/assets/icons/ic-progress.svg";
 import ProgressCheck from "@/assets/icons/ic-progress-check.svg";
+import Progress from "@/assets/icons/ic-progress.svg";
 import Repeat from "@/assets/icons/ic-repeat.svg";
 import RightArrow from "@/assets/icons/ic-right-arrow.svg";
 import RightFold from "@/assets/icons/ic-right-fold.svg";
@@ -42,6 +43,7 @@ import UpArrow from "@/assets/icons/ic-up-arrow.svg";
 import User from "@/assets/icons/ic-user.svg";
 import Visible from "@/assets/icons/ic-visible.svg";
 import X from "@/assets/icons/ic-x.svg";
+import ArticleList from "@/assets/icons/ic-article-list.svg";
 
 const ICONS_MAP = {
   alert: Alert,
@@ -88,6 +90,8 @@ const ICONS_MAP = {
   x: X,
   leftTriangleArrow: leftTriangleArrow,
   rightTriangleArrow: rightTriangleArrow,
+  crown: Crown,
+  articleList: ArticleList,
 } as const;
 
 export default ICONS_MAP;

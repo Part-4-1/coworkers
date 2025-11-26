@@ -1,3 +1,5 @@
+"use client";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { Dropdown, Profile } from "@/components/index";
 import Link from "next/link";
@@ -11,26 +13,36 @@ import { useRouter } from "next/navigation";
  * @param isSidebarOpen - 사이드바가 현재 열려있는지(true) 닫혀있는지(false) 상태를 나타내는 값입니다.
  */
 
-const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
+const SidebarFooter = ({
+  isSidebarOpen,
+  currentTeamId,
+}: {
+  isSidebarOpen: boolean;
+  currentTeamId: string;
+}) => {
   const router = useRouter();
-  const { data: userInfo, isLoading } = useGetUserInfoQuery();
-  const { handleLogout } = useLogout();
+  const { data: userInfo, isPending } = useGetUserInfoQuery();
 
-  const isLoggedIn = !!userInfo && !isLoading;
+  const currentTeamIndex = userInfo?.memberships?.findIndex(
+    (data) => String(data.group.id) === currentTeamId
+  );
+
+  const { handleLogout } = useLogout();
+  const isLoggedIn = !!userInfo && !isPending;
   return isLoggedIn ? (
     <div className="mb-6 flex gap-3 border-t border-gray-300 pt-5">
       <div
         className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
       >
         <Dropdown
-          trigger={<Profile size={`${isSidebarOpen ? "lg" : "md"}`} />}
+          trigger={
+            <Profile
+              image={userInfo.image}
+              size={`${isSidebarOpen ? "lg" : "md"}`}
+            />
+          }
           items={[
-            {
-              label: "마이 히스토리",
-              onClick: () => router.push("/myhistory"),
-            },
             { label: "계정 설정", onClick: () => router.replace("/mypage") },
-            { label: "팀 참여", onClick: () => router.replace("/taketeam") },
             {
               label: "로그아웃",
               onClick: handleLogout,
@@ -50,11 +62,12 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
             exit={{ opacity: 0, width: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <span className="whitespace-nowrap text-sm font-medium text-blue-700">
+            <span className="truncate text-sm font-medium text-blue-700">
               {userInfo.nickname}
             </span>
-            <span className="whitespace-nowrap text-xs text-gray-700">
-              {userInfo?.memberships?.[0]?.group.name}
+            <span className="truncate text-xs text-gray-700">
+              {userInfo?.memberships?.[currentTeamIndex || 0]?.group.name ||
+                null}
             </span>
           </motion.div>
         )}
@@ -69,7 +82,10 @@ const SidebarFooter = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
         <div
           className={`relative rounded-lg ${isSidebarOpen ? "h-10 w-10" : "h-8 w-8"}`}
         >
-          <Profile size={`${isSidebarOpen ? "lg" : "md"}`} />
+          <Profile
+            image={userInfo?.image}
+            size={`${isSidebarOpen ? "lg" : "md"}`}
+          />
         </div>
       )}
       <span

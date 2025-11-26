@@ -43,10 +43,10 @@ const PostCard = ({
           </div>
         )}
         <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-3">
             <div
               className={cn(
-                "flex h-[80px] min-w-0 flex-col justify-center gap-2 tablet:h-[88px]",
+                "flex h-[80px] min-w-0 flex-shrink flex-col justify-center gap-2 tablet:h-[88px]",
                 isBest && "mobile:h-[67px] tablet:h-[67px] pc:h-[71px]"
               )}
             >
@@ -60,7 +60,7 @@ const PostCard = ({
               </p>
               <p
                 className={cn(
-                  "line-clamp-2 h-[42px] resize-none truncate whitespace-pre text-sm leading-[18px] text-gray-800 tablet:text-md",
+                  "line-clamp-2 resize-none overflow-hidden text-sm leading-[18px] text-gray-800 tablet:text-md",
                   isBest && "tablet:text-sm pc:text-md"
                 )}
               >

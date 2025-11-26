@@ -38,12 +38,12 @@ const ImageUpload = ({
     setIsDragActive(false);
 
     const files = Array.from(e.dataTransfer.files);
-    files.slice(0, checkingSlots).forEach(handleFile);
+    files.slice(0, checkingSlots).forEach((file) => handleFile(file));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.currentTarget.files || []);
-    files.slice(0, checkingSlots).forEach(handleFile);
+    files.slice(0, checkingSlots).forEach((file) => handleFile(file));
   };
 
   const isFull = previews.length >= maxCount;
