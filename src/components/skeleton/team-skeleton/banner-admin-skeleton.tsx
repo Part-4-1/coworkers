@@ -11,7 +11,7 @@ const BannerAdminSkeleton = () => {
       )}
     >
       <div className="w-full">
-        <Skeleton className="h-[32px]" />
+        <Skeleton className="h-[32px]" borderRadius="12px" />
       </div>
 
       <div
@@ -20,7 +20,11 @@ const BannerAdminSkeleton = () => {
           "tablet:h-[108px]"
         )}
       >
-        <Skeleton containerClassName="flex-1" className="h-full" />
+        <Skeleton
+          containerClassName="flex-1"
+          className="h-full"
+          borderRadius="12px"
+        />
       </div>
     </div>
   );

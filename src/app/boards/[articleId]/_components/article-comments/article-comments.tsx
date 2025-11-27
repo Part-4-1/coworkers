@@ -9,6 +9,8 @@ import { usePostArticleComment } from "@/hooks/api/articles/use-post-article-com
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import useGetArticleComments from "@/hooks/api/articles/use-get-article-comments";
 import useToggleArticleLike from "@/hooks/api/articles/use-toggle-article-like";
+import usePatchArticleComment from "@/hooks/api/articles/use-patch-article-comment";
+import useDeleteArticleComment from "@/hooks/api/articles/use-delete-article-comment";
 import LikeButton from "@/components/lottie/LikeButton";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 
@@ -18,6 +20,8 @@ interface ArticleCommentsProps {
 
 const ArticleComments = ({ article }: ArticleCommentsProps) => {
   const { mutate, isPending } = usePostArticleComment();
+  const { mutate: patchComment } = usePatchArticleComment();
+  const { mutate: deleteComment } = useDeleteArticleComment();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetArticleComments({ articleId: article.id });
@@ -129,7 +133,15 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
           {allComments.map((comment) => (
             <div key={comment.id}>
               <hr className="border-gray-300 pb-5" />
-              <Reply comment={comment} articleId={article.id} />
+              <Reply
+                comment={comment}
+                onEdit={(commentId, content) =>
+                  patchComment({ commentId, content })
+                }
+                onDelete={(commentId) =>
+                  deleteComment({ commentId, articleId: article.id })
+                }
+              />
             </div>
           ))}
           <div ref={observerTarget} className="h-4" />

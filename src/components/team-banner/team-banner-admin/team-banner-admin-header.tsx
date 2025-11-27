@@ -53,7 +53,7 @@ const TeamBannerAdminHeader = ({
           )
         ) : (
           <ProfileList
-            members={members}
+            members={sortedMembers}
             className="max-w-[75px] shrink-0 tablet:max-w-[87px]"
           />
         )}
