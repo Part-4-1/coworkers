@@ -29,7 +29,7 @@ const usePrompt = (showCloseBtn = false) => {
     const isScrollable = document.body.scrollHeight > window.innerHeight;
     document.documentElement.style.overflow = "hidden";
 
-    if (scrollbarWidth > 0 && isScrollable) {
+    if (scrollbarWidth && isScrollable) {
       document.documentElement.style.paddingRight = `${scrollbarWidth}px`;
     }
   }, []);
