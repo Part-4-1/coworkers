@@ -1,11 +1,38 @@
 import instance from "@/utils/axios";
+import { notFound } from "next/navigation";
+
+export const fetchTaskDetail = async (
+  groupId: number,
+  taskListId: number,
+  taskId: number,
+  token: string
+) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response) return notFound();
+
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 /**
  * @author hwitae
  * @description 할 일 상세 정보를 조회합니다.
  * @param taskId 할 일 ID
  */
-const getTaskDetail = async (
+export const getTaskDetail = async (
   groupId: number,
   taskListId: number,
   taskId: number
@@ -22,5 +49,3 @@ const getTaskDetail = async (
     console.error(error);
   }
 };
-
-export default getTaskDetail;
