@@ -16,25 +16,26 @@
 >팀 단위로 할 일을 정리하고 진행 상황을 투명하게 공유하여,
 협업 효율을 높이는 것이 Coworkers의 핵심 목적입니다.
 
+
 <br>
 
 ## ✨주요 기능
 
-|화면 명|
+|팀 페이지|
 |:---:|
-|<img src="https://github.com/user-attachments/assets/000d2be8-4181-4fae-b3b9-693b80083a01" width="450"/>|
+|<img src="https://github.com/user-attachments/assets/74535fbf-0a55-45ce-95e1-afe36fd0c886" width="450"/>|
 |화면에 대한 설명을 입력합니다.|
 
 
-|화면 명|
+|할 일 리스트|
 |:---:|
-|<img src="https://github.com/user-attachments/assets/68f6a97f-3adf-4df4-acbf-71c244fca7b6" width="450"/>|
+|<img src="https://github.com/user-attachments/assets/5bbde4a9-d48d-4cf0-997f-9aa58a454ea9" width="450"/>|
 |화면에 대한 설명을 입력합니다.|
 
 
-|화면 명|
+|자유게시판|
 |:---:|
-|<img src="https://github.com/user-attachments/assets/f7c39d02-11ab-443f-a42d-527746a82a77" width="450"/>|
+|<img src="https://github.com/user-attachments/assets/a2b103bf-364d-4970-9bc8-3a1ef282a28c" width="450"/>|
 |화면에 대한 설명을 입력합니다.|
 
 <br />
