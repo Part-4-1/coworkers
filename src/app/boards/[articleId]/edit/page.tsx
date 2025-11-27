@@ -29,23 +29,14 @@ export async function generateMetadata({
       url: `https://coworkes.com/boards/${articleId}/edit`,
       locale: "ko_KR",
       siteName: "Coworkers",
-      images: article.image
-        ? [
-            {
-              url: article.image,
-              width: 1200,
-              height: 630,
-              alt: article.title,
-            },
-          ]
-        : [
-            {
-              url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
-              width: 1200,
-              height: 630,
-              alt: "Coworkers 게시글 수정",
-            },
-          ],
+      images: [
+        {
+          url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Coworkers 게시글 수정",
+        },
+      ],
     },
   };
 }
