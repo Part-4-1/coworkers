@@ -48,6 +48,7 @@ const config: Config = {
         yellow: "#EAB308",
         cyan: "#06B6D4",
         purple: "#A855F7",
+        kakao: "#F5E14B",
       },
       screens: {
         mobile: "375px",
