@@ -24,22 +24,12 @@ const usePrompt = (showCloseBtn = false) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const lockingScroll = useCallback(() => {
-    const element = document.documentElement;
-    const body = document.body;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.overflow = "hidden";
 
-    if (body.scrollHeight > window.innerHeight) {
-      const beforeScrollY = window.scrollY;
-
-      window.scrollTo(0, beforeScrollY + 1);
-      const canActuallyScroll = window.scrollY > beforeScrollY;
-
-      element.style.overflow = "hidden";
-
-      if (canActuallyScroll) {
-        element.style.paddingRight = "15px";
-      }
-    } else {
-      element.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.documentElement.style.paddingRight = `${scrollbarWidth}px`;
     }
   }, []);
 
