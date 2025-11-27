@@ -93,7 +93,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                   </Button>
                 </Link>
               </div>
-              <div onClick={onClose}>
+              <div onClick={onClose} className="mr-4">
                 <SidebarMenu
                   iconName="board"
                   title="자유게시판"
