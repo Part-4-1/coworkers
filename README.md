@@ -1,6 +1,12 @@
-# 💎  Coworkers💎
+# 💎 Coworkers 💎  
 
- : 바뀐 랜딩페이지 이미지
+
+랜딩페이지 이미지 (추가 예정)
+
+
+<p align="left">
+  <a href="https://coworkers-pied.vercel.app/"><strong>🚀 서비스 바로가기</strong></a>
+</p>
  
  <br>
  
@@ -55,7 +61,7 @@
 
 <br>
 
-## 📁폴더 구조
+## 📁 폴더 구조
 ```
 src/
 ├── app/              # Next.js App Router 기반 페이지
@@ -67,3 +73,119 @@ src/
 ├── types/            # TypeScript 타입 정의
 └── utils/            # 공통 유틸 함수
 ```
+
+<br>
+
+## 🚀 실행 방법
+```
+# 1. 저장소 클론
+git clone https://github.com/your-repo-url/coworkers.git
+
+# 2. 폴더 이동
+cd coworkers
+
+# 3. 패키지 설치
+npm install
+
+# 4. 개발 서버 실행
+npm run dev
+```
+
+<br>
+
+## 🔐 환경 변수
+```
+NEXT_PUBLIC_API_URL=서버_API_베이스_URL
+NEXT_PUBLIC_KAKAO_REST_API_KEY=카카오_REST_API_키
+NEXT_PUBLIC_REDIRECT_URI=카카오_OAuth_리다이렉트_URL(로컬)
+NEXT_PUBLIC_KAKAO_REDIRECT_URI=카카오_OAuth_리다이렉트_URL
+```
+
+<br>
+
+<br>
+
+## 📌 데일리 팀 스크럼
+> 효과적인 협업을 위해 매일 스크럼을 진행하며, 공유된 내용은 노션 문서로 체계적으로 기록합니다.
+
+#### 🗓️ 시간표
+
+|      요일       |   시간    |
+| :-------------: | :-------: |
+|     화요일      | **13:00** |
+| 월·수·목·금·토 | **13:30** |
+
+<br>
+
+## 👥 팀원 소개
+
+<table align="center">
+  <tbody>
+    <tr>
+      <!-- 팀원 1 -->
+      <td align="center" width="200">
+        <a href="https://github.com/huuitae">
+          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_1" width="100" height="100"/><br/>
+          <strong>황휘태 (팀장)</strong>
+        </a>
+        <ul style="list-style: none; padding: 0; margin-top: 8px;">
+          <li>담당 작업 1</li>
+          <li>담당 작업 2</li>
+          <li>담당 작업 3</li>
+        </ul>
+      </td>
+      <!-- 팀원 2 -->
+      <td align="center" width="200">
+        <a href="https://github.com/junye0l">
+          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_2" width="100" height="100"/><br/>
+          <strong>김준열</strong>
+        </a>
+        <ul style="list-style: none; padding: 0; margin-top: 8px;">
+          <li>담당 작업 1</li>
+          <li>담당 작업 2</li>
+          <li>담당 작업 3</li>
+        </ul>
+      </td>
+      <!-- 팀원 3 -->
+      <td align="center" width="200">
+        <a href="https://github.com/JinHyuk-Kim66">
+          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_3" width="100" height="100"/><br/>
+          <strong>김진혁</strong>
+        </a>
+        <ul style="list-style: none; padding: 0; margin-top: 8px;">
+          <li>담당 작업 1</li>
+          <li>담당 작업 2</li>
+          <li>담당 작업 3</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <!-- 팀원 4 -->
+      <td align="center" width="200">
+        <a href="https://github.com/onesiin">
+          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_4" width="100" height="100"/><br/>
+          <strong>정철종</strong>
+        </a>
+        <ul style="list-style: none; padding: 0; margin-top: 8px;">
+          <li>담당 작업 1</li>
+          <li>담당 작업 2</li>
+         <li>담당 작업 3</li>
+        </ul>
+      </td>
+      <!-- 팀원 5 -->
+      <td align="center" width="200">
+        <a href="https://github.com/leohan6540">
+          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_5" width="100" height="100"/><br/>
+          <strong>한장희</strong>
+        </a>
+        <ul style="list-style: none; padding: 0; margin-top: 8px;">
+          <li>담당 작업 1</li>
+          <li>담당 작업 2</li>
+         <li>담당 작업 3</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
