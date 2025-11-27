@@ -54,7 +54,13 @@ instance.interceptors.request.use(
     const url = config.url ?? "";
     const method = config.method?.toLocaleLowerCase();
 
-    const noTokenURls = ["/", "/signin", "/signup", "/auth/refresh-token"];
+    const noTokenURls = [
+      "/",
+      "/signin",
+      "/signup",
+      "/auth/refresh-token",
+      "/auth/signIn/KAKAO",
+    ];
     if (noTokenURls.includes(url)) {
       return config;
     }
