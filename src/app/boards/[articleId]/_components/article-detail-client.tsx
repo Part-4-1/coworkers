@@ -7,38 +7,21 @@ import ArticleContents from "./article-contents/article-contents";
 import ArticleComments from "./article-comments/article-comments";
 import { ArticleDetailSkeleton } from "@/components";
 import { notFound } from "next/navigation";
-import { Article } from "@/types/article";
 
 interface ArticleDetailClientProps {
   articleId: number;
-  initialData?: Article | null;
 }
 
 export default function ArticleDetailClient({
   articleId,
-  initialData,
 }: ArticleDetailClientProps) {
   const { data, isPending, isError } = useGetArticleDetail(articleId);
 
   useEffect(() => {
-    if (initialData?.title) {
-      document.title = initialData.title;
+    if (data?.article?.title) {
+      document.title = data.article.title;
     }
-  }, [initialData]);
-
-  if (initialData && isPending) {
-    const articleData = initialData;
-
-    return (
-      <main className="mx-auto mt-[16px] w-full max-w-[343px] rounded-[20px] bg-white tablet:mt-[68px] tablet:max-w-[620px] pc:max-w-[900px]">
-        <article className="px-[20px] py-[40px] pc:px-[60px]">
-          <ArticleHeader article={articleData} />
-          <ArticleContents article={articleData} />
-          <ArticleComments article={articleData} />
-        </article>
-      </main>
-    );
-  }
+  }, [data]);
 
   if (isPending) return <ArticleDetailSkeleton />;
 

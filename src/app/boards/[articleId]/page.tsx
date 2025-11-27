@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import ArticleDetailClient from "./_components/article-detail-client";
 import getArticleDetail from "@/api/articles/get-article-detail";
 
@@ -10,7 +11,9 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { articleId } = await params;
-  const article = await getArticleDetail(Number(articleId));
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+  const article = await getArticleDetail(Number(articleId), accessToken);
 
   if (!article) {
     return {
@@ -43,9 +46,6 @@ export async function generateMetadata({
 
 export default async function Page({ params }: PageProps) {
   const { articleId } = await params;
-  const article = await getArticleDetail(Number(articleId));
 
-  return (
-    <ArticleDetailClient articleId={Number(articleId)} initialData={article} />
-  );
+  return <ArticleDetailClient articleId={Number(articleId)} />;
 }
