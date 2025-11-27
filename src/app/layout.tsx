@@ -7,9 +7,25 @@ import { ToastProvider } from "@/toast-provider";
 import GnbWrapper from "@/components/gnb/gnb-wrapper";
 
 export const metadata: Metadata = {
-  title: "Coworkers",
+  title: { default: "Coworkers", template: "%s | Coworkers" },
   icons: {
     icon: "/ic-coworkers-logo.svg",
+  },
+  openGraph: {
+    title: "Coworkers",
+    description: "랜딩 페이지",
+    type: "website",
+    url: "https://coworkes.com",
+    locale: "ko_KR",
+    siteName: "Coworkers",
+    images: [
+      {
+        url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Coworkers",
+      },
+    ],
   },
 };
 
