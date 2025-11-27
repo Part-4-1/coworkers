@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { LoadingSpinner } from "@/components";
+import instance from "@/utils/axios";
 
 const Redirect = () => {
   const searchParams = useSearchParams();
@@ -28,21 +29,13 @@ const Redirect = () => {
         deleteCookie("accessToken");
         deleteCookie("refreshToken");
 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/signIn/KAKAO`,
-          {
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              state: state,
-              redirectUri: kakao_redirect_uri,
-              token: code,
-            }),
-            method: "POST",
-          }
-        );
-        const data = await response.json();
+        const response = await instance.post("auth/signIn/KAKAO", {
+          state: state,
+          redirectUri: kakao_redirect_uri,
+          token: code,
+        });
 
-        if (!response.ok) throw new Error("로그인 실패");
+        const data = response.data;
 
         if (data.accessToken && data.refreshToken) {
           await setAuthCookies(data.accessToken, data.refreshToken);
