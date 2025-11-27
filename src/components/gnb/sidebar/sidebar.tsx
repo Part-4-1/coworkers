@@ -30,7 +30,7 @@ const Sidebar = () => {
   const pathname = usePathname();
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
-  const isBoardPage = pathname === "/boards";
+  const isBoardPage = pathname.startsWith("/boards");
   const isMyHistoryPage = pathname === "/myhistory";
   const isLandingPage = pathname === "/";
 
