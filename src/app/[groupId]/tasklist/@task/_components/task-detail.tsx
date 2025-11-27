@@ -5,6 +5,7 @@ import TaskDetailContents from "../_components/task-detail-contents";
 import { Icon } from "@/components";
 import TaskDetailWrapper from "../_components/task-detail-wrapper";
 import {
+  notFound,
   useParams,
   usePathname,
   useRouter,
@@ -59,6 +60,10 @@ const TaskDetail = () => {
     taskListId,
     taskId
   );
+
+  if (taskId) {
+    if (!taskDetailData) notFound();
+  }
 
   return (
     <AnimatePresence mode="wait">

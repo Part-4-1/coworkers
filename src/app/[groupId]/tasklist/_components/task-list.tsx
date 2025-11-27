@@ -9,7 +9,7 @@ import { Button, Icon, TaskModal, TeamBannerMember } from "@/components";
 import BannerMemberSkeleton from "@/components/skeleton/team-skeleton/banner-member-skeleton";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
-import { useParams, useSearchParams } from "next/navigation";
+import { notFound, useParams, useSearchParams } from "next/navigation";
 import usePrompt from "@/hooks/use-prompt";
 
 const TaskList = () => {
@@ -30,6 +30,10 @@ const TaskList = () => {
   useEffect(() => {
     setSelectedDate(new Date());
   }, []);
+
+  if (taskListId) {
+    if (!taskItems) notFound();
+  }
 
   return (
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">

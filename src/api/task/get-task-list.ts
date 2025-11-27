@@ -1,6 +1,5 @@
 import { TaskList } from "@/types/taskList";
 import instance from "@/utils/axios";
-import { notFound } from "next/navigation";
 
 export const fetchTaskList = async (
   groupId: number,
@@ -19,11 +18,10 @@ export const fetchTaskList = async (
       }
     );
 
-    if (!response) notFound();
-
     return response.json();
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 

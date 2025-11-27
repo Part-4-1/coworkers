@@ -32,11 +32,23 @@ export const generateMetadata = async ({
     );
 
     return {
-      title: `${taskDetail.name} - 할 일 상세`,
-      description: `${taskDetail.name}의 상세 정보를 확인할 수 있습니다.`,
+      title: `${taskDetail.name ? taskDetail.name : "페이지를 찾을 수 없습니다."} - 할 일 상세`,
+      description: `${taskDetail.name ? `${taskDetail.name}의 상세 정보를 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
       openGraph: {
-        title: `${taskDetail.name} - 할 일 상세 | Coworkers`,
-        description: `${taskDetail.name}의 상세 정보를 확인할 수 있습니다.`,
+        title: `${taskDetail.name ? taskDetail.name : "페이지를 찾을 수 없습니다."} - 할 일 상세 | Coworkers`,
+        description: `${taskDetail.name ? `${taskDetail.name}의 상세 정보를 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
+        type: "website",
+        url: `https://coworkers-pied.vercel.app/${groupId}/tasklist?list=${list}&task=${task}`,
+        locale: "ko_KR",
+        siteName: "Coworkers",
+        images: [
+          {
+            url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+            width: 1200,
+            height: 630,
+            alt: "Coworkers",
+          },
+        ],
       },
     };
   }
@@ -44,11 +56,23 @@ export const generateMetadata = async ({
   const response = await fetchTaskList(Number(groupId), Number(list), token);
 
   return {
-    title: `${response.name} - 할 일 목록`,
-    description: `${response.name}의 할 일을 확인할 수 있습니다.`,
+    title: `${response.name ? response.name : "페이지를 찾을 수 없습니다."} - 할 일 목록`,
+    description: `${response.name ? `${response.name}의 할 일을 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
     openGraph: {
-      title: `${response.name} - 할 일 목록 | Coworkers`,
-      description: `${response.name}의 할 일을 확인할 수 있습니다.`,
+      title: `${response.name ? response.name : "페이지를 찾을 수 없습니다."} - 할 일 목록 | Coworkers`,
+      description: `${response.name ? `${response.name}의 할 일을 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
+      type: "website",
+      url: `https://coworkers-pied.vercel.app/${groupId}/tasklist?list=${list}`,
+      locale: "ko_KR",
+      siteName: "Coworkers",
+      images: [
+        {
+          url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Coworkers",
+        },
+      ],
     },
   };
 };

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Coworkers",
     description: "랜딩 페이지",
     type: "website",
-    url: "https://coworkes.com",
+    url: "https://coworkers-pied.vercel.app/",
     locale: "ko_KR",
     siteName: "Coworkers",
     images: [
