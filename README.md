@@ -79,7 +79,7 @@ src/
 ## 🚀 실행 방법
 ```
 # 1. 저장소 클론
-git clone https://github.com/your-repo-url/coworkers.git
+git clone https://github.com/Part-4-1/coworkers.git
 
 # 2. 폴더 이동
 cd coworkers
