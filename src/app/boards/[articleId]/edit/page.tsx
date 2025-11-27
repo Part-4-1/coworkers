@@ -1,33 +1,60 @@
-"use client";
+import type { Metadata } from "next";
+import ArticleEditClient from "./_components/article-edit-client";
+import getArticleDetail from "@/api/articles/get-article-detail";
 
-import cn from "@/utils/clsx";
-import { useParams } from "next/navigation";
-import { useGetArticleDetail } from "@/hooks/api/articles/use-get-article-detail";
-import { ArticleEditSkeleton } from "@/components";
-import ArticleEditContents from "./_components/article-edit-contents/article-edit-contents";
-import { notFound } from "next/navigation";
+interface PageProps {
+  params: Promise<{ articleId: string }>;
+}
 
-export default function EditPage() {
-  const params = useParams();
-  const articleId = params.articleId;
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { articleId } = await params;
+  const article = await getArticleDetail(Number(articleId));
 
-  const { data, isPending } = useGetArticleDetail(Number(articleId));
-
-  if (isPending) return <ArticleEditSkeleton />;
-
-  if (!data?.article) {
-    notFound();
+  if (!article) {
+    return {
+      title: "게시글 수정",
+      description: "Coworkers 자유게시판 게시글 수정",
+    };
   }
 
+  return {
+    title: `${article.title} 수정`,
+    description: "Coworkers 자유게시판 게시글 수정",
+    openGraph: {
+      title: `${article.title} 수정 | Coworkers`,
+      description: "Coworkers 자유게시판 게시글 수정",
+      type: "website",
+      url: `https://coworkes.com/boards/${articleId}/edit`,
+      locale: "ko_KR",
+      siteName: "Coworkers",
+      images: article.image
+        ? [
+            {
+              url: article.image,
+              width: 1200,
+              height: 630,
+              alt: article.title,
+            },
+          ]
+        : [
+            {
+              url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+              width: 1200,
+              height: 630,
+              alt: "Coworkers 게시글 수정",
+            },
+          ],
+    },
+  };
+}
+
+export default async function EditPage({ params }: PageProps) {
+  const { articleId } = await params;
+  const article = await getArticleDetail(Number(articleId));
+
   return (
-    <div
-      className={cn(
-        "mx-auto mt-[36px] w-full max-w-[343px] rounded-[20px] bg-white",
-        "tablet:mt-[117px] tablet:max-w-[620px]",
-        "pc:mt-[100px] pc:max-w-[900px]"
-      )}
-    >
-      <ArticleEditContents article={data.article} />
-    </div>
+    <ArticleEditClient articleId={Number(articleId)} initialData={article} />
   );
 }

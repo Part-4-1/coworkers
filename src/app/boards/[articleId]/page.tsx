@@ -52,6 +52,9 @@ export async function generateMetadata({
 
 export default async function Page({ params }: PageProps) {
   const { articleId } = await params;
+  const article = await getArticleDetail(Number(articleId));
 
-  return <ArticleDetailClient articleId={Number(articleId)} />;
+  return (
+    <ArticleDetailClient articleId={Number(articleId)} initialData={article} />
+  );
 }
