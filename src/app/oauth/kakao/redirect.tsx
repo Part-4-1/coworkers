@@ -1,21 +1,20 @@
 "use client";
 
 import useToast from "@/hooks/use-toast";
-import { deleteCookie, setCookie } from "@/utils/cookie-utils";
+import { deleteCookie } from "@/utils/cookie-utils";
 import { setAuthCookies } from "@/utils/setAuthCookies";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import randomStringGenerator from "@/utils/random-string-generator";
 import { LoadingSpinner } from "@/components";
 
 const Redirect = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const redirect_uri = process.env.NEXT_PUBLIC_REDIRECT_URI;
+  const kakao_redirect_uri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
   const code = searchParams.get("code");
-  const state = randomStringGenerator(10);
+  const state = searchParams.get("state");
   const { success: ToastSuccess, error: ToastError } = useToast();
 
   const isProcessing = useRef(false);
@@ -35,7 +34,7 @@ const Redirect = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               state: state,
-              redirectUri: redirect_uri,
+              redirectUri: kakao_redirect_uri,
               token: code,
             }),
             method: "POST",
@@ -46,8 +45,6 @@ const Redirect = () => {
         if (!response.ok) throw new Error("로그인 실패");
 
         if (data.accessToken && data.refreshToken) {
-          setCookie("accessToken", data.accessToken);
-          setCookie("refreshToken", data.refreshToken);
           await setAuthCookies(data.accessToken, data.refreshToken);
         }
 
@@ -66,7 +63,7 @@ const Redirect = () => {
     };
 
     kakaoSignin();
-  }, [code, router, redirect_uri, ToastSuccess, ToastError, queryClient]);
+  }, [code, router, kakao_redirect_uri, ToastSuccess, ToastError, queryClient]);
 
   return (
     <div className="h-screen w-full flex-center">
