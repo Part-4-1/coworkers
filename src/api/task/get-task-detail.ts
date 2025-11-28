@@ -19,7 +19,7 @@ export const fetchTaskDetail = async (
       }
     );
 
-    if (!response.ok) notFound();
+    if (response.status === 404) notFound();
 
     return response.json();
   } catch (error) {
@@ -41,8 +41,6 @@ export const getTaskDetail = async (
     const response = await instance.get(
       `/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`
     );
-
-    if (!response) throw new Error("데이터를 불러오지 못했습니다.");
 
     return response.data;
   } catch (error) {
