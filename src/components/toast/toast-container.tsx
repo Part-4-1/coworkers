@@ -34,7 +34,7 @@ const ToastContainer = () => {
   return ReactDOM.createPortal(
     <dialog
       ref={dialogRef}
-      className="pointer-events-none fixed inset-0 flex h-full w-full items-start justify-center border-0 bg-transparent p-0 pt-8 backdrop:bg-transparent"
+      className="pointer-events-none fixed inset-0 flex h-full w-full items-start justify-center border-0 bg-transparent p-0 pt-8 outline-none backdrop:bg-transparent"
     >
       {toast && <Toast {...toast} />}
     </dialog>,

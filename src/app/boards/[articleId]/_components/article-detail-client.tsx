@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useGetArticleDetail } from "@/hooks/api/articles/use-get-article-detail";
 import ArticleHeader from "./article-header/article-header";
 import ArticleContents from "./article-contents/article-contents";
@@ -16,10 +17,16 @@ export default function ArticleDetailClient({
 }: ArticleDetailClientProps) {
   const { data, isPending, isError } = useGetArticleDetail(articleId);
 
+  useEffect(() => {
+    if (data?.article?.title) {
+      document.title = data.article.title;
+    }
+  }, [data]);
+
   if (isPending) return <ArticleDetailSkeleton />;
 
   if (isError || !data?.article) {
-    notFound();
+    return notFound();
   }
 
   const articleData = data.article;
