@@ -5,7 +5,6 @@ import TaskDetailContents from "../_components/task-detail-contents";
 import { Icon } from "@/components";
 import TaskDetailWrapper from "../_components/task-detail-wrapper";
 import {
-  notFound,
   useParams,
   usePathname,
   useRouter,
@@ -55,13 +54,11 @@ const TaskDetail = () => {
     router.push(`${pathName}?list=${taskListId}`);
   };
 
-  const {
-    data: taskDetailData,
-    isPending,
-    isError,
-  } = useGetTaskDetail(groupId, taskListId, taskId);
-
-  if (isError) notFound();
+  const { data: taskDetailData, isPending } = useGetTaskDetail(
+    groupId,
+    taskListId,
+    taskId
+  );
 
   return (
     <AnimatePresence mode="wait">
