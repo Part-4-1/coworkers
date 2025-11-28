@@ -88,7 +88,7 @@ const ImageUpload = ({
                 <img
                   src={preview.url}
                   alt={`preview-${preview.id}`}
-                  className="h-[120px] w-[120px] rounded-lg object-cover"
+                  className="h-[80px] w-[80px] rounded-lg object-cover tablet:h-[120px] tablet:w-[120px]"
                 />
                 <Button
                   variant="none"
