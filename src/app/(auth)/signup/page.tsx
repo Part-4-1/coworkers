@@ -80,6 +80,15 @@ const Page = () => {
                   value: EMAIL_REGEX,
                   message: "이메일 형식이 올바르지 않습니다.",
                 },
+                validate: {
+                  noProfanityInEmail: (value) => {
+                    const localPart = value.split("@")[0];
+                    return (
+                      !hasProfanity(localPart) ||
+                      "이메일에 부적절한 단어가 포함되어 있습니다."
+                    );
+                  },
+                },
               })}
             />
           </div>

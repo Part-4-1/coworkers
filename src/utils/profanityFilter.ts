@@ -1,7 +1,12 @@
 // @ts-ignore - badwords-ko has no type definitions
 import Filter from "badwords-ko";
+import { customProfanityWords } from "@/constants/custom-profanity";
 
 const filter = new Filter();
+
+if (customProfanityWords.length > 0) {
+  filter.addWords(...customProfanityWords);
+}
 
 /**
  * 텍스트에서 욕설을 *로 치환하는 함수
