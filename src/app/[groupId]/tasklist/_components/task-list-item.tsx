@@ -43,6 +43,7 @@ const TaskListItem = ({
             alt="empty_task"
             quality={100}
             draggable={false}
+            priority
           />
           <p className="text-center text-md text-gray-700">
             할 일이 없네요
