@@ -1,5 +1,5 @@
 import cn from "@/utils/clsx";
-import React, { useState } from "react";
+import React from "react";
 import { Icon } from "@/components/index";
 import ICONS_MAP from "../../../../icon/icons-map";
 import { AnimatePresence, motion } from "framer-motion";
@@ -72,6 +72,8 @@ const SidebarMenu = ({
       onClick={(e) => handleClick(e)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      aria-label={title}
+      aria-current={isSelected ? "page" : undefined}
     >
       <Icon
         icon={iconName}
