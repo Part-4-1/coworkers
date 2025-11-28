@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
 import { Button, Icon, TextInput, LoadingSpinner } from "@/components";
 import { EMAIL_REGEX, PASSWORD_MIN_LENGTH } from "@/constants/regex";
-import { SignupRequest } from "@/api/auth/signup-action";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import SimpleSignUpIn from "../_components/simple-signUpIn";
@@ -22,7 +21,7 @@ const Page = () => {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<SignupRequest>({
+  } = useForm<SignInRequest>({
     mode: "all",
     defaultValues: { email: "", password: "" },
   });
@@ -51,6 +50,8 @@ const Page = () => {
                 type="email"
                 placeholder="이메일을 입력하세요."
                 errorMessage={errors.email?.message}
+                autoComplete="username"
+                aria-invalid={!!errors.email}
                 {...register("email", {
                   required: "이메일을 입력해주세요.",
                   pattern: {
@@ -68,6 +69,8 @@ const Page = () => {
                 placeholder="비밀번호를 입력하세요."
                 errorMessage={errors.password?.message}
                 rightIconClassName="pr-2"
+                autoComplete="current-password"
+                aria-invalid={!!errors.password}
                 rightIcon={
                   <Button
                     aria-label={

@@ -48,9 +48,13 @@ export const getMonthlyTaskList = (
 ): MonthlyTaskList[] => {
   if (!tasks) return [];
 
+  const sortedTasks = tasks.sort((a, b) => {
+    return new Date(b.doneAt).getTime() - new Date(a.doneAt).getTime();
+  });
+
   let prevDoneDate = "";
 
-  const monthlyTaskList = tasks.map((task) => {
+  const monthlyTaskList = sortedTasks.map((task) => {
     let doneDate = task.doneAt.slice(0, 10);
 
     if (prevDoneDate !== doneDate) {
@@ -63,7 +67,7 @@ export const getMonthlyTaskList = (
     }
   });
 
-  return monthlyTaskList.filter(
-    (item): item is MonthlyTaskList => item !== undefined
-  );
+  return monthlyTaskList
+    .filter((item): item is MonthlyTaskList => item !== undefined)
+    .reverse();
 };
