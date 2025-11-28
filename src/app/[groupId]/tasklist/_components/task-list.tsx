@@ -31,10 +31,6 @@ const TaskList = () => {
     setSelectedDate(new Date());
   }, []);
 
-  if (taskListId) {
-    if (!taskItems) notFound();
-  }
-
   return (
     <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
       {isPending ? (
