@@ -1,4 +1,4 @@
-import getTaskList from "@/api/task/get-task-list";
+import { getTaskList } from "@/api/task/get-task-list";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetTaskList = (groupId: number, taskListId: number, date: string) => {

@@ -42,3 +42,4 @@ export { default as ArticlesListSkeleton } from "./skeleton/boards-skeleton/arti
 export { default as ArticleDetailSkeleton } from "./skeleton/boards-skeleton/article-detail-skeleton";
 export { default as ArticleEditSkeleton } from "./skeleton/boards-skeleton/article-edit-skeleton";
 export { default as UserSettingsSkeleton } from "./skeleton/user-skeleton/user-settings-skeleton";
+export { default as HistorySkeleton } from "./skeleton/history-skeleton/history-skeleton";

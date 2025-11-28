@@ -1,4 +1,4 @@
-import getTaskDetail from "@/api/task/get-task-detail";
+import { getTaskDetail } from "@/api/task/get-task-detail";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetTaskDetail = (
