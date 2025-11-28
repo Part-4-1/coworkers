@@ -19,11 +19,11 @@ export const fetchTaskDetail = async (
       }
     );
 
-    if (!response) return notFound();
+    if (!response.ok) notFound();
 
     return response.json();
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
@@ -46,6 +46,6 @@ export const getTaskDetail = async (
 
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
