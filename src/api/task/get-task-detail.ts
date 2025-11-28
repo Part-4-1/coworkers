@@ -19,11 +19,11 @@ export const fetchTaskDetail = async (
       }
     );
 
-    if (!response) return notFound();
+    if (response.status === 404) notFound();
 
     return response.json();
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
@@ -42,10 +42,8 @@ export const getTaskDetail = async (
       `/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`
     );
 
-    if (!response) throw new Error("데이터를 불러오지 못했습니다.");
-
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };

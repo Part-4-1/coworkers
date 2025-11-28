@@ -55,15 +55,13 @@ const TaskDetail = () => {
     router.push(`${pathName}?list=${taskListId}`);
   };
 
-  const { data: taskDetailData, isPending } = useGetTaskDetail(
-    groupId,
-    taskListId,
-    taskId
-  );
+  const {
+    data: taskDetailData,
+    isPending,
+    isError,
+  } = useGetTaskDetail(groupId, taskListId, taskId);
 
-  if (taskId) {
-    if (!taskDetailData) notFound();
-  }
+  if (isError) notFound();
 
   return (
     <AnimatePresence mode="wait">
