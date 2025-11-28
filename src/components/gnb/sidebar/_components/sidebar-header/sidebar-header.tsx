@@ -33,7 +33,11 @@ const SidebarHeader = ({
           <h1 className="text-xl font-bold text-blue-200">COWORKERS</h1>
         )}
       </Link>
-      <Button variant="none" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+      <Button
+        variant="none"
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        aria-label={isSidebarOpen ? "사이드바 닫기" : "사이드바 열기"}
+      >
         <Icon
           icon="leftFold"
           className={cn(
