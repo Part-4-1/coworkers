@@ -52,6 +52,9 @@ const Page = () => {
               type="text"
               placeholder="닉네임을 입력해주세요."
               errorMessage={errors.nickname?.message}
+              autoComplete="username"
+              aria-invalid={!!errors.nickname}
+              aria-describedby={errors.nickname ? "nickname-error" : undefined}
               {...register("nickname", {
                 required: "닉네임을 입력해주세요.",
               })}
@@ -64,6 +67,8 @@ const Page = () => {
               type="email"
               placeholder="이메일을 입력하세요."
               errorMessage={errors.email?.message}
+              autoComplete="email"
+              aria-invalid={!!errors.email}
               {...register("email", {
                 required: "이메일을 입력해주세요.",
                 pattern: {
@@ -81,6 +86,8 @@ const Page = () => {
               placeholder="비밀번호를 입력하세요."
               errorMessage={errors.password?.message}
               rightIconClassName="pr-2"
+              autoComplete="new-password"
+              aria-invalid={!!errors.password}
               rightIcon={
                 <Button
                   aria-label={showPassword ? "show password" : "hide password"}
@@ -120,6 +127,8 @@ const Page = () => {
               placeholder="비밀번호를 다시 한 번 입력하세요."
               errorMessage={errors.passwordConfirmation?.message}
               rightIconClassName="pr-2"
+              autoComplete="new-password"
+              aria-invalid={!!errors.passwordConfirmation}
               rightIcon={
                 <Button
                   aria-label={showPassword ? "show password" : "hide password"}

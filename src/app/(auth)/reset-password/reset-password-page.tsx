@@ -57,6 +57,8 @@ const ResetPasswordPage = () => {
               type={showPassword ? "text" : "password"}
               errorMessage={errors.password?.message}
               rightIconClassName="pr-2"
+              autoComplete="new-password"
+              aria-invalid={!!errors.password}
               rightIcon={
                 <Button
                   aria-label={showPassword ? "show password" : "hide password"}
@@ -89,13 +91,17 @@ const ResetPasswordPage = () => {
             />
           </div>
           <div className="flex flex-col gap-3">
-            <label htmlFor="passwordConfirmation"></label>
+            <label htmlFor="passwordConfirmation" className="sr-only">
+              비밀번호 확인
+            </label>
             <TextInput
               id="passwordConfirmation"
               placeholder="새 비밀번호를 다시 한 번 입력해주세요"
               type={showPassword ? "text" : "password"}
               errorMessage={errors.passwordConfirmation?.message}
               rightIconClassName="pr-2"
+              autoComplete="new-password"
+              aria-invalid={!!errors.passwordConfirmation}
               rightIcon={
                 <Button
                   aria-label={showPassword ? "show password" : "hide password"}

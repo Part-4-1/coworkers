@@ -42,7 +42,7 @@ const SidebarFooter = ({
             />
           }
           items={[
-            { label: "계정 설정", onClick: () => router.replace("/mypage") },
+            { label: "계정 설정", onClick: () => router.push("/mypage") },
             {
               label: "로그아웃",
               onClick: handleLogout,
@@ -66,7 +66,7 @@ const SidebarFooter = ({
               {userInfo.nickname}
             </span>
             <span className="truncate text-xs text-gray-700">
-              {userInfo?.memberships?.[currentTeamIndex || 0]?.group.name ||
+              {userInfo?.memberships?.[currentTeamIndex || 0]?.group?.name ||
                 null}
             </span>
           </motion.div>

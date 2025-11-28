@@ -1,20 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import SidebarMenu from "./sidebar-menu";
 
-const MockIcon = ({ width, height, className }: any) => {
-  return (
-    <div
-      style={{
-        width: width || 20,
-        height: height || 20,
-        backgroundColor: "#999",
-        borderRadius: "12px",
-      }}
-      className={className}
-    />
-  );
-};
-
 const meta = {
   title: "components/SidebarMenu",
   component: SidebarMenu,
@@ -23,6 +9,13 @@ const meta = {
   args: {
     iconName: "chess",
   },
+  decorators: [
+    (Story) => (
+      <div className="h-[200px] bg-gray-50 p-4">
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof SidebarMenu>;
 
 export default meta;
@@ -35,6 +28,13 @@ export const Default: Story = {
     isSelected: false,
     href: "/",
   },
+  decorators: [
+    (Story) => (
+      <div className="w-[270px] border">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const Selected: Story = {
@@ -43,5 +43,28 @@ export const Selected: Story = {
     isSidebarOpen: true,
     isSelected: true,
     href: "/",
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-[270px] border">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const Closed: Story = {
+  args: {
+    title: "닫힘",
+    isSidebarOpen: false,
+    isSelected: true,
+    href: "/",
+  },
+  render: (args) => {
+    return (
+      <div className="w-[43px] border border-dashed border-gray-300">
+        <SidebarMenu {...args} />
+      </div>
+    );
   },
 };
