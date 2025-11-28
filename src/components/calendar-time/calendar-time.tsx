@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/index";
+import Button from "../button/button";
 import { TIME_LIST } from "@/constants/time-list";
 import cn from "@/utils/clsx";
 import { useEffect, useState } from "react";
