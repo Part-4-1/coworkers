@@ -13,6 +13,7 @@ import usePatchArticleComment from "@/hooks/api/articles/use-patch-article-comme
 import useDeleteArticleComment from "@/hooks/api/articles/use-delete-article-comment";
 import LikeButton from "@/components/lottie/LikeButton";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
+import { filterProfanity } from "@/utils/profanityFilter";
 
 interface ArticleCommentsProps {
   article: Article;
@@ -61,10 +62,12 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   const handleCommentSubmit = (content: string) => {
+    const filteredContent = filterProfanity(content);
+
     mutate({
       articleId: article.id,
       data: {
-        content,
+        content: filteredContent,
       },
     });
   };
@@ -135,9 +138,10 @@ const ArticleComments = ({ article }: ArticleCommentsProps) => {
               <hr className="border-gray-300 pb-5" />
               <Reply
                 comment={comment}
-                onEdit={(commentId, content) =>
-                  patchComment({ commentId, content })
-                }
+                onEdit={(commentId, content) => {
+                  const filteredContent = filterProfanity(content);
+                  patchComment({ commentId, content: filteredContent });
+                }}
                 onDelete={(commentId) =>
                   deleteComment({ commentId, articleId: article.id })
                 }
