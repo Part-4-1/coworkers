@@ -4,7 +4,7 @@ import { Icon, Profile, TaskDetailContentSkeleton } from "@/components";
 import ICONS_MAP from "@/components/icon/icons-map";
 import usePatchTaskDetail from "@/hooks/api/task/use-patch-task-detail";
 import { Writer } from "@/types/user";
-import { ChangeEvent, useEffect, useRef } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import TaskDetailToggleBtn from "./task-detail-complete-btn";
 import { toKoreanDateWithTimeString } from "@/utils/date-util";
@@ -46,6 +46,7 @@ const TaskDetailContents = ({
   frequency,
   isPending,
 }: TaskDetailContentsProps) => {
+  const [text, setText] = useState<string>();
   const timer = useRef<NodeJS.Timeout | null>(null);
   const newDescription = useRef<string>(description);
   const newName = useRef<string>(name);
@@ -66,10 +67,12 @@ const TaskDetailContents = ({
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     newDescription.current = e.target.value.trim();
+    setText(e.target.value);
   };
 
   const handleNameChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     newName.current = e.target.value.trim();
+    setText(e.target.value);
   };
 
   const handleToggleBtnClick = () => {
@@ -104,7 +107,7 @@ const TaskDetailContents = ({
     return () => {
       timer.current && clearTimeout(timer.current);
     };
-  }, [newDescription.current, newName.current, isPending]);
+  }, [isPending, text]);
 
   return (
     <>
