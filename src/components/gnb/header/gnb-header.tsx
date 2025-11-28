@@ -31,7 +31,11 @@ const GnbHeader = () => {
       {isLoggedIn ? (
         <div className="flex justify-between pl-4 pr-[14px]">
           <div className="flex items-center gap-3 py-[14px]">
-            <Button variant="none" onClick={() => setIsOpen(true)}>
+            <Button
+              variant="none"
+              onClick={() => setIsOpen(true)}
+              aria-label="사이드바 메뉴 열기"
+            >
               <Icon icon="menu" className="h-6 w-6" />
             </Button>
 
@@ -54,11 +58,11 @@ const GnbHeader = () => {
                 },
                 {
                   label: "계정 설정",
-                  onClick: () => router.replace("/mypage"),
+                  onClick: () => router.push("/mypage"),
                 },
                 {
                   label: "팀 참여",
-                  onClick: () => router.replace("/taketeam"),
+                  onClick: () => router.push("/taketeam"),
                 },
                 {
                   label: "로그아웃",

@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Button, Icon } from "@/components/index";
+import Button from "@/components/button/button";
+import Icon from "@/components/icon/Icon";
 import SidebarMenu from "../sidebar/_components/sidebar-menu/sidebar-menu";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
@@ -18,7 +19,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
   const pathname = usePathname();
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
-  const isBoardPage = pathname === "/boards";
+  const isBoardPage = pathname.startsWith("/boards");
   const isMyHistoryPage = pathname === "/myhistory";
   const { data: userInfo } = useGetUserInfoQuery();
   const [isMounted, setIsMounted] = useState(false);
@@ -46,7 +47,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
             transition={{ duration: 0.1, ease: "easeIn" }}
           >
             <div className="flex w-full justify-end">
-              <Button variant="none" onClick={onClose}>
+              <Button variant="none" onClick={onClose} aria-label="메뉴 닫기">
                 <Icon icon="x" className="mr-4 h-5 w-5" />
               </Button>
             </div>
@@ -58,7 +59,6 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
               >
                 <div
                   className={cn(
-                    "max-h-[300px] overflow-y-auto",
                     "max-h-[300px] overflow-y-auto",
                     "[&::-webkit-scrollbar]:w-1.5",
                     "[&::-webkit-scrollbar-track]:bg-transparent",
@@ -93,7 +93,7 @@ const MobileSidebar = ({ onClose }: MobileSidebarProps) => {
                   </Button>
                 </Link>
               </div>
-              <div onClick={onClose}>
+              <div onClick={onClose} className="mr-4">
                 <SidebarMenu
                   iconName="board"
                   title="자유게시판"
