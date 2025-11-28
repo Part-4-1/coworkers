@@ -27,3 +27,25 @@
 ::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+#ch-plugin {
+  bottom: 20px !important;
+}
+
+@media (max-width: 743px) {
+  #ch-plugin {
+    right: calc(20% + 60px) !important;
+  }
+}
+
+@media (min-width: 744px) {
+  #ch-plugin {
+    right: calc(20% + 72px) !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  #ch-plugin {
+    right: calc(20% + 72px) !important;
+  }
+}
