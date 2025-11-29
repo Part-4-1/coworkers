@@ -10,6 +10,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 import { toDotDateString } from "@/utils/date-util";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { MAX_COMMENT_LENGTH } from "@/constants/comment";
 
 interface CommentProps {
   comment: Comment;
@@ -95,12 +96,29 @@ const Reply = ({ comment, onEdit, onDelete }: CommentProps) => {
 
         {isEditing ? (
           <div className="flex flex-col gap-2">
-            <TextareaAutosize
-              value={editedContent}
-              onChange={(e) => setEditedContent(e.target.value)}
-              className="w-full resize-none rounded-lg border border-blue-400 px-2 py-2 text-md leading-relaxed focus:outline-none"
-              minRows={3}
-            />
+            <div className="relative">
+              <TextareaAutosize
+                value={editedContent}
+                onChange={(e) => {
+                  if (e.target.value.length <= MAX_COMMENT_LENGTH) {
+                    setEditedContent(e.target.value);
+                  }
+                }}
+                maxLength={MAX_COMMENT_LENGTH}
+                className="w-full resize-none rounded-lg border border-blue-400 px-2 pb-6 pt-2 text-md leading-relaxed focus:outline-none"
+                minRows={3}
+              />
+              <span
+                className={cn(
+                  "absolute bottom-4 right-2 text-xs",
+                  editedContent.length === MAX_COMMENT_LENGTH
+                    ? "text-red-500"
+                    : "text-gray-500"
+                )}
+              >
+                {editedContent.length}/{MAX_COMMENT_LENGTH}
+              </span>
+            </div>
             <div className="flex gap-2">
               <Button
                 onClick={handleEdit}
@@ -119,7 +137,7 @@ const Reply = ({ comment, onEdit, onDelete }: CommentProps) => {
             </div>
           </div>
         ) : (
-          <p className="w-full text-md leading-relaxed text-gray-800 tablet:max-w-[464px] pc:max-w-[704px]">
+          <p className="w-full whitespace-pre-wrap break-words text-md leading-relaxed text-gray-800 tablet:max-w-[464px] pc:max-w-[665px]">
             {editedContent}
           </p>
         )}

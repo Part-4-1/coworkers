@@ -46,7 +46,9 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
     <>
       <div className="flex w-full flex-col gap-4 pb-[16px] tablet:pb-[28px]">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-blue-700">{article.title}</h2>
+          <h2 className="break-all text-xl font-bold text-blue-700">
+            {article.title}
+          </h2>
           {isWriter && (
             <Dropdown
               trigger={

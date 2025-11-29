@@ -37,22 +37,27 @@ const InputBox = ({
   ...rest
 }: InputBoxProps) => {
   return (
-    <textarea
-      id={id}
-      ref={ref}
-      placeholder={placeholder}
+    <div
       className={cn(
-        "resize-none rounded-xl border border-gray-300 px-4 py-3 font-normal focus:border-blue-400 focus:outline-none",
-        "text-md placeholder:text-sm",
-        "tablet:text-lg tablet:placeholder:text-md",
-        "border-blue-400 placeholder-shown:border-gray-300 focus:border-blue-200",
-        "break-words",
+        "overflow-hidden rounded-xl border border-gray-300 focus-within:border-blue-200 has-[:placeholder-shown]:border-gray-300",
         width,
-        height,
-        className
+        height
       )}
-      {...rest}
-    />
+    >
+      <textarea
+        id={id}
+        ref={ref}
+        placeholder={placeholder}
+        className={cn(
+          "h-full w-full resize-none bg-transparent px-4 py-3 font-normal focus:outline-none",
+          "text-md placeholder:text-sm",
+          "tablet:text-lg tablet:placeholder:text-md",
+          "break-words",
+          className
+        )}
+        {...rest}
+      />
+    </div>
   );
 };
 

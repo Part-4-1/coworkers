@@ -13,6 +13,7 @@ import {
 import usePatchArticle from "@/hooks/api/articles/use-patch-article";
 import { Article } from "@/types/article";
 import { filterProfanity } from "@/utils/profanityFilter";
+import { MAX_ARTICLE_TITLE_LENGTH } from "@/app/boards/_constants/article";
 
 interface ArticleEditContentsProps {
   article: Article;
@@ -29,6 +30,7 @@ const ArticleEditContents = ({ article }: ArticleEditContentsProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<EditFormData>({
     defaultValues: {
       title: article.title,
@@ -39,6 +41,7 @@ const ArticleEditContents = ({ article }: ArticleEditContentsProps) => {
   const [images, setImages] = useState<string[]>(
     article.image ? [article.image] : []
   );
+  const titleValue = watch("title") || "";
 
   const handleImagesChange = useCallback((imgs: string[]) => {
     setImages(imgs);
@@ -76,15 +79,32 @@ const ArticleEditContents = ({ article }: ArticleEditContentsProps) => {
     >
       <h2 className="pb-[32px] text-xl font-bold text-blue-700">게시글 수정</h2>
 
-      <div className="flex flex-col items-start gap-2 pb-[24px] tablet:gap-3 tablet:pb-[32px]">
+      <div className="flex w-full flex-col items-start gap-2 pb-[24px] tablet:gap-3 tablet:pb-[32px]">
         <div className="flex gap-[6px]">
           <span className="text-lg font-bold text-blue-700">제목</span>
           <span className="text-red-200">*</span>
         </div>
-        <InputBox
-          placeholder="제목을 입력해주세요."
-          {...register("title", { required: "제목은 필수입니다" })}
-        />
+        <div className="relative flex w-full items-center">
+          <InputBox
+            placeholder="제목을 입력해주세요."
+            {...register("title", { required: "제목은 필수입니다" })}
+            maxLength={MAX_ARTICLE_TITLE_LENGTH}
+          />
+        </div>
+        {titleValue.length > 0 && (
+          <div className="w-full text-right">
+            <span
+              className={cn(
+                "text-xs",
+                titleValue.length === MAX_ARTICLE_TITLE_LENGTH
+                  ? "text-red-500"
+                  : "text-gray-500"
+              )}
+            >
+              {titleValue.length}/{MAX_ARTICLE_TITLE_LENGTH}
+            </span>
+          </div>
+        )}
         {errors.title && (
           <span className="text-sm text-red-500">{errors.title.message}</span>
         )}
