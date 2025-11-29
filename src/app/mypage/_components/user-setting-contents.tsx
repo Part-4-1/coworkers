@@ -17,8 +17,11 @@ import usePatchUserPassword from "@/hooks/api/user/use-patch-user-password";
 import usePatchUser from "@/hooks/api/user/use-patch-user";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import isSocialLogin from "@/utils/auth-helper";
+import { hasProfanity } from "@/utils/profanityFilter";
+import useToast from "@/hooks/use-toast";
 
 const UserSettingContents = () => {
+  const toast = useToast();
   const {
     Modal: DeleteModal,
     openPrompt: openDeleteModal,
@@ -59,13 +62,13 @@ const UserSettingContents = () => {
     profileImage !== (userInfo?.image || "");
 
   const handleSaveChanges = () => {
-    if (!nickname.trim()) {
-      return;
-    }
-
     const updates: { nickname?: string; image?: string } = {};
 
     if (nickname !== (userInfo?.nickname || "")) {
+      if (hasProfanity(nickname)) {
+        toast.error("부적절한 닉네임입니다. 닉네임을 변경해주세요.");
+        return;
+      }
       updates.nickname = nickname;
     }
 

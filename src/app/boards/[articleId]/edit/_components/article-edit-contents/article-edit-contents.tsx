@@ -12,6 +12,7 @@ import {
 } from "@/components/index";
 import usePatchArticle from "@/hooks/api/articles/use-patch-article";
 import { Article } from "@/types/article";
+import { filterProfanity } from "@/utils/profanityFilter";
 
 interface ArticleEditContentsProps {
   article: Article;
@@ -44,12 +45,15 @@ const ArticleEditContents = ({ article }: ArticleEditContentsProps) => {
   }, []);
 
   const onSubmit = (data: EditFormData) => {
+    const filteredTitle = filterProfanity(data.title);
+    const filteredContent = filterProfanity(data.content);
+
     mutate(
       {
         articleId: article.id,
         data: {
-          title: data.title,
-          content: data.content,
+          title: filteredTitle,
+          content: filteredContent,
           image: images[0] || undefined,
         },
       },

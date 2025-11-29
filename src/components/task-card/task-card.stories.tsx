@@ -1,5 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import TaskCard from "./task-card";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 const meta = {
   title: "Components/TaskCard",
@@ -14,6 +23,13 @@ const meta = {
     completed: { control: "number" },
     taskList: { control: "object" },
   },
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
+    ),
+  ],
 } satisfies Meta<typeof TaskCard>;
 
 export default meta;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
 import { useForm } from "react-hook-form";
 import {
@@ -12,6 +12,7 @@ import { Button, Icon, TextInput, LoadingSpinner } from "@/components";
 import { useSignupQuery } from "@/hooks/auth/use-signup-query";
 import type { SignupRequest } from "@/api/auth/signup-action";
 import SimpleSignUpIn from "../_components/simple-signUpIn";
+import { hasProfanity } from "@/utils/profanityFilter";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -57,6 +58,10 @@ const Page = () => {
               aria-describedby={errors.nickname ? "nickname-error" : undefined}
               {...register("nickname", {
                 required: "닉네임을 입력해주세요.",
+                validate: {
+                  noProfanity: (value) =>
+                    !hasProfanity(value) || "부적절한 닉네임입니다.",
+                },
               })}
             />
           </div>
@@ -74,6 +79,15 @@ const Page = () => {
                 pattern: {
                   value: EMAIL_REGEX,
                   message: "이메일 형식이 올바르지 않습니다.",
+                },
+                validate: {
+                  noProfanityInEmail: (value) => {
+                    const localPart = value.split("@")[0];
+                    return (
+                      !hasProfanity(localPart) ||
+                      "이메일에 부적절한 단어가 포함되어 있습니다."
+                    );
+                  },
                 },
               })}
             />

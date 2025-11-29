@@ -11,6 +11,7 @@ import {
   LoadingSpinner,
 } from "@/components/index";
 import { usePostArticle } from "@/hooks/api/articles/use-post-article";
+import { filterProfanity } from "@/utils/profanityFilter";
 
 interface WriteFormData {
   title: string;
@@ -32,10 +33,13 @@ const ArticleWriteContents = () => {
   }, []);
 
   const onSubmit = (data: WriteFormData) => {
+    const filteredTitle = filterProfanity(data.title);
+    const filteredContent = filterProfanity(data.content);
+
     mutate(
       {
-        title: data.title,
-        content: data.content,
+        title: filteredTitle,
+        content: filteredContent,
         image: images[0] || undefined,
       },
       {

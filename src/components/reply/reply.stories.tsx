@@ -1,5 +1,14 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
 import Reply from "./reply";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 const meta = {
   title: "Components/Reply",
@@ -21,9 +30,11 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-[500px] flex-center">
-        <Story />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="min-h-[500px] flex-center">
+          <Story />
+        </div>
+      </QueryClientProvider>
     ),
   ],
 } satisfies Meta<typeof Reply>;
