@@ -119,3 +119,7 @@
 .markdown a:active {
   color: #ff0000;
 }
+
+.markdown p {
+  margin-bottom: 8px;
+}
