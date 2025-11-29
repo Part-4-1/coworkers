@@ -5,6 +5,7 @@ import cn from "@/utils/clsx";
 import Button from "../button/button";
 import Icon from "../icon/Icon";
 import TextareaAutosize from "react-textarea-autosize";
+import { MAX_COMMENT_LENGTH } from "@/constants/comment";
 
 /**
  * @author junyeol
@@ -23,10 +24,9 @@ const InputReply = ({
   disabled = false,
 }: InputReplyProps) => {
   const [value, setValue] = useState("");
-  const MAX_LENGTH = 255;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= MAX_LENGTH) {
+    if (e.target.value.length <= MAX_COMMENT_LENGTH) {
       setValue(e.target.value);
     }
   };
@@ -46,7 +46,7 @@ const InputReply = ({
           value={value}
           onChange={handleChange}
           disabled={disabled}
-          maxLength={MAX_LENGTH}
+          maxLength={MAX_COMMENT_LENGTH}
           className="w-full max-w-[708px] resize-none text-xs text-blue-700 placeholder:text-gray-800 focus:outline-none tablet:text-md"
           minRows={1}
         />
@@ -67,10 +67,12 @@ const InputReply = ({
           <span
             className={cn(
               "text-xs",
-              value.length === MAX_LENGTH ? "text-red-500" : "text-gray-500"
+              value.length === MAX_COMMENT_LENGTH
+                ? "text-red-500"
+                : "text-gray-500"
             )}
           >
-            {value.length}/{MAX_LENGTH}
+            {value.length}/{MAX_COMMENT_LENGTH}
           </span>
         </div>
       )}

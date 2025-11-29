@@ -10,6 +10,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 import { toDotDateString } from "@/utils/date-util";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
+import { MAX_COMMENT_LENGTH } from "@/constants/comment";
 
 interface CommentProps {
   comment: Comment;
@@ -21,7 +22,6 @@ const Reply = ({ comment, onEdit, onDelete }: CommentProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
-  const MAX_LENGTH = 255;
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -100,23 +100,23 @@ const Reply = ({ comment, onEdit, onDelete }: CommentProps) => {
               <TextareaAutosize
                 value={editedContent}
                 onChange={(e) => {
-                  if (e.target.value.length <= MAX_LENGTH) {
+                  if (e.target.value.length <= MAX_COMMENT_LENGTH) {
                     setEditedContent(e.target.value);
                   }
                 }}
-                maxLength={MAX_LENGTH}
+                maxLength={MAX_COMMENT_LENGTH}
                 className="w-full resize-none rounded-lg border border-blue-400 px-2 pb-6 pt-2 text-md leading-relaxed focus:outline-none"
                 minRows={3}
               />
               <span
                 className={cn(
                   "absolute bottom-4 right-2 text-xs",
-                  editedContent.length === MAX_LENGTH
+                  editedContent.length === MAX_COMMENT_LENGTH
                     ? "text-red-500"
                     : "text-gray-500"
                 )}
               >
-                {editedContent.length}/{MAX_LENGTH}
+                {editedContent.length}/{MAX_COMMENT_LENGTH}
               </span>
             </div>
             <div className="flex gap-2">
