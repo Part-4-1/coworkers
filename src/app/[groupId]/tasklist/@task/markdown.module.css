@@ -1,0 +1,121 @@
+.markdown h1 {
+  display: block;
+  font-size: 2em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.markdown h2 {
+  display: block;
+  font-size: 1.5em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.markdown h3 {
+  display: block;
+  font-size: 1.17em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.markdown code {
+  padding: 3px 6px;
+  border: none;
+  border-radius: 3px;
+  background-color: #e9ecef;
+  font-size: 14px;
+}
+
+.markdown ul {
+  display: block;
+  list-style-type: disc;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+}
+
+.markdown ol {
+  display: block;
+  list-style-type: decimal;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+}
+
+.markdown li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+.markdown table {
+  display: table;
+  border-collapse: separate;
+  box-sizing: border-box;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-color: gray;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.markdown thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.markdown tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.markdown tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.markdown th {
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+  text-align: center;
+  padding: 1px;
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: bold;
+  background-color: #f9fafb;
+}
+
+.markdown td {
+  display: table-cell;
+  vertical-align: inherit;
+  padding: 1px;
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.markdown a {
+  color: #0000ee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.markdown a:visited {
+  color: #551a8b;
+}
+
+.markdown a:active {
+  color: #ff0000;
+}

@@ -11,6 +11,7 @@ import { toKoreanDateWithTimeString } from "@/utils/date-util";
 import { changeFrequencyCode } from "@/utils/util";
 import Skeleton from "react-loading-skeleton";
 import cn from "@/utils/clsx";
+import TaskDetailMarkdownEditor from "./task-detail-markdown-editor";
 
 interface TaskMetadataProps {
   icon: keyof typeof ICONS_MAP;
@@ -168,12 +169,11 @@ const TaskDetailContents = ({
           </div>
         </div>
         {!isPending ? (
-          <TextareaAutosize
-            name={`${name} description`}
-            defaultValue={description}
-            placeholder="할 일 내용을 입력하세요."
-            onChange={handleDescriptionChange}
-            className="h-auto w-full resize-none text-md focus:outline-none"
+          <TaskDetailMarkdownEditor
+            name={name}
+            description={description}
+            handleDescriptionChange={handleDescriptionChange}
+            newDescriptionRef={newDescription.current}
           />
         ) : (
           <TaskDetailContentSkeleton />
