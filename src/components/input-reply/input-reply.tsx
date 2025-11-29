@@ -40,14 +40,14 @@ const InputReply = ({
 
   return (
     <div className="flex w-full max-w-[780px] flex-col border-y-2 border-gray-300 py-3">
-      <div className="flex items-end gap-6 pl-3 pr-3">
+      <div className="flex items-center gap-6 pl-3 pr-3">
         <TextareaAutosize
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
           disabled={disabled}
           maxLength={MAX_COMMENT_LENGTH}
-          className="w-full max-w-[708px] resize-none text-xs text-blue-700 placeholder:text-gray-800 focus:outline-none tablet:text-md"
+          className="w-full resize-none text-xs text-blue-700 placeholder:text-gray-800 focus:outline-none tablet:text-md"
           minRows={1}
         />
         <Button
@@ -55,7 +55,7 @@ const InputReply = ({
           disabled={!value.trim() || disabled}
           onClick={handleSubmit}
           className={cn(
-            "h-[24px] w-[24px] flex-shrink-0 rounded-full",
+            "h-[24px] w-[24px] flex-shrink-0 self-end rounded-full",
             value ? "bg-blue-100" : "bg-gray-800"
           )}
         >
