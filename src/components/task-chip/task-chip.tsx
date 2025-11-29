@@ -5,6 +5,8 @@ interface TaskChipProps {
   radioName: string;
   taskName: string;
   className?: string;
+  onClick?: () => void;
+  defaultChecked?: boolean;
 }
 
 const COUNT_COLOR = "#5189FA";
@@ -32,7 +34,14 @@ const COUNT_COLOR = "#5189FA";
  *    count={5}
  * />
  */
-const TaskChip = ({ radioName, id, taskName, className }: TaskChipProps) => {
+const TaskChip = ({
+  radioName,
+  id,
+  taskName,
+  className,
+  onClick,
+  defaultChecked,
+}: TaskChipProps) => {
   return (
     <div className={className}>
       <input
@@ -40,7 +49,9 @@ const TaskChip = ({ radioName, id, taskName, className }: TaskChipProps) => {
         id={id}
         name={radioName}
         value={id}
+        defaultChecked={defaultChecked}
         className="peer hidden"
+        onClick={onClick}
       />
       <label
         htmlFor={id}
