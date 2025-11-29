@@ -5,7 +5,6 @@ import cn from "@/utils/clsx";
 import Button from "../button/button";
 import Icon from "../icon/Icon";
 import TextareaAutosize from "react-textarea-autosize";
-import { pl } from "react-day-picker/locale";
 
 /**
  * @author junyeol
@@ -24,8 +23,12 @@ const InputReply = ({
   disabled = false,
 }: InputReplyProps) => {
   const [value, setValue] = useState("");
+  const MAX_LENGTH = 255;
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+    if (e.target.value.length <= MAX_LENGTH) {
+      setValue(e.target.value);
+    }
   };
 
   const handleSubmit = () => {
@@ -43,6 +46,7 @@ const InputReply = ({
           value={value}
           onChange={handleChange}
           disabled={disabled}
+          maxLength={MAX_LENGTH}
           className="w-full max-w-[708px] resize-none text-xs text-blue-700 placeholder:text-gray-800 focus:outline-none tablet:text-md"
           minRows={1}
         />
@@ -58,6 +62,18 @@ const InputReply = ({
           <Icon icon="upArrow" className="h-4 w-4" />
         </Button>
       </div>
+      {value.length > 0 && (
+        <div className="pr-3 pt-1 text-right">
+          <span
+            className={cn(
+              "text-xs",
+              value.length === MAX_LENGTH ? "text-red-500" : "text-gray-500"
+            )}
+          >
+            {value.length}/{MAX_LENGTH}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
