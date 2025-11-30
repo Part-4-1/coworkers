@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import {
   ProfileEdit,
@@ -35,12 +36,15 @@ const AddTeamContents = () => {
     isUploading: isImageUploading,
   } = useProfileImageManager();
 
-  const onSubmit = (data: { name: string; image?: string }) => {
-    createGroup({
-      name: data.name,
-      ...(profileImage && { image: profileImage }),
-    });
-  };
+  const onSubmit = useCallback(
+    (data: { name: string; image?: string }) => {
+      createGroup({
+        name: data.name,
+        ...(profileImage && { image: profileImage }),
+      });
+    },
+    [createGroup, profileImage]
+  );
 
   return (
     <div className="flex flex-col items-start gap-8 px-[21px] pb-[74.5px] pt-[52.5px] tablet:gap-10 tablet:px-[45px] tablet:pb-[64px] tablet:pt-[61px]">
