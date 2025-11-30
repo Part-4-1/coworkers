@@ -172,7 +172,7 @@ const Page = () => {
             <Button
               type="button"
               onClick={() => {
-                router.replace("/signin");
+                router.push("/signin");
               }}
               variant="none"
               aria-label="Forget Password?"
