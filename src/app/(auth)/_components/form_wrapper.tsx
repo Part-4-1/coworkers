@@ -12,7 +12,7 @@ const SingUpInFormWrapper = ({
     <div
       className={cn(
         "mx-auto w-[343px] rounded-[20px] bg-white tablet:w-[550px]",
-        "px-[21px] py-[57px] tablet:px-[45px] tablet:py-[72px]",
+        "px-[21px] py-[57px] tablet:px-[45px] tablet:pb-[50px] tablet:pt-[72px]",
         className
       )}
     >
