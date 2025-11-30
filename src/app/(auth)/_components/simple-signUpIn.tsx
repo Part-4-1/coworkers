@@ -14,7 +14,7 @@ const SimpleSignUpIn = () => {
 
   return (
     <>
-      <div className="mb-4 mt-12 flex w-full items-center gap-4">
+      <div className="my-8 flex w-full items-center gap-4">
         <div className="h-px flex-1 bg-gray-300"></div>
         <span className="text-gray-800">OR</span>
         <div className="h-px flex-1 bg-gray-300"></div>
