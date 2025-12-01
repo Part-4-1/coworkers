@@ -39,7 +39,6 @@ export const Default: Story = {
   args: {
     groupId: 3290,
     taskListId: 4711,
-    pageListId: 4711,
     taskTitle: "법인 설립",
     total: 5,
     completed: 2,
@@ -50,7 +49,6 @@ export const HasTaskList: Story = {
   args: {
     groupId: 3290,
     taskListId: 4711,
-    pageListId: 4711,
     taskTitle: "법인 설립",
     total: 5,
     completed: 2,

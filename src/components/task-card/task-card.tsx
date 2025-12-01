@@ -12,11 +12,11 @@ import Checkbox, { CheckboxProps } from "../checkbox/checkbox";
 import Dropdown from "../dropdown-components/dropdown";
 import Icon from "../icon/Icon";
 import DeleteModalUI from "../modal-ui/delete-modal-ui";
+import { useRouter } from "next/navigation";
 
 interface TaskCardProps extends BadgeProps {
   groupId: number;
   taskListId: number;
-  pageListId: number;
   taskTitle: string;
   taskList?: CheckboxProps[];
   handleClickCheckbox?: MouseEventHandler<HTMLInputElement>;
@@ -25,13 +25,13 @@ interface TaskCardProps extends BadgeProps {
 const TaskCard = ({
   groupId,
   taskListId,
-  pageListId,
   taskTitle,
   taskList,
   total,
   completed,
   handleClickCheckbox,
 }: TaskCardProps) => {
+  const router = useRouter();
   const {
     Modal: DeleteModal,
     openPrompt: openDeleteModal,
@@ -47,6 +47,7 @@ const TaskCard = ({
   const handleDelete = () => {
     deleteTaskList({ groupId, taskListId });
     closeDeleteModal();
+    router.replace(`/${groupId}/tasklist`);
   };
 
   const { mutate: patchTaskList, isPending: patchPending } =

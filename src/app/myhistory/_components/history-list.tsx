@@ -1,12 +1,32 @@
 import List from "@/components/list/list";
 import { MonthlyTaskList } from "@/types/task";
 import { formatDateWithDay } from "@/utils/date-util";
+import Image from "next/image";
 
 const HistoryList = ({
   monthlyTaskList,
 }: {
   monthlyTaskList: MonthlyTaskList[];
 }) => {
+  if (!monthlyTaskList.length) {
+    return (
+      <div className="h-full flex-col-center">
+        <Image
+          src={"/images/empty_my_history.png"}
+          alt="empty_my_history"
+          width={350}
+          height={150}
+          priority
+          quality={100}
+          className="object-contain"
+        />
+        <p className="text-center text-md text-gray-700">
+          아직 완료된 할 일이 없습니다.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <ul className="h-full overflow-y-auto">
       {[...monthlyTaskList].reverse().map((taskList) => {
