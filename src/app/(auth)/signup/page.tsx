@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
 import { useForm } from "react-hook-form";
 import {
@@ -8,16 +8,18 @@ import {
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
 } from "@/constants/regex";
-import { Button, Icon, TextInput } from "@/components";
+import { Button, Icon, TextInput, LoadingSpinner } from "@/components";
 import { useSignupQuery } from "@/hooks/auth/use-signup-query";
 import type { SignupRequest } from "@/api/auth/signup-action";
-import { useRouter } from "next/navigation";
-import { getCookie } from "@/utils/cookie-utils";
 import SimpleSignUpIn from "../_components/simple-signUpIn";
+import { hasProfanity } from "@/utils/profanityFilter";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
   const {
     register,
     formState: { errors, isValid },
@@ -27,7 +29,6 @@ const Page = () => {
     mode: "all",
     defaultValues: { email: "", password: "" },
   });
-  const accessToken = getCookie("accessToken");
 
   const { mutate, isPending } = useSignupQuery();
 
@@ -39,12 +40,6 @@ const Page = () => {
       passwordConfirmation: formData.passwordConfirmation,
     });
   };
-
-  useEffect(() => {
-    if (accessToken) {
-      router.push("/");
-    }
-  }, [accessToken]);
 
   return (
     <SingUpInFormWrapper>
@@ -62,8 +57,15 @@ const Page = () => {
               type="text"
               placeholder="닉네임을 입력해주세요."
               errorMessage={errors.nickname?.message}
+              autoComplete="username"
+              aria-invalid={!!errors.nickname}
+              aria-describedby={errors.nickname ? "nickname-error" : undefined}
               {...register("nickname", {
                 required: "닉네임을 입력해주세요.",
+                validate: {
+                  noProfanity: (value) =>
+                    !hasProfanity(value) || "부적절한 닉네임입니다.",
+                },
               })}
             />
           </div>
@@ -74,11 +76,22 @@ const Page = () => {
               type="email"
               placeholder="이메일을 입력하세요."
               errorMessage={errors.email?.message}
+              autoComplete="email"
+              aria-invalid={!!errors.email}
               {...register("email", {
                 required: "이메일을 입력해주세요.",
                 pattern: {
                   value: EMAIL_REGEX,
                   message: "이메일 형식이 올바르지 않습니다.",
+                },
+                validate: {
+                  noProfanityInEmail: (value) => {
+                    const localPart = value.split("@")[0];
+                    return (
+                      !hasProfanity(localPart) ||
+                      "이메일에 부적절한 단어가 포함되어 있습니다."
+                    );
+                  },
                 },
               })}
             />
@@ -91,6 +104,8 @@ const Page = () => {
               placeholder="비밀번호를 입력하세요."
               errorMessage={errors.password?.message}
               rightIconClassName="pr-2"
+              autoComplete="new-password"
+              aria-invalid={!!errors.password}
               rightIcon={
                 <Button
                   aria-label={showPassword ? "show password" : "hide password"}
@@ -126,19 +141,21 @@ const Page = () => {
             <label htmlFor="passwordConfirmation">비밀번호 확인</label>
             <TextInput
               id="passwordConfirmation"
-              type={showPassword ? "text" : "password"}
+              type={showPassword2 ? "text" : "password"}
               placeholder="비밀번호를 다시 한 번 입력하세요."
               errorMessage={errors.passwordConfirmation?.message}
               rightIconClassName="pr-2"
+              autoComplete="new-password"
+              aria-invalid={!!errors.passwordConfirmation}
               rightIcon={
                 <Button
-                  aria-label={showPassword ? "show password" : "hide password"}
+                  aria-label={showPassword2 ? "show password" : "hide password"}
                   type="button"
                   variant="none"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword2(!showPassword2)}
                 >
                   <Icon
-                    icon={showPassword ? "visible" : "invisible"}
+                    icon={showPassword2 ? "visible" : "invisible"}
                     className="h-6 w-6 text-gray-800"
                   />
                 </Button>
@@ -151,13 +168,26 @@ const Page = () => {
               })}
             />
           </div>
+          <div className="flex cursor-pointer justify-end text-lg text-blue-200 underline hover:text-blue-100">
+            <Button
+              type="button"
+              onClick={() => {
+                router.push("/signin");
+              }}
+              variant="none"
+              aria-label="Forget Password?"
+              className="font-medium"
+            >
+              계정이 이미 있으신가요?
+            </Button>
+          </div>
           <Button
             className="mt-4"
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isPending}
             aria-label="Signup"
           >
-            {isPending ? "전송 중..." : "회원가입"}
+            {isPending ? <LoadingSpinner /> : "회원가입"}
           </Button>
         </form>
       </div>

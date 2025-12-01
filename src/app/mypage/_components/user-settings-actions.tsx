@@ -1,4 +1,4 @@
-import { Button, Icon } from "@/components/index";
+import { Button, Icon, LoadingSpinner } from "@/components/index";
 
 interface UserSettingsActionsProps {
   isDirty: boolean;
@@ -16,7 +16,7 @@ const UserSettingsActions = ({
   isSocialLogin = false,
 }: UserSettingsActionsProps) => {
   return (
-    <div className="mt-[41.5px] flex w-full items-center justify-between tablet:mt-[42.5px] pc:mt-[30.5px]">
+    <div className="flex w-full items-center justify-between">
       {!isSocialLogin && (
         <Button
           variant="none"
@@ -35,8 +35,14 @@ const UserSettingsActions = ({
         onClick={onSaveClick}
         disabled={!isDirty || isImageUploading}
       >
-        <Icon icon="checkInverse" className="h-6 w-6" />
-        {isImageUploading ? "이미지 업로드 중..." : "변경사항 저장하기"}
+        {isImageUploading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <Icon icon="checkInverse" className="h-6 w-6" />
+            변경사항 저장하기
+          </>
+        )}
       </Button>
     </div>
   );

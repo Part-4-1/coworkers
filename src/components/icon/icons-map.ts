@@ -43,6 +43,7 @@ import UpArrow from "@/assets/icons/ic-up-arrow.svg";
 import User from "@/assets/icons/ic-user.svg";
 import Visible from "@/assets/icons/ic-visible.svg";
 import X from "@/assets/icons/ic-x.svg";
+import ArticleList from "@/assets/icons/ic-article-list.svg";
 
 const ICONS_MAP = {
   alert: Alert,
@@ -90,6 +91,7 @@ const ICONS_MAP = {
   leftTriangleArrow: leftTriangleArrow,
   rightTriangleArrow: rightTriangleArrow,
   crown: Crown,
+  articleList: ArticleList,
 } as const;
 
 export default ICONS_MAP;

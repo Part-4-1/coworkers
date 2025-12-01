@@ -1,4 +1,4 @@
-import React, { MouseEvent, MouseEventHandler } from "react";
+import React, { MouseEvent } from "react";
 import { Button, Checkbox, DeleteModalUI, Icon } from "@/components/index";
 import cn from "@/utils/clsx";
 import { toKoreanDateString } from "@/utils/date-util";

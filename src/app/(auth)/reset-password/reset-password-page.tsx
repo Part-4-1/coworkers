@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import SingUpInFormWrapper from "../_components/form_wrapper";
-import { Button, Icon, TextInput } from "@/components";
+import { Button, Icon, TextInput, LoadingSpinner } from "@/components";
 import { useForm } from "react-hook-form";
 import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX } from "@/constants/regex";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -57,6 +57,8 @@ const ResetPasswordPage = () => {
               type={showPassword ? "text" : "password"}
               errorMessage={errors.password?.message}
               rightIconClassName="pr-2"
+              autoComplete="new-password"
+              aria-invalid={!!errors.password}
               rightIcon={
                 <Button
                   aria-label={showPassword ? "show password" : "hide password"}
@@ -89,13 +91,17 @@ const ResetPasswordPage = () => {
             />
           </div>
           <div className="flex flex-col gap-3">
-            <label htmlFor="passwordConfirmation"></label>
+            <label htmlFor="passwordConfirmation" className="sr-only">
+              비밀번호 확인
+            </label>
             <TextInput
               id="passwordConfirmation"
               placeholder="새 비밀번호를 다시 한 번 입력해주세요"
               type={showPassword ? "text" : "password"}
               errorMessage={errors.passwordConfirmation?.message}
               rightIconClassName="pr-2"
+              autoComplete="new-password"
+              aria-invalid={!!errors.passwordConfirmation}
               rightIcon={
                 <Button
                   aria-label={showPassword ? "show password" : "hide password"}
@@ -120,10 +126,10 @@ const ResetPasswordPage = () => {
           <Button
             className="mt-4"
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isPending}
             aria-label="password-reset"
           >
-            {isPending ? "전송 중..." : "재설정"}
+            {isPending ? <LoadingSpinner /> : "재설정"}
           </Button>
         </form>
       </div>

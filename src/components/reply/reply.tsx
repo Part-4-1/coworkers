@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import cn from "@/utils/clsx";
 import Button from "../button/button";
 import Icon from "../icon/Icon";
@@ -6,19 +9,37 @@ import { Comment } from "@/types/index";
 import TextareaAutosize from "react-textarea-autosize";
 import DefaultProfile from "@/assets/icons/ic-user.svg";
 import { toDotDateString } from "@/utils/date-util";
-import { useCommentHandlers } from "@/hooks/comment-handlers/use-comment-handlers";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
-import { is } from "react-day-picker/locale";
+import { MAX_COMMENT_LENGTH } from "@/constants/comment";
 
 interface CommentProps {
   comment: Comment;
-  articleId?: number;
+  onEdit: (commentId: number, content: string) => void;
+  onDelete: (commentId: number) => void;
 }
 
-const Reply = ({ comment, articleId }: CommentProps) => {
+const Reply = ({ comment, onEdit, onDelete }: CommentProps) => {
   const { data: userInfo } = useGetUserInfoQuery();
-  const { isEditing, editedContent, setEditedContent, ...handlers } =
-    useCommentHandlers(comment, articleId);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(comment.content);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleEdit = () => {
+    onEdit(comment.id, editedContent);
+    setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    onDelete(comment.id);
+  };
+
+  const handleCancel = () => {
+    setEditedContent(comment.content);
+    setIsEditing(false);
+  };
 
   const isWriter = userInfo?.id === comment.writer.id;
 
@@ -64,8 +85,8 @@ const Reply = ({ comment, articleId }: CommentProps) => {
                   </Button>
                 }
                 items={[
-                  { label: "수정하기", onClick: handlers.handleEdit },
-                  { label: "삭제하기", onClick: handlers.handleDelete },
+                  { label: "수정하기", onClick: handleEditClick },
+                  { label: "삭제하기", onClick: handleDelete },
                 ]}
                 isWidthFull={false}
               />
@@ -75,15 +96,32 @@ const Reply = ({ comment, articleId }: CommentProps) => {
 
         {isEditing ? (
           <div className="flex flex-col gap-2">
-            <TextareaAutosize
-              value={editedContent}
-              onChange={(e) => setEditedContent(e.target.value)}
-              className="w-full resize-none rounded-lg border border-blue-400 px-2 py-2 text-md leading-relaxed focus:outline-none"
-              minRows={3}
-            />
+            <div className="relative">
+              <TextareaAutosize
+                value={editedContent}
+                onChange={(e) => {
+                  if (e.target.value.length <= MAX_COMMENT_LENGTH) {
+                    setEditedContent(e.target.value);
+                  }
+                }}
+                maxLength={MAX_COMMENT_LENGTH}
+                className="w-full resize-none rounded-lg border border-blue-400 px-2 pb-6 pt-2 text-md leading-relaxed focus:outline-none"
+                minRows={3}
+              />
+              <span
+                className={cn(
+                  "absolute bottom-4 right-2 text-xs",
+                  editedContent.length === MAX_COMMENT_LENGTH
+                    ? "text-red-500"
+                    : "text-gray-500"
+                )}
+              >
+                {editedContent.length}/{MAX_COMMENT_LENGTH}
+              </span>
+            </div>
             <div className="flex gap-2">
               <Button
-                onClick={handlers.handleSave}
+                onClick={handleEdit}
                 className="text-md"
                 disabled={isSaveDisabled}
               >
@@ -91,7 +129,7 @@ const Reply = ({ comment, articleId }: CommentProps) => {
               </Button>
               <Button
                 variant="outlined"
-                onClick={handlers.handleCancel}
+                onClick={handleCancel}
                 className="text-md"
               >
                 취소
@@ -99,7 +137,7 @@ const Reply = ({ comment, articleId }: CommentProps) => {
             </div>
           </div>
         ) : (
-          <p className="w-full text-md leading-relaxed text-gray-800 tablet:max-w-[464px] pc:max-w-[704px]">
+          <p className="w-full whitespace-pre-wrap break-words text-md leading-relaxed text-gray-800 tablet:max-w-[464px] pc:max-w-[665px]">
             {editedContent}
           </p>
         )}

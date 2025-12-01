@@ -20,7 +20,7 @@ const CtaSection = () => {
           </p>
         </div>
         <Link
-          href={"/noteam"}
+          href={"/boards"}
           className="w-full max-w-[160px] text-nowrap rounded-xl bg-blue-200 px-9 py-[14px] text-center text-lg font-semibold text-white hover:bg-blue-300"
         >
           지금 시작하기

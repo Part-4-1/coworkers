@@ -49,7 +49,7 @@ const Checkbox = ({
       />
       <p
         className={cn(
-          "truncate text-xs",
+          "min-w-0 flex-1 truncate text-xs",
           "tablet:text-md",
           size && checkboxTextSizes[size],
           isDone && "text-gray-700 line-through"

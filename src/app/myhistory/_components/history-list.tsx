@@ -8,7 +8,7 @@ const HistoryList = ({
   monthlyTaskList: MonthlyTaskList[];
 }) => {
   return (
-    <ul>
+    <ul className="h-full overflow-y-auto">
       {[...monthlyTaskList].reverse().map((taskList) => {
         return (
           <li key={taskList.date} className="flex flex-col gap-3 pb-10">

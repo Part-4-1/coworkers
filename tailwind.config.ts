@@ -48,6 +48,7 @@ const config: Config = {
         yellow: "#EAB308",
         cyan: "#06B6D4",
         purple: "#A855F7",
+        kakao: "#F5E14B",
       },
       screens: {
         mobile: "375px",
@@ -84,7 +85,7 @@ const config: Config = {
       xl: "0px 15px 50px -12px rgba(0, 0, 0, 0.05)",
     },
   },
-  plugins: [flexCenter, flexColCenter],
+  plugins: [flexCenter, flexColCenter, require("tailwind-scrollbar-hide")],
 };
 
 export default config;

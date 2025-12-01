@@ -31,8 +31,8 @@ export default function HeroSection() {
             </div>
           </div>
           <Link
-            href={"/noteam"}
-            className="ml-6 max-h-12 w-[160px] flex-shrink-0 self-end rounded-xl bg-blue-200 py-[14px] text-center text-lg font-semibold text-white hover:bg-blue-300 pc:self-start"
+            href={"/boards"}
+            className="ml-6 mr-3 max-h-12 w-[120px] flex-shrink-0 self-end rounded-xl bg-blue-200 py-3 text-center text-md font-semibold text-white hover:bg-blue-300 tablet:w-[160px] tablet:py-[14px] tablet:text-lg pc:self-start"
           >
             지금 시작하기
           </Link>
@@ -50,6 +50,7 @@ export default function HeroSection() {
             className="hidden h-auto w-full pc:block"
             alt="대시보드 미리보기 이미지"
             priority
+            quality={100}
           />
         </motion.div>
         <motion.div
@@ -65,6 +66,7 @@ export default function HeroSection() {
             className="col-start-1 row-start-1 h-auto w-full pc:hidden"
             alt="대시보드 미리보기 이미지"
             priority
+            quality={100}
           />
         </motion.div>
       </div>

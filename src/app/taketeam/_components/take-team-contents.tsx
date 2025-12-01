@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, TextInput } from "@/components/index";
+import { Button, TextInput, LoadingSpinner } from "@/components/index";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import usePostGroupAcceptInvitation from "@/hooks/api/group/use-post-group-accept-invitation";
 
@@ -42,7 +42,7 @@ const TakeTeamContents = () => {
           onClick={handleSubmit}
           disabled={isPending || !token || !userInfo?.email}
         >
-          {isPending ? "참여 중..." : "참여하기"}
+          {isPending ? <LoadingSpinner /> : "참여하기"}
         </Button>
         <p className="text-xs text-gray-800 tablet:text-lg">
           공유받은 팀 링크를 입력해 참여할 수 있어요.

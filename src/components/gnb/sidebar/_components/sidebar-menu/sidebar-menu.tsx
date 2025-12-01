@@ -5,6 +5,8 @@ import ICONS_MAP from "../../../../icon/icons-map";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { tooltipStyles } from "@/constants/styles";
+import { createPortal } from "react-dom";
+import { useTooltip } from "@/hooks/use-tooltip";
 
 type IconKeys = keyof typeof ICONS_MAP;
 interface SidebarMenuProps {
@@ -20,7 +22,7 @@ interface SidebarMenuProps {
 
 const menuStyles = {
   default:
-    "flex bg-white w-full cursor-pointer items-center gap-3 rounded-xl p-4 hover:bg-gray-100 text-lg relative group ",
+    "flex bg-white w-full cursor-pointer items-center gap-3 rounded-xl p-4 hover:bg-gray-100 text-lg relative group",
   selected: "bg-gray-200 text-blue-200 hover:bg-gray-200 cursor-default",
   sidebarOpen: "p-2",
 };
@@ -50,11 +52,14 @@ const SidebarMenu = ({
   className,
   fontStyle,
 }: SidebarMenuProps) => {
+  const { isHovered, tooltipPosition, handleMouseEnter, handleMouseLeave } =
+    useTooltip(isSidebarOpen);
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isSelected) {
       e.preventDefault();
     }
   };
+
   return (
     <Link
       className={cn(
@@ -65,6 +70,10 @@ const SidebarMenu = ({
       )}
       href={href}
       onClick={(e) => handleClick(e)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      aria-label={title}
+      aria-current={isSelected ? "page" : undefined}
     >
       <Icon
         icon={iconName}
@@ -74,17 +83,18 @@ const SidebarMenu = ({
           isSidebarOpen && iconStyles.SidebarOpen
         )}
       />
-      {!isSidebarOpen && (
-        <div
-          className={cn(
-            tooltipStyles.base,
-            tooltipStyles.before,
-            isSelected && "text-blue-200"
-          )}
-        >
-          {title}
-        </div>
-      )}
+
+      {!isSidebarOpen &&
+        isHovered &&
+        createPortal(
+          <span
+            className={cn(tooltipStyles.base, tooltipStyles.before)}
+            style={{ top: tooltipPosition.top, left: tooltipPosition.left }}
+          >
+            {title}
+          </span>,
+          document.body
+        )}
 
       <AnimatePresence>
         {isSidebarOpen && (

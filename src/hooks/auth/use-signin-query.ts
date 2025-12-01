@@ -12,7 +12,7 @@ export const useSigninQuery = () => {
   return useMutation({
     mutationFn: signinAction,
     onSuccess: () => {
-      router.push("/");
+      router.push("/boards");
     },
     onError: (error) => {
       console.log(error.message);

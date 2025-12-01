@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DeleteUserModalUI, PatchPasswordModalUI } from "@/components/index";
+import {
+  DeleteUserModalUI,
+  PatchPasswordModalUI,
+  UserSettingsSkeleton,
+} from "@/components/index";
 import UserProfileSection from "./user-profile-section";
 import UserAccountInfoSection from "./user-account-info-section";
 import UserSettingsActions from "./user-settings-actions";
@@ -13,8 +17,11 @@ import usePatchUserPassword from "@/hooks/api/user/use-patch-user-password";
 import usePatchUser from "@/hooks/api/user/use-patch-user";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
 import isSocialLogin from "@/utils/auth-helper";
+import { hasProfanity } from "@/utils/profanityFilter";
+import useToast from "@/hooks/use-toast";
 
 const UserSettingContents = () => {
+  const toast = useToast();
   const {
     Modal: DeleteModal,
     openPrompt: openDeleteModal,
@@ -29,41 +36,39 @@ const UserSettingContents = () => {
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: patchPassword } = usePatchUserPassword();
   const { mutate: patchUser } = usePatchUser();
-  const { data: userInfo } = useGetUserInfoQuery();
-
-  const isUserSocialLogin = isSocialLogin(userInfo?.email);
+  const { data: userInfo, isPending } = useGetUserInfoQuery();
 
   const [nickname, setNickname] = useState("");
 
   const {
     profileImage,
+    setProfileImage,
     fileInputRef,
     handleImageClick,
     handleFileChange,
     handleRemoveImage,
     isUploading: isImageUploading,
-  } = useProfileImageManager({
-    initialImage: userInfo?.image || "",
-  });
+  } = useProfileImageManager();
 
   useEffect(() => {
     if (userInfo) {
       setNickname(userInfo.nickname || "");
+      setProfileImage(userInfo.image || "");
     }
-  }, [userInfo]);
+  }, [userInfo, setProfileImage]);
 
   const isDirty =
     nickname !== (userInfo?.nickname || "") ||
     profileImage !== (userInfo?.image || "");
 
   const handleSaveChanges = () => {
-    if (!nickname.trim()) {
-      return;
-    }
-
     const updates: { nickname?: string; image?: string } = {};
 
     if (nickname !== (userInfo?.nickname || "")) {
+      if (hasProfanity(nickname)) {
+        toast.error("부적절한 닉네임입니다. 닉네임을 변경해주세요.");
+        return;
+      }
       updates.nickname = nickname;
     }
 
@@ -82,6 +87,12 @@ const UserSettingContents = () => {
     isDirty,
     onSave: handleSaveChanges,
   });
+
+  const isUserSocialLogin = isSocialLogin(userInfo?.email);
+
+  if (isPending) {
+    return <UserSettingsSkeleton />;
+  }
 
   return (
     <>

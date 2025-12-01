@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/index";
+import Button from "../button/button";
 import { TIME_LIST } from "@/constants/time-list";
 import cn from "@/utils/clsx";
 import { useEffect, useState } from "react";
@@ -48,7 +48,7 @@ const formatTo24Hour = (isAm: boolean, time: string): string => {
 
 const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
   const [isAm, setIsAm] = useState(true);
-  const [selectedTime, setSelectedTime] = useState(TIME_LIST[0]);
+  const [selectedTime, setSelectedTime] = useState("");
   useEffect(() => {
     if (initialTimeData) {
       setIsAm(initialTimeData.isAm);
@@ -65,6 +65,15 @@ const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
   const handleAmPmClick = (nextIsAm: boolean) => {
     setIsAm(nextIsAm);
   };
+
+  const filterTimeList = (isAm: boolean) => {
+    if (!isAm) return TIME_LIST;
+    const AM_START_TIME = "9:00";
+    const startIndex = TIME_LIST.indexOf(AM_START_TIME);
+    return TIME_LIST.slice(startIndex);
+  };
+
+  const filteredTimeList = filterTimeList(isAm);
 
   return (
     <div className="flex h-[176px] min-w-[288px] gap-[14px] rounded-[12px] border-[1px] border-blue-300 p-[12px]">
@@ -97,7 +106,7 @@ const CalendarTime = ({ onSelect, initialTimeData }: CalendarTimeProps) => {
         <div className="h-full rounded-[12px] border border-gray-300 py-[8px] pl-[16px]">
           <div className="time-calendar-scrollbar mr-[8px] h-full overflow-y-auto">
             <ul>
-              {TIME_LIST.map((time) => (
+              {filteredTimeList.map((time) => (
                 <li
                   key={time}
                   onClick={() => handleTimeClick(time)}

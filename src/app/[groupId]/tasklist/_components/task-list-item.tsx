@@ -28,7 +28,7 @@ const TaskListItem = ({
             <li key={task.id} className="relative">
               <Link
                 href={`${pathname}?list=${taskListId}&task=${task.id}`}
-                className="absolute inset-0 z-0 hover:bg-gray-100"
+                className="absolute inset-0 z-0"
               />
               <List {...{ ...task, groupId, taskListId }} />
             </li>
@@ -43,6 +43,7 @@ const TaskListItem = ({
             alt="empty_task"
             quality={100}
             draggable={false}
+            priority
           />
           <p className="text-center text-md text-gray-700">
             할 일이 없네요

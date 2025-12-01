@@ -26,16 +26,17 @@ const usePrompt = (showCloseBtn = false) => {
   const lockingScroll = useCallback(() => {
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
+    const isScrollable = document.body.scrollHeight > window.innerHeight;
     document.documentElement.style.overflow = "hidden";
 
-    if (scrollbarWidth > 0) {
+    if (scrollbarWidth && isScrollable) {
       document.documentElement.style.paddingRight = `${scrollbarWidth}px`;
     }
   }, []);
 
   const allowScroll = useCallback(() => {
     document.documentElement.style.overflow = "auto";
-    document.documentElement.style.paddingRight = "0";
+    document.documentElement.style.removeProperty("padding-right");
   }, []);
   const openPrompt = useCallback(() => setIsOpen(true), []);
   const closePrompt = useCallback(() => setIsOpen(false), []);
@@ -61,6 +62,7 @@ const usePrompt = (showCloseBtn = false) => {
       const handleBackdropClick = (e: MouseEvent<HTMLDialogElement>) => {
         if (e.target === e.currentTarget) {
           closePrompt();
+          e.stopPropagation();
         }
       };
 

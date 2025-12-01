@@ -24,6 +24,7 @@ export default function CalendarSection() {
               className="h-auto w-full max-w-none"
               width={1254}
               height={864}
+              quality={100}
             />
           </picture>
         </motion.div>

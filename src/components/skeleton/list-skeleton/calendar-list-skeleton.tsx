@@ -8,6 +8,7 @@ const CalendarListSkeleton = () => {
           key={idx}
           containerClassName="w-full flex-1 h-[51px] tablet:h-[70px] rounded-lg tablet:rounded-xl"
           className="h-full"
+          borderRadius={12}
         />
       ))}
     </div>

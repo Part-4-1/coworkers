@@ -1,7 +1,29 @@
 import { Button } from "@/components/index";
 import cn from "@/utils/clsx";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "팀 없음",
+  description: "아직 소속된 팀이 없습니다.",
+  openGraph: {
+    title: "팀 없음 | Coworkers",
+    description: "아직 소속된 팀이 없습니다.",
+    type: "website",
+    url: "https://coworkes.com/mypage",
+    locale: "ko_KR",
+    siteName: "Coworkers",
+    images: [
+      {
+        url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+        width: 1200,
+        height: 630,
+        alt: "소속팀 없음",
+      },
+    ],
+  },
+};
 
 const NoTeam = () => {
   return (
@@ -16,6 +38,7 @@ const NoTeam = () => {
           sizes="h-[120px] w-[183px] tablet:h-[211px] tablet:w-[323px] pc:h-[264px] pc:w-[404px]"
           className="object-contain"
           priority={true}
+          draggable={false}
         />
       </div>
       <div

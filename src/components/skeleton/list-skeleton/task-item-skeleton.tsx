@@ -8,6 +8,7 @@ const TaskItemSkeleton = () => {
           key={idx}
           containerClassName="h-[68px] tablet:h-[76px] w-full"
           className="h-full"
+          borderRadius={8}
         />
       ))}
     </div>

@@ -1,22 +1,61 @@
-"use client";
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import ArticleEditClient from "./_components/article-edit-client";
+import getArticleDetail from "@/api/articles/get-article-detail";
 
-import { useParams } from "next/navigation";
-import { useGetArticleDetail } from "@/hooks/api/articles/use-get-article-detail";
-import ArticleEditContents from "./_components/article-edit-contents/article-edit-contents";
+interface PageProps {
+  params: Promise<{ articleId: string }>;
+}
 
-export default function EditPage() {
-  const params = useParams();
-  const articleId = params.articleId;
+async function getAccessToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get("accessToken")?.value;
+}
 
-  const { data, isPending } = useGetArticleDetail(Number(articleId));
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { articleId } = await params;
+  const accessToken = await getAccessToken();
+  const article = await getArticleDetail(Number(articleId), accessToken);
 
-  if (isPending) return <div>로딩중...</div>;
+  if (!article) {
+    return {
+      title: "게시글 수정",
+      description: "Coworkers 자유게시판 게시글 수정",
+    };
+  }
 
-  if (!data?.article) return <div>게시글을 찾을 수 없습니다.</div>;
+  return {
+    title: `${article.title} 수정`,
+    description: "Coworkers 자유게시판 게시글 수정",
+    openGraph: {
+      title: `${article.title} 수정 | Coworkers`,
+      description: "Coworkers 자유게시판 게시글 수정",
+      type: "website",
+      url: `https://coworkes.com/boards/${articleId}/edit`,
+      locale: "ko_KR",
+      siteName: "Coworkers",
+      images: [
+        {
+          url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Coworkers 게시글 수정",
+        },
+      ],
+    },
+  };
+}
 
-  return (
-    <div className="mx-auto my-[36px] w-full max-w-[343px] rounded-[20px] bg-white tablet:mb-[137px] tablet:mt-[117px] tablet:max-w-[620px] pc:my-[100px] pc:max-w-[900px]">
-      <ArticleEditContents article={data.article} />
-    </div>
-  );
+export default async function EditPage({ params }: PageProps) {
+  const { articleId } = await params;
+  const accessToken = await getAccessToken();
+
+  if (!accessToken) {
+    redirect("/signin");
+  }
+
+  return <ArticleEditClient articleId={Number(articleId)} />;
 }

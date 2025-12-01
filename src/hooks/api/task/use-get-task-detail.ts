@@ -1,4 +1,4 @@
-import getTaskDetail from "@/api/task/get-task-detail";
+import { getTaskDetail } from "@/api/task/get-task-detail";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetTaskDetail = (
@@ -9,8 +9,6 @@ const useGetTaskDetail = (
   return useQuery({
     queryKey: ["taskDetail", groupId, taskListId, taskId],
     queryFn: () => getTaskDetail(groupId, taskListId, taskId),
-    staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 10,
     retry: 1,
     enabled: !!taskId,
   });

@@ -1,68 +1,84 @@
-"use client";
+import { Metadata } from "next";
+import TaskList from "./_components/task-list";
+import { cookies } from "next/headers";
+import { fetchTaskList } from "@/api/task/get-task-list";
+import { fetchTaskDetail } from "@/api/task/get-task-detail";
 
-import TaskListContainer from "./_components/task-list-container";
-import { useEffect, useState } from "react";
-import TaskListDatePicker from "./_components/task-list-date-picker";
-import TaskListItem from "./_components/task-list-item";
-import cn from "@/utils/clsx";
-import { TeamBannerMember } from "@/components";
-import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
-import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
-import { useParams, useSearchParams } from "next/navigation";
+export const generateMetadata = async ({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ groupId: string }>;
+  searchParams: Promise<{ list: string; task: string | undefined }>;
+}): Promise<Metadata> => {
+  const { groupId } = await params;
+  const { list, task } = await searchParams;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("accessToken")?.value;
+
+  if (!token) {
+    return {
+      title: "할 일 목록",
+      description: "할 일을 확인할 수 있습니다.",
+    };
+  }
+
+  if (task) {
+    const taskDetail = await fetchTaskDetail(
+      Number(groupId),
+      Number(list),
+      Number(task),
+      token
+    );
+
+    return {
+      title: `${taskDetail.name ? taskDetail.name : "페이지를 찾을 수 없습니다."} - 할 일 상세`,
+      description: `${taskDetail.name ? `${taskDetail.name}의 상세 정보를 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
+      openGraph: {
+        title: `${taskDetail.name ? taskDetail.name : "페이지를 찾을 수 없습니다."} - 할 일 상세 | Coworkers`,
+        description: `${taskDetail.name ? `${taskDetail.name}의 상세 정보를 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
+        type: "website",
+        url: `https://coworkers-pied.vercel.app/${groupId}/tasklist?list=${list}&task=${task}`,
+        locale: "ko_KR",
+        siteName: "Coworkers",
+        images: [
+          {
+            url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+            width: 1200,
+            height: 630,
+            alt: "Coworkers",
+          },
+        ],
+      },
+    };
+  }
+
+  const response = await fetchTaskList(Number(groupId), Number(list), token);
+
+  return {
+    title: `${response.name ? response.name : "페이지를 찾을 수 없습니다."} - 할 일 목록`,
+    description: `${response.name ? `${response.name}의 할 일을 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
+    openGraph: {
+      title: `${response.name ? response.name : "페이지를 찾을 수 없습니다."} - 할 일 목록 | Coworkers`,
+      description: `${response.name ? `${response.name}의 할 일을 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
+      type: "website",
+      url: `https://coworkers-pied.vercel.app/${groupId}/tasklist?list=${list}`,
+      locale: "ko_KR",
+      siteName: "Coworkers",
+      images: [
+        {
+          url: "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Coworkers/user/2449/open_graph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Coworkers",
+        },
+      ],
+    },
+  };
+};
+
 const Page = () => {
-  const param = useParams();
-  const query = useSearchParams().get("list");
-  const groupId = Number(param.groupId);
-  const taskListId = Number(query);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const { data: groupData, isPending } = useGetGroupInfo(groupId);
-  const { data: taskItems, isPending: taskItemsPending } = useGetTaskItems(
-    groupId,
-    taskListId,
-    selectedDate?.toLocaleDateString("sv-SE") || ""
-  );
-
-  useEffect(() => {
-    setSelectedDate(new Date());
-  }, []);
-
-  return (
-    <div className="flex w-full max-w-[1120px] flex-col gap-6 tablet:gap-[34px] tablet:px-[26px] pc:gap-12">
-      <TeamBannerMember
-        groupId={groupId}
-        groupName={groupData?.name || ""}
-        members={groupData?.members || []}
-        onMemberListClick={() => {}}
-        className="py-3 tablet:mt-[69px] tablet:py-4"
-      />
-      <div className="relative flex w-full flex-col gap-[22px] tablet:gap-7 pc:max-w-full pc:flex-row">
-        <TaskListContainer
-          groupId={groupId}
-          taskListId={taskListId}
-          taskList={groupData?.taskLists || []}
-          isPending={isPending}
-        />
-        <div
-          className={cn(
-            "flex h-[752px] flex-col gap-[37px] bg-white px-4 pb-[37px] pt-[38px]",
-            "tablet:rounded-[20px] tablet:px-[30px] tablet:pt-[37px]",
-            "w-full"
-          )}
-        >
-          <TaskListDatePicker
-            groupId={groupId}
-            taskListId={taskListId}
-            setSelectedDate={setSelectedDate}
-          />
-          <TaskListItem
-            groupId={groupId}
-            taskListId={taskListId}
-            taskItems={taskItems}
-          />
-        </div>
-      </div>
-    </div>
-  );
+  return <TaskList />;
 };
 
 export default Page;

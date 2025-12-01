@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarHeader from "./_components/sidebar-header/sidebar-header";
 import SidebarDropdown from "./_components/sidebar-dropdown/sidebar-dropdown";
 import SidebarFooter from "./_components/sidebar-footer/sidebar-footer";
@@ -30,7 +30,8 @@ const Sidebar = () => {
   const pathname = usePathname();
   const segments = pathname.split("/");
   const currentTeamId = segments[segments.length - 1];
-  const isBoardPage = pathname === "/boards";
+  const isBoardPage = pathname.startsWith("/boards");
+  const isMyHistoryPage = pathname === "/myhistory";
   const isLandingPage = pathname === "/";
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(isDesktop);
@@ -40,8 +41,6 @@ const Sidebar = () => {
 
   const isLoggedIn = !!userInfo && !isPending;
   const isTeamExist = (userInfo?.memberships?.length ?? 0) > 0;
-
-  const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isLandingPage) {
@@ -68,36 +67,6 @@ const Sidebar = () => {
       html.style.paddingRight = "0px";
     };
   }, [isTablet, isSidebarOpen]);
-
-  useEffect(() => {
-    const sidebarElement = sidebarRef.current;
-
-    if (!isSidebarOpen && sidebarElement) {
-      sidebarElement.style.paddingRight = "";
-      return;
-    }
-    if (!sidebarElement) return;
-
-    const updatePadding = () => {
-      const scrollBarWidth =
-        sidebarElement.offsetWidth - sidebarElement.clientWidth;
-
-      const basePadding = 16;
-      const newPadding = Math.max(basePadding - scrollBarWidth, 0);
-
-      sidebarElement.style.paddingRight = `${newPadding}px`;
-    };
-
-    updatePadding();
-
-    const observer = new ResizeObserver(() => {
-      updatePadding();
-    });
-
-    observer.observe(sidebarElement);
-
-    return () => observer.disconnect();
-  }, [isSidebarOpen, isDropdownOpen]);
 
   const handleToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -127,19 +96,9 @@ const Sidebar = () => {
             setIsSidebarOpen={setIsSidebarOpen}
           />
           {isLoggedIn && (
-            <div
-              ref={sidebarRef}
-              className={cn(
-                "flex flex-1 flex-col gap-3 px-4",
-                isSidebarOpen
-                  ? "overflow-y-auto overflow-x-hidden"
-                  : "overflow-visible"
-              )}
-            >
+            <div className={cn("flex flex-1 flex-col gap-3 pl-4")}>
               {isTeamExist && (
-                <div
-                  className={`flex flex-col gap-2 ${isSidebarOpen && "border-b border-gray-300 pb-6"}`}
-                >
+                <div className={`flex flex-col gap-2`}>
                   <SidebarDropdown
                     isSidebarOpen={isSidebarOpen}
                     isOpen={isDropdownOpen}
@@ -147,40 +106,61 @@ const Sidebar = () => {
                     onToggle={handleToggle}
                     currentTeamId={currentTeamId}
                   />
-                  <AnimatePresence>
-                    {isSidebarOpen && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.15, ease: "easeOut" }}
-                        className="overflow-hidden"
-                      >
-                        <Link href="/addteam">
-                          <Button
-                            variant="outlined"
-                            className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
-                          >
-                            + 팀 생성하기
-                          </Button>
-                        </Link>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
               )}
-              <SidebarMenu
-                iconName="board"
-                isSidebarOpen={isSidebarOpen}
-                title="자유게시판"
-                href={"/boards"}
-                isSelected={isBoardPage ? true : false}
-              />
+              <AnimatePresence>
+                {isSidebarOpen && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className="mr-4 overflow-hidden pb-4"
+                  >
+                    <Link href="/addteam">
+                      <Button className="mb-2 w-full max-w-[238px] whitespace-nowrap border border-blue-200 px-4 py-2 text-md">
+                        + 팀 생성하기
+                      </Button>
+                    </Link>
+
+                    <Link href="/taketeam">
+                      <Button
+                        variant="outlined"
+                        className="w-full max-w-[238px] whitespace-nowrap px-4 py-2 text-md"
+                      >
+                        + 팀 참여하기
+                      </Button>
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {(isTeamExist || isSidebarOpen) && (
+                <hr className="mr-4 border-gray-400" />
+              )}
+              <div className="bg-white pr-4">
+                <SidebarMenu
+                  iconName="board"
+                  isSidebarOpen={isSidebarOpen}
+                  title="자유게시판"
+                  href={"/boards"}
+                  isSelected={isBoardPage ? true : false}
+                />
+                <SidebarMenu
+                  iconName="board"
+                  isSidebarOpen={isSidebarOpen}
+                  title="마이 히스토리"
+                  href={"/myhistory"}
+                  isSelected={isMyHistoryPage ? true : false}
+                />
+              </div>
             </div>
           )}
         </div>
         <div className={isSidebarOpen ? "px-4" : "px-4"}>
-          <SidebarFooter isSidebarOpen={isSidebarOpen} />
+          <SidebarFooter
+            currentTeamId={currentTeamId}
+            isSidebarOpen={isSidebarOpen}
+          />
         </div>
       </motion.aside>
     </>,

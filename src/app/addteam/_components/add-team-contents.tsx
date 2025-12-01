@@ -1,7 +1,14 @@
 "use client";
 
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { ProfileEdit, TextInput, Button, Icon } from "@/components/index";
+import {
+  ProfileEdit,
+  TextInput,
+  Button,
+  Icon,
+  LoadingSpinner,
+} from "@/components/index";
 import usePostGroup from "@/hooks/api/group/use-post-group";
 import useProfileImageManager from "@/hooks/use-profile-image-manager";
 import { useGetUserInfoQuery } from "@/hooks/api/user/use-get-user-info-query";
@@ -29,12 +36,15 @@ const AddTeamContents = () => {
     isUploading: isImageUploading,
   } = useProfileImageManager();
 
-  const onSubmit = (data: { name: string; image?: string }) => {
-    createGroup({
-      name: data.name,
-      ...(profileImage && { image: profileImage }),
-    });
-  };
+  const onSubmit = useCallback(
+    (data: { name: string; image?: string }) => {
+      createGroup({
+        name: data.name,
+        ...(profileImage && { image: profileImage }),
+      });
+    },
+    [createGroup, profileImage]
+  );
 
   return (
     <div className="flex flex-col items-start gap-8 px-[21px] pb-[74.5px] pt-[52.5px] tablet:gap-10 tablet:px-[45px] tablet:pb-[64px] tablet:pt-[61px]">
@@ -103,11 +113,7 @@ const AddTeamContents = () => {
             className="text-lg font-medium"
             disabled={!isValid || isPending || isImageUploading}
           >
-            {isPending
-              ? "생성 중..."
-              : isImageUploading
-                ? "이미지 업로드 중..."
-                : "생성하기"}
+            {isPending || isImageUploading ? <LoadingSpinner /> : "생성하기"}
           </Button>
           <p className="text-xs text-gray-800 tablet:text-lg">
             팀 이름은 회사명이나 모임 이름 등으로 설정하면 좋아요.
