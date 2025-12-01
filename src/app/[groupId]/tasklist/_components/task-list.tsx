@@ -9,7 +9,7 @@ import { Button, Icon, TaskModal, TeamBannerMember } from "@/components";
 import BannerMemberSkeleton from "@/components/skeleton/team-skeleton/banner-member-skeleton";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
-import { notFound, useParams, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import usePrompt from "@/hooks/use-prompt";
 
 const TaskList = () => {

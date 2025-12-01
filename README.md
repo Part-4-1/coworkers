@@ -1,9 +1,6 @@
-# 💎 Coworkers 💎  
-
+# 💎 Coworkers 💎
 
 ![open_graph](https://github.com/user-attachments/assets/8b7f79ce-1b21-46a6-bdff-5f4887d5ae11)
-
-
 
 <p align="left">
   <a href="https://coworkers-pied.vercel.app/"><strong>🚀 서비스 바로가기</strong></a>
@@ -20,30 +17,27 @@
 
 ## 🎯 목적
 
->팀 단위로 할 일을 정리하고 진행 상황을 투명하게 공유하여,
-협업 효율을 높이는 것이 Coworkers의 핵심 목적입니다.
+> 팀 단위로 할 일을 정리하고 진행 상황을 투명하게 공유하여,
+> 협업 효율을 높이는 것이 Coworkers의 핵심 목적입니다.
 
 <br>
 
-
 ## ✨주요 기능
 
-|팀 페이지|
-|:---:|
-|<img src="https://github.com/user-attachments/assets/772899fe-b186-4bf8-b12f-0e7701f03d0f" width="450"/>|
-|팀의 전체적인 진행 현황과 멤버 정보를 확인할 수 있는 팀 요약 화면|
+|                                                팀 페이지                                                 |
+| :------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/772899fe-b186-4bf8-b12f-0e7701f03d0f" width="450"/> |
+|                    팀의 전체적인 진행 현황과 멤버 정보를 확인할 수 있는 팀 요약 화면                     |
 
+|                                                할 일 관리                                                |
+| :------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/78bb57db-ee85-4620-af44-92a97b23c62b" width="450"/> |
+|                    날짜별 할 일을 확인하고, 상세 보기 및 완료 체크를 할 수 있는 화면                     |
 
-|할 일 관리|
-|:---:|
-|<img src="https://github.com/user-attachments/assets/78bb57db-ee85-4620-af44-92a97b23c62b" width="450"/>|
-|날짜별 할 일을 확인하고, 상세 보기 및 완료 체크를 할 수 있는 화면|
-
-
-|자유게시판|
-|:---:|
-|<img src="https://github.com/user-attachments/assets/11132fdd-b519-40b5-9a6a-22c66af7bc9a" width="450"/>|
-|자유롭게 소통하고 정보를 공유할 수 있는 커뮤니티 공간|
+|                                                자유게시판                                                |
+| :------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/11132fdd-b519-40b5-9a6a-22c66af7bc9a" width="450"/> |
+|                          자유롭게 소통하고 정보를 공유할 수 있는 커뮤니티 공간                           |
 
 <br />
 
@@ -52,6 +46,7 @@
 ## 🧰 기술 스택
 
 ### 🧩 프론트엔드
+
 <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"> <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=ReactQuery&logoColor=white"> <img src="https://img.shields.io/badge/React_Hook_Form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" /> <img src="https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white">
 
 ### 🛠 코드 포매터 및 도구
@@ -69,6 +64,7 @@
 <br>
 
 ## 📁 폴더 구조
+
 ```
 src/
 ├── app/              # Next.js App Router 기반 페이지
@@ -84,6 +80,7 @@ src/
 <br>
 
 ## 🚀 실행 방법
+
 ```
 # 1. 저장소 클론
 git clone https://github.com/Part-4-1/coworkers.git
@@ -101,6 +98,7 @@ npm run dev
 <br>
 
 ## 🔐 환경 변수
+
 ```
 NEXT_PUBLIC_API_URL=서버_API_베이스_URL
 NEXT_PUBLIC_KAKAO_REST_API_KEY=카카오_REST_API_키
@@ -113,13 +111,14 @@ NEXT_PUBLIC_KAKAO_REDIRECT_URI=카카오_OAuth_리다이렉트_URL
 <br>
 
 ## 📌 데일리 팀 스크럼
+
 > 효과적인 협업을 위해 매일 스크럼을 진행하며, 공유된 내용은 노션 문서로 체계적으로 기록합니다.
 
 #### 🗓️ 시간표
 
-|      요일       |   시간    |
-| :-------------: | :-------: |
-|     화요일      | **13:00** |
+|      요일      |   시간    |
+| :------------: | :-------: |
+|     화요일     | **13:00** |
 | 월·수·목·금·토 | **13:30** |
 
 <br>
