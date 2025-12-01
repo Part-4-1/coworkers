@@ -11,6 +11,8 @@ import {
   LoadingSpinner,
 } from "@/components/index";
 import { usePostArticle } from "@/hooks/api/articles/use-post-article";
+import { filterProfanity } from "@/utils/profanityFilter";
+import { MAX_ARTICLE_TITLE_LENGTH } from "@/app/boards/_constants/article";
 
 interface WriteFormData {
   title: string;
@@ -23,19 +25,24 @@ const ArticleWriteContents = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<WriteFormData>();
   const { mutate, isPending } = usePostArticle();
   const [images, setImages] = useState<string[]>([]);
+  const titleValue = watch("title") || "";
 
   const handleImagesChange = useCallback((images: string[]) => {
     setImages(images);
   }, []);
 
   const onSubmit = (data: WriteFormData) => {
+    const filteredTitle = filterProfanity(data.title);
+    const filteredContent = filterProfanity(data.content);
+
     mutate(
       {
-        title: data.title,
-        content: data.content,
+        title: filteredTitle,
+        content: filteredContent,
         image: images[0] || undefined,
       },
       {
@@ -57,15 +64,32 @@ const ArticleWriteContents = () => {
     >
       <h2 className="pb-[32px] text-xl font-bold text-blue-700">게시글 쓰기</h2>
 
-      <div className="flex flex-col items-start gap-2 pb-[24px] tablet:gap-3 tablet:pb-[32px]">
+      <div className="flex w-full flex-col items-start gap-2 pb-[24px] tablet:gap-3 tablet:pb-[32px]">
         <div className="flex gap-[6px]">
           <span className="text-lg font-bold text-blue-700">제목</span>
           <span className="text-red-200">*</span>
         </div>
-        <InputBox
-          placeholder="제목을 입력해주세요."
-          {...register("title", { required: "제목은 필수입니다" })}
-        />
+        <div className="relative flex w-full items-center">
+          <InputBox
+            placeholder="제목을 입력해주세요."
+            {...register("title", { required: "제목은 필수입니다" })}
+            maxLength={MAX_ARTICLE_TITLE_LENGTH}
+          />
+        </div>
+        {titleValue.length > 0 && (
+          <div className="w-full text-right">
+            <span
+              className={cn(
+                "text-xs",
+                titleValue.length === MAX_ARTICLE_TITLE_LENGTH
+                  ? "text-red-500"
+                  : "text-gray-500"
+              )}
+            >
+              {titleValue.length}/{MAX_ARTICLE_TITLE_LENGTH}
+            </span>
+          </div>
+        )}
         {errors.title && (
           <span className="text-sm text-red-500">{errors.title.message}</span>
         )}

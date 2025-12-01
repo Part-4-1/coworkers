@@ -24,8 +24,8 @@ const Page = () => {
       <BoardsBest />
       <BoardsAll keyword={debounceKeyword} />
       <Link href="/boards/write">
-        <Button className="fixed bottom-10 right-[13%] z-50 h-14 w-14 rounded-full">
-          <Icon icon="pencil" className="h-6 w-6" />
+        <Button className="fixed bottom-5 right-[20%] z-50 h-11 w-11 rounded-full tablet:bottom-9 tablet:right-[13%] tablet:h-14 tablet:w-14 pc:right-[6%]">
+          <Icon icon="pencil" className="h-5 w-5 tablet:h-6 tablet:w-6" />
         </Button>
       </Link>
     </div>

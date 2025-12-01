@@ -9,7 +9,7 @@ import { Button, Icon, TaskModal, TeamBannerMember } from "@/components";
 import BannerMemberSkeleton from "@/components/skeleton/team-skeleton/banner-member-skeleton";
 import useGetGroupInfo from "@/hooks/api/group/use-get-group-info";
 import useGetTaskItems from "@/hooks/api/task/use-get-task-items";
-import { notFound, useParams, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import usePrompt from "@/hooks/use-prompt";
 
 const TaskList = () => {
@@ -58,22 +58,33 @@ const TaskList = () => {
             "w-full"
           )}
         >
-          <TaskListDatePicker
-            groupId={groupId}
-            taskListId={taskListId}
-            setSelectedDate={setSelectedDate}
-          />
-          <TaskListItem
-            groupId={groupId}
-            taskListId={taskListId}
-            taskItems={taskItems}
-          />
-          <Button
-            className="absolute bottom-10 right-1 z-20 h-14 w-14 rounded-full tablet:right-[-3%] pc:right-[-5%]"
-            onClick={openPrompt}
-          >
-            <Icon icon="plus" className="h-6 w-6" />
-          </Button>
+          {taskListId ? (
+            <>
+              <TaskListDatePicker
+                groupId={groupId}
+                taskListId={taskListId}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+              <TaskListItem
+                groupId={groupId}
+                taskListId={taskListId}
+                taskItems={taskItems}
+              />
+              <Button
+                className="absolute bottom-10 right-1 z-20 h-14 w-14 rounded-full tablet:right-[-3%] pc:right-[-5%]"
+                onClick={openPrompt}
+              >
+                <Icon icon="plus" className="h-6 w-6" />
+              </Button>
+            </>
+          ) : (
+            <div className="h-full flex-center">
+              <p className="text-center text-md text-gray-700">
+                할 일 목록을 선택해주세요.
+              </p>
+            </div>
+          )}
         </div>
       </div>
       <Modal>
