@@ -21,12 +21,14 @@ import Skeleton from "react-loading-skeleton";
 interface TaskListDatePickerProps {
   groupId: number;
   taskListId: number;
+  selectedDate: Date | null;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
 }
 
 const TaskListDatePicker = ({
   groupId,
   taskListId,
+  selectedDate,
   setSelectedDate,
 }: TaskListDatePickerProps) => {
   const [currentSunday, setCurrentSunday] = useState<Date | null>(null);
@@ -97,8 +99,8 @@ const TaskListDatePicker = ({
         </span>
         <div className="flex shrink-0 items-center gap-2">
           <p className="text-sm font-medium text-blue-700 tablet:text-lg">
-            {currentSunday ? (
-              `${currentSunday.getFullYear()}년 ${currentSunday.getMonth() + 1}월`
+            {selectedDate ? (
+              `${selectedDate.getFullYear()}년 ${selectedDate.getMonth() + 1}월`
             ) : (
               <Skeleton width={84} height={19} />
             )}
