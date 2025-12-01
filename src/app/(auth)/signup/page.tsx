@@ -13,9 +13,13 @@ import { useSignupQuery } from "@/hooks/auth/use-signup-query";
 import type { SignupRequest } from "@/api/auth/signup-action";
 import SimpleSignUpIn from "../_components/simple-signUpIn";
 import { hasProfanity } from "@/utils/profanityFilter";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
   const {
     register,
     formState: { errors, isValid },
@@ -137,7 +141,7 @@ const Page = () => {
             <label htmlFor="passwordConfirmation">비밀번호 확인</label>
             <TextInput
               id="passwordConfirmation"
-              type={showPassword ? "text" : "password"}
+              type={showPassword2 ? "text" : "password"}
               placeholder="비밀번호를 다시 한 번 입력하세요."
               errorMessage={errors.passwordConfirmation?.message}
               rightIconClassName="pr-2"
@@ -145,13 +149,13 @@ const Page = () => {
               aria-invalid={!!errors.passwordConfirmation}
               rightIcon={
                 <Button
-                  aria-label={showPassword ? "show password" : "hide password"}
+                  aria-label={showPassword2 ? "show password" : "hide password"}
                   type="button"
                   variant="none"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword2(!showPassword2)}
                 >
                   <Icon
-                    icon={showPassword ? "visible" : "invisible"}
+                    icon={showPassword2 ? "visible" : "invisible"}
                     className="h-6 w-6 text-gray-800"
                   />
                 </Button>
@@ -163,6 +167,19 @@ const Page = () => {
                   "비밀번호가 일치하지 않습니다.",
               })}
             />
+          </div>
+          <div className="flex cursor-pointer justify-end text-lg text-blue-200 underline hover:text-blue-100">
+            <Button
+              type="button"
+              onClick={() => {
+                router.push("/signin");
+              }}
+              variant="none"
+              aria-label="Forget Password?"
+              className="font-medium"
+            >
+              계정이 이미 있으신가요?
+            </Button>
           </div>
           <Button
             className="mt-4"
