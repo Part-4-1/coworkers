@@ -56,7 +56,7 @@ export const generateMetadata = async ({
   const response = await fetchTaskList(Number(groupId), Number(list), token);
 
   return {
-    title: `${response.name ? response.name : "페이지를 찾을 수 없습니다."} - 할 일 목록`,
+    title: `${response.name ? response.name : "할 일 목록 선택"} - 할 일 목록`,
     description: `${response.name ? `${response.name}의 할 일을 확인할 수 있습니다.` : "페이지를 찾을 수 없습니다."}`,
     openGraph: {
       title: `${response.name ? response.name : "페이지를 찾을 수 없습니다."} - 할 일 목록 | Coworkers`,

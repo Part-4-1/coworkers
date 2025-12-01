@@ -117,7 +117,6 @@ const TaskListContainer = ({
                   <TaskCard
                     groupId={groupId}
                     taskListId={task.id}
-                    pageListId={taskListId}
                     taskTitle={task.name}
                     total={task.tasks.length}
                     completed={countDoneTask(task.tasks)}
