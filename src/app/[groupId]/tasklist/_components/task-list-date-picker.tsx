@@ -48,13 +48,21 @@ const TaskListDatePicker = ({
     setCurrentSunday(sunday);
     setWeek(getWeek(sunday));
     setSelectedDate(date);
+    setShowCalendar(false);
   };
 
   const handleChangeDay = (e: ChangeEvent<HTMLInputElement>) => {
     if (!currentSunday) return;
+    const selectedDay = Number(e.target.value);
     setDay(e.target.value);
+
+    const weekDays = week || [];
+    const dayIndex = weekDays.indexOf(selectedDay);
+
+    if (dayIndex === -1) return;
+
     const newDate = new Date(currentSunday);
-    newDate.setDate(Number(e.target.value));
+    newDate.setDate(currentSunday.getDate() + dayIndex);
     setSelectedDate(newDate);
   };
 
@@ -114,7 +122,11 @@ const TaskListDatePicker = ({
           <Button
             variant="none"
             className="h-6 w-6 rounded-full bg-gray-50"
-            onClick={() => setShowCalendar((prevState) => !prevState)}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setShowCalendar((prevState) => !prevState);
+            }}
           >
             <Icon icon="calendar" className="h-3 w-3 text-gray-800" />
           </Button>

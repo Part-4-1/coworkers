@@ -2,16 +2,19 @@
 
 import cn from "@/utils/clsx";
 import { TextInput, Button, Icon } from "@/components/index";
-import { ChangeEvent } from "react";
+import { useCallback, ChangeEvent } from "react";
 
 const BoardsHeader = ({
   onSearch,
 }: {
   onSearch: (keyword: string) => void;
 }) => {
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    onSearch(e.target.value);
-  };
+  const handleSearch = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onSearch(e.target.value);
+    },
+    [onSearch]
+  );
 
   return (
     <div
