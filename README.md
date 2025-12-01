@@ -127,71 +127,91 @@ NEXT_PUBLIC_KAKAO_REDIRECT_URI=카카오_OAuth_리다이렉트_URL
 
 <table align="center">
   <tbody>
-    <tr>
-      <!-- 팀원 1 -->
-      <td align="center" width="200">
+    <tr style="height: 280px; vertical-align: top;">
+      <td align="center" width="200" style="vertical-align: top;">
         <a href="https://github.com/huuitae">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_1" width="100" height="100"/><br/>
-          <strong>황휘태 (팀장)</strong>
+          <img width="104" height="101" src="https://github.com/user-attachments/assets/b4278376-2b85-4cd7-ac1c-e48835d939e2" /><br/>
+          <strong>황휘태</strong>
+          <br/>
+          <br/>
         </a>
-        <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-          <li>담당 작업 3</li>
-        </ul>
+        <div align="left" style="padding-top: 12px;">
+          <ul style="list-style:none; padding:0; margin:0; text-align:left;">
+            <li>팀장</li>
+            <li>할 일 목록</li>
+            <li>할 일 상세</li>
+            <li>마이 히스토리</li>
+          </ul>
+        </div>
       </td>
-      <!-- 팀원 2 -->
-      <td align="center" width="200">
+      <td align="center" width="200" style="vertical-align: top;">
         <a href="https://github.com/junye0l">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_2" width="100" height="100"/><br/>
+          <img width="104" height="101" src="https://github.com/user-attachments/assets/8c69e6a8-7049-4223-a44a-32c6c6dd804f" /><br/>
           <strong>김준열</strong>
+          <br/>
+          <br/>
         </a>
-        <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-          <li>담당 작업 3</li>
-        </ul>
+        <div align="left" style="padding-top: 12px;">
+          <ul style="list-style:none; padding:0; margin:0; text-align:left;">
+            <li>자유게시판</li>
+            <li>팀 생성, 참여</li>
+            <li>계정 설정</li>
+            <br/>
+          </ul>
+        </div>
       </td>
-      <!-- 팀원 3 -->
-      <td align="center" width="200">
+      <td align="center" width="200" style="vertical-align: top;">
         <a href="https://github.com/JinHyuk-Kim66">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_3" width="100" height="100"/><br/>
+          <img width="104" height="101" src="https://github.com/user-attachments/assets/eef76b01-afba-4766-8e1d-c7512a62c047" /><br/>
           <strong>김진혁</strong>
+          <br/>
+          <br/>
         </a>
-        <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-          <li>담당 작업 3</li>
-        </ul>
+        <div align="left" style="padding-top: 12px;">
+          <ul style="list-style:none; padding:0; margin:0; text-align:left;">
+            <li>팀 페이지</li>
+            <li>팀 수정</li>
+            <br/>
+            <br/>
+          </ul>
+        </div>
       </td>
     </tr>
-    <tr>
-      <!-- 팀원 4 -->
-      <td align="center" width="200">
+    <tr style="height: 280px; vertical-align: top;">
+      <td align="center" width="200" style="vertical-align: top;">
         <a href="https://github.com/onesiin">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_4" width="100" height="100"/><br/>
+          <img width="104" height="101" src="https://github.com/user-attachments/assets/269cb19b-e22f-4a66-923d-51bb29750384" /><br/>
           <strong>정철종</strong>
+          <br/>
+          <br/>
         </a>
-        <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-         <li>담당 작업 3</li>
-        </ul>
+        <div align="left" style="padding-top: 12px;">
+          <ul style="list-style:none; padding:0; margin:0; text-align:left;">
+            <li>랜딩페이지</li>
+            <li>모달 제작</li>
+            <br/>
+          </ul>
+        </div>
       </td>
-      <!-- 팀원 5 -->
-      <td align="center" width="200">
+      <td align="center" width="200" style="vertical-align: top;">
         <a href="https://github.com/leohan6540">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_5" width="100" height="100"/><br/>
+          <img width="104" height="104" src="https://github.com/user-attachments/assets/07d722ad-f14f-4ea8-9f7f-72ffb6fd302b" /><br/>
           <strong>한장희</strong>
+          <br/>
+          <br/>
         </a>
-        <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-         <li>담당 작업 3</li>
-        </ul>
+        <div align="left" style="padding-top: 12px;">
+          <ul style="list-style:none; padding:0; margin:0; text-align:left;">
+            <li>로그인</li>
+            <li>회원가입</li>
+            <li>GNB & 사이드바</li>
+          </ul>
+        </div>
       </td>
     </tr>
   </tbody>
 </table>
+
+
 
 <br>
