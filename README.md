@@ -131,37 +131,40 @@ NEXT_PUBLIC_KAKAO_REDIRECT_URI=카카오_OAuth_리다이렉트_URL
       <!-- 팀원 1 -->
       <td align="center" width="200">
         <a href="https://github.com/huuitae">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_1" width="100" height="100"/><br/>
-          <strong>황휘태 (팀장)</strong>
+          <img width="104" height="101" alt="IMG_2343 1 (1)" src="https://github.com/user-attachments/assets/b4278376-2b85-4cd7-ac1c-e48835d939e2" /><br/>
+          <strong>황휘태</strong>
         </a>
+        <br/>
         <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-          <li>담당 작업 3</li>
+          <li>팀장</li>
+          <li>할 일 목록</li>
+          <li>할 일 상세</li>
+          <li>마이 히스토리</li>
         </ul>
       </td>
       <!-- 팀원 2 -->
       <td align="center" width="200">
         <a href="https://github.com/junye0l">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_2" width="100" height="100"/><br/>
+         <img width="104" height="101" alt="IMG_2343 2" src="https://github.com/user-attachments/assets/8c69e6a8-7049-4223-a44a-32c6c6dd804f" />
+ <br/>
           <strong>김준열</strong>
         </a>
         <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-          <li>담당 작업 3</li>
+          <li>자유게시판</li>
+          <li>팀 생성, 참여</li>
+          <li>계정 설정</li>
         </ul>
       </td>
       <!-- 팀원 3 -->
       <td align="center" width="200">
         <a href="https://github.com/JinHyuk-Kim66">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_3" width="100" height="100"/><br/>
+          <img width="104" height="101" alt="IMG_2343 3 (1)" src="https://github.com/user-attachments/assets/eef76b01-afba-4766-8e1d-c7512a62c047" />
+          <br/>
           <strong>김진혁</strong>
         </a>
         <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-          <li>담당 작업 3</li>
+          <li>팀 페이지</li>
+          <li>팀 수정</li>
         </ul>
       </td>
     </tr>
@@ -169,25 +172,25 @@ NEXT_PUBLIC_KAKAO_REDIRECT_URI=카카오_OAuth_리다이렉트_URL
       <!-- 팀원 4 -->
       <td align="center" width="200">
         <a href="https://github.com/onesiin">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_4" width="100" height="100"/><br/>
+          <img width="104" height="101" alt="IMG_2343 5" src="https://github.com/user-attachments/assets/269cb19b-e22f-4a66-923d-51bb29750384" />
+          <br/>
           <strong>정철종</strong>
         </a>
         <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-         <li>담당 작업 3</li>
+          <li></li>
         </ul>
       </td>
       <!-- 팀원 5 -->
       <td align="center" width="200">
         <a href="https://github.com/leohan6540">
-          <img src="https://avatars.githubusercontent.com/GITHUB_USERNAME_5" width="100" height="100"/><br/>
+          <img width="96" height="96" alt="H2" src="https://github.com/user-attachments/assets/07d722ad-f14f-4ea8-9f7f-72ffb6fd302b" />
+          <br/>
           <strong>한장희</strong>
         </a>
         <ul style="list-style: none; padding: 0; margin-top: 8px;">
-          <li>담당 작업 1</li>
-          <li>담당 작업 2</li>
-         <li>담당 작업 3</li>
+          <li>로그인</li>
+          <li>회원가입</li>
+         <li>GNB & 사이드바</li>
         </ul>
       </td>
     </tr>
