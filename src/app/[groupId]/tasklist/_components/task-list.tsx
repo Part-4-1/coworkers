@@ -63,6 +63,7 @@ const TaskList = () => {
               <TaskListDatePicker
                 groupId={groupId}
                 taskListId={taskListId}
+                selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
               />
               <TaskListItem
