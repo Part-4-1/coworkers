@@ -1,31 +1,4 @@
 import instance from "@/utils/axios";
-import { notFound } from "next/navigation";
-
-export const fetchTaskDetail = async (
-  groupId: number,
-  taskListId: number,
-  taskId: number,
-  token: string
-) => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (response.status === 404) notFound();
-
-    return response.json();
-  } catch (error) {
-    throw error;
-  }
-};
 
 /**
  * @author hwitae
