@@ -70,12 +70,14 @@ const PostCard = ({
             {image && (
               <Image
                 src={image}
-                width={isBest ? 48 : 88}
-                height={isBest ? 48 : 88}
+                width={176}
+                height={176}
                 alt="thumbnail"
                 className={cn(
-                  "shrink-0 rounded-lg",
-                  isBest && "pc:h-[66px] pc:w-[66px]"
+                  "shrink-0 rounded-lg object-cover",
+                  isBest
+                    ? "h-12 w-12 pc:h-[60px] pc:w-[60px]"
+                    : "h-20 w-20 tablet:h-[88px] tablet:w-[88px]"
                 )}
                 draggable={false}
               />

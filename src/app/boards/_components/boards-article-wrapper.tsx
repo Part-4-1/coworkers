@@ -17,11 +17,13 @@ const BoardsArticleWrapper = ({
 }: BoardsArticleWrapperProps) => {
   const { data } = useGetArticleDetail(article.id);
   const content = data?.article?.content || article.title;
+  const isLiked = data?.article?.isLiked ?? article.isLiked;
 
   return (
     <PostCard
       {...article}
       content={content}
+      isLiked={isLiked}
       isBest={isBest}
       className={className}
     />
